@@ -1,39 +1,18 @@
 # Speaking
 
-Gestionale per palestra: utenti (con lettura del documento d'identità), schede di allenamento e andamento dei carichi.
-Sito statico in un solo file HTML, senza build e senza server.
+Sito per la gestione di una palestra: clienti, schede di allenamento, backup dei dati.
+Tema scuro ad alto contrasto (nero, giallo, bianco) e stampa A4 pulita.
 
-## Struttura
+## Pubblicazione su GitHub Pages
+1. Carica `index.html` nella root del repository (il file, non lo zip).
+2. Settings → Pages → Deploy from a branch → main → / (root).
 
-```
-index.html   (pagina unica: contiene anche stile e codice)
-README.md
-```
+## Dati
+- Si salvano nel browser (IndexedDB) e restano dopo la ricarica. Non si sincronizzano tra dispositivi.
+- Il sito parte vuoto, senza dati di esempio.
+- **Esporta backup (JSON)** scarica clienti, schede e foto dei documenti. **Importa backup (JSON)** li ripristina (Unisci o Sostituisci).
+- Fai un backup regolare: se cancelli i dati del browser, i dati locali vanno persi.
+- Sono dati personali (anche foto di documenti): tieni conto del GDPR e proteggi i file di backup.
 
-## Pubblicare su GitHub Pages
-
-1. Estrai lo zip (GitHub non lo apre da solo) e carica `index.html` nella root di un nuovo repository.
-2. *Settings → Pages → Deploy from a branch*, branch `main`, cartella `/ (root)`.
-3. Dopo circa un minuto il sito è su `https://TUO-UTENTE.github.io/NOME-REPO/`.
-
-## Dove vengono salvati i dati
-
-Utenti, schede e foto dei documenti sono salvati **solo nel browser del dispositivo** (IndexedDB), non nel repository e non su un server.
-Quindi:
-- ogni dispositivo/browser ha il proprio archivio, non sincronizzato;
-- cancellare i dati del sito dal browser elimina anche gli utenti;
-- per usarlo da più dispositivi o con più operatori serve un backend (es. Supabase o Firebase).
-- il sito non ha login: chi apre l'indirizzo vede tutti i dati salvati su quel dispositivo.
-
-## Impostazioni (dentro `index.html`)
-
-- `CARICA_DATI_DEMO`: con `true` precarica utenti e schede di esempio al primo avvio.
-
-## Lettura del documento
-
-La lettura automatica usa Tesseract.js, caricato da jsDelivr alla prima lettura (serve internet) e poi eseguita nel browser: le immagini non vengono inviate a nessun server.
-Per usarlo offline, copia i file di Tesseract in `vendor/tesseract/` (`tesseract.min.js`, `worker.min.js`, il core e `lang/ita.traineddata`, `lang/eng.traineddata`).
-
-## Privacy
-
-I dati dei clienti e le immagini dei documenti sono dati personali (GDPR): usa il sito solo su dispositivi protetti e informa gli iscritti sul trattamento.
+## Stampa
+Dalla scheda di un cliente usa «Stampa», oppure «Stampa elenco» dalla Home. In stampa spariscono menu e pulsanti, e il tema diventa testo nero su fondo bianco, formato A4.

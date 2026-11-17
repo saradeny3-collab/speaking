@@ -3,14 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0f766e">
+<meta name="theme-color" content="#000000">
+<meta name="color-scheme" content="dark">
 <title>Speaking</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230f766e'/%3E%3Ctext x='32' y='44' font-size='36' font-family='sans-serif' font-weight='700' text-anchor='middle' fill='white'%3ES%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23FFD60A'/%3E%3Ctext x='32' y='44' font-size='36' font-family='sans-serif' font-weight='800' text-anchor='middle' fill='black'%3ES%3C/text%3E%3C/svg%3E">
 <style>
-:root{--bg:#f3f7f6;--surface:#fff;--text:#12302b;--muted:#5d7872;--line:#dbe6e3;--brand:#0f766e;--brand-soft:#d9f0ec;--c1:#0f766e;--c2:#c2410c;--c3:#1d4ed8;--c4:#7e22ce;
-color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1a18;--surface:#152724;--surface:#152724;--text:#e6f2ef;--muted:#92b0aa;--line:#24403b;--brand:#2dd4bf;--brand-soft:#173833;--c1:#2dd4bf;--c2:#fb923c;--c3:#60a5fa;--c4:#c084fc;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#0d1a18;--surface:#152724;--text:#e6f2ef;--muted:#92b0aa;--line:#24403b;--brand:#2dd4bf;--brand-soft:#173833;--c1:#2dd4bf;--c2:#fb923c;--c3:#60a5fa;--c4:#c084fc;color-scheme:dark}
+:root{--bg:#000;--surface:#101010;--text:#fff;--muted:#d4d4d4;--line:#6b6b6b;--brand:#FFD60A;--brand-soft:#2b2400;--c1:#FFD60A;--c2:#ffffff;--c3:#38d0ff;--c4:#ff7a45;
+color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box}
 html,body{margin:0}
 body{background:var(--bg);color:var(--text);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
@@ -19,7 +18,7 @@ body{background:var(--bg);color:var(--text);font:16px/1.45 system-ui,-apple-syst
 .stage.mobile .app{max-width:400px;border-left:1px solid var(--line);border-right:1px solid var(--line)}
 .stage.tablet .app{max-width:1200px;border-left:1px solid var(--line);border-right:1px solid var(--line)}
 header{display:flex;align-items:center;gap:12px;padding:16px 20px;background:var(--surface);border-bottom:1px solid var(--line)}
-.logo{width:40px;height:40px;border-radius:12px;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:700;font-size:20px}
+.logo{width:40px;height:40px;border-radius:12px;background:var(--brand)\1;color:#000;display:grid;place-items:center;font-weight:700;font-size:20px}
 header h1{font-size:18px;margin:0;line-height:1.2}
 header small{color:var(--muted);font-size:13px}
 .layout{display:flex;flex:1;min-height:0}
@@ -51,7 +50,7 @@ h2{font-size:22px;margin:0 0 4px}
 .uact{display:flex;gap:8px;flex-shrink:0}
 .ab{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:1px solid var(--line);background:var(--surface);color:var(--text);font:inherit;font-size:15px;font-weight:600;cursor:pointer;width:42px;height:42px;border-radius:50%;padding:0}
 .ab .i{font-size:26px;line-height:1;font-weight:400}.ab .t{display:none}
-.ab.pri{background:var(--brand);border-color:var(--brand);color:#fff}
+.ab.pri{background:var(--brand)\1;color:#000}
 .ab.danger{background:#dc2626;border-color:#dc2626;color:#fff}
 .stage.tablet .ab{width:auto;height:auto;border-radius:12px;padding:10px 18px}
 .stage.tablet .ab .i{display:none}.stage.tablet .ab .t{display:inline}
@@ -82,14 +81,14 @@ h2{font-size:22px;margin:0 0 4px}
 .mbox input{padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text);font:inherit}
 .mrow{display:flex;gap:8px;justify-content:flex-end;margin-top:6px}
 .mrow button{padding:10px 18px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--text);font:inherit;cursor:pointer}
-.mrow .pri{background:var(--brand);border-color:var(--brand);color:#fff}.mrow .danger{background:#dc2626;border-color:#dc2626;color:#fff}
+.mrow .pri{background:var(--brand)\1;color:#000}.mrow .danger{background:#dc2626;border-color:#dc2626;color:#fff}
 .empty{text-align:center;color:var(--muted);padding:30px 0}
 .idbox{display:flex;flex-direction:column;gap:8px;border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--bg)}
 .idrow{display:flex;gap:10px;flex-wrap:wrap}
 .drop{flex:1;min-width:130px;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:6px}
 .drop input{font-size:12px;padding:6px;max-width:100%}
 .drop img{display:none;width:100%;max-height:110px;object-fit:cover;border-radius:8px;border:1px solid var(--line)}
-.idbox button{padding:10px 14px;border-radius:10px;border:1px solid var(--brand);background:var(--brand);color:#fff;font:inherit;cursor:pointer}
+.idbox button{padding:10px 14px;border-radius:10px;border:1px solid var(--brand);background:var(--brand)\1;color:#000;font:inherit;cursor:pointer}
 .idbox .idrow button{background:var(--surface);color:var(--text);border-color:var(--line)}
 .idbox button:disabled{opacity:.5;cursor:default}
 .status{font-size:13px;color:var(--muted)}
@@ -97,7 +96,7 @@ h2{font-size:22px;margin:0 0 4px}
 .det{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0;font-size:14px}.det dt{color:var(--muted)}.det dd{margin:0;word-break:break-word}
 .btns{display:flex;gap:6px}
 .pb{flex:1;text-align:center;padding:9px 6px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--text);font-size:13px;cursor:pointer}
-.pb.cam{background:var(--brand);border-color:var(--brand);color:#fff}
+.pb.cam{background:var(--brand)\1;color:#000}
 .idbox pre{white-space:pre-wrap;font-size:11px;max-height:160px;overflow:auto;margin:6px 0 0;color:var(--muted)}
 .idbox summary{font-size:12px;color:var(--muted);cursor:pointer}
 .stage.tablet .cells.two{grid-template-columns:1fr 2fr}
@@ -115,7 +114,7 @@ h2{font-size:22px;margin:0 0 4px}
 .exr{display:grid;grid-template-columns:auto 1.7fr .7fr .7fr .8fr auto;gap:6px;align-items:center}
 .lkb{border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:8px;width:34px;height:36px;font:inherit;font-size:11px;font-weight:700;cursor:pointer;padding:0}
 .lkb:disabled{opacity:.35;cursor:default}
-.exr.lk .lkb{background:var(--brand);border-color:var(--brand);color:#fff}
+.exr.lk .lkb{background:var(--brand)\1;color:#000}
 .exr.grp{border-left:3px solid var(--brand);padding-left:6px;margin-left:-9px}
 .exr input{padding:8px;min-width:0}
 .xr{border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:8px;width:32px;height:36px;font-size:18px;cursor:pointer}
@@ -123,15 +122,43 @@ h2{font-size:22px;margin:0 0 4px}
 .stab{width:100%;border-collapse:collapse;font-size:14px}.stab th,.stab td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left}.stab th{color:var(--muted);font-weight:600;font-size:12px}
 
 
-.notice{background:#fef3c7;color:#78350f;border-bottom:1px solid #fcd34d;padding:10px 20px;font-size:14px}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .notice{background:#3b2f0b;color:#fde68a;border-color:#6b5513}}
+.notice{background:var(--brand-soft);color:#fff;border-bottom:2px solid var(--brand);padding:10px 20px;font-size:14px}
+:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+header{border-bottom:2px solid var(--brand)}
+h2{font-weight:800}
+.newbtn{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--brand);color:#000;border:0;border-radius:14px;padding:16px 20px;font:inherit;font-size:19px;font-weight:800;cursor:pointer;margin-bottom:28px}
+.stage.tablet .newbtn{width:auto;min-width:280px}
+.bk{margin-top:30px;padding:16px;border:1px solid var(--line);border-radius:14px;display:flex;flex-direction:column;gap:10px}
+.bk h3{margin:0;font-size:17px}.bk p{margin:0;font-size:14px;color:var(--muted)}
+.bk div.r{display:flex;gap:8px;flex-wrap:wrap}
+.bk button,.mrow button{font-weight:600}
+.bk button{flex:1;min-width:150px;padding:11px 14px;border-radius:10px;border:1px solid var(--brand);background:none;color:var(--brand);font:inherit;font-weight:600;cursor:pointer}
+@page{size:A4;margin:15mm}
+@media print{
+:root{color-scheme:light}
+html,body{background:#fff!important;color:#000!important;font-size:11pt}
+header,nav,.tabbar,.newbtn,.bk,.search,.uact,.ab,.dbar,.back,.notice,.mrow,.chips,#esearch{display:none!important}
+.stage .app{max-width:none!important;border:0!important;min-height:0!important;background:#fff!important}
+main,.stage.tablet main{padding:0!important}
+h2,h3,b,.cells b{color:#000!important}
+.sub,.status,.cells,.cells span,.uhead{color:#333!important}
+.urow,.trend{background:#fff!important;border:1px solid #888!important;break-inside:avoid}
+.av{background:#fff!important;color:#000!important;border:1px solid #000}
+.dc{background:#fff!important;color:#000!important;border:1px solid #000}
+.modal{position:static!important;background:none!important;padding:0!important;display:block!important}
+.mbox{background:#fff!important;color:#000!important;max-width:none!important;max-height:none!important;overflow:visible!important;padding:0!important}
+body:has(#modal) .stage{display:none!important}
+.stab th,.stab td{border:1px solid #666!important;color:#000!important;padding:6px 8px}
+.stab th{background:#eee!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.chart text{fill:#000!important}.chart line{stroke:#bbb!important}
+}
 </style>
 </head>
 <body>
 <div class="stage mobile" id="stage">
 <div class="app">
   <header>
-    <div class="logo">S</div>
+    <div class="logo" aria-hidden="true">S</div>
     <div><h1>Speaking</h1><small>Gestione palestra</small></div>
   </header>
   <div class="layout">
@@ -145,30 +172,13 @@ h2{font-size:22px;margin:0 0 4px}
 var I = {
   home:'<svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h14V10"/></svg>',
   users:'<svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6M16 4.8a3.5 3.5 0 010 6.4M18 14.4c2 .7 3.5 2.5 3.5 5.6"/></svg>',
-  plan:'<svg viewBox="0 0 24 24"><path d="M2 9v6M5 6v12M19 6v12M22 9v6M5 12h14"/></svg>',
-  cal:'<svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>',
-  ev:'<svg viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.5 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/></svg>'
+  plan:'<svg viewBox="0 0 24 24"><path d="M2 9v6M5 6v12M19 6v12M22 9v6M5 12h14"/></svg>'
 };
-var S = [
-  {id:'utenti',t:'Utenti',d:'Iscritti, anagrafica e abbonamenti',i:I.users,c:'var(--c1)',s:'Gestisci iscritti'},
-  {id:'schede',t:'Schede allenamento',d:'Crea e assegna programmi di allenamento',i:I.plan,c:'var(--c2)',s:'Gestisci schede'},
-  {id:'calendario',t:'Calendario',d:'Corsi, appuntamenti e prenotazioni',i:I.cal,c:'var(--c3)',s:'Apri calendario'},
-  {id:'eventi',t:'Eventi',d:'Open day, workshop e iniziative',i:I.ev,c:'var(--c4)',s:'Gestisci eventi'}
-];
 var cur = 'home';
 function render(){
-  var m = document.getElementById('main'), h = '';
-  if (cur === 'home') {
-    h = '<h2>Benvenuto</h2><p class="sub">Scegli una sezione per iniziare.</p><div class="grid">' +
-      S.map(function(x){return '<button class="card" style="--col:'+x.c+'" data-go="'+x.id+'"><div class="ic">'+x.i+'</div><h3>'+x.t+'</h3><p>'+x.d+'</p><span class="stat">'+x.s+' →</span></button>'}).join('') + '</div>';
-  } else {
-    var x = S.filter(function(y){return y.id===cur})[0];
-    h = '<button class="back" data-go="home">← Home</button><h2>'+x.t+'</h2><p class="sub">'+x.d+'</p><div class="panel">Sezione in sviluppo.</div>';
-  }
-  m.innerHTML = h;
-  if (cur === 'utenti') renderUtenti();
-  if (cur === 'schede') renderSchede();
-  var items = [{id:'home',t:'Home',i:I.home}].concat(S.map(function(x){return {id:x.id,t:x.id==='schede'?'Schede':x.t,i:x.i}}));
+  if (cur === 'home') renderUtenti();
+  else { document.getElementById('main').innerHTML = ''; renderSchede(); }
+  var items = [{id:'home',t:'Home',i:I.home},{id:'schede',t:'Schede',i:I.plan}];
   document.getElementById('tabbar').innerHTML = items.map(function(x){return '<button class="tab" data-go="'+x.id+'"'+(x.id===cur?' aria-current="true"':'')+'>'+x.i+'<span>'+x.t+'</span></button>'}).join('');
   document.getElementById('side').innerHTML = items.map(function(x){var f=x.id==='schede'?'Schede allenamento':x.t;return '<button data-go="'+x.id+'"'+(x.id===cur?' aria-current="true"':'')+'>'+x.i+'<span>'+f+'</span></button>'}).join('');
 }
@@ -178,7 +188,6 @@ document.addEventListener('click', function(e){
 function setView(v){
   document.getElementById('stage').className = 'stage ' + v;
 }
-var CARICA_DATI_DEMO = false; // metti true per precaricare utenti e schede di esempio al primo avvio
 function newId(p){return p+Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
 function showNotice(t){var n=document.createElement('div');n.className='notice';n.setAttribute('role','alert');n.textContent=t;var h=document.querySelector('header');h.parentNode.insertBefore(n,h.nextSibling)}
 // Archivio nel browser (IndexedDB): i dati restano su questo dispositivo, senza server
@@ -204,10 +213,6 @@ var Store=(function(){
         return Promise.all([tx('utenti','readonly',function(s){return s.getAll()}),tx('schede','readonly',function(s){return s.getAll()})]);
       }).then(function(r){
         U=r[0]||[];SCH=r[1]||[];
-        if(CARICA_DATI_DEMO&&!U.length&&!SCH.length){
-          U=DEMO_U.slice();SCH=DEMO_SCH.slice();
-          return Promise.all(U.map(function(o){return Store.put('utenti',o)}).concat(SCH.map(function(o){return Store.put('schede',o)})));
-        }
       }).catch(function(){
         db=null;
         showNotice('Archivio del browser non disponibile (navigazione privata?): i dati non verranno salvati.');
@@ -217,11 +222,6 @@ var Store=(function(){
     del:function(n,id){return db?tx(n,'readwrite',function(s){return s.delete(id)}):Promise.resolve()}
   };
 })();
-var DEMO_U = [
- {id:1,n:'Marco',c:'Rossi',d:'1985-03-12',cf:'RSSMRC85C12A462X',t:'333 1234567',e:'marco.rossi@email.it',ci:'Ascoli Piceno'},
- {id:2,n:'Giulia',c:'Bianchi',d:'1992-07-25',cf:'BNCGLI92L65A462K',t:'347 7654321',e:'giulia.bianchi@email.it',ci:'San Benedetto'},
- {id:3,n:'Luca',c:'Ferrari',d:'1978-11-03',cf:'FRRLCU78S03A462P',t:'320 1122334',e:'luca.ferrari@email.it',ci:'Ascoli Piceno'}
-];
 var U = [];
 var uq = '', dm = false, sel = {}, draft = {front:null,back:null};
 var dbCol = null, caps = {sample:null,assets:null,down:null};
@@ -242,21 +242,24 @@ function filtered(){
 }
 function renderUtenti(){
   document.getElementById('main').innerHTML =
-   '<div class="uh"><div><h2>Utenti</h2><p class="sub" id="ucount"></p></div><div class="uact">'+
-   '<button class="ab pri" data-act="add" aria-label="Crea utente"><span class="i">+</span><span class="t">Crea</span></button>'+
-   '<button class="ab" id="bdel" data-act="del" aria-label="Elimina utenti"><span class="i">−</span><span class="t">Elimina</span></button></div></div>'+
+   '<button class="newbtn" data-act="add">+ Nuovo Cliente</button>'+
+   '<div class="uh"><div><h2>I Miei Atleti &amp; Clienti</h2><p class="sub" id="ucount"></p></div><div class="uact">'+
+   '<button class="ab" id="bdel" data-act="del" aria-label="Elimina clienti"><span class="i">−</span><span class="t">Elimina</span></button></div></div>'+
    '<input class="search" id="usearch" type="search" placeholder="Cerca per nome, codice fiscale, email…" value="'+esc(uq)+'">'+
-   '<div id="dbar"></div><div id="ulist"></div>';
+   '<div id="dbar"></div><div id="ulist"></div>'+
+   '<section class="bk" aria-labelledby="bkt"><h3 id="bkt">Backup dei dati</h3><p>Scarica tutti i clienti, le schede e le foto dei documenti in un file JSON, oppure ricaricalo per ripristinarli.</p>'+
+   '<div class="r"><button data-act="exp">Esporta backup (JSON)</button><button data-act="imp">Importa backup (JSON)</button><button data-act="prn">Stampa elenco</button></div>'+
+   '<input type="file" id="impf" accept="application/json,.json" hidden><div class="status" id="bkstat" role="status"></div></section>';
   document.getElementById('usearch').addEventListener('input',function(e){uq=e.target.value;listUtenti()});
   listUtenti();
 }
 function hasDoc(u){return !!(u.frontId||u.backId||u.frontBlob||u.backBlob)}
 function listUtenti(){
   var L = filtered(), n = Object.keys(sel).length;
-  document.getElementById('ucount').textContent = L.length + (L.length===1?' utente':' utenti');
-  document.getElementById('dbar').innerHTML = dm ? '<div class="dbar"><span>Seleziona gli utenti da eliminare ('+n+')</span><div><button data-act="cancel">Annulla</button><button class="danger" data-act="confirmdel"'+(n?'':' disabled')+'>Elimina</button></div></div>' : '';
+  document.getElementById('ucount').textContent = L.length + (L.length===1?' cliente':' clienti');
+  document.getElementById('dbar').innerHTML = dm ? '<div class="dbar"><span>Seleziona i clienti da eliminare ('+n+')</span><div><button data-act="cancel">Annulla</button><button class="danger" data-act="confirmdel"'+(n?'':' disabled')+'>Elimina</button></div></div>' : '';
   document.getElementById('bdel').classList.toggle('danger', dm);
-  var h = L.length ? '<div class="uhead"><span>Nominativo</span><span>Nascita</span><span>Codice fiscale</span><span>Telefono</span><span>Email</span><span>Città</span></div>' : '<div class="empty">Nessun utente trovato.</div>';
+  var h = L.length ? '<div class="uhead"><span>Nominativo</span><span>Nascita</span><span>Codice fiscale</span><span>Telefono</span><span>Email</span><span>Città</span></div>' : '<div class="empty">Nessun cliente ancora: usa «+ Nuovo Cliente» per iniziare.</div>';
   h += L.map(function(u){
     return '<div class="urow'+(sel[u.id]?' sel':'')+'" data-row="'+esc(u.id)+'">'+(dm?'<input type="checkbox"'+(sel[u.id]?' checked':'')+' aria-label="Seleziona">':'')+
     '<div class="av">'+esc((u.n[0]||'')+(u.c[0]||'')).toUpperCase()+'</div><div class="cells"><b>'+esc(u.n+' '+u.c)+(hasDoc(u)?' <i class="dc">documento</i>':'')+'</b><span>Nato il '+fdate(u.d)+'</span><span>'+esc(u.cf||'—')+'</span><span>'+esc(u.t||'—')+'</span><span>'+esc(u.e||'—')+'</span><span>'+esc(u.ci||'—')+'</span></div></div>';
@@ -273,7 +276,7 @@ function dropHtml(side,label){
 }
 function addForm(){
   draft={front:null,back:null};
-  modal('<h3>Nuovo utente</h3><div class="idbox"><b>Documento d’identità</b>'+
+  modal('<h3>Nuovo cliente</h3><div class="idbox"><b>Documento d’identità</b>'+
    '<div class="idrow">'+dropHtml('front','Fronte')+dropHtml('back','Retro')+'</div>'+
    '<button id="bread" data-act="read" disabled>Leggi dati dal documento</button><div class="status" id="rstat">'+sampleMsg()+'</div><details id="rawd" hidden><summary>Mostra testo letto</summary><pre id="rawt"></pre></details></div>'+
    FIELDS.map(function(x){return '<label>'+x[1]+(x[0]==='n'||x[0]==='c'?' *':'')+'<input id="f_'+x[0]+'" type="'+(x[2]||'text')+'"></label>'}).join('')+
@@ -450,7 +453,7 @@ function openUser(id){
   var docs=btn('front','fronte')+btn('back','retro');
   modal('<h3>'+esc(u.n+' '+u.c)+'</h3><dl class="det">'+rows.map(function(r){return '<dt>'+r[0]+'</dt><dd>'+esc(r[1]||'—')+'</dd>'}).join('')+'</dl>'+
    '<div class="idbox"><b>Documento d’identità</b>'+(docs?'<div class="idrow">'+docs+'</div>':'<div class="status">Nessun documento salvato.</div>')+'<div class="status" id="dstat"></div></div>'+
-   '<div class="mrow"><button data-act="mclose">Chiudi</button></div>');
+   '<div class="mrow"><button data-act="mclose">Chiudi</button><button class="pri" data-act="gosch" data-id="'+esc(u.id)+'">Schede allenamento</button></div>');
 }
 async function dl(id,side){
   var u=find(id); if(!u)return;
@@ -483,20 +486,13 @@ document.addEventListener('click',function(e){
     else if(k==='dl')dl(a.getAttribute('data-id'),a.getAttribute('data-side'));
     else if(k==='del'){dm=!dm;sel={};listUtenti()}
     else if(k==='cancel'){dm=false;sel={};listUtenti()}
-    else if(k==='confirmdel'){var n=Object.keys(sel).length;if(!n)return;modal('<h3>Elimina utenti</h3><p>Vuoi eliminare '+n+(n===1?' utente selezionato':' utenti selezionati')+', compresi i documenti salvati? L’operazione non si può annullare.</p><div class="mrow"><button data-act="mclose">Annulla</button><button class="danger" data-act="dodel">Elimina</button></div>')}
+    else if(k==='confirmdel'){var n=Object.keys(sel).length;if(!n)return;modal('<h3>Elimina clienti</h3><p>Vuoi eliminare '+n+(n===1?' cliente selezionato':' clienti selezionati')+', compresi i documenti salvati? L’operazione non si può annullare.</p><div class="mrow"><button data-act="mclose">Annulla</button><button class="danger" data-act="dodel">Elimina</button></div>')}
     else if(k==='dodel')doDelete();
     return}
   if(r){var id=r.getAttribute('data-row');if(dm){if(sel[id])delete sel[id];else sel[id]=1;listUtenti()}else openUser(id)}
 });
 // ---- Schede allenamento (struttura provvisoria: nome, data, note, elenco esercizi con serie, ripetizioni e carico) ----
 var EXLIST=['Panca piana','Squat','Stacco da terra','Military press','Rematore con bilanciere','Trazioni','Lat machine','Leg press','Curl con bilanciere','Pushdown ai cavi','Affondi','Plank'];
-function mkS(id,u,nome,data,es){return {id:'d'+id,uid:String(u),nome:nome,data:data,note:'',es:es.map(function(x){return {n:x[0],s:x[1],r:x[2],k:x[3],g:x[4]}})}}
-var DEMO_SCH=[
- mkS(1,1,'Forza base','2026-05-10',[['Panca piana',3,8,60],['Squat',3,8,80],['Rematore con bilanciere',3,10,50]]),
- mkS(2,1,'Forza base 2','2026-07-12',[['Panca piana',3,8,65],['Squat',3,8,87.5],['Rematore con bilanciere',3,10,55]]),
- mkS(3,1,'Ipertrofia','2026-09-14',[['Panca piana',4,8,70],['Squat',4,8,92.5],['Rematore con bilanciere',4,10,60]]),
- mkS(4,1,'Ipertrofia 2','2026-11-02',[['Panca piana',4,8,72.5,1],['Rematore con bilanciere',4,10,62.5,1],['Squat',4,8,97.5]])
-];
 var SCH=[];
 var dbSch=null, sq='', suid=null, sdm=false, ssel={}, trend=[], eq='';
 var TCOL=['var(--c1)','var(--c2)','var(--c3)','var(--c4)'];
@@ -508,11 +504,11 @@ function exNames(u){var m={};schedeOf(u).forEach(function(sc){sc.es.forEach(func
 function renderSchede(){
   var m=document.getElementById('main');
   if(!suid){
-    m.innerHTML='<h2>Schede allenamento</h2><p class="sub" id="sucount"></p><input class="search" id="ssearch" type="search" placeholder="Cerca utente…" value="'+esc(sq)+'"><div id="sulist"></div>';
+    m.innerHTML='<h2>Schede allenamento</h2><p class="sub" id="sucount"></p><input class="search" id="ssearch" type="search" placeholder="Cerca cliente…" value="'+esc(sq)+'"><div id="sulist"></div>';
     listSU();return;
   }
   var u=find(suid); if(!u){suid=null;renderSchede();return}
-  m.innerHTML='<button class="back" data-act="sback">← Utenti</button><div class="uh"><div><h2>'+esc(u.n+' '+u.c)+'</h2><p class="sub" id="sccount"></p></div><div class="uact">'+
+  m.innerHTML='<button class="back" data-act="sback">← Clienti</button><div class="uh"><div><h2>'+esc(u.n+' '+u.c)+'</h2><p class="sub" id="sccount"></p></div><div class="uact">'+
    '<button class="ab pri" data-act="sadd" aria-label="Crea scheda"><span class="i">+</span><span class="t">Crea</span></button>'+
    '<button class="ab" id="sbdel" data-act="sdel" aria-label="Elimina schede"><span class="i">−</span><span class="t">Elimina</span></button></div></div>'+
    '<div id="sdbar"></div><div id="slist"></div>'+
@@ -521,9 +517,9 @@ function renderSchede(){
 }
 function listSU(){
   var q=sq.toLowerCase().trim(),L=U.filter(function(u){return !q||(u.n+' '+u.c).toLowerCase().indexOf(q)>-1}).sort(function(a,b){return (a.c+a.n).localeCompare(b.c+b.n)});
-  document.getElementById('sucount').textContent=L.length+(L.length===1?' utente':' utenti');
+  document.getElementById('sucount').textContent=L.length+(L.length===1?' cliente':' clienti');
   document.getElementById('sulist').innerHTML=L.length?L.map(function(u){var sc=schedeOf(u.id);
-    return '<div class="urow" data-su="'+esc(u.id)+'" style="cursor:pointer"><div class="av">'+esc((u.n[0]||'')+(u.c[0]||'')).toUpperCase()+'</div><div class="cells two"><b>'+esc(u.n+' '+u.c)+'</b><span>'+(sc.length?sc.length+(sc.length===1?' scheda':' schede')+' · ultima del '+fdate(sc[0].data):'Nessuna scheda')+'</span></div></div>'}).join(''):'<div class="empty">Nessun utente. Aggiungili dalla sezione Utenti.</div>';
+    return '<div class="urow" data-su="'+esc(u.id)+'" style="cursor:pointer"><div class="av">'+esc((u.n[0]||'')+(u.c[0]||'')).toUpperCase()+'</div><div class="cells two"><b>'+esc(u.n+' '+u.c)+'</b><span>'+(sc.length?sc.length+(sc.length===1?' scheda':' schede')+' · ultima del '+fdate(sc[0].data):'Nessuna scheda')+'</span></div></div>'}).join(''):'<div class="empty">Nessun cliente. Aggiungili dalla Home con «+ Nuovo Cliente».</div>';
 }
 function listSchede(){
   if(!find(suid)||!document.getElementById('slist'))return;
@@ -614,11 +610,11 @@ function viewScheda(id){
   var sc=findS(id);if(!sc)return;var u=find(sc.uid);
   modal('<h3>'+esc(sc.nome)+'</h3><div class="status">'+(u?esc(u.n+' '+u.c)+' · ':'')+fdate(sc.data)+'</div>'+
    '<table class="stab"><thead><tr><th>Esercizio</th><th>Serie</th><th>Rip.</th><th>Kg</th></tr></thead><tbody>'+sc.es.map(function(e){return '<tr><td>'+exLabel(e)+'</td><td>'+esc(e.s)+'</td><td>'+esc(e.r)+'</td><td>'+esc(fnum(e.k))+'</td></tr>'}).join('')+'</tbody></table>'+(sc.note?'<p class="status">'+esc(sc.note)+'</p>':'')+
-   '<div class="status" id="sdstat"></div><div class="mrow"><button data-act="mclose">Chiudi</button><button class="pri" data-act="sdl" data-id="'+esc(sc.id)+'">Scarica</button></div>');
+   '<div class="status" id="sdstat"></div><div class="mrow"><button data-act="mclose">Chiudi</button><button data-act="prn">Stampa</button><button class="pri" data-act="sdl" data-id="'+esc(sc.id)+'">Scarica</button></div>');
 }
 function schedaHtml(u,sc){
-  return '<!doctype html><html lang="it"><head><meta charset="utf-8"><title>'+esc(sc.nome)+'</title><style>body{font-family:system-ui,sans-serif;max-width:720px;margin:32px auto;padding:0 16px;color:#12302b}h1{margin:4px 0}table{border-collapse:collapse;width:100%;margin-top:16px}th,td{border:1px solid #cfdcd9;padding:8px 10px;text-align:left}th{background:#eaf4f2}.m{color:#5d7872;margin:0}.dc{font-style:normal;font-size:11px;font-weight:600;color:#0f766e;background:#d9f0ec;border-radius:99px;padding:1px 8px;margin-right:4px}</style></head><body><p class="m">Speaking</p><h1>'+esc(sc.nome)+'</h1><p class="m">'+esc(u?u.n+' '+u.c:'')+' · '+fdate(sc.data)+'</p><table><thead><tr><th>Esercizio</th><th>Serie</th><th>Ripetizioni</th><th>Carico (kg)</th></tr></thead><tbody>'+
-   sc.es.map(function(e){return '<tr><td>'+exLabel(e)+'</td><td>'+esc(e.s)+'</td><td>'+esc(e.r)+'</td><td>'+esc(fnum(e.k))+'</td></tr>'}).join('')+'</tbody></table>'+(sc.note?'<p>'+esc(sc.note)+'</p>':'')+'</body></html>';
+  return '<!doctype html><html lang="it"><head><meta charset="utf-8"><title>'+esc(sc.nome)+'</title><style>@page{size:A4;margin:15mm}body{font-family:system-ui,sans-serif;max-width:720px;margin:32px auto;padding:0 16px;background:#000;color:#fff}h1{margin:4px 0}table{border-collapse:collapse;width:100%;margin-top:16px}th,td{border:1px solid #6b6b6b;padding:8px 10px;text-align:left}th{background:#FFD60A;color:#000}.m{color:#d4d4d4;margin:0}.dc{font-style:normal;font-size:11px;font-weight:700;color:#000;background:#FFD60A;border-radius:99px;padding:1px 8px;margin-right:4px}button{margin-top:16px;padding:10px 18px;background:#FFD60A;border:0;border-radius:8px;font-weight:700;cursor:pointer}@media print{body{background:#fff;color:#000;margin:0;max-width:none}.m{color:#333}th{background:#eee;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}td,th{border-color:#666}.dc{background:#fff;color:#000;border:1px solid #000}button{display:none}}</style></head><body><p class="m">Speaking</p><h1>'+esc(sc.nome)+'</h1><p class="m">'+esc(u?u.n+' '+u.c:'')+' · '+fdate(sc.data)+'</p><table><thead><tr><th>Esercizio</th><th>Serie</th><th>Ripetizioni</th><th>Carico (kg)</th></tr></thead><tbody>'+
+   sc.es.map(function(e){return '<tr><td>'+exLabel(e)+'</td><td>'+esc(e.s)+'</td><td>'+esc(e.r)+'</td><td>'+esc(fnum(e.k))+'</td></tr>'}).join('')+'</tbody></table>'+(sc.note?'<p>'+esc(sc.note)+'</p>':'')+'<button onclick="window.print()">Stampa</button></body></html>';
 }
 async function saveBlob(blob,name){
   try{
@@ -673,6 +669,59 @@ document.addEventListener('click',function(e){
   var sr=e.target.closest('[data-srow]');
   if(sr){var id=sr.getAttribute('data-srow');if(sdm){if(ssel[id])delete ssel[id];else ssel[id]=1;listSchede()}else viewScheda(id)}
 });
+function b2d(b){return new Promise(function(ok,ko){var r=new FileReader();r.onload=function(){ok(r.result)};r.onerror=ko;r.readAsDataURL(b)})}
+async function exportBackup(){
+  try{
+    var us=[];
+    for(var i=0;i<U.length;i++){var o=Object.assign({},U[i]);
+      for(var s of ['frontBlob','backBlob']){if(o[s] instanceof Blob)o[s]={__img:await b2d(o[s])}}
+      us.push(o)}
+    var d={app:'speaking',versione:1,esportato:new Date().toISOString(),utenti:us,schede:SCH};
+    await saveBlob(new Blob([JSON.stringify(d)],{type:'application/json'}),'Speaking_backup_'+new Date().toISOString().slice(0,10)+'.json');
+    st('bkstat','Backup esportato: '+U.length+' clienti e '+SCH.length+' schede.');
+  }catch(e){st('bkstat','Esportazione non riuscita. Riprova.')}
+}
+var pend=null;
+async function readImport(file){
+  try{
+    var d=JSON.parse(await file.text());
+    if(!d||d.app!=='speaking'||!Array.isArray(d.utenti)||!Array.isArray(d.schede))throw new Error('fmt');
+    pend=d;
+    modal('<h3>Importa backup</h3><p>Il file contiene '+d.utenti.length+' clienti e '+d.schede.length+' schede'+(d.esportato?' (esportato il '+fdate(String(d.esportato).slice(0,10))+')':'')+'.</p><p class="status"><b>Unisci</b> aggiunge i dati del file a quelli presenti e aggiorna i clienti e le schede già esistenti. <b>Sostituisci</b> cancella tutto ciò che c’è ora e carica solo il file.</p><div class="status" id="impstat"></div><div class="mrow"><button data-act="mclose">Annulla</button><button data-act="impmerge">Unisci</button><button class="danger" data-act="imprepl">Sostituisci</button></div>');
+  }catch(e){st('bkstat','File non valido: scegli un backup JSON esportato da Speaking.')}
+}
+async function mergeIn(arr,items,name){
+  for(var it of items){await Store.put(name,it);var k=arr.findIndex(function(z){return String(z.id)===String(it.id)});if(k>-1)arr[k]=it;else arr.push(it)}
+}
+async function applyImport(replace){
+  var d=pend;if(!d)return;
+  try{
+    var us=[];
+    for(var o of d.utenti){
+      if(!o||typeof o!=='object'||o.id==null)continue;
+      var c=Object.assign({},o);
+      for(var s of ['frontBlob','backBlob']){if(c[s]&&c[s].__img){c[s]=await (await fetch(c[s].__img)).blob()}else delete c[s]}
+      us.push(c)}
+    var sc=d.schede.filter(function(x){return x&&typeof x==='object'&&x.id!=null&&Array.isArray(x.es)});
+    if(replace){
+      for(var x of U.slice())await Store.del('utenti',x.id);
+      for(var y of SCH.slice())await Store.del('schede',y.id);
+      U.length=0;SCH.length=0}
+    await mergeIn(U,us,'utenti');await mergeIn(SCH,sc,'schede');
+    pend=null;closeModal();render();
+    st('bkstat','Backup importato: '+us.length+' clienti e '+sc.length+' schede.');
+  }catch(e){st('impstat','Importazione non riuscita. I dati non sono stati modificati del tutto: riprova.')}
+}
+document.addEventListener('click',function(e){
+  var a=e.target.closest('[data-act]');if(!a)return;var k=a.getAttribute('data-act');
+  if(k==='exp')exportBackup();
+  else if(k==='imp'){var f=document.getElementById('impf');if(f)f.click()}
+  else if(k==='impmerge')applyImport(false);
+  else if(k==='imprepl')applyImport(true);
+  else if(k==='prn')window.print();
+  else if(k==='gosch'){closeModal();suid=a.getAttribute('data-id');cur='schede';sdm=false;ssel={};trend=[];eq='';render();window.scrollTo(0,0)}
+});
+document.addEventListener('change',function(e){var t=e.target;if(t.id==='impf'&&t.files&&t.files[0]){readImport(t.files[0]);t.value=''}});
 function autoView(){setView(window.innerWidth>=768?'tablet':'mobile')}
 autoView();
 window.addEventListener('resize',autoView);
