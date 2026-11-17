@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Speaking – Gestionale</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💬</text></svg>">
+<style>
+  :root {
+    --bg: #f1f4f8;
+    --surface: #ffffff;
+    --border: #e3e8ef;
+    --text: #1b2433;
+    --muted: #6b7686;
+    --nav: #0e1a2b;
+    --nav-active: #1f2e45;
+    --accent: #1f6feb;
+    --accent-soft: #dbe9ff;
+    --warn-bg: #fdeeb8;
+    --warn-fg: #8a5a00;
+    --ok-bg: #d6f5de;
+    --ok-fg: #17692f;
+    --info-bg: #d3e6ff;
+    --info-fg: #1450a8;
+    --radius: 12px;
+    --font: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    font-family: var(--font);
+    color: var(--text);
+    background: var(--bg);
+    font-size: 15px;
+    line-height: 1.4;
+  }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  a { color: var(--accent); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* ---------- Struttura ---------- */
+  .app {
+    display: grid;
+    grid-template-columns: 68px 285px minmax(0, 1fr) 280px;
+    grid-template-rows: 54px minmax(0, 1fr);
+    height: 100vh;
+    height: 100dvh;
+  }
+
+  /* Barra laterale di navigazione */
+  .nav {
+    grid-row: 1 / 3;
+    background: var(--nav);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 14px 0;
+    gap: 10px;
+  }
+  .nav .logo { width: 34px; height: 34px; margin-bottom: 14px; }
+  .nav button {
+    width: 46px; height: 46px;
+    display: grid; place-items: center;
+    border-radius: 10px;
+    color: #8294ad;
+  }
+  .nav button:hover { background: #17253a; color: #fff; }
+  .nav button[aria-current="page"] { background: var(--nav-active); color: #fff; }
+  .nav svg { width: 24px; height: 24px; }
+  .nav .spacer { flex: 1; }
+
+  /* Barra superiore */
+  .topbar {
+    grid-column: 2 / 5;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 22px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+  .brand { font-size: 19px; font-weight: 800; letter-spacing: .01em; white-space: nowrap; }
+  .search {
+    flex: 0 1 512px;
+    display: flex; align-items: center; gap: 10px;
+    background: #eef1f6;
+    border-radius: 8px;
+    padding: 0 14px;
+    height: 36px;
+    color: var(--muted);
+    margin-left: 40px;
+  }
+  .search input {
+    flex: 1; border: 0; outline: 0; background: transparent;
+    font: inherit; color: var(--text);
+  }
+  .search:focus-within { box-shadow: 0 0 0 2px var(--accent); }
+  .top-actions { margin-left: auto; display: flex; align-items: center; gap: 16px; }
+  .icon-btn { position: relative; width: 32px; height: 32px; display: grid; place-items: center; color: #4a5568; border-radius: 8px; }
+  .icon-btn:hover { background: #eef1f6; }
+  .icon-btn svg { width: 22px; height: 22px; }
+  .dot { position: absolute; top: 3px; right: 5px; width: 8px; height: 8px; background: #e5484d; border-radius: 50%; border: 2px solid #fff; box-sizing: content-box; }
+  .me { display: flex; align-items: center; gap: 6px; color: var(--muted); }
+
+  /* Avatar con iniziali */
+  .avatar {
+    flex: none;
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    color: #fff; font-weight: 700; font-size: 13px;
+  }
+  .avatar.lg { width: 42px; height: 42px; font-size: 15px; }
+  .avatar.xl { width: 44px; height: 44px; font-size: 16px; }
+
+  /* ---------- Elenco atleti ---------- */
+  .athletes {
+    grid-row: 2;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    padding: 18px 12px 18px 16px;
+  }
+  .athletes .kicker { color: var(--muted); font-size: 14px; }
+  .athletes h2 { font-size: 22px; margin: 2px 0 14px; }
+  .athlete {
+    width: 100%;
+    display: flex; align-items: center; gap: 12px;
+    text-align: left;
+    padding: 12px 10px;
+    border: 1px solid transparent;
+    border-bottom-color: var(--border);
+    border-radius: 0;
+  }
+  .athlete:hover { background: #f6f8fb; }
+  .athlete[aria-pressed="true"] {
+    background: #eef1f6;
+    border: 1.5px solid #2a3547;
+    border-radius: 10px;
+  }
+  .athlete .name { font-weight: 600; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 2px 9px 2px 7px;
+    border-radius: 999px;
+    font-size: 12.5px; font-weight: 500;
+    margin-top: 3px;
+  }
+  .badge::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: currentColor; opacity: .85; }
+  .badge.warn { background: var(--warn-bg); color: var(--warn-fg); }
+  .badge.ok { background: var(--ok-bg); color: var(--ok-fg); }
+  .badge.info { background: var(--info-bg); color: var(--info-fg); }
+  .badge.info::before { border-radius: 3px; }
+
+  /* ---------- Contenuto centrale ---------- */
+  .main { grid-row: 2; overflow-y: auto; padding: 18px 20px 30px; }
+  .athlete-head { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  .athlete-head h1 { font-size: 23px; font-weight: 700; }
+
+  .tabs { display: flex; gap: 28px; border-bottom: 1px solid var(--border); margin-bottom: 18px; }
+  .tab {
+    padding: 10px 0;
+    color: var(--muted);
+    font-weight: 500;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+  }
+  .tab:hover { color: var(--text); }
+  .tab[aria-selected="true"] { color: var(--text); border-bottom-color: var(--accent); font-weight: 600; }
+  .panel[hidden] { display: none; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 14px 10px;
+    margin-bottom: 14px;
+  }
+  .card-head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .card-head .ico {
+    width: 34px; height: 34px; border-radius: 9px;
+    background: #eef1f6; display: grid; place-items: center; color: #3a475b;
+  }
+  .card-head .ico svg { width: 20px; height: 20px; }
+  .card-head h3 { font-size: 17px; font-weight: 600; flex: 1; }
+  .more { width: 30px; height: 30px; border-radius: 6px; color: var(--muted); }
+  .more:hover { background: #eef1f6; }
+
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; min-width: 480px; }
+  thead th {
+    background: #f1f4f8;
+    font-weight: 500; font-size: 14px;
+    text-align: left;
+    padding: 7px 10px;
+  }
+  thead th:first-child { border-radius: 6px 0 0 6px; }
+  thead th:last-child { border-radius: 0 6px 6px 0; }
+  tbody td { padding: 8px 10px; border-bottom: 1px solid var(--border); font-size: 15px; }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.num, th.num { text-align: left; }
+
+  .add-row {
+    margin: 8px 0 4px 2px;
+    color: var(--accent);
+    font-weight: 500; font-size: 14px;
+  }
+  .add-row:hover { text-decoration: underline; }
+
+  .placeholder {
+    background: var(--surface);
+    border: 1px dashed #c7d0dd;
+    border-radius: var(--radius);
+    padding: 40px 20px;
+    text-align: center;
+    color: var(--muted);
+  }
+
+  /* ---------- Pannello progressi ---------- */
+  .side { grid-row: 2; overflow-y: auto; padding: 14px 16px 30px 8px; }
+  .side .card { padding: 0; }
+  .side .card > h3 { font-size: 18px; font-weight: 600; padding: 12px 14px; border-bottom: 1px solid var(--border); }
+  .chart-block { padding: 10px 14px 6px; }
+  .chart-block h4 { font-size: 14.5px; font-weight: 600; margin-bottom: 4px; }
+  .chart { width: 100%; height: auto; display: block; }
+  .chart text { font-size: 10px; fill: var(--muted); }
+  .side h4.section { font-size: 15px; font-weight: 600; margin: 14px 2px 8px; }
+  .notes { padding: 12px 14px; font-size: 13.5px; }
+  .notes h3 { font-size: 17px; font-weight: 600; margin-bottom: 10px; }
+  .note { margin-bottom: 12px; line-height: 1.5; }
+  .note:last-child { margin-bottom: 0; }
+  .note b { font-weight: 600; }
+  .note time { display: block; color: var(--muted); font-size: 12px; margin-bottom: 2px; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1180px) {
+    .app { grid-template-columns: 68px 250px minmax(0, 1fr); }
+    .side { display: none; }
+    .topbar { grid-column: 2 / 4; }
+  }
+  @media (max-width: 760px) {
+    .app { grid-template-columns: 1fr; grid-template-rows: 54px auto minmax(0, 1fr) 56px; height: auto; min-height: 100dvh; }
+    .topbar { grid-column: 1; padding: 0 14px; }
+    .brand { font-size: 17px; }
+    .search { display: none; }
+    .nav {
+      grid-row: 4; grid-column: 1;
+      flex-direction: row; justify-content: space-around; padding: 0 6px;
+      position: sticky; bottom: 0;
+    }
+    .nav .logo, .nav .spacer { display: none; }
+    .athletes {
+      grid-row: 2; display: flex; gap: 8px; overflow-x: auto; overflow-y: hidden;
+      padding: 10px 12px; border-right: 0; border-bottom: 1px solid var(--border);
+    }
+    .athletes .kicker, .athletes h2 { display: none; }
+    .athlete { width: 230px; flex: none; border: 1px solid var(--border); border-radius: 10px; }
+    .main { grid-row: 3; padding: 14px; overflow: visible; }
+    .tabs { gap: 18px; overflow-x: auto; }
+    .me .chev { display: none; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .athlete, .tab, .nav button { transition: background .15s, color .15s, border-color .15s; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- Navigazione -->
+  <nav class="nav" aria-label="Navigazione principale">
+    <svg class="logo" viewBox="0 0 40 40" aria-hidden="true">
+      <rect width="40" height="40" rx="10" fill="#1f6feb"/>
+      <path d="M9 24c0-6 4-11 11-11h11c0 6-4 11-11 11h-5l-4 5v-5z" fill="#fff"/>
+    </svg>
+    <button aria-label="Dashboard" title="Dashboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+    </button>
+    <button aria-label="Atleti" title="Atleti" aria-current="page">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><path d="M16 4.7a3.5 3.5 0 0 1 0 6.6M18 14.4c2.2.7 3.5 2.6 3.5 5.6"/></svg>
+    </button>
+    <button aria-label="Calendario" title="Calendario">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>
+    </button>
+    <button aria-label="Report" title="Report">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M9.5 17v-3M12.5 17v-6M15.5 17v-4"/></svg>
+    </button>
+    <button aria-label="Impostazioni" title="Impostazioni">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+    </button>
+    <span class="spacer"></span>
+    <button aria-label="Esci" title="Esci">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4H5.5A1.5 1.5 0 0 0 4 5.5v13A1.5 1.5 0 0 0 5.5 20H10"/><path d="M15 8l4 4-4 4M19 12H9"/></svg>
+    </button>
+  </nav>
+
+  <!-- Barra superiore -->
+  <header class="topbar">
+    <div class="brand">SPEAKING GESTIONALE</div>
+    <label class="search">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="search" type="search" placeholder="Cerca atleti, schede..." aria-label="Cerca atleti e schede">
+    </label>
+    <div class="top-actions">
+      <button class="icon-btn" aria-label="Messaggi">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5"/></svg>
+      </button>
+      <button class="icon-btn" aria-label="Notifiche">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 17V11a6 6 0 0 1 12 0v6l1.5 2h-15z"/><path d="M10 21a2 2 0 0 0 4 0"/></svg>
+        <span class="dot"></span>
+      </button>
+      <button class="me" aria-label="Profilo coach">
+        <span class="avatar" style="background:#3b4658">CO</span>
+        <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Elenco atleti -->
+  <aside class="athletes" aria-label="Elenco atleti">
+    <div class="kicker">Elenco rapido</div>
+    <h2>Atleti</h2>
+    <div id="athlete-list"></div>
+  </aside>
+
+  <!-- Contenuto principale -->
+  <main class="main">
+    <div class="athlete-head">
+      <span class="avatar xl" id="head-avatar"></span>
+      <h1 id="head-name"></h1>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="Sezioni atleta">
+      <button class="tab" role="tab" id="t-prog" aria-controls="p-prog" aria-selected="true">Programma attuale</button>
+      <button class="tab" role="tab" id="t-anal" aria-controls="p-anal" aria-selected="false">Analisi e progressi</button>
+      <button class="tab" role="tab" id="t-imp" aria-controls="p-imp" aria-selected="false">Impostazioni</button>
+    </div>
+
+    <section class="panel" id="p-prog" role="tabpanel" aria-labelledby="t-prog">
+      <div id="blocks"></div>
+    </section>
+    <section class="panel placeholder" id="p-anal" role="tabpanel" aria-labelledby="t-anal" hidden>
+      Qui vedrai l’analisi dettagliata dei progressi dell’atleta.
+    </section>
+    <section class="panel placeholder" id="p-imp" role="tabpanel" aria-labelledby="t-imp" hidden>
+      Qui potrai modificare le impostazioni della scheda e delle notifiche.
+    </section>
+  </main>
+
+  <!-- Progressi e note -->
+  <aside class="side" aria-label="Progressi e note">
+    <div class="card">
+      <h3>Progressi atleta</h3>
+
+      <div class="chart-block">
+        <h4>Volume allenamento (settimanale)</h4>
+        <svg class="chart" viewBox="0 0 240 110" role="img" aria-label="Il volume settimanale cresce nel tempo">
+          <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b2a44" stop-opacity=".14"/><stop offset="1" stop-color="#1b2a44" stop-opacity="0"/></linearGradient></defs>
+          <g stroke="#e3e8ef"><path d="M28 12H236M28 40H236M28 68H236M28 96H236"/></g>
+          <text x="2" y="15">30</text><text x="2" y="43">20</text><text x="2" y="71">10</text><text x="2" y="99">0</text>
+          <path d="M28 88 C 50 80, 60 70, 80 70 S 105 78, 125 62 S 150 40, 170 46 S 200 26, 236 24 L236 96 L28 96Z" fill="url(#g1)"/>
+          <path d="M28 88 C 50 80, 60 70, 80 70 S 105 78, 125 62 S 150 40, 170 46 S 200 26, 236 24" fill="none" stroke="#1b2a44" stroke-width="2"/>
+          <circle cx="236" cy="24" r="4" fill="#1b2a44"/>
+        </svg>
+      </div>
+
+      <div class="chart-block">
+        <h4>Peso corporeo (mensile)</h4>
+        <svg class="chart" viewBox="0 0 240 90" role="img" aria-label="Il peso corporeo scende nel tempo">
+          <defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b2a44" stop-opacity=".14"/><stop offset="1" stop-color="#1b2a44" stop-opacity="0"/></linearGradient></defs>
+          <g stroke="#e3e8ef"><path d="M28 10H236M28 76H236"/></g>
+          <text x="6" y="13">80</text><text x="6" y="79">70</text>
+          <path d="M28 14 C 70 20, 100 34, 130 40 S 190 50, 236 62 L236 76 L28 76Z" fill="url(#g2)"/>
+          <path d="M28 14 C 70 20, 100 34, 130 40 S 190 50, 236 62" fill="none" stroke="#1b2a44" stroke-width="2"/>
+        </svg>
+      </div>
+
+      <div class="chart-block">
+        <h4>Carico massimo squat (1RM)</h4>
+        <svg class="chart" viewBox="0 0 240 100" role="img" aria-label="Il massimale di squat cresce nel tempo">
+          <defs><linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b2a44" stop-opacity=".14"/><stop offset="1" stop-color="#1b2a44" stop-opacity="0"/></linearGradient></defs>
+          <g stroke="#e3e8ef"><path d="M28 10H236M28 86H236"/></g>
+          <text x="2" y="13">100</text><text x="12" y="89">0</text>
+          <path d="M28 82 C 45 66, 60 56, 90 56 S 130 62, 150 48 S 200 40, 236 28 L236 86 L28 86Z" fill="url(#g3)"/>
+          <path d="M28 82 C 45 66, 60 56, 90 56 S 130 62, 150 48 S 200 40, 236 28" fill="none" stroke="#1b2a44" stroke-width="2"/>
+          <circle cx="150" cy="48" r="4" fill="#1b2a44"/>
+          <rect x="132" y="22" width="36" height="17" rx="5" fill="#1b2a44"/>
+          <text x="150" y="34" text-anchor="middle" style="fill:#fff;font-size:10px">1RM</text>
+        </svg>
+      </div>
+    </div>
+
+    <h4 class="section">Note di check-in dell’atleta</h4>
+    <div class="card">
+      <div class="notes">
+        <h3>Note check-in</h3>
+        <div class="note">
+          <time>Questa settimana</time>
+          <b>Sensazione:</b> ottima<br>
+          <b>Problemi:</b> leggero fastidio alla spalla destra<br>
+          <b>Obiettivo:</b> aumento del volume
+        </div>
+        <div class="note">
+          <time>Settimana scorsa</time>
+          <b>Sensazione:</b> buona<br>
+          <b>Problemi:</b> nessuno<br>
+          <b>Obiettivo:</b> aumento del volume
+        </div>
+      </div>
+    </div>
+  </aside>
+</div>
+
+<script>
+  // ----- Dati di esempio (sostituiscili con i tuoi) -----
+  const athletes = [
+    { name: "Sara Rossi",     status: "warn", label: "Scheda in scadenza", color: "#c2577a" },
+    { name: "Matteo Bianchi", status: "ok",   label: "Attivo",             color: "#3d6fb5" },
+    { name: "Sara Verdi",     status: "info", label: "Richiesta check-in", color: "#2f8f7a" },
+    { name: "Marco Neri",     status: "info", label: "Richiesta check-in", color: "#7a5bb5" },
+    { name: "Luca Bianchi",   status: "warn", label: "Scheda in scadenza", color: "#b5703d" },
+    { name: "Paolo Gialli",   status: "ok",   label: "Attivo",             color: "#4a5a72" },
+    { name: "Giulia Bianchi", status: "info", label: "Richiesta check-in", color: "#b5476a" },
+    { name: "Andrea Russo",   status: "warn", label: "Scheda in scadenza", color: "#3b4658" },
+    { name: "Elena Ferri",    status: "info", label: "Richiesta check-in", color: "#2a7da8" }
+  ];
+
+  const blocks = [
+    { title: "Riscaldamento", icon: "flame", rows: [
+      ["Riscaldamento", "Video", 4, 6, 8, "2 min"]
+    ]},
+    { title: "Blocco forza", icon: "dumbbell", rows: [
+      ["Squat",            "Video", 4, 6, 8, "2 min"],
+      ["Panca piana",      "Video", 4, 6, 8, "2 min"],
+      ["Panca piana presa stretta", "Video", 4, 6, 8, "2 min"],
+      ["Panca squat test", "Video", 4, 6, 8, "2 min"]
+    ]},
+    { title: "Superset accessori", icon: "swap", rows: [
+      ["Squat",       "Video", 4, 6, 8, "2 min"],
+      ["Panca piana", "Video", 4, 6, 8, "2 min"]
+    ]},
+    { title: "Superset accessori 2", icon: "grid", rows: [
+      ["Stacco rumeno", "Video", 3, 8, 7, "90 s"]
+    ]}
+  ];
+
+  const icons = {
+    flame:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 .3 1.5 1 2 2 2 0-3-.5-5 1-8z"/></svg>',
+    dumbbell: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11"/></svg>',
+    swap:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13l-3-3M20 16H7l3 3"/></svg>',
+    grid:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="3"/><circle cx="17" cy="7" r="3"/><circle cx="7" cy="17" r="3"/><circle cx="17" cy="17" r="3"/></svg>'
+  };
+
+  const initials = n => n.split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase();
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+  // ----- Elenco atleti -----
+  const listEl = document.getElementById("athlete-list");
+  let selected = 0;
+
+  function renderList(filter = "") {
+    const q = filter.trim().toLowerCase();
+    listEl.innerHTML = "";
+    athletes.forEach((a, i) => {
+      if (q && !a.name.toLowerCase().includes(q)) return;
+      const b = document.createElement("button");
+      b.className = "athlete";
+      b.setAttribute("aria-pressed", i === selected);
+      b.innerHTML =
+        `<span class="avatar lg" style="background:${a.color}">${initials(a.name)}</span>
+         <span><span class="name">${esc(a.name)}</span><br>
+         <span class="badge ${a.status}">${esc(a.label)}</span></span>`;
+      b.addEventListener("click", () => selectAthlete(i));
+      listEl.appendChild(b);
+    });
+    if (!listEl.children.length) {
+      listEl.innerHTML = '<p style="color:var(--muted);padding:12px 4px">Nessun atleta trovato.</p>';
+    }
+  }
+
+  function selectAthlete(i) {
+    selected = i;
+    const a = athletes[i];
+    const av = document.getElementById("head-avatar");
+    av.textContent = initials(a.name);
+    av.style.background = a.color;
+    document.getElementById("head-name").textContent = "Atleta: " + a.name;
+    renderList(document.getElementById("search").value);
+  }
+
+  document.getElementById("search").addEventListener("input", e => renderList(e.target.value));
+
+  // ----- Blocchi di allenamento -----
+  const blocksEl = document.getElementById("blocks");
+  blocksEl.innerHTML = blocks.map(b => `
+    <article class="card">
+      <div class="card-head">
+        <span class="ico">${icons[b.icon]}</span>
+        <h3>${esc(b.title)}</h3>
+        <button class="more" aria-label="Opzioni blocco ${esc(b.title)}">•••</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th>Esercizio</th><th>Link video</th><th>Serie</th><th>Ripetizioni</th><th>RPE</th><th>Recupero</th>
+          </tr></thead>
+          <tbody>
+            ${b.rows.map(r => `<tr>
+              <td>${esc(r[0])}</td>
+              <td><a href="#" onclick="return false">${esc(r[1])}</a></td>
+              <td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td><td>${esc(r[5])}</td>
+            </tr>`).join("")}
+          </tbody>
+        </table>
+      </div>
+      <button class="add-row">+ Aggiungi esercizio</button>
+    </article>`).join("");
+
+  // ----- Schede -----
+  const tabs = document.querySelectorAll(".tab");
+  tabs.forEach(t => t.addEventListener("click", () => {
+    tabs.forEach(x => {
+      const on = x === t;
+      x.setAttribute("aria-selected", on);
+      document.getElementById(x.getAttribute("aria-controls")).hidden = !on;
+    });
+  }));
+
+  selectAthlete(0);
+</script>
+</body>
+</html>
