@@ -209,7 +209,7 @@ h2{font-weight:800}
 .prot{white-space:pre-line;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:14px}
 .mini{font:inherit;font-size:13px;font-weight:700;border:1.5px solid var(--line);background:var(--surface);color:var(--text);border-radius:8px;padding:4px 10px;cursor:pointer;margin-left:10px;vertical-align:middle}
 .xwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}
-.exs .exr,.xh.exr{display:grid;grid-template-columns:36px minmax(170px,2fr) 104px 128px 58px 104px 64px minmax(170px,1.4fr) 70px 70px minmax(230px,2.6fr) 34px 34px;gap:6px;align-items:start;min-width:1330px;margin-bottom:6px}
+.exs .exr,.xh.exr{display:grid;grid-template-columns:36px minmax(170px,2fr) 104px 128px 58px 104px 64px minmax(170px,1.4fr) 70px 70px minmax(230px,2.6fr) 34px 34px 34px;gap:6px;align-items:start;min-width:1370px;margin-bottom:6px}
 .xh.exr{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
 .exs input,.exs select,.exs textarea{width:100%;min-width:0;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);font:14px/1.35 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 .exs textarea{resize:vertical;min-height:38px}
@@ -253,7 +253,7 @@ h2{font-weight:800}
 .dtabs button[aria-selected="true"]{background:var(--brand);border-color:var(--brand);color:#fff}
 .dtabs button[aria-selected="true"] span,.dtabs button[aria-selected="true"] i{color:#e6d9ff}
 .dtabs .dtadd{border-style:dashed;justify-content:center;align-items:center;color:var(--brand);font-weight:800;min-width:0}
-.etab{border-collapse:separate;border-spacing:0 6px;width:100%;min-width:1300px}
+.etab{border-collapse:separate;border-spacing:0 6px;width:100%;min-width:1336px}
 .etab th{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);text-align:left;padding:0 4px;white-space:nowrap}
 .etab td{padding:0 3px;vertical-align:top}
 .etab input,.etab select,.etab textarea{width:100%;min-width:0;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);font:14px/1.35 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
@@ -269,6 +269,28 @@ h2{font-weight:800}
 .blkl{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
 .blkl button{display:flex;flex-direction:column;gap:3px;text-align:left;border:1.5px solid var(--line);background:var(--bg);color:var(--text);border-radius:12px;padding:12px 14px;font:inherit;cursor:pointer}
 .blkl button:hover,.blkl button:focus-visible{border-color:var(--brand)}.blkl button span{font-size:13px;color:var(--muted)}
+/* infortuni (anamnesi) e avvisi sugli esercizi */
+.injr{display:grid;grid-template-columns:1.3fr .9fr 1.2fr 2fr 42px;gap:10px;align-items:end;margin-bottom:10px}
+.injr .xr{height:44px}
+.lc{font-style:normal;font-size:11px;font-weight:700;background:#fdebd0;color:#7a4300;border-radius:6px;padding:1px 7px;margin-left:4px;vertical-align:middle}
+.inw{display:block;margin-top:3px;line-height:1.3}.inw:empty{display:none}.inw .lw,.inw .lc{margin-left:0;white-space:normal}
+.exn{min-width:0}
+/* proposte del prossimo esercizio */
+.sugg{position:sticky;left:0;box-sizing:border-box;border:1.5px dashed var(--brand);background:#f8f4fd;border-radius:14px;padding:12px 14px;margin:2px 0 12px;white-space:normal}
+.sgh{display:flex;align-items:center;gap:8px 12px;flex-wrap:wrap;margin-bottom:10px}.sgh b{font-size:15px}.sgh .sp{flex:1}
+.sgh label{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);cursor:pointer}
+.sugg input[type=checkbox]{width:18px!important;height:18px;padding:0;margin:0;accent-color:var(--brand);flex-shrink:0}
+.sgg{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
+.sgc{display:flex;flex-direction:column;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px}
+.sgk{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--brand)}.sgk small{font-family:system-ui,sans-serif;letter-spacing:0;text-transform:none;color:var(--muted);font-weight:600}
+.sugg .sgi{width:100%;min-width:0;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);font:600 14px/1.3 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.sgd{font-size:12px;color:var(--muted);min-height:32px;line-height:1.35}
+.sgss{font-size:12px;color:var(--muted);display:flex;gap:6px;align-items:center;cursor:pointer}
+.sgb{display:flex;gap:6px;margin-top:auto}.sgb button{flex:1;border:1.5px solid var(--line);background:var(--surface);color:var(--text);border-radius:8px;padding:7px 8px;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.sgb button.pri{background:var(--brand);border-color:var(--brand);color:#fff}.sgb button:disabled{opacity:.4;cursor:default}
+.xr.sgon{background:var(--brand);border-color:var(--brand);color:#fff}
+@media (max-width:600px){.injr{grid-template-columns:1fr 1fr}.injr .fl:nth-child(4){grid-column:1/-1}}
+@media print{.sugg,.inw{display:none!important}}
 @media (max-width:600px){.rmr{grid-template-columns:1fr 1fr}.rmr .tout{grid-column:1/-1}.tcard .two{grid-template-columns:1fr}}
 @page{size:A4;margin:15mm}
 @media print{
@@ -479,8 +501,94 @@ function afld(id,label,val,ph){return '<label class="fl full">'+label+'<textarea
 function ageOf(u){if(u.eta!==''&&u.eta!=null)return u.eta;if(!u.d)return '';var b=new Date(u.d),t=new Date(),a=t.getFullYear()-b.getFullYear();if(t.getMonth()<b.getMonth()||(t.getMonth()===b.getMonth()&&t.getDate()<b.getDate()))a--;return isNaN(a)?'':a}
 function pqState(pq){pq=pq||[];if(pq.indexOf('si')>-1)return 'warn';var n=0;pq.forEach(function(x){if(x==='no')n++});return n===PARQ.length?'ok':'na'}
 var PQT={ok:'PAR-Q idoneo',warn:'PAR-Q: serve il parere del medico',na:'PAR-Q da completare'};
+// ---- Infortuni e traumi: zona, lato, stato → esercizi esclusi, segnalati o consigliati ----
+// Stato: acuto = esclusi tutti gli esercizi che caricano la zona · in recupero = esclusi quelli ad alto carico, gli altri «cautela» · pregresso = ammessi, «cautela» su quelli ad alto carico
+var INJZ=[['cerv','Cervicale'],['spalla','Spalla'],['gomito','Gomito'],['polso','Polso / mano'],['lomb','Lombare / schiena'],['anca','Anca / inguine'],['ginoc','Ginocchio'],['cavig','Caviglia / piede']];
+var INJN={};INJZ.forEach(function(z){INJN[z[0]]=z[1]});
+var INJS=[['acuto','Acuto / doloroso ora'],['recupero','In recupero'],['pregresso','Pregresso (risolto)']],INJRK={acuto:3,recupero:2,pregresso:1};
+var INJL=[['','—'],['dx','Destro'],['sx','Sinistro'],['bil','Entrambi']];
+// b: esercizi di rinforzo o alternativi favoriti nella selezione · t: regola mostrata al PT · mob: mobilità mirata (solo se non acuto)
+var INJR={
+ cerv:{b:{'Face pull':2,'Elevazioni prono su panca inclinata':1,'Leg press':1,'Goblet squat':1},t:'niente bilanciere appoggiato sul trapezio né scrollate; spinte sopra la testa e crunch solo senza dolore; rinforzo dei fissatori della scapola'},
+ spalla:{b:{'Face pull':3,'Elevazioni prono su panca inclinata':2,'Alzate posteriori ai cavi':1,'Rematore manubrio':1},t:'niente spinte sopra la testa, dip e tirate al mento; spinte orizzontali solo senza dolore; rinforzo dei rotatori esterni e dei fissatori della scapola',mob:'ms'},
+ gomito:{b:{'Chest press':1,'Rematore manubrio':1,'Leg press':1},t:'niente estensioni dei tricipiti sopra la testa e dip; curl, pushdown e trazioni solo leggeri e senza dolore'},
+ polso:{b:{'Chest press':1,'Pectoral machine':1,'Lat machine':1,'Leg press':1},t:'meglio macchine e cavi; niente appoggi sulle mani (piegamenti, plank, quadrupedia), front squat e girate'},
+ lomb:{b:{'Dead bug':3,'Bird dog':3,'Side plank':2,'Pallof press':2,'Hip thrust':2,'Ponte glutei':1,'Bulgarian split squat':1,'Leg curl':1},t:'niente carichi assiali pesanti (squat e stacchi con bilanciere, rematore con bilanciere, military, swing) né sit-up; core in anti-estensione e anti-rotazione, glutei con hip thrust',mob:'mf'},
+ anca:{b:{'Ponte glutei':2,'Hip thrust':1,'Dead bug':1,'Leg curl':1},t:'niente pliometria, affondi laterali, cossack e Copenhagen; flessioni d’anca profonde sotto carico solo senza dolore; rinforzo dei glutei',mob:'mh'},
+ ginoc:{b:{'Hip thrust':2,'Ponte glutei':1,'Leg curl':1,'Stacco rumeno':1,'Abductor machine':1},t:'niente salti, sissy squat e cossack; squat, affondi e leg extension in escursione senza dolore; rinforzo di glutei e femorali'},
+ cavig:{b:{'Leg press':1,'Leg curl':1,'Hip thrust':1,'Calf seduto':1},t:'niente salti e spinta della slitta; affondi, trasporti e polpacci solo senza dolore; mobilità della caviglia quando il dolore lo consente',mob:'mk'}
+};
+var injGuess=false;
+function injOpts(list,v){return list.map(function(o){return '<option value="'+o[0]+'"'+(o[0]===(v||'')?' selected':'')+'>'+esc(o[1])+'</option>'}).join('')}
+function injRow(x){x=x||{};return '<div class="injr"><label class="fl">Zona<select class="inj_z"><option value="">— Seleziona —</option>'+injOpts(INJZ,x.z)+'</select></label>'+
+  '<label class="fl">Lato<select class="inj_l">'+injOpts(INJL,x.lato)+'</select></label>'+
+  '<label class="fl">Stato<select class="inj_s">'+injOpts(INJS,x.st||'recupero')+'</select></label>'+
+  '<label class="fl">Note (diagnosi, data, indicazioni)<input class="inj_n" value="'+esc(x.nt||'')+'" placeholder="Es. tendinopatia sovraspinato, ottobre 2026"></label>'+
+  '<button type="button" class="xr" data-act="injrm" aria-label="Rimuovi infortunio" title="Rimuovi">×</button></div>'}
+function readInj(){return [].map.call(document.querySelectorAll('#injl .injr'),function(r){return {z:r.querySelector('.inj_z').value,lato:r.querySelector('.inj_l').value,st:r.querySelector('.inj_s').value||'recupero',nt:r.querySelector('.inj_n').value.trim()}}).filter(function(x){return INJN[x.z]})}
+function injLabel(x){var l={dx:' dx',sx:' sx',bil:' (entrambi i lati)'}[x.lato]||'';return INJN[x.z]+l+' — '+({acuto:'acuto',recupero:'in recupero',pregresso:'pregresso'}[x.st]||'')}
+// Riconoscimento dal testo libero (clienti salvati prima della lista strutturata)
+var INJRE=[['cerv',/cervical|\bcollo\b|colpo di frusta/],['spalla',/spall|cuffia|rotator|sovraspinat|impingement|acromion|clavicol/],['gomito',/gomit|epicondil|epitrocle/],['polso',/\bpols|\bman[oi]\b|carpal|\bdit[ao]\b/],
+ ['lomb',/lomb|ernia|protrusion|discopat|sciatic|schiena|\bl[1-5]\b|sacral|coccig/],['anca',/\banca\b|inguin|pubalg|adduttor|coxartros|acetabol/],['ginoc',/ginocch|menisc|crociat|\blca\b|\bacl\b|rotul|patell/],['cavig',/cavigl|achill|tallon|\bpied[ei]\b|plantar|malleol/]];
+function injFromText(t){
+  var o={};
+  String(t||'').toLowerCase().split(/[,;\n.]+/).forEach(function(ch){
+    if(!ch.trim()||/nessun|mai avuto|non ha|niente/.test(ch))return;
+    var st=/pregress|vecchi|anni fa|in passato|operat|intervent|esiti|risolt|guarit/.test(ch)?'pregresso':/acut|recent|in corso|attual|infiamm|da poco|giorni fa|settimane fa/.test(ch)?'acuto':'recupero';
+    var lato=/\bdx\b|destr/.test(ch)?'dx':/\bsx\b|sinistr/.test(ch)?'sx':'';
+    INJRE.forEach(function(z){if(z[1].test(ch)&&(!o[z[0]]||INJRK[st]>INJRK[o[z[0]].st]))o[z[0]]={z:z[0],lato:lato,st:st,nt:ch.trim()}});
+  });
+  return INJZ.map(function(z){return o[z[0]]}).filter(Boolean);
+}
+function injList(u){return u?(Array.isArray(u.infl)?u.infl:injFromText(u.inf)).filter(function(x){return INJN[x.z]}):[]}
+function injText(u){return injList(u).map(injLabel).join(' · ')}
+// Carico di ogni esercizio sulle zone: 1 moderato · 2 elevato (ricavato da sotto-pattern, flag, muscolo e nome)
+function inN(e,l){return l.indexOf(e.n)>-1}
+function injLoad(e){
+  if(e._inj)return e._inj;
+  var z={},S=function(k,v){if((z[k]||0)<v)z[k]=v},n=e.n,s=e.sub,m=e.m,P=e.p,dip=/Dip|Parallele/.test(n);
+  // spalla
+  if(hasF(e,'oh')||s==='pv'||dip||inN(e,['Wall ball','Clean & press']))S('spalla',2);
+  if(s==='po'||(s==='pi'&&(m==='Petto'||m==='Deltoidi'))||s==='lv'||/Pullover/.test(n)||inN(e,['Plank','Side plank','Copenhagen plank','Dislocazioni con bastone','Lancio laterale palla medica']))S('spalla',1);
+  if(n==='Landmine press')z.spalla=1;
+  // gomito
+  if(dip||/French|Estensioni dietro/.test(n))S('gomito',2);
+  if((s==='pi'&&m==='Tricipiti')||(s==='li'&&m==='Bicipiti')||s==='lv'||n==='Flessioni ed estensioni dei polsi')S('gomito',1);
+  // polso
+  if(dip||inN(e,['Piegamenti','Front squat','Clean & press','Flessioni ed estensioni dei polsi','Push press']))S('polso',2);
+  if(inN(e,['Plank','Side plank','Copenhagen plank','Bird dog','Slanci in quadrupedia','Rotazioni toraciche in quadrupedia','World’s greatest stretch'])||(e.role==='carry'&&n!=='Spinta slitta')||(hasEq(e,'b')&&(P==='Push'||(s==='li'&&m==='Bicipiti'))))S('polso',1);
+  // cervicale
+  if(inN(e,['Squat','Mezzo squat','Squat al multipower','Scrollate (shrugs)']))S('cerv',2);
+  if(hasF(e,'oh')||s==='cf'||inN(e,['Hollow hold','Hack squat','Farmer walk','Stacco da terra']))S('cerv',1);
+  // lombare
+  if((hasF(e,'vs')&&(P!=='Push'||s==='pv'))||s==='hb'||s==='hp'||inN(e,['Push press','Clean & press','Sit-up','Sollevamenti gambe in sospensione','Crunch gambe tese','Roll up']))S('lomb',2);
+  if(s==='sb'||s==='he'||s==='sp'||s==='hu'||e.role==='carry'||inN(e,['Hyperextension 45°','Hollow hold','Crunch inverso','Crunch su fitball','Crunch inverso con fitball','Alzate posteriori a busto flesso','Croci ai cavi alti a busto flesso']))S('lomb',1);
+  // anca
+  if(s==='sp'||inN(e,['Copenhagen plank','Cossack squat','Affondi laterali']))S('anca',2);
+  if(s==='sb'||s==='su'||s==='hb'||s==='hu'||s==='hp'||inN(e,['Adductor machine','Abductor machine','Sit-up','Sollevamenti gambe in sospensione','Crunch gambe tese','Slanci al cavo basso','Slanci in quadrupedia','Spinta slitta','90/90 anche','World’s greatest stretch','Allungamento flessori dell’anca']))S('anca',1);
+  // ginocchio
+  if(s==='sp'||inN(e,['Sissy squat','Cossack squat']))S('ginoc',2);
+  if(s==='sb'||s==='su'||inN(e,['Leg extension','Wall sit','Nordic curl','Spinta slitta']))S('ginoc',1);
+  // caviglia
+  if(s==='sp'||n==='Spinta slitta')S('cavig',2);
+  if(s==='su'||(s==='si'&&m==='Polpacci')||e.role==='carry'||inN(e,['Squat','Front squat','Goblet squat','Mezzo squat','Cossack squat','Mobilità caviglia knee-to-wall']))S('cavig',1);
+  return e._inj=z;
+}
+// Esito per il cliente: avoid = da evitare · caut = cautela · '' = nessun problema
+function injHit(e,c){
+  var r={lvl:'',z:[]};if(!e||!c||!c.injZ)return r;var L=injLoad(e);
+  Object.keys(c.injZ).forEach(function(k){var st=c.injZ[k],v=L[k]||0;if(!v)return;
+    if((st===3&&v>=1)||(st===2&&v>=2)){if(r.lvl!=='avoid')r.z=[];r.lvl='avoid';r.z.push(k)}
+    else if(r.lvl!=='avoid'&&(st===2||v>=2)){r.lvl='caut';r.z.push(k)}});
+  return r;
+}
+function injZn(h){return h.z.map(function(k){return INJN[k].split(' /')[0].toLowerCase()}).join(', ')}
+function injTag(h,long){return h.lvl==='avoid'?'<i class="lw">'+(long?'sconsigliato per infortunio':'da evitare')+': '+esc(injZn(h))+'</i>':h.lvl==='caut'?'<i class="lc">cautela: '+esc(injZn(h))+'</i>':''}
+function injTagN(n,c){var e=EXI[ekey(n)];return e?injTag(injHit(e,c)):''}
 function renderAnam(){
   var u=aid?find(aid):null,v=u||{},pq=v.pq||[];
+  // clienti salvati prima di questa versione: propongo gli infortuni riconosciuti nel testo libero
+  var injRows=Array.isArray(v.infl)?v.infl:injFromText(v.inf);injGuess=!Array.isArray(v.infl)&&injRows.length>0;
   document.getElementById('main').innerHTML=
    '<div class="ahead"><button class="back" data-act="aback">← Atleti</button><div><div class="kick">'+(u?'Profilo atleta':'Nuovo atleta')+'</div><h2 style="margin:0">'+(u?esc(u.n+' '+u.c):'Nuovo cliente')+'</h2></div><span class="pqb" id="pqb"></span><span class="sp"></span>'+steps('anam')+'</div>'+
    '<div class="kick">Modulo 01 — Intake e screening di sicurezza</div><h2 class="atitle">Anamnesi, obiettivi e stile di vita</h2>'+
@@ -495,8 +603,11 @@ function renderAnam(){
    '<section class="asec"><h3>Screening PAR-Q (Physical Activity Readiness Questionnaire)</h3><p class="sub">Se il cliente risponde «Sì» ad almeno una domanda, prima di test o carichi intensi serve la valutazione e l’autorizzazione del medico.</p>'+
     PARQ.map(function(q,i){return '<div class="pqr"><span>'+(i+1)+'. '+esc(q)+'</span><div class="yn" role="group" aria-label="Domanda '+(i+1)+'">'+['si','no'].map(function(x){return '<button type="button" data-pq="'+i+'" data-v="'+x+'" aria-pressed="'+(pq[i]===x)+'">'+(x==='si'?'Sì':'No')+'</button>'}).join('')+'</div></div>'}).join('')+
    '<div class="warn" id="pqw" hidden>Almeno una risposta è «Sì»: chiedi il parere del medico prima di iniziare test o carichi intensi.</div></section>'+
-   '<section class="asec"><h3>Stato di salute</h3><div class="fg">'+
-    afld('a_inf','Infortuni pregressi, dolori articolari o patologie note',v.inf,'Es. ernia L5-S1, pregressa distorsione caviglia dx, ipertensione controllata…')+
+   '<section class="asec"><h3>Stato di salute</h3>'+
+    '<h4 style="margin:0 0 4px;font-size:16px">Infortuni e traumi</h4><p class="sub" style="margin:0 0 12px">Indica zona, lato e stato: la selezione automatica, la libreria, i blocchi e le proposte del prossimo esercizio ne tengono conto (esercizi esclusi o segnalati «cautela»).</p>'+
+    '<div id="injl">'+injRows.map(injRow).join('')+'</div><button type="button" class="addx" data-act="injadd">+ Aggiungi infortunio o trauma</button><div class="info" id="injh" hidden></div>'+
+    '<div class="fg" style="margin-top:16px">'+
+    afld('a_inf','Altre note su infortuni, dolori articolari o patologie',v.inf,'Es. ernia L5-S1, pregressa distorsione caviglia dx, ipertensione controllata…')+
     afld('a_sal','C’è qualcos’altro che dovrei sapere sulla sua salute? (sonno, stress, farmaci)',v.sal,'Es. disturbi del sonno, stress lavorativo elevato, terapie farmacologiche…')+
    '</div></section>'+
    '<section class="asec"><h3>Obiettivi principali <small>(selezione multipla)</small></h3>'+tgs('ob',OBJ,v.ob)+
@@ -523,6 +634,10 @@ function updAnam(){
   if(w&&h)t.push('rapporto vita/altezza '+fnum(Math.round(w/h*100)/100));
   var ix=document.getElementById('idx');ix.hidden=!t.length;ix.textContent='Indici calcolati: '+t.join(' · ');
   document.getElementById('spaltw').hidden=readG('sp').indexOf('Altro')<0;
+  var il=readInj(),ih=gid('injh');
+  if(ih){ih.hidden=!il.length;ih.className=il.some(function(x){return x.st==='acuto'})?'warn':'info';
+    ih.innerHTML=(injGuess?'<b>Riconosciuti dalle note:</b> controlla zona, lato e stato prima di salvare.<br>':'')+il.map(function(x){return '<b>'+esc(injLabel(x))+'</b>: '+esc(INJR[x.z].t)+'.'}).join('<br>')+
+     (il.some(function(x){return x.st==='acuto'})?'<br>Infortunio acuto: prima di caricare la zona serve il via libera del medico o del fisioterapista.':'')}
   var fr=nv('a_sfreq'),ss=nv('a_ssess')||1,du=nv('a_sdur'),rp=nv('a_srpe'),lw=document.getElementById('loadw');
   if(!fr||!du){lw.hidden=true;return}
   var sed=fr*ss,ore=sed*du/60,ua=rp?sed*du*rp:0,hi=sed>=5||ua>=2500;
@@ -538,7 +653,7 @@ async function saveAnam(next){
   if(!n||!c){st('astat','Inserisci nome e cognome.');document.getElementById(n?'a_c':'a_n').focus();return}
   var u=aid?find(aid):null,o=u?Object.assign({},u):{id:newId('u')};
   Object.assign(o,{n:n,c:c,eta:nv('a_eta'),sx:gv('a_sx'),peso:nv('a_peso'),alt:nv('a_alt'),liv:gv('a_liv'),cert:gv('a_cert'),vita:nv('a_vita'),fia:nv('a_fia'),pet:nv('a_pet'),brac:nv('a_brac'),cos:nv('a_cos'),
-   d:gv('a_d'),cf:gv('a_cf').toUpperCase(),t:gv('a_t'),e:gv('a_e'),ci:gv('a_ci'),pq:readPQ(),inf:gv('a_inf'),sal:gv('a_sal'),ob:readG('ob'),gara:gv('a_gara'),
+   d:gv('a_d'),cf:gv('a_cf').toUpperCase(),t:gv('a_t'),e:gv('a_e'),ci:gv('a_ci'),pq:readPQ(),infl:readInj(),inf:gv('a_inf'),sal:gv('a_sal'),ob:readG('ob'),gara:gv('a_gara'),
    sp:readG('sp'),spAlt:gv('a_spalt'),sfreq:nv('a_sfreq'),ssess:nv('a_ssess'),sdur:nv('a_sdur'),srpe:nv('a_srpe'),scal:gv('a_scal'),mus:readG('mus'),split:readG('split')[0]||'',agg:todayIso()});
   try{await Store.put('utenti',o)}catch(e){st('astat','Salvataggio non riuscito. Riprova.');return}
   var k=U.findIndex(function(x){return String(x.id)===String(o.id)});if(k>-1)U[k]=o;else U.unshift(o);
@@ -557,7 +672,9 @@ document.addEventListener('click',function(e){
     [].forEach.call(document.querySelectorAll('.yn button[data-pq="'+i+'"]'),function(b){b.setAttribute('aria-pressed','false')});
     if(!was)y.setAttribute('aria-pressed','true');updAnam();return}
   var a=e.target.closest('[data-act]');if(!a)return;var k=a.getAttribute('data-act');
-  if(k==='aback'){aid=null;cur='home';render();window.scrollTo(0,0)}
+  if(k==='injadd'){gid('injl').insertAdjacentHTML('beforeend',injRow({}));var z=gid('injl').lastElementChild.querySelector('select');if(z)z.focus();updAnam()}
+  else if(k==='injrm'){var ir=a.closest('.injr');if(ir)ir.remove();updAnam()}
+  else if(k==='aback'){aid=null;cur='home';render();window.scrollTo(0,0)}
   else if(k==='asave')saveAnam('home');
   else if(k==='asavesch')saveAnam('test');
   else if(k==='anam')openAnam(a.getAttribute('data-id'));
@@ -887,7 +1004,7 @@ function openUser(id){
   var u=find(id); if(!u)return;
   var j=function(a){return a&&a.length?a.join(', '):''};
   var pm=[u.peso?fnum(u.peso)+' kg':'',u.alt?fnum(u.alt)+' cm':''].filter(Boolean).join(' · ');
-  var rows=[['Età',ageOf(u)!==''?ageOf(u)+' anni':''],['Sesso',u.sx],['Livello',u.liv],['Peso e altezza',pm],['Obiettivi',j(u.ob)],['Gara / sport obiettivo',u.gara],['Gruppi prioritari',j(u.mus)],['Split preferito',u.split],['Telefono',u.t],['Email',u.e],['Ultimo check-in',u.ck?fdate(u.ck):'']];
+  var rows=[['Età',ageOf(u)!==''?ageOf(u)+' anni':''],['Sesso',u.sx],['Livello',u.liv],['Peso e altezza',pm],['Obiettivi',j(u.ob)],['Gara / sport obiettivo',u.gara],['Gruppi prioritari',j(u.mus)],['Infortuni',injText(u)],['Split preferito',u.split],['Telefono',u.t],['Email',u.e],['Ultimo check-in',u.ck?fdate(u.ck):'']];
   var btn=function(s,l){return (u[s+'Id']||u[s+'Blob'])?'<button data-act="dl" data-id="'+esc(u.id)+'" data-side="'+s+'">Scarica '+l+'</button>':''};
   var docs=btn('front','fronte')+btn('back','retro'),ps=pqState(u.pq);
   modal('<h3>'+esc(u.n+' '+u.c)+'</h3><div><span class="pqb '+ps+'">'+PQT[ps]+'</span></div><dl class="det">'+rows.map(function(r){return '<dt>'+r[0]+'</dt><dd>'+esc(r[1]||'—')+'</dd>'}).join('')+'</dl>'+
@@ -2087,7 +2204,7 @@ var SPORTP=[
 ];
 function profile(u){
   u=u||{};
-  var c={lvl:lvlOf(u),ob:u.ob||[],prio:prioMus(u),avoid:{},avoidN:{},bonus:{},sport:[],sportT:[],mob:[],notes:[],rm:{},pq:pqState(u.pq)==='warn',hiLoad:false,extraDays:0,cardio:false,pref:u.split||''};
+  var c={lvl:lvlOf(u),ob:u.ob||[],prio:prioMus(u),avoid:{},avoidN:{},bonus:{},sport:[],sportT:[],mob:[],notes:[],rm:{},pq:pqState(u.pq)==='warn',hiLoad:false,extraDays:0,cardio:false,pref:u.split||'',inj:[],injZ:null};
   var bon=function(n,x){c.bonus[n]=(c.bonus[n]||0)+x},mob=function(){[].forEach.call(arguments,function(m){if(c.mob.indexOf(m)<0)c.mob.push(m)})};
   ((u.test&&u.test.rm)||[]).forEach(function(r){var n=RM_MAP[r.e],e=rmEst(r.k,r.r);if(n&&e&&!e.bad){var v=e.d||(e.e+e.b)/2;if(!c.rm[n]||v>c.rm[n])c.rm[n]=v}});
   var txt=[u.gara,(u.sp||[]).join(' '),u.spAlt].join(' ').toLowerCase();
@@ -2109,6 +2226,14 @@ function profile(u){
   if(c.ob.indexOf('Mobilità')>-1&&!c.mob.length)mob('mh','ms','mi');
   if(c.pq){c.avoid.pl=1;c.notes.push('PAR-Q con almeno un «Sì»: niente pliometria e intensità prudenti finché il medico non dà l’idoneità.')}
   if(c.hiLoad)c.notes.push('Carico degli sport extra elevato: una serie in meno sui complementari e un esercizio in meno per seduta.');
+  // infortuni: per ogni zona tengo lo stato più delicato
+  c.inj=injList(u);
+  if(c.inj.length){c.injZ={};c.inj.forEach(function(x){var r=INJRK[x.st]||2;if(!c.injZ[x.z]||r>c.injZ[x.z])c.injZ[x.z]=r});
+    INJZ.forEach(function(z){var k=z[0],r=c.injZ[k];if(!r)return;var R=INJR[k];
+      Object.keys(R.b).forEach(function(n){bon(n,R.b[n])});if(R.mob&&r<3)mob(R.mob);
+      var lt=c.inj.filter(function(x){return x.z===k&&x.lato}).map(function(x){return {dx:'dx',sx:'sx',bil:'bilaterale'}[x.lato]})[0];
+      c.notes.push('Infortunio '+INJN[k].toLowerCase()+(lt?' '+lt:'')+' ('+['','pregresso','in recupero','acuto'][r]+'): '+R.t+'. '+
+       (r===3?'Esclusi tutti gli esercizi che caricano la zona; prima di caricarla serve il via libera del medico o del fisioterapista.':r===2?'Esclusi gli esercizi ad alto carico per la zona; gli altri sono segnalati «cautela».':'Esercizi ammessi; quelli ad alto carico per la zona sono segnalati «cautela».'))});}
   return c;
 }
 function autoFreq(c){
@@ -2151,7 +2276,7 @@ function dayPlan(sp,f){
   var n={},tot={};L.forEach(function(t){tot[t]=(tot[t]||0)+1});
   return {note:note,days:L.map(function(t){n[t]=(n[t]||0)+1;return {type:t,occ:n[t],t:DTT[t]+(tot[t]>1?' '+String.fromCharCode(64+n[t]):'')}})};
 }
-function okEx(e,c,lvMax){return e.lv<=lvMax&&!c.avoidN[e.n]&&!(c.avoid.oh&&hasF(e,'oh'))&&!(c.avoid.pl&&e.role==='plyo')}
+function okEx(e,c,lvMax){return e.lv<=lvMax&&!c.avoidN[e.n]&&!(c.avoid.oh&&hasF(e,'oh'))&&!(c.avoid.pl&&e.role==='plyo')&&injHit(e,c).lvl!=='avoid'}
 function pick(sl,c,used,day,relax){
   var lvMax=Math.min(3,c.lvl+(relax?1:0)),best=null,bs=-1e9;
   EXDB.forEach(function(e){
@@ -2160,7 +2285,7 @@ function pick(sl,c,used,day,relax){
     if(sl.plyo?e.role!=='plyo':e.role==='plyo')return;
     if(sl.core&&e.role!=='core')return;
     if(day.some(function(x){return x.n===e.n})||!okEx(e,c,lvMax))return;
-    var s=(sl.main?(e.role==='main'?3:0):(e.role==='main'?-1:0))-4*(used[e.n]||0)+(c.prio.indexOf(e.m)>-1?2:0)+(c.bonus[e.n]||0)+(e.lv===c.lvl?0.5:0)+(e.x?-0.6:0)+(c.lvl===1&&hasEq(e,'m')?0.7:0);
+    var s=(sl.main?(e.role==='main'?3:0):(e.role==='main'?-1:0))-4*(used[e.n]||0)+(c.prio.indexOf(e.m)>-1?2:0)+(c.bonus[e.n]||0)+(e.lv===c.lvl?0.5:0)+(e.x?-0.6:0)+(c.lvl===1&&hasEq(e,'m')?0.7:0)-(injHit(e,c).lvl==='caut'?1.5:0)+(c.injZ&&c.injZ.polso&&(hasEq(e,'m')||hasEq(e,'c'))?0.6:0);
     if(s>bs){bs=s;best=e}
   });
   return best||(relax?null:pick(sl,c,used,day,true));
@@ -2312,15 +2437,16 @@ function profSum(u,c){
   var rm=((u.test&&u.test.rm)||[]).map(function(r){var e=rmEst(r.k,r.r);if(!e||e.bad)return '';return esc(r.e)+' '+kg(e.d||(e.e+e.b)/2)}).filter(Boolean);
   if(rm.length)p.push('<b>1RM stimati:</b> '+rm.join(' · '));
   var w=pqState(u.pq)==='warn'?'<div class="warn">PAR-Q con almeno un «Sì»: serve il parere del medico prima di carichi intensi.</div>':'';
+  var il=injList(u);if(il.length)w+='<div class="'+(il.some(function(x){return x.st==='acuto'})?'warn':'info')+'" style="margin:0 0 16px"><b>Infortuni:</b> '+esc(il.map(injLabel).join(' · '))+'. Gli esercizi che caricano la zona sono esclusi o segnalati «cautela».</div>';
   return (p.length?'<div class="info" style="margin:0 0 16px">'+p.join('<br>')+'</div>':'')+w;
 }
 // ---- Editor sedute ----
-var XH='<div class="xh exr"><span></span><span>Esercizio</span><span>Pattern</span><span>Muscolo</span><span>Serie</span><span>Rip.</span><span>RPE</span><span>Carico target (%1RM / RIR)</span><span>Kg</span><span>Rec. (s)</span><span>Note esecutive (postura e respirazione)</span><span></span><span></span></div>';
+var XH='<div class="xh exr"><span></span><span>Esercizio</span><span>Pattern</span><span>Muscolo</span><span>Serie</span><span>Rip.</span><span>RPE</span><span>Carico target (%1RM / RIR)</span><span>Kg</span><span>Rec. (s)</span><span>Note esecutive (postura e respirazione)</span><span></span><span></span><span></span></div>';
 function exRow(e){
   e=e||{};
   var o=function(list,v){return '<option value="">—</option>'+list.map(function(m){return '<option'+(v===m?' selected':'')+'>'+m+'</option>'}).join('')};
   return '<div class="exr'+(e.lk?' lk':'')+'"><button type="button" class="lkb" data-act="lk" aria-label="Superserie con l’esercizio sopra" title="Superserie con l’esercizio sopra">SS</button>'+
-   '<input class="ex_n" list="exlist" placeholder="Esercizio" aria-label="Esercizio" value="'+esc(e.n||'')+'">'+
+   '<div class="exn"><input class="ex_n" list="exlist" placeholder="Esercizio" aria-label="Esercizio" value="'+esc(e.n||'')+'"><span class="inw">'+(e.n?injTagN(e.n,gctx):'')+'</span></div>'+
    '<select class="ex_p" aria-label="Pattern di movimento">'+o(PATS,e.p)+'</select>'+
    '<select class="ex_m" aria-label="Muscolo principale"'+(e.m&&!e.auto?' data-man="1"':'')+'>'+o(MUSCLES,e.m)+'</select>'+
    '<input class="ex_s" type="number" min="0" inputmode="numeric" aria-label="Serie" placeholder="Serie" value="'+esc(e.s==null?'':e.s)+'">'+
@@ -2330,6 +2456,7 @@ function exRow(e){
    '<input class="ex_k" type="number" min="0" step="0.5" inputmode="decimal" aria-label="Kg" placeholder="Kg" value="'+esc(e.k==null?'':e.k)+'">'+
    '<input class="ex_rec" type="number" min="0" step="15" inputmode="numeric" aria-label="Recupero in secondi" placeholder="s" value="'+esc(e.rec==null?'':e.rec)+'">'+
    '<textarea class="ex_nt" rows="2" aria-label="Note esecutive e tecniche" placeholder="Postura, respirazione, tempo…"'+(e.auto?' data-auto="1"':'')+'>'+esc(e.nt||'')+'</textarea>'+
+   '<button type="button" class="xr" data-act="sg" aria-label="Proponi il prossimo esercizio" title="Proponi il prossimo esercizio">✦</button>'+
    '<button type="button" class="xr" data-act="swap" aria-label="Sostituisci dalla libreria" title="Sostituisci dalla libreria">⇄</button>'+
    '<button type="button" class="xr" data-act="rmex" aria-label="Rimuovi esercizio" title="Rimuovi esercizio">×</button></div>';
 }
@@ -2402,6 +2529,7 @@ function updGen(){
   if(!cd.getAttribute('data-man'))cd.value=genCool(es);
   gid('vol').innerHTML=(n!==f?'<p class="status" style="margin-top:0">La scheda ha '+n+(n===1?' seduta diversa':' sedute diverse')+' per '+f+(f==1?' allenamento':' allenamenti')+' a settimana: si ripetono a rotazione e il volume è calcolato di conseguenza.</p>':'')+volHtml(es,f/n,find(suid));
   gid('leg').innerHTML=legendHtml(es);
+  [].forEach.call(document.querySelectorAll('#days .exr'),function(r){var w=r.querySelector('.inw');if(w)w.innerHTML=injTagN(r.querySelector('.ex_n').value,gctx)});
 }
 function genDirty(){return cur==='gen'&&!!gid('days')&&gDirty}
 function anyDirty(){return genDirty()||(cur==='ed'&&!!ED.sc&&ED.dirty)}
@@ -2474,10 +2602,11 @@ function openLib(t){
   document.querySelector('#modal .mbox').classList.add('xl');listLib();
 }
 function libWarn(e){var c=gctx;if(!c)return '';
+  var ih=injHit(e,c);if(ih.lvl==='avoid')return injTag(ih,1);
   if(c.avoidN[e.n]||(c.avoid.oh&&hasF(e,'oh')))return '<i class="lw">sconsigliato dai test</i>';
   if(c.avoid.pl&&e.role==='plyo')return '<i class="lw">sconsigliato dal PAR-Q</i>';
-  if(e.lv>c.lvl)return '<i class="lw">livello superiore al cliente</i>';
-  return c.bonus[e.n]>0?'<i class="dc">consigliato</i>':''}
+  if(e.lv>c.lvl)return '<i class="lw">livello superiore al cliente</i>'+injTag(ih);
+  return ih.lvl?injTag(ih):c.bonus[e.n]>0?'<i class="dc">consigliato</i>':''}
 var LIBK=['Base','Complementare','Esplosivo','Core'];
 function libMatch(e,skip){var q=libQ.toLowerCase().trim();
   return (skip==='p'||!libP||e.p===libP)&&(skip==='k'||!libK||exType(e)===libK)&&(skip==='e'||!libE||hasEq(e,libE))&&
@@ -2508,22 +2637,160 @@ function libPick(n){
     var D=ED.sc.days[ED.day];
     if(libT.i!=null){var x=D.es[libT.i],old=EXI[ekey(x.n)],keep=old&&old.role===e.role?{s:x.s,r:x.r,rpe:x.rpe,rec:x.rec}:{};
       Object.keys(keep).forEach(function(k){if(keep[k]===''||keep[k]==null)delete keep[k]});
-      D.es[libT.i]=Object.assign(o,keep,{lk:x.lk});closeModal()}
-    else{var ei=D.es.findIndex(function(x){return !x.n});if(ei>-1)D.es[ei]=Object.assign(o,{lk:D.es[ei].lk});else D.es.push(o);
+      D.es[libT.i]=Object.assign(o,keep,{lk:x.lk});closeModal();if(sgAuto())ED.sg=libT.i}
+    else{var ei=D.es.findIndex(function(x){return !x.n});if(ei>-1)D.es[ei]=Object.assign(o,{lk:D.es[ei].lk});else{D.es.push(o);ei=D.es.length-1}if(sgAuto())ED.sg=ei;
       st('libst','Aggiunto «'+e.n+'». Puoi aggiungerne altri o chiudere la libreria.')}
     edMark();edRefresh();return;
   }
   if(libT.row){
     var old=EXI[ekey(libT.row.querySelector('.ex_n').value)],same=old&&old.role===e.role;
     libT.row.querySelector('.ex_k').value='';
-    setRow(libT.row,o,same?['.ex_s','.ex_r','.ex_rpe','.ex_rec']:null);closeModal();
+    setRow(libT.row,o,same?['.ex_s','.ex_r','.ex_rpe','.ex_rec']:null);closeModal();var shown=libT.row;
   }else{
     var box=libT.day.querySelector('.exs'),empty=[].filter.call(box.querySelectorAll('.exr'),function(r){return !r.querySelector('.ex_n').value.trim()})[0];
     if(empty)setRow(empty,o);else box.insertAdjacentHTML('beforeend',exRow(o));
+    var all=box.querySelectorAll('.exr');shown=empty||all[all.length-1];
     st('libst','Aggiunto «'+e.n+'». Puoi aggiungerne altri o chiudere la libreria.');
   }
-  gTouched=gDirty=true;refreshEx();updGen();
+  gTouched=gDirty=true;refreshEx();updGen();if(sgAuto())genSgShow(shown);
 }
+// ---- Proposte del prossimo esercizio: 5 tipologie abbinate all’esercizio appena inserito ----
+// Antagonista (superserie) · Stesso muscolo · Pattern complementare · Core e stabilità · Funzionale / correttivo.
+// Rispettano livello, PAR-Q, test e infortuni (okEx) ed escludono gli esercizi già presenti nella seduta.
+var SGT=[['ant','Antagonista','superserie'],['mus','Stesso muscolo','complementare'],['pat','Pattern complementare','bilancia la seduta'],['core','Core e stabilità',''],['fun','Funzionale / correttivo','']];
+var SG=null; // {ctx:'ed'|'gen', anchor, list, row}
+var FAM={po:'push',pv:'push',lo:'pull',lv:'pull',sb:'squat',su:'squat',hb:'hinge',hu:'hinge',hg:'hinge'};
+var FAMS={push:['po','pv'],pull:['lo','lv'],squat:['sb','su'],hinge:['hb','hu','hg']};
+var UPM=['Petto','Dorso','Deltoidi','Bicipiti','Tricipiti'],LOM=['Quadricipiti','Ischiocrurali','Glutei','Polpacci'];
+function sgAuto(){try{return localStorage.getItem('sp_sgoff')!=='1'}catch(e){return true}}
+function sgSetAuto(v){try{if(v)localStorage.removeItem('sp_sgoff');else localStorage.setItem('sp_sgoff','1')}catch(e){}}
+function regionOf(e){var f=FAM[e.sub];if(f)return f==='push'||f==='pull'?'up':'lo';if(UPM.indexOf(e.m)>-1)return 'up';if(LOM.indexOf(e.m)>-1||['si','sp','hh','hp'].indexOf(e.sub)>-1)return 'lo';return ''}
+function antOf(e){
+  if(e.sub==='pi'||e.sub==='li'){var mm={Tricipiti:['li','Bicipiti'],Bicipiti:['pi','Tricipiti'],Petto:['li','Deltoidi'],Deltoidi:[e.sub==='pi'?'li':'pi','Deltoidi'],Dorso:['pi','Petto']}[e.m];return mm?{subs:[mm[0]],m:mm[1]}:{subs:[e.sub==='pi'?'li':'pi']}}
+  if(e.sub==='si')return {subs:e.m?['hh']:['hg']};
+  var A={po:['lo'],pv:['lv'],lo:['po'],lv:['pv'],sb:['hh','hg','hb'],su:['hu','hh','hg'],hb:['sb','su'],hu:['su'],hg:['si','sb','su'],hh:['si'],hp:['sp'],sp:['hp','hg'],he:['ca','cf'],ca:['he','cl'],cf:['he','cl'],cl:['cr','ca'],cr:['cl','ca'],ci:['hh','hg'],c:['ca','cr'],m:['m']}[e.sub];
+  return A?{subs:A}:null;
+}
+// muscoli primari normalizzati (es. «gran dorsale», «grande pettorale») per riconoscere gli esercizi più affini
+function mpTok(e){return String(e.mp||'').toLowerCase().replace(/\([^)]*\)/g,'').split(/,| e /).map(function(t){return t.trim().split(' ').slice(0,2).join(' ')}).filter(Boolean)}
+function sgRank(c,day,a,test){
+  var lvMax=Math.min(3,c.lvl+1),out=[];
+  EXDB.forEach(function(e){
+    if(e.n===a.n||day.indexOf(e.n)>-1||!okEx(e,c,lvMax))return;
+    var s=test(e);if(s===false||s==null)return;
+    s+=(c.bonus[e.n]||0)*.5+(c.prio.indexOf(e.m)>-1?1:0)+(e.lv===c.lvl?.3:0)-(e.lv>c.lvl?.8:0)-(e.x?.3:0)+(c.lvl===1&&hasEq(e,'m')?.5:0)-(injHit(e,c).lvl==='caut'?1.5:0);
+    out.push({e:e,s:s});
+  });
+  return out.sort(function(x,y){return y.s-x.s}).slice(0,6);
+}
+function sugList(name,day,c){
+  var a=EXI[ekey(name)];if(!a)return null;day=day.map(function(n){var k=EXI[ekey(n)];return k?k.n:n});
+  var reg=regionOf(a),daySubs={},dayE=day.map(function(n){return EXI[ekey(n)]}).filter(Boolean),big=a.role==='main'||a.role==='acc',L=[],why={};
+  dayE.forEach(function(e){daySubs[e.sub]=1});
+  var aTok=mpTok(a);
+  // 1 · antagonista, da fare in superserie
+  var an=antOf(a);
+  L.push({k:'ant',c:an?sgRank(c,day,a,function(e){
+    if(an.subs.indexOf(e.sub)<0||(an.m&&e.m!==an.m)||(e.role==='mob')!==(a.role==='mob')||(e.role==='plyo'&&a.role!=='plyo'))return false;
+    return (a.role==='iso'?(e.role==='iso'?1:0):(e.role==='acc'?1:e.role==='main'?.5:0))+(a.eq.some(function(q){return hasEq(e,q)})?.4:0)}):[]});
+  // 2 · stesso muscolo: dopo un multiarticolare preferisce l’isolamento
+  L.push({k:'mus',c:sgRank(c,day,a,function(e){
+    if((a.m?e.m!==a.m:e.sub!==a.sub)||(e.role==='mob'&&a.role!=='mob')||e.role==='plyo')return false;
+    return (big?(e.role==='iso'?2:e.role==='acc'?1:0):(e.role==='iso'?1:.5))+(e.sub!==a.sub?.5:0)+(e.eq.join()!==a.eq.join()?.3:0)+(mpTok(e).some(function(t){return aTok.indexOf(t)>-1})?1.5:0)})});
+  // 3 · pattern complementare: la variante di spinta/tirata o squat/hinge che manca nella seduta
+  var fams=reg==='up'?['push','pull']:reg==='lo'?['squat','hinge']:[],miss=[],add=function(fs){fs.forEach(function(f){FAMS[f].forEach(function(s){if(s!==a.sub&&miss.indexOf(s)<0)miss.push(s)})})};
+  fams.forEach(function(f){FAMS[f].forEach(function(s){if(!daySubs[s]&&s!==a.sub)miss.push(s)})});
+  if(!miss.length){var mixed=dayE.some(function(e){var r=regionOf(e);return r&&r!==reg});add(!reg?['push','pull','squat','hinge']:mixed?(reg==='up'?['squat','hinge']:['push','pull']):fams)}
+  L.push({k:'pat',c:sgRank(c,day,a,function(e){if(miss.indexOf(e.sub)<0||e.role==='plyo'||e.role==='mob')return false;
+    return (e.role==='main'||e.role==='acc'?1:0)-(daySubs[e.sub]?1:0)-(an&&an.subs.indexOf(e.sub)>-1?.6:0)})});
+  // 4 · core e stabilità, scelto in base al pattern
+  var pref=FAM[a.sub]==='push'||a.sub==='sb'?'ca':FAM[a.sub]==='pull'||a.sub==='hb'||a.sub==='hg'?'cr':a.sub==='su'||a.sub==='hu'||a.role==='carry'?'cl':'';
+  L.push({k:'core',c:sgRank(c,day,a,function(e){if(e.role!=='core'||e.m!=='Core')return false;return (daySubs[e.sub]?0:1.5)+(e.sub===pref?1:0)-(e.sub==='cf'?.5:0)})});
+  // 5 · funzionale / correttivo: test → infortuni → sport → trasporti, esplosivi o mobilità della zona
+  var injB={};if(c.injZ)Object.keys(c.injZ).forEach(function(k){Object.keys(INJR[k].b).forEach(function(n){injB[n]=INJN[k].split(' /')[0].toLowerCase()})});
+  var mobT=c.mob.filter(function(m){return (reg==='up'?['ms']:reg==='lo'?['mk','mh','mf','mi']:['mk','mh','mf','mi','ms']).indexOf(m)>-1}),gen=reg==='up'?['ms']:reg==='lo'?['mh','mk','mi','mf']:['ms','mh'];
+  var ath=c.ob.indexOf('Preparazione atletica')>-1||c.sportT.length>0,dens=c.ob.indexOf('Dimagrimento')>-1||c.ob.indexOf('Ricondizionamento')>-1;
+  L.push({k:'fun',c:sgRank(c,day,a,function(e){var s=0,w='';
+    if(e.role==='mob'){var t=mobT.filter(function(m){return hasF(e,m)}).length;if(t){s=6+t;w='correttivo dai test funzionali'}else if(gen.some(function(m){return hasF(e,m)})){s=1;w='mobilità della zona allenata'}}
+    if(injB[e.n]&&s<5){s=5;w='rinforzo per l’infortunio: '+injB[e.n]}
+    var sr=regionOf(e),sps=!reg||!sr||sr===reg?4.5:2.5;
+    if(c.sport.indexOf(e.n)>-1&&s<sps){s=sps;w='specifico per '+c.sportT.join(', ')}
+    if(!s&&e.role==='carry'){s=ath||dens?2:reg==='lo'?1:.5;w='trasporto: presa e stabilità del tronco'}
+    if(!s&&e.role==='plyo'&&ath&&reg==='lo'){s=1.5;w='potenza per la preparazione atletica'}
+    if(!s)return false;why[e.n]=w;return s})});
+  var used={};
+  return L.map(function(x){var cands=x.c.map(function(o){return {n:o.e.n,why:x.k==='fun'?why[o.e.n]:''}});
+    var i=cands.findIndex(function(o){return !used[o.n]});if(i<0)i=0;if(cands[i])used[cands[i].n]=1;return {k:x.k,cands:cands,i:i}});
+}
+function sgDesc(n,why,c){var e=EXI[ekey(n)];if(!e)return String(n||'').trim()?'Esercizio personalizzato: pattern, muscolo e parametri si compilano nella riga.':'';
+  return '<i class="pt">'+e.p+'</i>'+esc(cap1(SUBL[e.sub]))+' · '+esc(e.m||exType(e))+' · '+esc(exType(e))+(why?'<br><b>'+esc(cap1(why))+'</b>':'')+' '+injTag(injHit(e,c))+(e.lv>c.lvl?' <i class="lw">livello superiore</i>':'')}
+function sugHtml(ctx,name,day){
+  var c=gctx||profile({}),L=sugList(name,day,c);
+  SG={ctx:ctx,anchor:name,list:L,row:null};
+  var h='<div class="sugg" role="region" aria-label="Proposte per il prossimo esercizio"><div class="sgh"><b>Prossimo esercizio dopo «'+esc(name)+'»</b><span class="status">Scegli una delle 5 tipologie, cambia l’esercizio se vuoi e premi «Aggiungi».</span><span class="sp"></span>'+
+   '<label><input type="checkbox" class="sgauto"'+(sgAuto()?' checked':'')+'> Proponi a ogni esercizio</label><button type="button" class="xr" data-act="sgclose" aria-label="Chiudi le proposte" title="Chiudi">×</button></div>';
+  if(!L)return h+'<p class="status" style="margin:0">«'+esc(name)+'» non è nella libreria: scegli un esercizio della libreria (o usa ⇄) per avere le proposte abbinate.</p></div>';
+  return h+'<div class="sgg">'+L.map(function(x,j){var t=SGT[j],o=x.cands[x.i];
+    return '<div class="sgc" data-sgk="'+j+'"><div class="sgk">'+(j+1)+' · '+t[1]+(t[2]?' <small>· '+t[2]+'</small>':'')+'</div>'+
+     '<input class="sgi" list="exlist" autocomplete="off" aria-label="'+esc(t[1])+': esercizio proposto, modificabile" value="'+esc(o?o.n:'')+'" placeholder="Scrivi un esercizio">'+
+     '<div class="sgd">'+(o?sgDesc(o.n,o.why,c):(c.injZ?'Nessuna proposta compatibile con infortuni, test e livello':'Nessuna proposta adatta al profilo')+': scrivi tu l’esercizio se vuoi.')+'</div>'+
+     (x.k==='ant'?'<label class="sgss"><input type="checkbox" class="sgssc" checked> in superserie con «'+esc(name)+'»</label>':'')+
+     '<div class="sgb"><button type="button" data-act="sgalt"'+(x.cands.length>1?'':' disabled')+' title="Altra proposta della stessa tipologia">⇄ Altra</button><button type="button" class="pri" data-act="sgadd">+ Aggiungi</button></div></div>'}).join('')+'</div></div>';
+}
+// il pannello resta visibile mentre la tabella scorre in orizzontale
+function sgFit(){[].forEach.call(document.querySelectorAll('.sugg'),function(s){var w=s.closest('.xwrap');if(w)s.style.width=Math.max(240,w.clientWidth-8)+'px'})}
+window.addEventListener('resize',sgFit);
+function sgClose(){if(SG&&SG.ctx==='ed'){ED.sg=null;edSgUpdate()}else genSgShow(null);SG=null}
+// Generatore: pannello subito sotto la riga
+function genSgShow(row){
+  var box=gid('days');if(!box)return;
+  [].forEach.call(box.querySelectorAll('.sugg'),function(s){s.remove()});
+  [].forEach.call(box.querySelectorAll('[data-act="sg"]'),function(b){b.classList.remove('sgon')});
+  if(!row||!row.isConnected)return;
+  var n=row.querySelector('.ex_n').value.trim();if(!n)return;
+  var day=[].map.call(row.closest('.exs').querySelectorAll('.exr .ex_n'),function(i){return i.value.trim()}).filter(Boolean);
+  row.insertAdjacentHTML('afterend',sugHtml('gen',n,day));SG.row=row;row.querySelector('[data-act="sg"]').classList.add('sgon');sgFit();
+}
+function genSgAdd(n,ss){
+  var row=SG&&SG.row;if(!row||!row.isConnected)return;
+  var e=EXI[ekey(n)],o=e?rowFrom(e,gctx):{n:n};if(ss)o.lk=1;
+  var p=row.nextElementSibling;if(p&&p.classList.contains('sugg'))p.remove();
+  var nx=row.nextElementSibling,nr;
+  if(nx&&nx.classList.contains('exr')&&!nx.querySelector('.ex_n').value.trim()){setRow(nx,o);nx.classList.toggle('lk',!!ss);nr=nx}
+  else{row.insertAdjacentHTML('afterend',exRow(o));nr=row.nextElementSibling}
+  gTouched=gDirty=true;refreshEx();updGen();genSgShow(nr);
+  st('sph','Aggiunto «'+(e?e.n:n)+'» dopo «'+row.querySelector('.ex_n').value.trim()+'»'+(ss?' in superserie':'')+'.');
+}
+// Editor: riga di proposte dentro la tabella, sotto l’esercizio ED.sg
+function edSgUpdate(){
+  var tb=gid('edrows');if(!tb)return;
+  [].forEach.call(tb.querySelectorAll('tr.sgr'),function(r){r.remove()});
+  [].forEach.call(tb.querySelectorAll('[data-act="edsg"]'),function(b){var on=+b.closest('tr').getAttribute('data-i')===ED.sg;b.classList.toggle('sgon',on);b.setAttribute('aria-pressed',String(on))});
+  if(ED.sg==null||!ED.sc)return;
+  var D=ED.sc.days[ED.day],x=D&&D.es[ED.sg],tr=tb.querySelector('tr[data-i="'+ED.sg+'"]');if(!x||!x.n||!tr)return;
+  tr.insertAdjacentHTML('afterend','<tr class="sgr"><td colspan="12">'+sugHtml('ed',x.n,D.es.map(function(z){return z.n}).filter(Boolean))+'</td></tr>');sgFit();
+}
+function edSgAdd(n,ss){
+  var D=ED.sc&&ED.sc.days[ED.day];if(!D||ED.sg==null||!D.es[ED.sg])return;
+  var e=EXI[ekey(n)],row=e?edRowFrom(e,gctx||profile({})):{n:n},an=D.es[ED.sg].n,at=ED.sg+1;if(ss)row.lk=true;
+  if(D.es[at]&&!D.es[at].n)D.es[at]=row;else D.es.splice(at,0,row);
+  ED.sg=at;edMark();edRefresh();
+  st('edstat','Aggiunto «'+(e?e.n:n)+'» dopo «'+an+'»'+(ss?' in superserie':'')+'. Modifiche non salvate.');
+}
+document.addEventListener('input',function(e){var t=e.target;if(!t.classList||!t.classList.contains('sgi'))return;
+  var cd=t.closest('.sgc'),x=SG&&SG.list&&SG.list[+cd.getAttribute('data-sgk')],o=x&&x.cands.filter(function(z){return ekey(z.n)===ekey(t.value)})[0];
+  cd.querySelector('.sgd').innerHTML=sgDesc(t.value,o?o.why:'',gctx||profile({}))});
+document.addEventListener('change',function(e){if(e.target.classList&&e.target.classList.contains('sgauto'))sgSetAuto(e.target.checked)});
+document.addEventListener('click',function(e){
+  var a=e.target.closest('[data-act]');if(!a)return;var k=a.getAttribute('data-act');
+  if(k==='sgclose'){sgClose();return}
+  if(k!=='sgalt'&&k!=='sgadd')return;
+  var cd=a.closest('.sgc');if(!cd||!SG||!SG.list)return;var x=SG.list[+cd.getAttribute('data-sgk')],inp=cd.querySelector('.sgi');
+  if(k==='sgalt'){if(!x.cands.length)return;x.i=(x.i+1)%x.cands.length;inp.value=x.cands[x.i].n;cd.querySelector('.sgd').innerHTML=sgDesc(inp.value,x.cands[x.i].why,gctx||profile({}));return}
+  var n=inp.value.trim();if(!n){inp.focus();return}
+  var ss=x.k==='ant'&&!!cd.querySelector('.sgssc')&&cd.querySelector('.sgssc').checked;
+  if(SG.ctx==='ed')edSgAdd(n,ss);else genSgAdd(n,ss);
+});
 // ---- Salvataggio e visualizzazione ----
 async function saveScheda(){
   var nome=gid('sc_n').value.trim();
@@ -2589,10 +2856,10 @@ window.addEventListener('beforeunload',function(e){if(anyDirty()){e.preventDefau
 // ---- Eventi del generatore ----
 document.addEventListener('input',function(e){
   if(cur!=='gen')return;var t=e.target;
-  if(t.id==='libq')return;
+  if(t.id==='libq'||(t.closest&&t.closest('.sugg')))return;
   gDirty=true;if(t.closest('#days'))gTouched=true;
   if(t.classList.contains('ex_n')){var r=t.closest('.exr'),i=EXI[ekey(t.value)];
-    if(i){var o=rowFrom(i,gctx);r.querySelector('.ex_p').value=i.p;setRow(r,o,['.ex_n','.ex_s','.ex_r','.ex_rpe','.ex_tg','.ex_k','.ex_rec'])}}
+    if(i){var o=rowFrom(i,gctx);r.querySelector('.ex_p').value=i.p;setRow(r,o,['.ex_n','.ex_s','.ex_r','.ex_rpe','.ex_tg','.ex_k','.ex_rec']);if(sgAuto())genSgShow(r)}}
   else if(t.classList.contains('ex_nt'))t.setAttribute('data-auto','0');
   else if(t.id==='sc_start'&&t.value){var d=gid('sc_del'),c=gid('sc_cam');if(!d.getAttribute('data-man'))d.value=addDays(t.value,21);if(!c.getAttribute('data-man'))c.value=addDays(t.value,42)}
   else if(['sc_del','sc_cam','sc_wu','sc_cd','sc_n','sc_logic'].indexOf(t.id)>-1)t.setAttribute('data-man','1');
@@ -2600,6 +2867,7 @@ document.addEventListener('input',function(e){
 });
 document.addEventListener('change',function(e){
   if(cur!=='gen')return;var t=e.target;
+  if(t.closest&&t.closest('.sugg'))return;
   if(t.classList.contains('ex_m'))t.setAttribute('data-man','1');
   if(t.id==='sc_f'||t.id==='sc_sp'){
     if(!gTouched)buildAuto();
@@ -2618,7 +2886,9 @@ document.addEventListener('click',function(e){
   else if(k==='addday'){var n=document.querySelectorAll('#days .day').length;gid('days').insertAdjacentHTML('beforeend',dayBlock({},n));gTouched=gDirty=true;refreshEx();updGen()}
   else if(k==='rmday'&&day){if(document.querySelectorAll('#days .day').length>1){day.remove();gTouched=gDirty=true;refreshEx();updGen()}}
   else if(k==='addex'&&day){day.querySelector('.exs').insertAdjacentHTML('beforeend',exRow());gTouched=gDirty=true;refreshEx();updGen()}
-  else if(k==='rmex'){var r=a.closest('.exr');if(r&&r.parentNode.querySelectorAll('.exr').length>1){r.remove();gTouched=gDirty=true;refreshEx();updGen()}}
+  else if(k==='rmex'){var r=a.closest('.exr');if(r&&r.parentNode.querySelectorAll('.exr').length>1){r.remove();if(SG&&SG.ctx==='gen'&&SG.row===r)genSgShow(null);gTouched=gDirty=true;refreshEx();updGen()}}
+  else if(k==='sg'){var sr=a.closest('.exr');if(!sr.querySelector('.ex_n').value.trim()){st('sph','Scrivi o scegli prima l’esercizio della riga: le proposte si abbinano a quello.');return}
+    if(a.classList.contains('sgon'))genSgShow(null);else genSgShow(sr)}
   else if(k==='lk'){var rw=a.closest('.exr');if(rw){rw.classList.toggle('lk');gTouched=gDirty=true;refreshEx()}}
   else if(k==='lib'&&day)openLib({day:day,row:null});
   else if(k==='swap'&&day)openLib({day:day,row:a.closest('.exr')});
@@ -2792,7 +3062,7 @@ document.addEventListener('click',function(e){
 });
 // ---- Editor modulare interattivo: cambio atleta, sedute a schede, celle modificabili, esercizi e blocchi ----
 // ED.sc è una copia di lavoro della scheda: si salva sulla stessa scheda («Salva scheda») o come nuova.
-var ED={uid:null,sid:null,sc:null,day:0,dirty:false,q:'',open:{}};
+var ED={uid:null,sid:null,sc:null,day:0,dirty:false,q:'',open:{},sg:null};
 function edClone(sc){
   var days=JSON.parse(JSON.stringify(schedaDays(sc)));
   days.forEach(function(d,j){if(!d.t)d.t='Seduta '+(j+1);
@@ -2803,13 +3073,13 @@ function edClone(sc){
   return days.length?days:[{t:'Seduta 1',es:[{}]}];
 }
 function edLoad(uid,sid){
-  var u=find(uid);ED.uid=u?u.id:null;ED.day=0;ED.dirty=false;gctx=u?profile(u):null;
+  var u=find(uid);ED.uid=u?u.id:null;ED.day=0;ED.dirty=false;ED.sg=null;gctx=u?profile(u):null;
   var sc=u?((sid&&findS(sid))||schedeOf(u.id)[0]):null;if(sc&&String(sc.uid)!==String(ED.uid))sc=null;
   if(sc){ED.sid=sc.id;ED.sc={nome:sc.nome||'',data:sc.data||todayIso(),deload:sc.deload||'',cambio:sc.cambio||'',freq:+sc.freq||schedaDays(sc).length||1,split:sc.split||'',logica:sc.logica||sc.note||'',wu:sc.wu||'',cd:sc.cd||'',days:edClone(sc)}}
   else{ED.sid=null;ED.sc=null}
 }
 function openEd(uid,sid){cur='ed';closeModal();edLoad(uid,sid);render();window.scrollTo(0,0)}
-function edNew(){var td=todayIso();ED.sid=null;ED.day=0;ED.dirty=true;
+function edNew(){var td=todayIso();ED.sid=null;ED.day=0;ED.dirty=true;ED.sg=null;
   ED.sc={nome:'Nuova scheda',data:td,deload:addDays(td,21),cambio:addDays(td,42),freq:3,split:'',logica:'',wu:'',cd:'',days:[{t:'Seduta 1',es:[{}]}]}}
 function edBuild(){
   var s=ED.sc,days=s.days.map(function(d,j){return {t:(d.t||'').trim()||('Seduta '+(j+1)),es:d.es.filter(function(x){return x.n&&String(x.n).trim()}).map(function(x){return Object.assign({},x,{n:String(x.n).trim()})})}}).filter(function(d){return d.es.length});
@@ -2850,7 +3120,7 @@ function edRows(){
   return es.map(function(x,i){var g=x.lk||(es[i+1]&&es[i+1].lk),v=function(f){return esc(x[f]==null?'':x[f])};
     return '<tr data-i="'+i+'" class="'+(x.lk?'lk ':'')+(g?'grp':'')+'">'+
     '<td><button type="button" class="lkb" data-act="edlk"'+(i?'':' disabled')+' aria-pressed="'+!!x.lk+'" title="Superserie con l’esercizio sopra" aria-label="Superserie con l’esercizio sopra">SS</button></td>'+
-    '<td><input data-f="n" list="exlist" aria-label="Esercizio" placeholder="Esercizio" value="'+v('n')+'"></td>'+
+    '<td><input data-f="n" list="exlist" aria-label="Esercizio" placeholder="Esercizio" value="'+v('n')+'"><span class="inw">'+(x.n?injTagN(x.n,gctx):'')+'</span></td>'+
     '<td><input data-f="s" class="num" type="number" min="0" inputmode="numeric" aria-label="Serie" value="'+v('s')+'"></td>'+
     '<td><input data-f="r" aria-label="Ripetizioni" placeholder="8-10" value="'+v('r')+'"></td>'+
     '<td><input data-f="rpe" class="num" aria-label="RPE" placeholder="8" value="'+v('rpe')+'"></td>'+
@@ -2861,14 +3131,15 @@ function edRows(){
     '<td><select data-f="p" aria-label="Pattern">'+o(PATS,x.p)+'</select></td>'+
     '<td><select data-f="m" aria-label="Muscolo">'+o(MUSCLES,x.m)+'</select></td>'+
     '<td class="eact"><button type="button" class="xr" data-act="edup"'+(i?'':' disabled')+' aria-label="Sposta su" title="Sposta su">↑</button><button type="button" class="xr" data-act="eddown"'+(i<es.length-1?'':' disabled')+' aria-label="Sposta giù" title="Sposta giù">↓</button>'+
-    '<button type="button" class="xr" data-act="edswap" aria-label="Sostituisci dalla libreria" title="Sostituisci dalla libreria">⇄</button><button type="button" class="xr" data-act="edrm" aria-label="Rimuovi esercizio" title="Rimuovi esercizio">×</button></td></tr>'}).join('');
+    '<button type="button" class="xr'+(ED.sg===i?' sgon':'')+'" data-act="edsg" aria-pressed="'+(ED.sg===i)+'" aria-label="Proponi il prossimo esercizio" title="Proponi il prossimo esercizio">✦</button><button type="button" class="xr" data-act="edswap" aria-label="Sostituisci dalla libreria" title="Sostituisci dalla libreria">⇄</button><button type="button" class="xr" data-act="edrm" aria-label="Rimuovi esercizio" title="Rimuovi esercizio">×</button></td></tr>'+
+    (ED.sg===i&&x.n?'<tr class="sgr"><td colspan="12">'+sugHtml('ed',x.n,es.map(function(z){return z.n}).filter(Boolean))+'</td></tr>':'')}).join('');
 }
 function edVolHtml(){var s=ED.sc,n=s.days.length||1,f=+s.freq||n,es=flatEs(s.days).filter(function(x){return x.n});
   return (n!==f?'<p class="status" style="margin-top:0">'+n+(n===1?' seduta diversa':' sedute diverse')+' per '+f+(f==1?' allenamento':' allenamenti')+' a settimana: il volume tiene conto della rotazione.</p>':'')+volHtml(es,f/n,find(ED.uid))}
-function edRefresh(){if(!gid('edrows'))return;var D=ED.sc.days[ED.day];gid('edrows').innerHTML=edRows();gid('edtabs').innerHTML=edTabs();gid('edleg').innerHTML=legendHtml(D.es);gid('edvol').innerHTML=edVolHtml()}
+function edRefresh(){if(!gid('edrows'))return;var D=ED.sc.days[ED.day];gid('edrows').innerHTML=edRows();gid('edtabs').innerHTML=edTabs();gid('edleg').innerHTML=legendHtml(D.es);gid('edvol').innerHTML=edVolHtml();sgFit()}
 function edBody(){
   var u=find(ED.uid),L=schedeOf(ED.uid),s=ED.sc,ps=pqState(u.pq);
-  var h='<section class="asec"><div class="edtop"><div><div class="kick">Atleta</div><h3 style="margin:0">'+esc(u.n+' '+u.c)+'</h3><span class="status">'+esc([u.liv,(u.ob||[]).join(', ')].filter(Boolean).join(' · ')||'Anamnesi da completare')+'</span></div><span class="pqb '+ps+'">'+PQT[ps]+'</span><span class="sp"></span>'+
+  var h='<section class="asec"><div class="edtop"><div><div class="kick">Atleta</div><h3 style="margin:0">'+esc(u.n+' '+u.c)+'</h3><span class="status">'+esc([u.liv,(u.ob||[]).join(', ')].filter(Boolean).join(' · ')||'Anamnesi da completare')+'</span>'+(injText(u)?'<span class="status" style="display:block"><b>Infortuni:</b> '+esc(injText(u))+'</span>':'')+'</div><span class="pqb '+ps+'">'+PQT[ps]+'</span><span class="sp"></span>'+
    (L.length?'<label class="fl">Scheda<select id="edsel">'+(ED.sid?'':'<option value="" selected>'+(s?'Nuova scheda (non salvata)':'—')+'</option>')+L.map(function(x,i){return '<option value="'+esc(x.id)+'"'+(String(x.id)===String(ED.sid)?' selected':'')+'>'+esc(x.nome)+' · '+fdate(x.data)+(i===0?' (attuale)':'')+'</option>'}).join('')+'</select></label>':'')+
    '<button type="button" class="btn sm" data-act="ednew">+ Scheda vuota</button><button type="button" class="btn sm blk" data-act="edgen">⚡ Generatore</button></div></section>';
   if(!s)return h+'<div class="panel">'+esc(u.n)+' non ha ancora schede: creane una vuota qui oppure usa il generatore automatico.</div>';
@@ -2880,7 +3151,7 @@ function edBody(){
   h+='<div class="dtabs" id="edtabs" role="tablist" aria-label="Sedute">'+edTabs()+'</div>';
   h+='<section class="asec day"><div class="dayh"><span class="kick">Seduta '+(ED.day+1)+'</span><input class="day_t" data-sf="dayt" aria-label="Nome della seduta" value="'+esc(D.t)+'"><span class="sp"></span>'+
    '<button type="button" class="mini" data-act="edlib">Libreria esercizi</button><button type="button" class="mini" data-act="edblock">+ Blocco</button><button type="button" class="mini" data-act="eddupday">Duplica seduta</button><button type="button" class="mini" data-act="edrmday"'+(s.days.length>1?'':' disabled')+'>Elimina seduta</button></div>'+
-   '<div class="xwrap"><table class="etab"><colgroup><col style="width:46px"><col style="width:210px"><col style="width:62px"><col style="width:92px"><col style="width:62px"><col style="width:78px"><col style="width:72px"><col style="width:160px"><col><col style="width:104px"><col style="width:120px"><col style="width:140px"></colgroup>'+
+   '<div class="xwrap"><table class="etab"><colgroup><col style="width:46px"><col style="width:210px"><col style="width:62px"><col style="width:92px"><col style="width:62px"><col style="width:78px"><col style="width:72px"><col style="width:160px"><col><col style="width:104px"><col style="width:120px"><col style="width:176px"></colgroup>'+
    '<thead><tr><th>SS</th><th>Esercizio</th><th>Serie</th><th>Reps</th><th>RPE</th><th>Rec. (s)</th><th>Kg</th><th>Carico target</th><th>Note esecutive</th><th>Pattern</th><th>Muscolo</th><th class="eact"></th></tr></thead><tbody id="edrows">'+edRows()+'</tbody></table></div>'+
    '<div class="genbar"><button type="button" class="addx" data-act="edaddex">+ Aggiungi esercizio</button><button type="button" class="addx" data-act="edblock">+ Aggiungi blocco</button><button type="button" class="addx" data-act="edlib">Cerca nella libreria</button></div></section>';
   h+='<details class="asec edfold" data-ko="leg"'+(ED.open.leg?' open':'')+'><summary><b>Legenda della seduta</b><span class="status">scopo, muscoli, postura, fasi, respirazione e sicurezza</span></summary><div id="edleg" style="margin-top:12px">'+legendHtml(D.es)+'</div></details>'+
@@ -2901,7 +3172,7 @@ function renderEd(){
   else h+=(U.length>6?'<input class="search" id="edq" type="search" placeholder="Cerca atleta…" value="'+esc(ED.q)+'">':'')+'<div class="achips" id="edchips" role="group" aria-label="Atleti"></div>'+
    (ED.uid?edBody():'<div class="panel">Seleziona un atleta qui sopra per aprire la sua scheda più recente.</div>');
   gid('main').innerHTML=h+'<datalist id="exlist">'+EXDB.map(function(e){return '<option value="'+esc(e.n)+'">'}).join('')+'</datalist>';
-  edChips();
+  edChips();sgFit();
 }
 // Blocchi pronti: gli esercizi sono scelti dal profilo dell’atleta con le stesse regole del generatore
 var BLK=[
@@ -2935,13 +3206,14 @@ function addBlock(id){
   if(!rows.length){st('edstat','Nessun esercizio adatto a questo profilo per il blocco scelto: aggiungilo dalla libreria.');return}
   var es=D.es.filter(function(x){return x.n||x.lk});
   D.es=b.top?rows.concat(es):es.concat(rows);D.es[0].lk=false;
+  if(sgAuto()&&!b.empty)ED.sg=b.top?rows.length-1:D.es.length-1;
   edMark();edRefresh();st('edstat','Aggiunto «'+b.t+'»: '+rows.length+(rows.length===1?' riga':' righe')+'. Modifiche non salvate.');
 }
 function addGenDay(type){if(!DT[type]||!ED.sc)return;
   var c=gctx||profile({}),used=edUsed(),tpl=DT[type][ED.sc.days.length%DT[type].length].map(slot),es=[];
   tpl.forEach(function(sl){var e=pick(sl,c,used,es);if(e){es.push(e);used[e.n]=(used[e.n]||0)+1}});
   var nm=0,rows=es.map(function(e){if(e.role==='main'&&++nm>2)e=Object.assign({},e,{role:'acc'});return edRowFrom(e,c)});
-  closeModal();ED.sc.days.splice(ED.day+1,0,{t:DTT[type],es:rows.length?rows:[{}]});ED.day++;edMark();renderEd();
+  closeModal();ED.sc.days.splice(ED.day+1,0,{t:DTT[type],es:rows.length?rows:[{}]});ED.day++;ED.sg=null;edMark();renderEd();
   st('edstat','Aggiunta la seduta «'+DTT[type]+'» con '+rows.length+' esercizi. Modifiche non salvate.');
 }
 document.addEventListener('input',function(e){
@@ -2954,7 +3226,8 @@ document.addEventListener('input',function(e){
   var x=ED.sc.days[ED.day].es[+tr.getAttribute('data-i')];if(!x)return;
   x[f]=(f==='s'||f==='k'||f==='rec')?num(t.value):t.value;
   if(f==='nt')x.auto=0;
-  if(f==='n'&&edAuto(x,t.value))edFill(tr,x);
+  if(f==='n'){var rec=edAuto(x,t.value);if(rec)edFill(tr,x);var iw=tr.querySelector('.inw');if(iw)iw.innerHTML=injTagN(t.value,gctx);
+    if(rec&&sgAuto()){ED.sg=+tr.getAttribute('data-i');edSgUpdate()}else if(ED.sg===+tr.getAttribute('data-i')&&!rec){ED.sg=null;edSgUpdate()}}
   edMark();
   if(f==='n'||f==='s'||f==='m'){gid('edvol').innerHTML=edVolHtml();gid('edtabs').innerHTML=edTabs()}
   if(f==='n')gid('edleg').innerHTML=legendHtml(ED.sc.days[ED.day].es);
@@ -2966,22 +3239,23 @@ document.addEventListener('click',function(e){
   if(o){var sid=o.getAttribute('data-id'),sc=sid?findS(sid):null,uid=sc?sc.uid:o.getAttribute('data-uid');closeModal();guardGen(function(){openEd(uid,sid)});return}
   if(cur!=='ed')return;
   var c=e.target.closest('[data-eda]');if(c){var id=c.getAttribute('data-eda');if(String(id)===String(ED.uid))return;guardGen(function(){edLoad(id,null);renderEd()});return}
-  var dd=e.target.closest('[data-edd]');if(dd){ED.day=+dd.getAttribute('data-edd');renderEd();return}
+  var dd=e.target.closest('[data-edd]');if(dd){ED.day=+dd.getAttribute('data-edd');ED.sg=null;renderEd();return}
   var bk=e.target.closest('[data-blk]');if(bk){addBlock(bk.getAttribute('data-blk'));return}
   var a=e.target.closest('[data-act]');if(!a)return;var k=a.getAttribute('data-act');if(k.slice(0,2)!=='ed')return;
   var s=ED.sc,D=s&&s.days[ED.day],tr=a.closest('tr[data-i]'),i=tr?+tr.getAttribute('data-i'):-1,sw;
   if(k==='ednew')guardGen(function(){edNew();renderEd()});
   else if(k==='edgen')guardGen(function(){ED.dirty=false;suid=ED.uid;openGen()});
   else if(!s)return;
-  else if(k==='edaddday'){s.days.push({t:'Seduta '+(s.days.length+1),es:[{}]});ED.day=s.days.length-1;edMark();renderEd()}
-  else if(k==='eddupday'){var cp=JSON.parse(JSON.stringify(D));cp.t=(D.t||'Seduta')+' (copia)';s.days.splice(ED.day+1,0,cp);ED.day++;edMark();renderEd()}
+  else if(k==='edaddday'){s.days.push({t:'Seduta '+(s.days.length+1),es:[{}]});ED.day=s.days.length-1;ED.sg=null;edMark();renderEd()}
+  else if(k==='eddupday'){var cp=JSON.parse(JSON.stringify(D));cp.t=(D.t||'Seduta')+' (copia)';s.days.splice(ED.day+1,0,cp);ED.day++;ED.sg=null;edMark();renderEd()}
   else if(k==='edrmday'){if(s.days.length<2)return;var n=D.es.filter(function(x){return x.n}).length;
     modal('<h3>Eliminare la seduta?</h3><p>«'+esc(D.t)+'» e '+(n===1?'il suo esercizio':'i suoi '+n+' esercizi')+' verranno tolti dalla scheda. Diventa definitivo solo quando salvi.</p><div class="mrow"><button data-act="mclose">Annulla</button><button class="danger" data-act="edrmdayok">Elimina seduta</button></div>')}
-  else if(k==='edrmdayok'){closeModal();s.days.splice(ED.day,1);ED.day=Math.max(0,ED.day-1);edMark();renderEd()}
+  else if(k==='edrmdayok'){closeModal();s.days.splice(ED.day,1);ED.day=Math.max(0,ED.day-1);ED.sg=null;edMark();renderEd()}
   else if(k==='edaddex'){D.es.push({});edMark();edRefresh();var L=gid('edrows').querySelectorAll('[data-f="n"]');L[L.length-1].focus()}
-  else if(k==='edrm'){if(D.es.length>1)D.es.splice(i,1);else D.es[0]={};D.es[0].lk=false;edMark();edRefresh()}
-  else if(k==='edup'&&i>0){sw=D.es[i-1];D.es[i-1]=D.es[i];D.es[i]=sw;D.es[0].lk=false;edMark();edRefresh()}
-  else if(k==='eddown'&&i>-1&&i<D.es.length-1){sw=D.es[i+1];D.es[i+1]=D.es[i];D.es[i]=sw;D.es[0].lk=false;edMark();edRefresh()}
+  else if(k==='edrm'){if(D.es.length>1)D.es.splice(i,1);else D.es[0]={};D.es[0].lk=false;if(ED.sg===i)ED.sg=null;else if(ED.sg>i)ED.sg--;edMark();edRefresh()}
+  else if(k==='edup'&&i>0){sw=D.es[i-1];D.es[i-1]=D.es[i];D.es[i]=sw;D.es[0].lk=false;if(ED.sg===i)ED.sg=i-1;else if(ED.sg===i-1)ED.sg=i;edMark();edRefresh()}
+  else if(k==='eddown'&&i>-1&&i<D.es.length-1){sw=D.es[i+1];D.es[i+1]=D.es[i];D.es[i]=sw;D.es[0].lk=false;if(ED.sg===i)ED.sg=i+1;else if(ED.sg===i+1)ED.sg=i;edMark();edRefresh()}
+  else if(k==='edsg'){if(!D.es[i]||!D.es[i].n){st('edstat','Scrivi o scegli prima l’esercizio della riga: le proposte si abbinano a quello.');return}ED.sg=ED.sg===i?null:i;edSgUpdate()}
   else if(k==='edlk'&&i>0){D.es[i].lk=!D.es[i].lk;edMark();edRefresh()}
   else if(k==='edswap')openLib({ed:1,i:i});
   else if(k==='edlib')openLib({ed:1,i:null});
