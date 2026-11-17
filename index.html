@@ -29,7 +29,7 @@ main,.modal{--bg:#f3f3f0;--surface:#fff;--text:#0b0b0b;--muted:#4a4a4a;--line:#c
 main{background:var(--bg)}
 .layout{display:flex;flex:1;min-height:0}
 nav.side{display:none}
-main{flex:1;padding:20px;padding-bottom:90px}
+main{flex:1;min-width:0;padding:20px;padding-bottom:90px}
 h2{font-size:22px;margin:0 0 4px}
 .sub{color:var(--muted);margin:0 0 18px;font-size:15px}
 .grid{display:grid;gap:14px;grid-template-columns:1fr}
@@ -209,11 +209,27 @@ h2{font-weight:800}
 .prot{white-space:pre-line;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:14px}
 .mini{font:inherit;font-size:13px;font-weight:700;border:1.5px solid var(--line);background:var(--surface);color:var(--text);border-radius:8px;padding:4px 10px;cursor:pointer;margin-left:10px;vertical-align:middle}
 .xwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}
-#exs .exr,.xh.exr{display:grid;grid-template-columns:36px minmax(170px,2fr) minmax(125px,1.1fr) 66px 84px 74px 74px minmax(240px,3fr) 34px;gap:6px;align-items:start;min-width:1000px;margin-bottom:6px}
+.exs .exr,.xh.exr{display:grid;grid-template-columns:36px minmax(170px,2fr) 104px 128px 58px 104px minmax(170px,1.4fr) 70px 70px minmax(230px,2.6fr) 34px 34px;gap:6px;align-items:start;min-width:1260px;margin-bottom:6px}
 .xh.exr{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
-#exs input,#exs select,#exs textarea{width:100%;min-width:0;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);font:14px/1.35 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-#exs textarea{resize:vertical;min-height:38px}
-#exs .exr.grp{margin-left:0;padding-left:6px}
+.exs input,.exs select,.exs textarea{width:100%;min-width:0;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);font:14px/1.35 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.exs textarea{resize:vertical;min-height:38px}
+.exs .exr.grp{margin-left:0;padding-left:6px}
+.exs .xr{font-size:16px}
+.dayh{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}.dayh .sp{flex:1}.dayh .mini{margin:0}
+.day_t{font:inherit;font-size:18px;font-weight:800;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text);flex:1 1 180px;max-width:340px;min-width:0}
+.day{border-left:4px solid var(--brand)}
+.dayadd{margin:0 0 16px}
+.genbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:12px}.genbar .status{flex:1 1 260px}
+.lhd{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.lit{display:grid;grid-template-columns:1fr auto;gap:6px 12px;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px;background:var(--bg)}
+.lit .guide{grid-column:1/-1;padding-top:6px}.lin{display:flex;flex-direction:column;gap:2px;min-width:0}.lbd{font-size:13px;color:var(--muted)}
+.pt{font-style:normal;font-size:11px;font-weight:700;background:#000;color:#FFD60A;border-radius:6px;padding:1px 7px;margin-right:6px;vertical-align:middle}
+.lw{font-style:normal;font-size:11px;font-weight:700;background:#fde8e8;color:#9b1c1c;border-radius:6px;padding:1px 7px;margin-left:4px;vertical-align:middle}
+.btn.sm{padding:8px 14px;font-size:14px}
+.lgg{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+.lg{border:1px solid var(--line);border-left:4px solid var(--brand);border-radius:10px;padding:10px 14px;background:var(--surface);font-size:14px}
+.lg h5{margin:0 0 6px;font-size:15px}.lg h5 small{font-weight:600;color:var(--muted)}.lg p{margin:4px 0}
+.stab td.tg2{white-space:normal!important;min-width:140px;font-size:13px}
 .vs{display:inline-block;font-size:12px;font-weight:700;border-radius:99px;padding:2px 10px}
 .vs.ok{background:#e3f4e8;color:#14622f}.vs.lo{background:#fff3b0;color:#5c4a00}.vs.hi{background:#fde8e8;color:#9b1c1c}
 .mbox>*{flex-shrink:0}
@@ -242,6 +258,11 @@ body:has(#modal) .stage{display:none!important}
 .stab th,.stab td{border:1px solid #666!important;color:#000!important;padding:6px 8px}
 .stab th{background:#eee!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .chart text{fill:#000!important}.chart line{stroke:#bbb!important}
+.xwrap{overflow:visible!important}
+.stab{font-size:8.5pt}.stab td,.stab th{white-space:normal!important}.stab td.nt,.stab td.tg2{min-width:0!important}
+.mbox h4{break-after:avoid}.keyd,.prot,.stab tr{break-inside:avoid}.keyd{background:#fff!important;border-color:#000!important}
+.lgg{display:block!important;columns:2;column-gap:10px}.lg{break-inside:avoid;border:1px solid #888!important;margin-bottom:6px;background:#fff!important;font-size:9.5pt}
+.pt{background:#fff!important;color:#000!important;border:1px solid #000}
 }
 </style>
 </head>
@@ -967,56 +988,658 @@ function drawTrend(){
 var MUSCLES=['Petto','Dorso','Deltoidi','Bicipiti','Tricipiti','Quadricipiti','Ischiocrurali','Glutei','Polpacci','Core'];
 // Volume settimanale indicativo in serie: [MEV, MRV] (valori di riferimento divulgativi, da adattare al cliente)
 var LAND={Petto:[8,22],Dorso:[10,25],Deltoidi:[8,26],Bicipiti:[8,26],Tricipiti:[6,18],Quadricipiti:[8,20],Ischiocrurali:[6,20],Glutei:[0,16],Polpacci:[8,20],Core:[0,25]};
-// Libreria esercizi: [nome, muscolo principale, muscoli sinergici, note esecutive e tecniche]
-var EXDB=[
- ['Panca piana','Petto',['Tricipiti','Deltoidi'],'Scapole addotte e depresse, piedi ben piantati. Bilanciere al petto in discesa controllata (inspira), spinta decisa espirando, glutei sempre sulla panca.'],
- ['Panca inclinata manubri','Petto',['Deltoidi','Tricipiti'],'Panca a 30°, gomiti a circa 45° dal busto. Discesa lenta fino a sentire l’allungamento del petto, spinta verso l’alto e leggermente convergente.'],
- ['Croci ai cavi','Petto',['Deltoidi'],'Gomiti leggermente flessi e fissi, movimento ad arco. Chiudi stringendo il petto senza spingere con le braccia; ritorno lento.'],
- ['Dip alle parallele','Petto',['Tricipiti','Deltoidi'],'Busto leggermente inclinato in avanti, scendi fino a spalle all’altezza dei gomiti solo se non c’è fastidio anteriore alla spalla.'],
- ['Piegamenti','Petto',['Tricipiti','Core'],'Corpo in linea da testa a talloni, mani poco più larghe delle spalle; petto a sfiorare il suolo con addome e glutei contratti.'],
- ['Military press','Deltoidi',['Tricipiti','Core'],'In piedi, glutei e addome contratti. Spingi in verticale portando la testa sotto il bilanciere a fine movimento, senza inarcare la schiena. Espira in spinta.'],
- ['Lento manubri seduto','Deltoidi',['Tricipiti'],'Schiena appoggiata, gomiti leggermente avanti rispetto al busto; scendi fino all’altezza delle orecchie e spingi senza battere i manubri.'],
- ['Alzate laterali','Deltoidi',[],'Gomiti leggermente flessi, sali fino all’altezza delle spalle guidando con i gomiti, senza slanci né scrollate; discesa in 2–3 secondi.'],
- ['Face pull','Deltoidi',['Dorso'],'Corda all’altezza del viso: tira verso la fronte aprendo i gomiti e ruotando le mani all’esterno, scapole addotte; pausa di 1 secondo.'],
- ['Trazioni alla sbarra','Dorso',['Bicipiti'],'Parti a braccia distese, abbassa prima le scapole, porta il mento sopra la sbarra senza slanci; discesa controllata fino all’estensione completa.'],
- ['Lat machine','Dorso',['Bicipiti'],'Petto alto, tira la barra verso la parte alta dello sterno portando i gomiti verso i fianchi; non oscillare con il busto.'],
- ['Rematore con bilanciere','Dorso',['Bicipiti','Ischiocrurali'],'Busto inclinato a circa 45°, schiena neutra e ginocchia morbide; tira verso l’ombelico stringendo le scapole, espira in trazione.'],
- ['Rematore manubrio','Dorso',['Bicipiti'],'Mano e ginocchio in appoggio sulla panca, schiena piatta; porta il gomito verso l’anca senza ruotare il busto.'],
- ['Pulley basso','Dorso',['Bicipiti'],'Busto eretto e fermo, petto in fuori; tira il triangolo verso l’addome stringendo le scapole, ritorno lento allungando le braccia.'],
- ['Squat','Quadricipiti',['Glutei','Core'],'Piedi alla larghezza delle spalle, ginocchia in linea con le punte. Inspira e blocca il core prima di scendere; almeno al parallelo con schiena neutra, risali spingendo con tutto il piede.'],
- ['Front squat','Quadricipiti',['Glutei','Core'],'Bilanciere sui deltoidi anteriori, gomiti alti. Busto il più verticale possibile, scendi in profondità mantenendo i talloni a terra.'],
- ['Leg press','Quadricipiti',['Glutei'],'Zona lombare sempre a contatto con lo schienale; scendi fin dove il bacino non si stacca e non bloccare le ginocchia in alto.'],
- ['Affondi','Quadricipiti',['Glutei'],'Passo ampio, busto eretto, ginocchio anteriore in linea con il piede; scendi finché il ginocchio posteriore sfiora il suolo, spinta dal tallone.'],
- ['Bulgarian split squat','Quadricipiti',['Glutei'],'Piede posteriore su una panca, peso sulla gamba avanti. Scendi in verticale controllando il ginocchio; busto inclinato in avanti per coinvolgere di più i glutei.'],
- ['Leg extension','Quadricipiti',[],'Ginocchio allineato all’asse della macchina, estendi completamente con 1 secondo di pausa e torna lentamente.'],
- ['Stacco da terra','Ischiocrurali',['Glutei','Dorso','Core'],'Bilanciere a contatto con le gambe, schiena neutra. Inspira e blocca il core, spingi il pavimento con i piedi estendendo anche e ginocchia insieme; non iperestendere in alto.'],
- ['Stacco rumeno','Ischiocrurali',['Glutei'],'Ginocchia leggermente flesse e fisse; porta il bacino indietro tenendo il bilanciere vicino alle gambe fino a sentire l’allungamento dei femorali, schiena neutra.'],
- ['Leg curl','Ischiocrurali',[],'Bacino ben appoggiato, fletti completamente senza sollevare le anche; ritorno lento in 2–3 secondi.'],
- ['Hip thrust','Glutei',['Ischiocrurali'],'Scapole sulla panca, mento verso il petto. Estendi l’anca fino ad allineare spalle, anche e ginocchia con il bacino in retroversione; pausa di 1 secondo in alto.'],
- ['Ponte glutei','Glutei',['Ischiocrurali'],'Supino, piedi vicini ai glutei; spingi con i talloni sollevando il bacino senza inarcare la zona lombare, contrai i glutei in alto.'],
- ['Abductor machine','Glutei',[],'Busto leggermente inclinato in avanti per più lavoro sul gluteo; apri in modo controllato e tieni 1 secondo in apertura.'],
- ['Curl con bilanciere','Bicipiti',[],'Gomiti fermi ai fianchi, niente slanci con il busto; sali espirando e scendi lentamente fino all’estensione completa.'],
- ['Curl manubri','Bicipiti',[],'Supina il polso durante la salita, gomiti fermi; alterna o esegui insieme mantenendo il busto immobile.'],
- ['Pushdown ai cavi','Tricipiti',[],'Gomiti fissi vicino ai fianchi, estendi completamente in basso contraendo il tricipite; risalita controllata.'],
- ['French press','Tricipiti',[],'Gomiti puntati verso il soffitto e fermi; scendi dietro la testa in modo controllato ed estendi senza aprire i gomiti.'],
- ['Calf raise','Polpacci',[],'Massima escursione: pausa di 1–2 secondi in allungamento in basso e contrazione completa in punta di piedi.'],
- ['Plank','Core',[],'Gomiti sotto le spalle, glutei e addome contratti, linea neutra da testa a talloni; respira senza perdere la posizione.'],
- ['Crunch ai cavi','Core',[],'In ginocchio, corda vicino alla testa: arrotola la colonna avvicinando lo sterno al bacino, senza tirare con le braccia.'],
- ['Pallof press','Core',[],'Di fianco al cavo, piedi alla larghezza delle spalle: spingi le mani avanti resistendo alla rotazione, busto fermo; 2 secondi a braccia tese.'],
- ['Farmer walk','Core',['Dorso'],'Busto eretto, spalle basse e indietro, passi corti e controllati; impugnatura salda per tutto il percorso.']
+// Libreria esercizi organizzata per pattern di movimento.
+// Campi: [nome, pattern, sotto-pattern, muscolo (per il volume), sinergici (metà serie), livello 1-3, ruolo, flag,
+//         muscoli primari, muscoli secondari, a cosa serve, assetto iniziale, fase eccentrica, fase concentrica, sicurezza]
+// Ruoli: main fondamentale · acc complementare · iso isolamento · plyo esplosivo · core · carry · mob mobilità
+// Flag: oh sopra la testa · bw corpo libero · vs carico assiale pesante (Valsalva) · tm a tempo · lr per lato · hi ripetizioni alte
+// Mobilità (bersaglio): mk caviglia · mh anche · mf flessori anca · mi femorali · ms spalle e colonna toracica
+var PATS=['Push','Pull','Squat','Hinge','Carry','Isopush','Mobilità'];
+var SUBL={po:'spinta orizzontale',pv:'spinta verticale',pi:'complementare di spinta',lv:'tirata verticale',lo:'tirata orizzontale',li:'complementare di tirata',
+ sb:'squat bilaterale',su:'monopodalico / affondi',si:'complementare gambe',sp:'pliometria',hb:'hinge pesante',hu:'hinge monopodalico',hg:'estensione d’anca / glutei',hh:'femorali',hp:'balistico',
+ c:'trasporto',ca:'anti-estensione',cl:'anti-flessione laterale',cr:'anti-rotazione / rotazione',ci:'isometria',m:'mobilità'};
+var EXRAW=[
+// ---------- PUSH ----------
+['Panca piana','Push','po','Petto','Tricipiti,Deltoidi',1,'main','vs','Grande pettorale','Deltoide anteriore, tricipite brachiale',
+ 'Sviluppa forza e massa della spinta orizzontale: è il fondamentale di riferimento per il petto.',
+ 'Occhi sotto il bilanciere, scapole addotte e depresse, leggero arco toracico, piedi ben piantati, presa poco più larga delle spalle.',
+ 'Porta il bilanciere alla parte bassa del petto in 2–3 secondi, gomiti a 45–70° dal busto.',
+ 'Spingi in modo deciso verso l’alto e leggermente indietro, sopra le spalle, senza staccare i glutei.',
+ 'Usa i fermi di sicurezza o un assistente sui carichi alti; polsi dritti sopra i gomiti.'],
+['Panca inclinata manubri','Push','po','Petto','Deltoidi,Tricipiti',1,'acc','','Fasci claveari del grande pettorale','Deltoide anteriore, tricipite',
+ 'Enfatizza la parte alta del petto e lavora i due lati in modo indipendente.',
+ 'Panca a 30°, manubri sopra il petto, scapole addotte, piedi a terra.',
+ 'Scendi lentamente fino a sentire l’allungamento del petto, gomiti a circa 45° dal busto.',
+ 'Spingi verso l’alto con traiettoria leggermente convergente, senza battere i manubri.',
+ 'Porta i manubri in posizione appoggiandoli sulle cosce; non aprire troppo i gomiti.'],
+['Piegamenti','Push','po','Petto','Tricipiti,Core',1,'acc','bw','Grande pettorale','Tricipite, deltoide anteriore, addominali',
+ 'Spinta orizzontale a corpo libero che allena petto e tricipiti insieme alla stabilità di scapole e core.',
+ 'Mani poco più larghe delle spalle, corpo in linea da testa a talloni, glutei e addome contratti.',
+ 'Scendi in modo controllato con i gomiti a circa 45° fino a sfiorare il suolo con il petto.',
+ 'Spingi il pavimento lontano fino a braccia tese, mantenendo il corpo rigido.',
+ 'Se la zona lombare cede usa le mani rialzate; con fastidio ai polsi usa impugnature o pugni.'],
+['Dip alle parallele','Push','po','Petto','Tricipiti,Deltoidi',3,'acc','bw','Grande pettorale (parte bassa), tricipite','Deltoide anteriore',
+ 'Spinta a corpo libero molto efficace per la parte bassa del petto e i tricipiti.',
+ 'Braccia tese sulle parallele, spalle basse lontane dalle orecchie, busto leggermente inclinato in avanti.',
+ 'Scendi lentamente fino a portare le spalle all’altezza dei gomiti.',
+ 'Spingi fino all’estensione completa delle braccia, senza slanci delle gambe.',
+ 'Sconsigliato con fastidio alla spalla anteriore; usa la macchina assistita se non controlli la discesa.'],
+['Croci ai cavi','Push','pi','Petto','Deltoidi',1,'iso','','Grande pettorale','Deltoide anteriore',
+ 'Isola il petto in adduzione orizzontale con tensione costante: complementare per l’ipertrofia.',
+ 'In piedi al centro dei cavi, un passo avanti, busto leggermente inclinato, gomiti morbidi e fissi.',
+ 'Apri le braccia ad arco fino a sentire l’allungamento del petto, senza superare la linea delle spalle.',
+ 'Chiudi davanti al petto stringendo i pettorali, senza spingere con le braccia.',
+ 'Carico moderato: conta la contrazione, non il peso.'],
+['Military press','Push','pv','Deltoidi','Tricipiti,Core',2,'main','oh,vs','Deltoide anteriore e laterale','Tricipite, trapezio, addominali',
+ 'Fondamentale della spinta verticale: forza delle spalle e stabilità del tronco in piedi.',
+ 'In piedi, piedi alla larghezza delle anche, bilanciere sulle clavicole, presa poco più larga delle spalle, glutei e addome contratti.',
+ 'Riporta il bilanciere alle clavicole in modo controllato, allontanando il viso.',
+ 'Spingi in verticale e porta la testa sotto il bilanciere a fine movimento, braccia tese sopra le orecchie.',
+ 'Non inarcare la zona lombare; evitalo se lo Shoulder Mobility Test è limitato o doloroso.'],
+['Lento manubri seduto','Push','pv','Deltoidi','Tricipiti',1,'acc','oh','Deltoide anteriore e laterale','Tricipite',
+ 'Spinta verticale con schienale che riduce il carico sulla colonna: ottima per l’ipertrofia delle spalle.',
+ 'Seduto con schienale quasi verticale, manubri all’altezza delle orecchie, gomiti leggermente davanti al busto.',
+ 'Scendi lentamente fino all’altezza delle orecchie.',
+ 'Spingi verso l’alto senza battere i manubri e senza staccare la schiena.',
+ 'Con dolore alla spalla sopra la testa preferisci la landmine press.'],
+['Push press','Push','pv','Deltoidi','Tricipiti,Quadricipiti,Core',3,'main','oh','Deltoidi, tricipite','Quadricipiti, glutei, addominali',
+ 'Spinta verticale esplosiva che trasferisce la forza delle gambe alle braccia: tipica della preparazione atletica.',
+ 'Come la military press, ginocchia morbide e peso su tutto il piede.',
+ 'Breve piegamento delle ginocchia (dip) con busto verticale.',
+ 'Estendi esplosivamente le gambe e completa la spinta con le braccia fino alla distensione.',
+ 'Busto sempre verticale nel dip; riporta il bilanciere alle clavicole ammortizzando con le gambe.'],
+['Landmine press','Push','pv','Deltoidi','Petto,Tricipiti,Core',1,'acc','','Deltoide anteriore, fasci alti del pettorale','Tricipite, dentato anteriore, addominali',
+ 'Spinta inclinata amica delle spalle: alternativa alla spinta sopra la testa quando la mobilità è limitata.',
+ 'In piedi o in mezzo affondo, estremità del bilanciere davanti alla spalla, gomito sotto il polso.',
+ 'Riporta il bilanciere alla spalla in modo controllato.',
+ 'Spingi in avanti e in alto lungo la traiettoria naturale, lasciando scivolare la scapola.',
+ 'Non ruotare il busto per spingere; addome e glutei contratti.'],
+['Alzate laterali','Push','pi','Deltoidi','',1,'iso','','Deltoide laterale','Trapezio superiore, sovraspinato',
+ 'Isola il deltoide laterale, che dà ampiezza alle spalle.',
+ 'In piedi, manubri ai lati, busto leggermente inclinato in avanti, gomiti morbidi.',
+ 'Scendi in 2–3 secondi mantenendo la tensione.',
+ 'Sali fino all’altezza delle spalle guidando con i gomiti, senza slanci.',
+ 'Non superare la linea delle spalle e non alzarle verso le orecchie.'],
+['Pushdown ai cavi','Push','pi','Tricipiti','',1,'iso','','Tricipite brachiale','Anconeo',
+ 'Isola i tricipiti in estensione del gomito.',
+ 'In piedi davanti al cavo alto, gomiti vicini ai fianchi, busto leggermente inclinato.',
+ 'Risali lentamente fino a circa 90° di flessione del gomito.',
+ 'Estendi completamente spingendo verso il basso e contrai il tricipite.',
+ 'I gomiti restano fermi: se si muovono, il carico è eccessivo.'],
+['French press','Push','pi','Tricipiti','',2,'iso','oh','Tricipite (capo lungo)','Anconeo',
+ 'Allena il capo lungo del tricipite in allungamento.',
+ 'Supino su panca, bilanciere EZ sopra il petto, braccia perpendicolari al pavimento.',
+ 'Fletti i gomiti portando il bilanciere verso la fronte, gomiti fermi.',
+ 'Estendi le braccia senza aprire i gomiti.',
+ 'Carico moderato e controllo totale: il bilanciere passa vicino al viso.'],
+// ---------- PULL ----------
+['Trazioni alla sbarra','Pull','lv','Dorso','Bicipiti',2,'main','bw','Gran dorsale','Bicipite, romboidi, trapezio inferiore',
+ 'Fondamentale della tirata verticale: forza relativa di dorso e braccia.',
+ 'Presa prona poco più larga delle spalle, braccia distese, corpo compatto con addome contratto.',
+ 'Scendi lentamente fino all’estensione completa delle braccia.',
+ 'Abbassa prima le scapole, poi tira portando il mento sopra la sbarra, senza slanci.',
+ 'Sotto le 3–5 ripetizioni pulite usa elastico, macchina assistita o lat machine.'],
+['Lat machine','Pull','lv','Dorso','Bicipiti',1,'acc','','Gran dorsale','Bicipite, romboidi, deltoide posteriore',
+ 'Tirata verticale con carico regolabile: sviluppa il gran dorsale a ogni livello.',
+ 'Seduto con le cosce bloccate, presa poco più larga delle spalle, petto alto.',
+ 'Lascia risalire la barra lentamente fino a braccia distese, sentendo l’allungamento dei dorsali.',
+ 'Tira la barra verso la parte alta del petto portando i gomiti verso i fianchi.',
+ 'Non portare la barra dietro la nuca e non oscillare con il busto.'],
+['Rematore con bilanciere','Pull','lo','Dorso','Bicipiti,Ischiocrurali',2,'main','vs','Gran dorsale, romboidi, trapezio medio','Bicipite, deltoide posteriore, erettori spinali',
+ 'Tirata orizzontale pesante per lo spessore del dorso e la tenuta della catena posteriore.',
+ 'Busto inclinato a circa 45°, schiena neutra, ginocchia morbide, presa poco più larga delle spalle.',
+ 'Distendi le braccia in modo controllato mantenendo l’inclinazione del busto.',
+ 'Tira il bilanciere verso l’ombelico stringendo le scapole.',
+ 'Schiena sempre neutra: se il busto si alza o si arrotonda, riduci il carico.'],
+['Rematore manubrio','Pull','lo','Dorso','Bicipiti',1,'acc','lr','Gran dorsale, romboidi','Bicipite, deltoide posteriore',
+ 'Tirata monolaterale che corregge gli squilibri tra i lati.',
+ 'Mano e ginocchio in appoggio sulla panca, schiena piatta, manubrio a braccio teso.',
+ 'Lascia scendere il manubrio allungando il dorsale.',
+ 'Porta il gomito verso l’anca senza ruotare il busto.',
+ 'Non ruotare il tronco per tirare; collo in linea con la schiena.'],
+['Pulley basso','Pull','lo','Dorso','Bicipiti',1,'acc','','Gran dorsale, romboidi, trapezio medio','Bicipite, deltoide posteriore',
+ 'Tirata orizzontale guidata, utile per il volume e il controllo delle scapole.',
+ 'Seduto con ginocchia leggermente flesse, busto eretto, petto in fuori.',
+ 'Allunga le braccia lasciando avanzare le scapole senza flettere il busto.',
+ 'Tira il triangolo verso l’addome stringendo le scapole.',
+ 'Busto fermo: non usare lo slancio della schiena.'],
+['Body row (trazioni orizzontali)','Pull','lo','Dorso','Bicipiti,Core',1,'acc','bw','Gran dorsale, romboidi','Bicipite, addominali, glutei',
+ 'Tirata orizzontale a corpo libero, propedeutica alle trazioni.',
+ 'Sotto una sbarra bassa o agli anelli, corpo rigido da testa a talloni, talloni a terra.',
+ 'Scendi lentamente fino a braccia tese.',
+ 'Porta il petto alla sbarra stringendo le scapole.',
+ 'Più il corpo è verticale, più è facile: regola la difficoltà con l’inclinazione.'],
+['Face pull','Pull','li','Deltoidi','Dorso',1,'iso','','Deltoide posteriore, rotatori esterni','Romboidi, trapezio medio',
+ 'Rinforza deltoidi posteriori e rotatori esterni: salute della spalla e postura.',
+ 'Corda al cavo all’altezza del viso, presa con i pollici verso di te, passo indietro.',
+ 'Torna in avanti lentamente mantenendo le scapole controllate.',
+ 'Tira verso la fronte aprendo i gomiti e ruotando le mani all’esterno; pausa di 1 secondo.',
+ 'Carico leggero: è un esercizio di qualità del movimento.'],
+['Pullover ai cavi','Pull','li','Dorso','Core',1,'iso','','Gran dorsale','Grande rotondo, tricipite (capo lungo), addominali',
+ 'Isola il gran dorsale con poco coinvolgimento dei bicipiti.',
+ 'In piedi davanti al cavo alto, busto leggermente inclinato, braccia quasi tese.',
+ 'Lascia risalire le braccia fino all’altezza della testa.',
+ 'Porta la barra verso le cosce con un movimento ad arco, contraendo i dorsali.',
+ 'Non inarcare la zona lombare; gomiti morbidi e fissi.'],
+['Curl con bilanciere','Pull','li','Bicipiti','',1,'iso','','Bicipite brachiale','Brachiale, brachioradiale',
+ 'Isola i bicipiti e i flessori del gomito.',
+ 'In piedi, presa supina alla larghezza delle spalle, gomiti ai fianchi.',
+ 'Scendi lentamente fino all’estensione completa.',
+ 'Fletti i gomiti portando il bilanciere verso le spalle senza slanci del busto.',
+ 'Con fastidio ai polsi usa il bilanciere EZ.'],
+['Curl manubri','Pull','li','Bicipiti','',1,'iso','','Bicipite brachiale','Brachiale',
+ 'Isola i bicipiti con la supinazione completa del polso.',
+ 'In piedi o seduto, manubri ai fianchi con i palmi rivolti verso le cosce, gomiti fermi.',
+ 'Scendi lentamente fino all’estensione completa.',
+ 'Sali ruotando il palmo verso l’alto durante la salita.',
+ 'Busto immobile: niente slanci.'],
+['Curl a martello','Pull','li','Bicipiti','',1,'iso','','Brachiale, brachioradiale','Bicipite brachiale',
+ 'Allena brachiale e brachioradiale: utile per la presa e la forza di tirata negli sport di lotta.',
+ 'In piedi, manubri ai fianchi con presa neutra (palmi uno verso l’altro), gomiti fermi.',
+ 'Scendi lentamente mantenendo la presa neutra.',
+ 'Fletti il gomito portando il manubrio verso la spalla.',
+ 'Busto immobile e polso in linea con l’avambraccio.'],
+// ---------- SQUAT ----------
+['Squat','Squat','sb','Quadricipiti','Glutei,Core',2,'main','vs','Quadricipiti, grande gluteo','Adduttori, erettori spinali, addominali',
+ 'Fondamentale della parte inferiore: forza e massa di quadricipiti e glutei, trasferibile allo sport.',
+ 'Bilanciere sui trapezi, piedi alla larghezza delle spalle con punte leggermente aperte, scapole addotte.',
+ 'Inspira, blocca il core e scendi portando indietro le anche e avanti le ginocchia, almeno fino al parallelo.',
+ 'Risali spingendo con tutto il piede, ginocchia in linea con le punte, petto alto.',
+ 'Fermi di sicurezza al rack; con compensi marcati all’Overhead Squat parti dal goblet squat.'],
+['Front squat','Squat','sb','Quadricipiti','Glutei,Core',3,'main','vs','Quadricipiti','Grande gluteo, addominali, erettori spinali',
+ 'Squat con bilanciere anteriore: più quadricipiti e busto più verticale.',
+ 'Bilanciere appoggiato sui deltoidi anteriori, gomiti alti, piedi alla larghezza delle spalle.',
+ 'Scendi in profondità mantenendo busto verticale e gomiti alti.',
+ 'Risali spingendo con tutto il piede senza far cadere i gomiti.',
+ 'Richiede buona mobilità di polsi, caviglie e colonna toracica.'],
+['Goblet squat','Squat','sb','Quadricipiti','Glutei,Core',1,'acc','','Quadricipiti, grande gluteo','Adduttori, addominali',
+ 'Squat con carico anteriore che insegna la tecnica e favorisce un busto verticale.',
+ 'Manubrio o kettlebell al petto, gomiti in basso, piedi poco più larghi delle spalle.',
+ 'Scendi tra le ginocchia mantenendo il petto alto e i talloni a terra.',
+ 'Risali spingendo con tutto il piede e allontanando le ginocchia.',
+ 'Se i talloni si alzano usa un piccolo rialzo e lavora sulla mobilità della caviglia.'],
+['Leg press','Squat','sb','Quadricipiti','Glutei',1,'acc','','Quadricipiti, grande gluteo','Adduttori',
+ 'Spinta delle gambe guidata, con carico elevato e poco stress sulla colonna.',
+ 'Schiena e bacino ben appoggiati, piedi alla larghezza delle spalle a metà pedana.',
+ 'Scendi fin dove il bacino resta appoggiato, ginocchia in linea con le punte.',
+ 'Spingi con tutto il piede senza bloccare le ginocchia in alto.',
+ 'La zona lombare non deve staccarsi dallo schienale.'],
+['Affondi','Squat','su','Quadricipiti','Glutei',1,'acc','lr','Quadricipiti, grande gluteo','Adduttori, medio gluteo',
+ 'Lavoro monopodalico per forza, equilibrio e simmetria tra le gambe.',
+ 'In piedi, busto eretto, manubri ai fianchi o bilanciere sui trapezi.',
+ 'Fai un passo ampio e scendi finché il ginocchio posteriore sfiora il suolo.',
+ 'Spingi con il tallone anteriore e torna alla posizione di partenza.',
+ 'Ginocchio anteriore in linea con il piede, senza cedere verso l’interno.'],
+['Bulgarian split squat','Squat','su','Quadricipiti','Glutei',2,'acc','lr','Quadricipiti, grande gluteo','Medio gluteo, adduttori',
+ 'Monopodalico intenso per gambe e glutei, ottimo per la forza nello sport.',
+ 'Piede posteriore sulla panca, piede anteriore circa 60–80 cm avanti, busto leggermente inclinato.',
+ 'Scendi in verticale controllando il ginocchio anteriore.',
+ 'Risali spingendo con tutto il piede anteriore.',
+ 'Ginocchio in linea con il piede; parti a corpo libero per trovare la posizione.'],
+['Step-up','Squat','su','Quadricipiti','Glutei',1,'acc','lr','Quadricipiti, grande gluteo','Medio gluteo, polpacci',
+ 'Salita su un rialzo: forza monopodalica con trasferimento diretto a corsa e salite.',
+ 'Davanti a un box all’altezza del ginocchio, piede intero sul rialzo.',
+ 'Scendi lentamente controllando con la gamba sul box.',
+ 'Sali spingendo con la gamba sul box senza aiutarti con quella a terra.',
+ 'Ginocchio in linea con il piede; scegli un’altezza che permetta il controllo.'],
+['Leg extension','Squat','si','Quadricipiti','',1,'iso','','Quadricipiti','—',
+ 'Isola i quadricipiti in estensione del ginocchio.',
+ 'Seduto, ginocchio allineato all’asse della macchina, rullo sopra le caviglie.',
+ 'Torna giù lentamente in 2–3 secondi.',
+ 'Estendi completamente con 1 secondo di pausa in alto.',
+ 'Con dolore femoro-rotuleo riduci il carico o l’escursione.'],
+['Calf raise','Squat','si','Polpacci','',1,'iso','','Gastrocnemio, soleo','—',
+ 'Rinforza i polpacci e il tendine d’Achille: utile per corsa e salti.',
+ 'In piedi con l’avampiede su un rialzo, ginocchia tese o leggermente flesse.',
+ 'Scendi lentamente con 1–2 secondi di pausa in allungamento.',
+ 'Sali in punta di piedi fino alla contrazione completa.',
+ 'Movimento lento e completo, senza rimbalzi.'],
+['Jump squat','Squat','sp','Quadricipiti','Glutei,Polpacci',2,'plyo','pl','Quadricipiti, grande gluteo','Polpacci',
+ 'Sviluppa la potenza degli arti inferiori.',
+ 'Piedi alla larghezza delle spalle, mani dietro la testa o sui fianchi.',
+ 'Scendi rapidamente in un quarto o mezzo squat.',
+ 'Salta il più in alto possibile e atterra morbido ammortizzando.',
+ 'Atterraggio silenzioso con ginocchia in linea; pochi salti di qualità.'],
+['Box jump','Squat','sp','Quadricipiti','Glutei,Polpacci',2,'plyo','pl','Quadricipiti, grande gluteo','Polpacci, addominali',
+ 'Potenza ed esplosività con un atterraggio controllato.',
+ 'Davanti al box, piedi alla larghezza delle anche.',
+ 'Caricamento rapido con slancio delle braccia indietro.',
+ 'Salta sul box e atterra in mezzo squat stabile; scendi camminando.',
+ 'Scendi dal box a piedi, non saltando all’indietro; altezza adeguata al livello.'],
+['Wall ball','Squat','sp','Quadricipiti','Deltoidi,Glutei',2,'plyo','hi','Quadricipiti, grande gluteo, deltoidi','Tricipite, addominali',
+ 'Combina squat e lancio: potenza e resistenza, tipico di Hyrox e CrossFit.',
+ 'Palla al petto, piedi alla larghezza delle spalle a circa 50 cm dal muro.',
+ 'Scendi in squat completo tenendo la palla al petto.',
+ 'Risali esplosivamente e lancia la palla al bersaglio; riprendila scendendo nel nuovo squat.',
+ 'Busto alto in fondo allo squat; non sacrificare la profondità alla velocità.'],
+// ---------- HINGE ----------
+['Stacco da terra','Hinge','hb','Ischiocrurali','Glutei,Dorso,Core',2,'main','vs','Grande gluteo, ischiocrurali, erettori spinali','Gran dorsale, trapezio, quadricipiti, avambracci',
+ 'Fondamentale della catena posteriore: forza generale di anche e schiena.',
+ 'Piedi alla larghezza delle anche, bilanciere sopra metà piede e a contatto con le gambe, schiena neutra, spalle sopra il bilanciere.',
+ 'Riporta il bilanciere a terra spingendo indietro le anche, vicino alle gambe.',
+ 'Spingi il pavimento con i piedi estendendo anche e ginocchia insieme, fino in piedi senza iperestendere.',
+ 'Schiena sempre neutra: se si arrotonda, riduci il carico.'],
+['Stacco rumeno','Hinge','hb','Ischiocrurali','Glutei',1,'main','','Ischiocrurali, grande gluteo','Erettori spinali, adduttori',
+ 'Allena i femorali in allungamento e insegna il movimento di cerniera dell’anca.',
+ 'In piedi con bilanciere o manubri, ginocchia leggermente flesse e fisse, schiena neutra.',
+ 'Porta il bacino indietro facendo scendere il carico lungo le gambe fino a sentire l’allungamento dei femorali.',
+ 'Torna in piedi spingendo il bacino in avanti e contraendo i glutei.',
+ 'Il carico resta vicino alle gambe; non arrotondare la schiena.'],
+['Stacco rumeno monopodalico','Hinge','hu','Ischiocrurali','Glutei,Core',2,'acc','lr','Ischiocrurali, grande gluteo','Medio gluteo, addominali',
+ 'Hinge su una gamba: forza, equilibrio e stabilità dell’anca, utile per corsa e sport.',
+ 'In piedi su una gamba, manubrio nella mano opposta, ginocchio d’appoggio morbido.',
+ 'Inclina il busto in avanti allungando la gamba libera indietro, bacino parallelo al suolo.',
+ 'Torna in piedi spingendo il bacino in avanti.',
+ 'Non ruotare il bacino; parti senza carico.'],
+['Hip thrust','Hinge','hg','Glutei','Ischiocrurali',1,'main','','Grande gluteo','Ischiocrurali, adduttori',
+ 'Massima attivazione dei glutei in estensione d’anca: esercizio principale per la loro crescita.',
+ 'Scapole sulla panca, bilanciere con protezione sulle anche, piedi alla larghezza delle anche.',
+ 'Abbassa il bacino in modo controllato mantenendo il mento verso il petto.',
+ 'Estendi l’anca fino ad allineare spalle, anche e ginocchia con il bacino in retroversione; pausa di 1 secondo.',
+ 'Non iperestendere la zona lombare in alto.'],
+['Ponte glutei','Hinge','hg','Glutei','Ischiocrurali',1,'acc','','Grande gluteo','Ischiocrurali',
+ 'Versione a terra dell’hip thrust: attivazione e rinforzo dei glutei.',
+ 'Supino, ginocchia piegate, piedi vicini ai glutei.',
+ 'Scendi lentamente fino a sfiorare il pavimento.',
+ 'Spingi con i talloni sollevando il bacino e contrai i glutei in alto.',
+ 'Non inarcare la zona lombare.'],
+['Abductor machine','Hinge','hg','Glutei','',1,'iso','','Medio e piccolo gluteo','Tensore della fascia lata',
+ 'Rinforza il medio gluteo, stabilizzatore dell’anca e del ginocchio.',
+ 'Seduto, busto leggermente inclinato in avanti, cuscinetti sull’esterno delle ginocchia.',
+ 'Chiudi lentamente senza far sbattere i pesi.',
+ 'Apri in modo controllato e tieni 1 secondo in apertura.',
+ 'Movimento controllato, senza slanci.'],
+['Pull-through ai cavi','Hinge','hg','Glutei','Ischiocrurali',1,'acc','','Grande gluteo, ischiocrurali','Erettori spinali',
+ 'Insegna e rinforza la cerniera d’anca con poco carico sulla colonna.',
+ 'Di spalle al cavo basso, corda tra le gambe, piedi poco più larghi delle anche.',
+ 'Porta il bacino indietro lasciando passare la corda tra le gambe, schiena neutra.',
+ 'Torna in piedi spingendo le anche in avanti e contraendo i glutei.',
+ 'Il movimento parte dalle anche, non dalle braccia.'],
+['Kettlebell swing','Hinge','hp','Glutei','Ischiocrurali,Core',2,'plyo','hi','Grande gluteo, ischiocrurali','Erettori spinali, addominali, avambracci',
+ 'Estensione d’anca balistica: potenza e resistenza della catena posteriore.',
+ 'Piedi poco più larghi delle spalle, kettlebell davanti a te, schiena neutra.',
+ 'Lascia passare la kettlebell tra le gambe portando le anche indietro.',
+ 'Estendi le anche in modo esplosivo: la kettlebell sale fino all’altezza del petto, braccia rilassate.',
+ 'Non è uno squat né un’alzata con le braccia: la spinta viene dalle anche.'],
+['Leg curl','Hinge','hh','Ischiocrurali','',1,'iso','','Ischiocrurali','Gastrocnemio',
+ 'Isola i femorali in flessione del ginocchio.',
+ 'Bacino ben appoggiato, rullo sopra i talloni, ginocchio allineato all’asse della macchina.',
+ 'Ritorno lento in 2–3 secondi.',
+ 'Fletti completamente senza sollevare le anche.',
+ 'Niente slanci; carico che permetta il controllo.'],
+['Nordic curl','Hinge','hh','Ischiocrurali','',3,'acc','bw','Ischiocrurali','Gastrocnemio, glutei',
+ 'Eccentrica intensa dei femorali: tra i migliori esercizi di prevenzione degli stiramenti.',
+ 'In ginocchio su un tappetino, talloni bloccati da un partner o da un supporto, busto eretto.',
+ 'Scendi in avanti il più lentamente possibile mantenendo anche e busto in linea.',
+ 'Ammortizza con le mani e torna su aiutandoti con le braccia.',
+ 'Poche ripetizioni di qualità; da evitare a ridosso di partite e gare.'],
+['Hyperextension 45°','Hinge','hh','Ischiocrurali','Glutei',1,'acc','','Erettori spinali, ischiocrurali','Grande gluteo',
+ 'Rinforza catena posteriore ed erettori con un carico gestibile.',
+ 'Bacino sul cuscinetto, piedi bloccati, braccia incrociate al petto.',
+ 'Scendi flettendo le anche con la schiena neutra.',
+ 'Risali fino ad allineare il corpo, senza iperestendere.',
+ 'Non oltrepassare la linea del corpo in alto.'],
+// ---------- CARRY ----------
+['Farmer walk','Carry','c','Core','Dorso',1,'carry','','Trapezio, avambracci (presa), addominali','Glutei, quadricipiti',
+ 'Trasporto pesante: presa, stabilità del tronco e resistenza generale.',
+ 'Un manubrio o kettlebell per mano, busto eretto, spalle basse e indietro.',
+ 'Passi corti e controllati, senza far oscillare i carichi.',
+ 'Cammina per la distanza indicata mantenendo la postura.',
+ 'Solleva e appoggia i carichi con la schiena neutra.'],
+['Suitcase carry','Carry','c','Core','',1,'carry','lr','Obliqui, quadrato dei lombi','Trapezio, avambracci',
+ 'Trasporto con un solo carico: resiste all’inclinazione laterale del busto.',
+ 'Un solo manubrio o kettlebell in una mano, busto dritto e spalle allineate.',
+ 'Cammina senza inclinarti verso il carico.',
+ 'Cambia lato a metà percorso.',
+ 'Spalle e bacino sempre paralleli al suolo.'],
+['Overhead carry','Carry','c','Core','Deltoidi',2,'carry','oh,lr','Deltoidi, stabilizzatori della scapola','Addominali, obliqui',
+ 'Trasporto con il carico sopra la testa: stabilità della spalla e del tronco.',
+ 'Kettlebell o manubrio a braccio teso sopra la testa, bicipite vicino all’orecchio.',
+ 'Cammina con passi controllati senza inarcare la schiena.',
+ 'Cambia braccio a metà percorso.',
+ 'Evitalo se lo Shoulder Mobility Test è limitato o doloroso.'],
+['Spinta slitta','Carry','c','Quadricipiti','Glutei,Polpacci',1,'carry','','Quadricipiti, grande gluteo','Polpacci, addominali',
+ 'Spinta pesante a terra: forza e resistenza specifiche per Hyrox e sport di campo.',
+ 'Mani sui montanti, braccia distese, busto inclinato in avanti a circa 45°.',
+ 'Passi corti e potenti spingendo con tutto il piede.',
+ 'Mantieni una spinta costante fino alla fine del percorso.',
+ 'Schiena neutra e testa in linea; pavimento non scivoloso.'],
+// ---------- ISOPUSH (core e isometrie) ----------
+['Plank','Isopush','ca','Core','',1,'core','tm','Retto e trasverso dell’addome','Obliqui, glutei, dentato anteriore',
+ 'Tenuta isometrica che allena il core a resistere all’estensione della colonna.',
+ 'Gomiti sotto le spalle, corpo in linea da testa a talloni, glutei e addome contratti.',
+ 'Mantieni la posizione senza far scendere o salire il bacino.',
+ 'Spingi il pavimento con gli avambracci per tutto il tempo.',
+ 'Interrompi al primo cedimento della zona lombare.'],
+['Side plank','Isopush','cl','Core','Glutei',1,'core','tm,lr','Obliqui, quadrato dei lombi','Medio gluteo, adduttori',
+ 'Tenuta laterale per obliqui e stabilità dell’anca.',
+ 'Sul fianco, gomito sotto la spalla, piedi sovrapposti o sfalsati, corpo in linea.',
+ 'Mantieni il bacino alto senza ruotare il busto.',
+ 'Spingi il pavimento con l’avambraccio per tutto il tempo.',
+ 'Variante facilitata: ginocchia a terra.'],
+['Dead bug','Isopush','ca','Core','',1,'core','lr','Trasverso e retto dell’addome','Flessori dell’anca',
+ 'Controllo del core con braccia e gambe in movimento: base per ogni livello.',
+ 'Supino, braccia verso il soffitto, anche e ginocchia a 90°, zona lombare a contatto con il pavimento.',
+ 'Allunga lentamente un braccio e la gamba opposta senza staccare la schiena.',
+ 'Torna al centro e alterna i lati.',
+ 'Se la zona lombare si stacca, riduci l’ampiezza.'],
+['Bird dog','Isopush','ca','Core','Glutei',1,'core','lr','Erettori spinali, multifido, trasverso','Grande gluteo, deltoidi',
+ 'Stabilità del tronco in quadrupedia e coordinazione crociata.',
+ 'In quadrupedia, mani sotto le spalle e ginocchia sotto le anche, schiena neutra.',
+ 'Allunga braccio e gamba opposti senza ruotare il bacino.',
+ 'Tieni 2 secondi e torna lentamente.',
+ 'Movimento lento: il bacino resta fermo.'],
+['Hollow hold','Isopush','ca','Core','',2,'core','tm','Retto e trasverso dell’addome','Flessori dell’anca',
+ 'Isometria intensa del core, base di molti gesti ginnici.',
+ 'Supino, zona lombare schiacciata a terra, braccia e gambe tese sollevate.',
+ 'Mantieni la posizione a «banana» senza staccare la schiena.',
+ 'Abbassa braccia e gambe solo quanto riesci a controllare.',
+ 'Con fastidio lombare piega le ginocchia.'],
+['Pallof press','Isopush','cr','Core','',1,'core','lr','Obliqui, trasverso dell’addome','Glutei, stabilizzatori della spalla',
+ 'Anti-rotazione: il core impara a resistere alla torsione.',
+ 'Di fianco al cavo all’altezza del petto, piedi alla larghezza delle spalle, maniglia al petto.',
+ 'Riporta le mani al petto lentamente senza ruotare.',
+ 'Spingi le mani in avanti e tieni 2 secondi a braccia tese, busto fermo.',
+ 'Bacino e spalle restano rivolti in avanti.'],
+['Copenhagen plank','Isopush','cl','Core','',3,'core','tm,lr','Adduttori, obliqui','Medio gluteo',
+ 'Rinforza adduttori e core: prevenzione delle pubalgie negli sport di campo.',
+ 'Side plank con la gamba superiore appoggiata su una panca all’altezza del ginocchio o della caviglia.',
+ 'Solleva il bacino in linea mantenendo la posizione.',
+ 'Mantieni il tempo indicato senza far scendere il bacino.',
+ 'Inizia con l’appoggio al ginocchio (più facile).'],
+['Crunch ai cavi','Isopush','ca','Core','',1,'core','','Retto dell’addome','Obliqui',
+ 'Rinforzo del retto dell’addome con carico regolabile.',
+ 'In ginocchio davanti al cavo alto, corda ai lati della testa.',
+ 'Torna su lentamente allungando l’addome.',
+ 'Arrotola la colonna avvicinando lo sterno al bacino, senza tirare con le braccia.',
+ 'Il movimento è della colonna, non delle anche.'],
+['Lancio laterale palla medica','Isopush','cr','Core','Glutei',2,'plyo','lr','Obliqui, grande gluteo','Deltoidi, adduttori',
+ 'Potenza rotazionale per gesti di lancio, colpi e prese.',
+ 'Di fianco al muro a circa 1 metro, palla medica all’altezza dell’anca.',
+ 'Carica ruotando anche e busto lontano dal muro.',
+ 'Ruota in modo esplosivo partendo dalle anche e lancia la palla contro il muro.',
+ 'Usa una palla leggera (2–4 kg) e la massima velocità.'],
+['Wall sit','Isopush','ci','Quadricipiti','Glutei',1,'core','tm','Quadricipiti','Grande gluteo',
+ 'Isometria dei quadricipiti, utile negli sport con posizioni flesse (sci, lotta).',
+ 'Schiena al muro, cosce parallele al suolo, ginocchia a 90° sopra le caviglie.',
+ 'Mantieni la posizione senza appoggiare le mani sulle cosce.',
+ 'Spingi la schiena contro il muro per tutto il tempo.',
+ 'Con dolore al ginocchio riduci la flessione.'],
+// ---------- MOBILITÀ ----------
+['90/90 anche','Mobilità','m','','',1,'mob','lr,mh','Rotatori dell’anca','Glutei, adduttori',
+ 'Migliora la rotazione interna ed esterna delle anche.',
+ 'Seduto a terra con entrambe le ginocchia a 90°, una avanti e una di lato, busto eretto.',
+ 'Inclinati sulla gamba anteriore mantenendo la schiena dritta.',
+ 'Ruota le ginocchia dall’altro lato senza usare le mani, se possibile.',
+ 'Nessun dolore al ginocchio: se serve, appoggia le mani dietro.'],
+['World’s greatest stretch','Mobilità','m','','',1,'mob','lr,mh,mi,ms','Flessori dell’anca, femorali, colonna toracica','Adduttori, spalle',
+ 'Mobilità globale di anche, femorali e colonna toracica in un solo esercizio.',
+ 'Affondo lungo, mano opposta a terra accanto al piede anteriore.',
+ 'Porta il gomito verso la caviglia anteriore, poi ruota il busto aprendo il braccio verso il soffitto.',
+ 'Distendi la gamba anteriore portando il bacino indietro per allungare i femorali.',
+ 'Movimento lento e controllato, senza molleggiare.'],
+['Rotazioni toraciche in quadrupedia','Mobilità','m','','',1,'mob','lr,ms','Colonna toracica','Spalle, romboidi',
+ 'Aumenta la rotazione della colonna toracica, utile per spinte e lanci.',
+ 'In quadrupedia, una mano dietro la testa, bacino fermo sopra le ginocchia.',
+ 'Porta il gomito verso il braccio d’appoggio.',
+ 'Ruota aprendo il gomito verso il soffitto, seguendo con lo sguardo.',
+ 'Il movimento è del torace, non della zona lombare.'],
+['Mobilità caviglia knee-to-wall','Mobilità','m','','',1,'mob','lr,mk','Caviglia (dorsiflessione)','Polpacci',
+ 'Migliora la flessione della caviglia, spesso limitante nello squat.',
+ 'In ginocchio in mezzo affondo davanti al muro, piede anteriore a qualche centimetro.',
+ 'Porta il ginocchio verso il muro mantenendo il tallone a terra.',
+ 'Torna indietro e allontana il piede di poco quando raggiungi il muro facilmente.',
+ 'Il tallone non deve staccarsi; ginocchio in linea con il secondo dito.'],
+['Wall slide','Mobilità','m','','',1,'mob','ms','Dentato anteriore, trapezio inferiore','Rotatori esterni',
+ 'Migliora l’elevazione delle braccia e il controllo delle scapole.',
+ 'Schiena e avambracci al muro, gomiti a 90°.',
+ 'Fai scivolare le braccia verso l’alto mantenendo il contatto con il muro.',
+ 'Torna giù abbassando le scapole.',
+ 'Non inarcare la zona lombare per salire di più.'],
+['Allungamento flessori dell’anca','Mobilità','m','','',1,'mob','lr,tm,mf','Ileopsoas, retto femorale','Tensore della fascia lata',
+ 'Allunga i flessori dell’anca, spesso accorciati (Test di Thomas positivo).',
+ 'In ginocchio in mezzo affondo, bacino in retroversione, gluteo della gamba posteriore contratto.',
+ 'Porta il bacino leggermente in avanti senza inarcare la schiena.',
+ 'Mantieni la posizione respirando lentamente; alza il braccio dal lato della gamba posteriore.',
+ 'Ginocchio posteriore su un cuscino; la zona lombare non deve inarcarsi.'],
+['Allungamento femorali con elastico','Mobilità','m','','',1,'mob','lr,tm,mi','Ischiocrurali','Polpacci',
+ 'Allunga i femorali (ASLR o Sit-and-Reach limitati).',
+ 'Supino, elastico sotto il piede, gamba tesa verso il soffitto, l’altra distesa a terra.',
+ 'Avvicina la gamba tesa tirando l’elastico fino a una tensione moderata.',
+ 'Mantieni la posizione respirando lentamente.',
+ 'Niente formicolii o dolore dietro al ginocchio.'],
+['Cossack squat','Mobilità','m','','',2,'mob','lr,mh,mk','Adduttori, anche, caviglie','Quadricipiti, glutei',
+ 'Mobilità attiva di adduttori, anche e caviglie in posizione laterale.',
+ 'Piedi molto larghi, punte leggermente aperte.',
+ 'Scendi su una gamba mantenendo l’altra tesa con la punta verso l’alto.',
+ 'Torna al centro e scendi dall’altro lato.',
+ 'Tallone a terra; usa un supporto per l’equilibrio se serve.'],
+['Dislocazioni con bastone','Mobilità','m','','',1,'mob','ms','Spalle, pettorali','Colonna toracica',
+ 'Migliora la mobilità delle spalle in flessione ed estensione.',
+ 'In piedi, bastone o elastico con presa molto larga davanti alle cosce.',
+ 'Porta il bastone sopra la testa e dietro la schiena a braccia tese.',
+ 'Torna avanti lungo lo stesso percorso.',
+ 'Allarga la presa se i gomiti si piegano; nessun dolore.']
 ];
-var EXI={};EXDB.forEach(function(e){EXI[ekey(e[0])]=e});
+var EXDB=EXRAW.map(function(r){return {n:r[0],p:r[1],sub:r[2],m:r[3],sy:r[4]?r[4].split(','):[],lv:r[5],role:r[6],fl:r[7]?r[7].split(','):[],mp:r[8],ms:r[9],sc:r[10],as:r[11],ec:r[12],co:r[13],si:r[14]}});
+var EXI={};EXDB.forEach(function(e){EXI[ekey(e.n)]=e});
+// Nomi della versione precedente, per le schede già salvate
+EXI[ekey('Body row')]=EXI[ekey('Body row (trazioni orizzontali)')];
+function cap1(s){s=String(s||'');return s.charAt(0).toUpperCase()+s.slice(1)}
+function hasF(e,f){return e.fl.indexOf(f)>-1}
+// Respirazione (sintetica per la tabella, estesa per la legenda)
+function breath(e){
+  if(e.role==='plyo')return 'Inspira nel caricamento, espira con decisione nella fase esplosiva.';
+  if(e.role==='core')return 'Respira in modo lento e continuo, senza trattenere il fiato e senza perdere la tensione dell’addome.';
+  if(e.role==='carry')return 'Respiri corti e regolari, addome sempre attivo.';
+  if(e.role==='mob')return 'Espira lentamente entrando nell’allungamento; non trattenere il fiato.';
+  if(hasF(e,'vs'))return 'Inspira e blocca il core prima della fase eccentrica, espira dopo aver superato il punto critico della risalita.';
+  return {Push:'Inspira nella fase di discesa, espira mentre spingi.',Pull:'Espira mentre tiri, inspira nel ritorno controllato.',Squat:'Inspira e blocca il core prima di scendere, espira in risalita.',Hinge:'Inspira e blocca il core prima di piegarti, espira nell’estensione delle anche.'}[e.p]||'Inspira nella fase eccentrica, espira nella concentrica.';
+}
+function exNote(e){return e.as+' Respirazione: '+breath(e).charAt(0).toLowerCase()+breath(e).slice(1)}
+
+// ---- Selezione automatica: profilo del cliente → split → sedute → prescrizione ----
+var LVN={'Principiante':1,'Intermedio':2,'Avanzato':3};
+function lvlOf(u){return LVN[String((u&&u.liv)||'').split(' ')[0]]||2}
+var RM_MAP={'Back squat':'Squat','Panca piana':'Panca piana','Stacco da terra':'Stacco da terra','Military press':'Military press','Rematore con bilanciere':'Rematore con bilanciere','Hip thrust':'Hip thrust'};
+// Profili sport: parole chiave cercate in gara/sport obiettivo e sport extra → esercizi specifici
+var SPORTP=[
+ {k:/hyrox/,t:'Hyrox',x:['Spinta slitta','Wall ball','Farmer walk','Affondi','Kettlebell swing']},
+ {k:/crossfit|\bocr\b|obstacle|spartan|functional/,t:'CrossFit / OCR',x:['Trazioni alla sbarra','Farmer walk','Kettlebell swing','Box jump','Push press']},
+ {k:/judo|bjj|jiu|lotta|grappl|\bmma\b|arti marziali|karate|boxe|kick|muay|taekwondo/,t:'Sport da combattimento',x:['Trazioni alla sbarra','Curl a martello','Farmer walk','Pallof press','Lancio laterale palla medica','Copenhagen plank']},
+ {k:/marato|corsa|running|trail|mezza|triathlon|podis/,t:'Corsa / endurance',x:['Bulgarian split squat','Stacco rumeno monopodalico','Calf raise','Step-up','Side plank','Copenhagen plank']},
+ {k:/cicli|bici|\bmtb\b|spinning/,t:'Ciclismo',x:['Bulgarian split squat','Stacco rumeno','Hip thrust','Side plank','Dead bug']},
+ {k:/calci|futsal|rugby|hockey/,t:'Sport di squadra da campo',x:['Nordic curl','Copenhagen plank','Bulgarian split squat','Box jump','Stacco rumeno monopodalico']},
+ {k:/basket|pallavolo|volley|handball|pallamano/,t:'Sport di salto',x:['Box jump','Jump squat','Calf raise','Bulgarian split squat','Face pull']},
+ {k:/tennis|padel|squash|golf|baseball|badminton/,t:'Sport di racchetta e rotazione',x:['Lancio laterale palla medica','Pallof press','Face pull','Affondi','Side plank']},
+ {k:/nuoto|swim|pallanuoto|nuotat/,t:'Nuoto',x:['Trazioni alla sbarra','Pullover ai cavi','Face pull','Dead bug','Landmine press']},
+ {k:/\bsci\b|snowboard|sciator/,t:'Sci / snowboard',x:['Bulgarian split squat','Wall sit','Box jump','Side plank']}
+];
+function profile(u){
+  u=u||{};
+  var c={lvl:lvlOf(u),ob:u.ob||[],prio:prioMus(u),avoid:{},avoidN:{},bonus:{},sport:[],sportT:[],mob:[],notes:[],rm:{},pq:pqState(u.pq)==='warn',hiLoad:false,extraDays:0,cardio:false,pref:u.split||''};
+  var bon=function(n,x){c.bonus[n]=(c.bonus[n]||0)+x},mob=function(){[].forEach.call(arguments,function(m){if(c.mob.indexOf(m)<0)c.mob.push(m)})};
+  ((u.test&&u.test.rm)||[]).forEach(function(r){var n=RM_MAP[r.e],e=rmEst(r.k,r.r);if(n&&e&&!e.bad){var v=e.d||(e.e+e.b)/2;if(!c.rm[n]||v>c.rm[n])c.rm[n]=v}});
+  var txt=[u.gara,(u.sp||[]).join(' '),u.spAlt].join(' ').toLowerCase();
+  SPORTP.forEach(function(s){if(s.k.test(txt)){c.sportT.push(s.t);s.x.forEach(function(n){if(c.sport.indexOf(n)<0)c.sport.push(n);bon(n,3)})}});
+  var fr=+u.sfreq||0,ss=+u.ssess||1,du=+u.sdur||0,rp=+u.srpe||0;
+  if(fr&&du){var sed=fr*ss;c.extraDays=fr;c.hiLoad=sed>=5||(rp>0&&sed*du*rp>=2500)}
+  var v=(u.test&&u.test.v)||{},both=function(k,re){return re.test(v[k+'_dx']||'')||re.test(v[k+'_sx']||'')};
+  if(both('shm',/Oltre|Dolore/)){c.avoid.oh=1;mob('ms');bon('Landmine press',3);c.notes.push('Shoulder Mobility limitato o doloroso: niente spinte sopra la testa (landmine press al loro posto) e mobilità di spalle e colonna toracica.')}
+  if(v.osa==='Compensi marcati'){c.avoidN['Squat']=c.avoidN['Front squat']=1;bon('Goblet squat',4);bon('Leg press',1);mob('mk','mh');c.notes.push('Overhead Squat con compensi marcati: goblet squat al posto dello squat con bilanciere, mobilità di caviglie e anche.')}
+  else if(v.osa==='Compensi lievi')mob('mk');
+  if(both('sls',/marcat/)){bon('Abductor machine',3);bon('Side plank',3);bon('Step-up',1);c.notes.push('Single Leg Squat con drop pelvico o valgo marcato: lavoro sul medio gluteo (abductor, side plank).')}
+  if(both('aslr',/Sotto/)||pnum(v.sar)<0){mob('mi');c.notes.push('Flessibilità della catena posteriore limitata (ASLR o Sit-and-Reach): allungamento dei femorali.')}
+  if(both('thomas',/Positivo/)){mob('mf');c.notes.push('Test di Thomas positivo: allungamento dei flessori dell’anca.')}
+  var pl=pnum(v.plank);if(pl>0&&pl<30){bon('Dead bug',2);bon('Bird dog',2);c.avoidN['Hollow hold']=c.avoidN['Copenhagen plank']=1;c.notes.push('Plank sotto i 30 secondi: core di base (dead bug, bird dog).')}
+  var pu=pnum(v.pull);if(pu>=0&&pu<3){c.avoidN['Trazioni alla sbarra']=1;bon('Lat machine',2);bon('Body row (trazioni orizzontali)',1);c.notes.push('Meno di 3 ripetizioni al Pull-up test: lat machine e body row al posto delle trazioni.')}
+  var ps=pnum(v.push);if(ps>=0&&ps<10)c.avoidN['Dip alle parallele']=1;
+  var f0=pnum(v.ruf0),f1=pnum(v.ruf1),f2=pnum(v.ruf2),co=pnum(v.coop);
+  if((f0>0&&f1>0&&f2>0&&(f0+f1+f2-200)/10>10)||(co>0&&(co-504.9)/44.73<35))c.cardio=true;
+  if(c.ob.indexOf('Mobilità')>-1&&!c.mob.length)mob('mh','ms','mi');
+  if(c.pq){c.avoid.pl=1;c.notes.push('PAR-Q con almeno un «Sì»: niente pliometria e intensità prudenti finché il medico non dà l’idoneità.')}
+  if(c.hiLoad)c.notes.push('Carico degli sport extra elevato: una serie in meno sui complementari e un esercizio in meno per seduta.');
+  return c;
+}
+function autoFreq(c){
+  var f=c.lvl===3?4:3;if(c.ob.indexOf('Ipertrofia')>-1&&c.lvl>=2)f=4;
+  if(c.extraDays>=4)f=Math.min(f,2);else if(c.extraDays>=2)f=Math.min(f,3);
+  return f;
+}
+var SPL=['Full Body','Upper/Lower','Push/Pull/Legs','Monofrequenza'];
+function splitFromPref(p,f){if(SPL.indexOf(p)>-1)return p;if(p==='Bifrequenza')return f>=4?'Upper/Lower':'Full Body';return f<=3?'Full Body':f===4?'Upper/Lower':'Push/Pull/Legs'}
+// Modelli di seduta: ogni voce è uno "slot" (sotto-pattern alternativi con |, ! = preferisci un fondamentale, :Muscolo = solo quel muscolo)
+var DT={
+ U:[['po!','lv|lo!','pv','lo|lv','pi:Deltoidi','li:Bicipiti','pi:Tricipiti'],['pv!','lo!','po','lv','li:Deltoidi','pi:Petto','li:Bicipiti']],
+ L:[['sb!','hb!','su','hg','hh','si:Polpacci','core'],['hb!','su!','hg','sb','hh','core','si:Polpacci']],
+ PU:[['po!','pv!','po','pi:Deltoidi','pi:Tricipiti','pi:Petto','core']],
+ PL:[['lv!','lo!','lo|lv','li:Deltoidi','li:Bicipiti','li:Dorso','carry']],
+ F:[['sb!','po!','lo|lv','hg|hh','pi:Deltoidi','core','carry'],['hb!','pv!','lv|lo','su','li:Bicipiti','core'],['su|sb!','po','lv|lo','hg','pi:Tricipiti','core','carry']],
+ CH:[['po!','po','pv','pi:Petto','pi:Tricipiti','pi:Tricipiti']],
+ BK:[['lv!','lo!','lo|lv','li:Dorso','li:Bicipiti','li:Bicipiti']],
+ SH:[['pv!','pi:Deltoidi','li:Deltoidi','pv','core','core']],
+ AR:[['li:Bicipiti','pi:Tricipiti','li:Bicipiti','pi:Tricipiti','core','carry']]
+};DT.LG=DT.L;
+var DM={U:['Petto','Dorso','Deltoidi','Bicipiti','Tricipiti'],L:['Quadricipiti','Ischiocrurali','Glutei','Polpacci','Core'],PU:['Petto','Deltoidi','Tricipiti'],PL:['Dorso','Bicipiti','Deltoidi'],CH:['Petto','Tricipiti'],BK:['Dorso','Bicipiti'],SH:['Deltoidi','Core'],AR:['Bicipiti','Tricipiti']};
+DM.LG=DM.L;DM.F=['Petto','Dorso','Deltoidi','Bicipiti','Tricipiti','Quadricipiti','Ischiocrurali','Glutei','Polpacci','Core'];
+var DTT={U:'Upper',L:'Lower',PU:'Push',PL:'Pull',LG:'Legs',F:'Full Body',CH:'Petto e tricipiti',BK:'Dorso e bicipiti',SH:'Spalle e core',AR:'Braccia'};
+var LOWER={L:1,LG:1,F:1},MOBN={U:['ms'],PU:['ms'],PL:['ms'],CH:['ms'],BK:['ms'],SH:['ms'],AR:['ms'],L:['mk','mh','mf','mi'],LG:['mk','mh','mf','mi'],F:['mk','mh','mf','mi','ms']};
+function slot(s){var p=s.split(':'),a=p[0],main=a.slice(-1)==='!';if(main)a=a.slice(0,-1);
+  return {subs:a==='core'?['ca','cl','cr']:a==='carry'?['c']:a.split('|'),m:p[1]||'',main:main,core:a==='core'}}
+function dayPlan(sp,f){
+  f=Math.max(1,Math.min(6,+f||3));var L=[],note='',i,full=function(){L=[];for(i=0;i<f;i++)L.push('F')};
+  if(sp==='Upper/Lower'){
+    if(f<2){full();note='Con 1 seduta l’Upper/Lower non si completa: proposto un Full Body.'}
+    else{for(i=0;i<f;i++)L.push(i<f-(f%2)?(i%2?'L':'U'):'F');if(f%2)note='Con un numero dispari di sedute l’ultima è un Full Body.'}
+  }else if(sp==='Push/Pull/Legs'){
+    if(f<3){full();note='Il Push/Pull/Legs richiede almeno 3 sedute: proposto un Full Body.'}
+    else if(f===4)L=['PU','PL','LG','F'];else if(f===5)L=['PU','PL','LG','U','L'];else for(i=0;i<f;i++)L.push(['PU','PL','LG'][i%3]);
+  }else if(sp==='Monofrequenza'){
+    if(f<3){full();note='La monofrequenza richiede almeno 3 sedute: proposto un Full Body.'}
+    else L={3:['PU','PL','LG'],4:['CH','BK','LG','SH'],5:['CH','BK','LG','SH','AR'],6:['CH','BK','LG','SH','AR','LG']}[f];
+  }else full();
+  var n={},tot={};L.forEach(function(t){tot[t]=(tot[t]||0)+1});
+  return {note:note,days:L.map(function(t){n[t]=(n[t]||0)+1;return {type:t,occ:n[t],t:DTT[t]+(tot[t]>1?' '+String.fromCharCode(64+n[t]):'')}})};
+}
+function okEx(e,c,lvMax){return e.lv<=lvMax&&!c.avoidN[e.n]&&!(c.avoid.oh&&hasF(e,'oh'))&&!(c.avoid.pl&&e.role==='plyo')}
+function pick(sl,c,used,day,relax){
+  var lvMax=Math.min(3,c.lvl+(relax?1:0)),best=null,bs=-1e9;
+  EXDB.forEach(function(e){
+    if(sl.subs.indexOf(e.sub)<0||e.role==='mob')return;
+    if(sl.m&&e.m!==sl.m)return;
+    if(sl.plyo?e.role!=='plyo':e.role==='plyo')return;
+    if(sl.core&&e.role!=='core')return;
+    if(day.some(function(x){return x.n===e.n})||!okEx(e,c,lvMax))return;
+    var s=(sl.main?(e.role==='main'?3:0):(e.role==='main'?-1:0))-4*(used[e.n]||0)+(c.prio.indexOf(e.m)>-1?2:0)+(c.bonus[e.n]||0)+(e.lv===c.lvl?0.5:0);
+    if(s>bs){bs=s;best=e}
+  });
+  return best||(relax?null:pick(sl,c,used,day,true));
+}
+// Prescrizione: serie, ripetizioni, carico target (%1RM / RIR), recupero, kg dal 1RM stimato
+function presc(e,c){
+  c=c||profile({});var has=function(o){return c.ob.indexOf(o)>-1},R=e.role,o={s:3,r:'8-12',tg:'',rec:90,k:''},pct=null,rir='2',x='';
+  if(R==='main'){
+    if(has('Forza')){o.s=4;o.r='4-6';pct=[80,85];rir='1–2';o.rec=180}
+    else if(has('Preparazione atletica')){o.s=4;o.r='3-5';pct=[70,80];rir='2';o.rec=150;x='concentrica esplosiva'}
+    else if(has('Ipertrofia')){o.s=4;o.r='6-8';pct=[72,78];rir='1–2';o.rec=120}
+    else if(has('Dimagrimento')){o.r='8-10';pct=[67,72];o.rec=90}
+    else{o.r='10-12';pct=[60,67];rir='3'}
+  }else if(R==='acc'||R==='iso'){
+    if(has('Ipertrofia')){o.r=R==='iso'?'10-15':'8-12';pct=[67,75];rir='1–2';o.rec=R==='iso'?60:90}
+    else if(has('Forza')||has('Preparazione atletica')){o.r=R==='iso'?'8-12':'6-8';pct=[72,78];o.rec=R==='iso'?75:120}
+    else if(has('Dimagrimento')){o.r='12-15';pct=[60,67];o.rec=60}
+    else{o.r='12-15';pct=[55,65];rir='3';o.rec=60}
+    if(R==='iso')pct=null;
+    if(hasF(e,'lr'))o.r+=' per lato';
+  }else if(R==='plyo'){o.r=hasF(e,'hi')?'12-15':hasF(e,'lr')?'5 per lato':'5';o.tg='Massima esplosività · recupero completo';o.rec=90}
+  else if(R==='core'){o.r=(hasF(e,'tm')?'30-45 s':'8-12')+(hasF(e,'lr')?' per lato':'');o.tg='RPE 7 · controllo totale';o.rec=45}
+  else if(R==='carry'){o.r='30-40 m';o.tg='Carico impegnativo · postura perfetta';o.rec=90}
+  else if(R==='mob'){o.s=2;o.r=(hasF(e,'tm')?'45-60 s':'6-8')+(hasF(e,'lr')?' per lato':'');o.tg='Senza dolore · respirazione lenta';o.rec=30}
+  if(R==='main'||R==='acc'||R==='iso'){
+    if(c.lvl===1){if(R==='main')o.s=Math.max(3,o.s-1);rir='2–3';pct=null;x='priorità alla tecnica'}
+    if(c.prio.indexOf(e.m)>-1)o.s=Math.min(5,o.s+1);
+    if(c.hiLoad&&R!=='main')o.s=Math.max(2,o.s-1);
+    if(c.pq){pct=null;rir='3–4';x='in attesa del parere medico'}
+    if(hasF(e,'bw'))pct=null;
+    o.tg=(pct?pct[0]+'–'+pct[1]+'% 1RM · ':'')+'RIR '+rir+(x?' · '+x:'');
+    if(pct&&c.rm[e.n])o.k=Math.round(c.rm[e.n]*(pct[0]+pct[1])/200/2.5)*2.5;
+  }
+  return o;
+}
+function rowFrom(e,c){var p=presc(e,c);return {n:e.n,p:e.p,m:e.m,s:p.s,r:p.r,tg:p.tg,k:p.k,rec:p.rec,nt:exNote(e),auto:1}}
+function genPlan(u,c,f,sp){
+  var dp=dayPlan(sp,f),used={},has=function(o){return c.ob.indexOf(o)>-1};
+  var athl=has('Preparazione atletica')||c.sportT.length>0,dens=has('Dimagrimento')||has('Ricondizionamento');
+  var cap=(c.lvl===1?6:c.lvl===3?8:7)-(c.hiLoad?1:0);
+  var take=function(e){used[e.n]=(used[e.n]||0)+1;return e};
+  var days=dp.days.map(function(d){
+    var tpl=DT[d.type][(d.occ-1)%DT[d.type].length].map(slot),es=[],pre=[],post=[],lvX=c.lvl===1?1:Math.min(3,c.lvl+1);
+    if(athl&&LOWER[d.type]&&!c.avoid.pl&&c.lvl>1)pre.push({subs:['sp','hp','cr'],plyo:true});
+    c.prio.filter(function(m){return DM[d.type].indexOf(m)>-1}).slice(0,2).forEach(function(m){
+      if(m==='Core')post.push({subs:['ca','cl','cr'],core:true,m:'Core'});else pre.push({subs:Object.keys(SUBL),m:m,main:true})});
+    if(dens&&!tpl.some(function(s){return s.subs[0]==='c'}))post.push({subs:['c']});
+    pre.concat(tpl,post).forEach(function(sl){var e=pick(sl,c,used,es);if(e)es.push(take(e))});
+    return {type:d.type,t:d.t,es:es,extra:0};
+  });
+  // esercizi specifici dello sport: almeno i primi 3 compaiono nella scheda
+  c.sport.slice(0,3).forEach(function(n){
+    var e=EXI[ekey(n)];if(!e||!okEx(e,c,c.lvl===1?1:Math.min(3,c.lvl+1))||used[n])return;
+    var cand=days.filter(function(d){return e.role==='plyo'?LOWER[d.type]:DM[d.type].indexOf(e.m)>-1});
+    if(!cand.length)cand=days.slice();
+    cand.sort(function(a,b){return a.extra-b.extra||a.es.length-b.es.length});
+    var d=cand[0];if(e.role==='plyo')d.es.unshift(take(e));else d.es.push(take(e));d.extra++;d.keep=e.n;
+  });
+  // limite di esercizi per seduta (prima si tolgono gli isolamenti, mai l’esercizio specifico dello sport)
+  days.forEach(function(d){var es=d.es;
+    while(es.length>cap){var k=-1;es.forEach(function(e,i){if(e.role==='iso'&&e.n!==d.keep)k=i});
+      if(k<0)es.forEach(function(e,i){if(e.role!=='main'&&e.role!=='plyo'&&e.n!==d.keep)k=i});if(k<0)break;used[es[k].n]--;es.splice(k,1)}});
+  // mobilità mirata (dai test o dall’obiettivo Mobilità)
+  if(c.mob.length)days.forEach(function(d){
+    var need=c.mob.filter(function(m){return MOBN[d.type].indexOf(m)>-1});if(!need.length)return;
+    EXDB.filter(function(e){return e.role==='mob'&&okEx(e,c,c.lvl===1?1:Math.min(3,c.lvl+1))}).map(function(e){
+      return {e:e,s:need.filter(function(m){return hasF(e,m)}).length*2-(used[e.n]||0)}}).filter(function(x){return x.s>0})
+      .sort(function(a,b){return b.s-a.s}).slice(0,has('Mobilità')?2:1).forEach(function(x){d.es.push(take(x.e))});
+  });
+  days.forEach(function(d){
+    var nm=0;d.es=d.es.map(function(e){if(e.role==='main'&&++nm>2)e=Object.assign({},e,{role:'acc'});return rowFrom(e,c)});
+    if(dens){for(var i=1;i<d.es.length;i++){var a=EXI[ekey(d.es[i-1].n)],b=EXI[ekey(d.es[i].n)];
+      if(a&&b&&['acc','iso','core'].indexOf(a.role)>-1&&['acc','iso','core'].indexOf(b.role)>-1&&!d.es[i-1].lk){d.es[i].lk=1;i++}}}
+  });
+  // se un muscolo supera l’MRV indicativo, tolgo serie ai complementari di quel muscolo (minimo 2)
+  for(var g=0;g<40;g++){var v=volume(flatEs(days),1),over=MUSCLES.filter(function(m){return v[m]>LAND[m][1]});if(!over.length)break;var cut=false;
+    over.forEach(function(m){var rows=flatEs(days).filter(function(x){var e=EXI[ekey(x.n)];return x.m===m&&e&&e.role!=='main'&&x.s>2}).sort(function(a,b){return b.s-a.s});if(rows[0]){rows[0].s--;cut=true}});
+    if(!cut)break}
+  return {days:days,note:dp.note,logic:genLogic(u,c,f,sp,dp)};
+}
+function genLogic(u,c,f,sp,dp){
+  var L=[],has=function(o){return c.ob.indexOf(o)>-1},d=function(r){var p=presc({role:r,fl:[],m:'',n:''},c);return p.s+'×'+p.r+(p.tg?' · '+p.tg:'')+' · recupero '+p.rec+' s'};
+  L.push('Split '+sp+', '+f+(f==1?' seduta':' sedute')+' a settimana'+(c.pref&&c.pref!=='Nessuna preferenza'?' (preferenza del cliente: '+c.pref+')':'')+'. La scelta finale spetta al Personal Trainer.'+(dp.note?' '+dp.note:''));
+  if(c.ob.length)L.push('Obiettivi: '+c.ob.join(', ')+'.');
+  L.push('Fondamentali: '+d('main')+'.');
+  L.push('Complementari: '+d('acc')+'.');
+  if(c.prio.length)L.push('Focus muscolare ('+c.prio.join(', ')+'): esercizio dedicato a inizio seduta e una serie in più.');
+  if(c.sportT.length)L.push('Sport / gara ('+c.sportT.join(', ')+'): inseriti esercizi specifici ('+c.sport.slice(0,3).join(', ')+').');
+  if((has('Preparazione atletica')||c.sportT.length)&&!c.avoid.pl&&c.lvl>1)L.push('Esercizio esplosivo a inizio seduta delle gambe, a recupero completo.');
+  if(has('Dimagrimento')||has('Ricondizionamento'))L.push('Densità: complementari in superserie e trasporto finale.');
+  if(c.cardio||has('Dimagrimento')||has('Ricondizionamento'))L.push('Aggiungi 15–25 minuti di lavoro aerobico a bassa intensità (zona 2) a fine seduta o nei giorni liberi.');
+  c.notes.forEach(function(n){L.push(n)});
+  L.push('Progressione: quando completi tutte le serie al limite alto delle ripetizioni con il RIR indicato, aumenta il carico del 2,5–5%. Settimana di scarico: circa metà delle serie e carichi −10%.');
+  return '• '+L.join('\n• ');
+}
+
 function num(v){return v===''||v==null||isNaN(+v)?'':+v}
 function addDays(iso,n){var d=new Date(iso+'T12:00:00Z');if(isNaN(d))return '';d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10)}
 function prioMus(u){var o=[];((u&&u.mus)||[]).forEach(function(m){if(m==='Deltoidi/Spalle')o.push('Deltoidi');else if(m==='Braccia')o.push('Bicipiti','Tricipiti');else o.push(m)});return o}
-function volume(es,freq){
-  var v={};freq=+freq||1;
-  es.forEach(function(e){var s=+e.s||0;if(!s||!e.m)return;var f=s*freq;v[e.m]=(v[e.m]||0)+f;
-    var i=EXI[ekey(e.n)];if(i&&i[1]===e.m)i[2].forEach(function(x){v[x]=(v[x]||0)+f/2})});
+function gid(id){return document.getElementById(id)}
+// Volume settimanale: serie × fattore (sedute a settimana / sedute diverse della scheda)
+function volume(es,f){
+  var v={};f=+f||1;
+  es.forEach(function(e){var s=+e.s||0;if(!s||!e.m||!LAND[e.m])return;var x=s*f;v[e.m]=(v[e.m]||0)+x;
+    var i=EXI[ekey(e.n)];if(i&&i.m===e.m)i.sy.forEach(function(y){v[y]=(v[y]||0)+x/2})});
   return v;
 }
-function volHtml(es,freq,u){
-  var v=volume(es,freq),pr=prioMus(u),L=MUSCLES.filter(function(m){return v[m]>0||pr.indexOf(m)>-1});
+function volHtml(es,f,u){
+  var v=volume(es,f),pr=prioMus(u),L=MUSCLES.filter(function(m){return v[m]>0||pr.indexOf(m)>-1});
   if(!L.length)return '<p class="status">Inserisci gli esercizi con muscolo e numero di serie per vedere il volume settimanale.</p>';
   return '<div class="xwrap"><table class="stab vt"><thead><tr><th>Gruppo muscolare</th><th>Serie / settimana</th><th>MEV</th><th>MRV</th><th>Stato</th></tr></thead><tbody>'+L.map(function(m){
     var x=Math.round((v[m]||0)*10)/10,l=LAND[m],c=x<l[0]?'lo':x>l[1]?'hi':'ok',t={lo:'Sotto MEV',ok:'Nel range',hi:'Oltre MRV'}[c];
@@ -1030,12 +1653,14 @@ var WU_M={lower:'Mobilità di anche e caviglie: 90/90 alle anche 2×6 per lato, 
 var CD_S={Petto:'pettorali alla parete',Dorso:'dorsali alla spalliera o posizione del bambino',Deltoidi:'deltoidi a braccio incrociato',Bicipiti:'bicipiti a braccio teso contro il muro',Tricipiti:'tricipiti con gomito sopra la testa',Quadricipiti:'quadricipiti in piedi (tallone al gluteo)',Ischiocrurali:'femorali da supino con elastico',Glutei:'glutei in posizione «figura 4»',Polpacci:'polpacci alla parete',Core:'addome in posizione del cobra'};
 var CD_F={Petto:'pettorale (pallina)',Dorso:'dorsali',Deltoidi:'colonna toracica',Quadricipiti:'quadricipiti',Ischiocrurali:'femorali',Glutei:'glutei',Polpacci:'polpacci'};
 function musOf(es){var m=[];es.forEach(function(e){if(e.m&&m.indexOf(e.m)<0)m.push(e.m)});return m}
-function genWarm(es){
-  var m=musOf(es),has=function(a){return a.some(function(x){return m.indexOf(x)>-1})},L=['Attivazione generale: 5–8 minuti di cardio leggero (bike, vogatore o camminata in salita) a bassa intensità.'];
+function flatEs(days){var o=[];days.forEach(function(d){o=o.concat(d.es)});return o}
+function genWarm(days){
+  var es=flatEs(days),m=musOf(es),has=function(a){return a.some(function(x){return m.indexOf(x)>-1})},L=['Attivazione generale: 5–8 minuti di cardio leggero (bike, vogatore o camminata in salita) a bassa intensità.'];
   var lo=has(['Quadricipiti','Ischiocrurali','Glutei','Polpacci']),pu=has(['Petto','Deltoidi','Tricipiti']),pl=has(['Dorso','Bicipiti']);
   if(lo)L.push(WU_M.lower);if(pu)L.push(WU_M.push);if(pl)L.push(WU_M.pull);if(lo||has(['Core'])||!m.length)L.push(WU_M.core);
   if(!m.length)L.push('Mobilità articolare generale: circonduzioni di spalle e anche, cat-cow, affondi dinamici (1×8 ciascuno).');
-  var f=es.filter(function(e){return e.n})[0];if(f)L.push('Serie di avvicinamento su «'+f.n+'»: 2–3 serie progressive (circa 40%, 60% e 80% del carico di lavoro) con poche ripetizioni.');
+  var f=[];days.forEach(function(d,i){var e=d.es.filter(function(x){var k=EXI[ekey(x.n)];return x.n&&(!k||k.role==='main'||k.role==='acc')})[0];if(e)f.push('«'+e.n+'»'+(days.length>1?' (seduta '+(i+1)+')':''))});
+  if(f.length)L.push('Serie di avvicinamento su '+f.join(', ')+': 2–3 serie progressive (circa 40%, 60% e 80% del carico di lavoro) con poche ripetizioni.');
   return '• '+L.join('\n• ');
 }
 function genCool(es){
@@ -1046,9 +1671,9 @@ function genCool(es){
   L.push('Foam rolling (30–60 secondi per zona): '+(f.length?f.join(', '):'quadricipiti, glutei, colonna toracica')+'.');
   return '• '+L.join('\n• ');
 }
-function profSum(u){
+function profSum(u,c){
   var p=[],j=function(a){return a&&a.length?a.join(', '):''};
-  if(j(u.ob))p.push('<b>Obiettivi:</b> '+esc(j(u.ob)));if(u.gara)p.push('<b>Gara/sport:</b> '+esc(u.gara));
+  if(j(u.ob))p.push('<b>Obiettivi:</b> '+esc(j(u.ob)));if(u.gara)p.push('<b>Gara/sport:</b> '+esc(u.gara)+(c&&c.sportT.length?' → profilo '+esc(c.sportT.join(', ')):''));
   if(j(u.mus))p.push('<b>Gruppi prioritari:</b> '+esc(j(u.mus)));if(u.split)p.push('<b>Split preferito dal cliente:</b> '+esc(u.split));
   if(u.liv)p.push('<b>Livello:</b> '+esc(u.liv));
   if(u.sfreq&&u.sdur)p.push('<b>Sport extra:</b> '+esc(j(u.sp)||'—')+', '+u.sfreq+' gg/sett × '+u.sdur+' min'+(u.srpe?' a RPE '+fnum(u.srpe):''));
@@ -1057,120 +1682,246 @@ function profSum(u){
   var w=pqState(u.pq)==='warn'?'<div class="warn">PAR-Q con almeno un «Sì»: serve il parere del medico prima di carichi intensi.</div>':'';
   return (p.length?'<div class="info" style="margin:0 0 16px">'+p.join('<br>')+'</div>':'')+w;
 }
+// ---- Editor sedute ----
+var XH='<div class="xh exr"><span></span><span>Esercizio</span><span>Pattern</span><span>Muscolo</span><span>Serie</span><span>Rip.</span><span>Carico target (%1RM / RIR)</span><span>Kg</span><span>Rec. (s)</span><span>Note esecutive (postura e respirazione)</span><span></span><span></span></div>';
 function exRow(e){
   e=e||{};
+  var o=function(list,v){return '<option value="">—</option>'+list.map(function(m){return '<option'+(v===m?' selected':'')+'>'+m+'</option>'}).join('')};
   return '<div class="exr'+(e.lk?' lk':'')+'"><button type="button" class="lkb" data-act="lk" aria-label="Superserie con l’esercizio sopra" title="Superserie con l’esercizio sopra">SS</button>'+
    '<input class="ex_n" list="exlist" placeholder="Esercizio" aria-label="Esercizio" value="'+esc(e.n||'')+'">'+
-   '<select class="ex_m" aria-label="Muscolo principale"'+(e.m?' data-man="1"':'')+'><option value="">—</option>'+MUSCLES.map(function(m){return '<option'+(e.m===m?' selected':'')+'>'+m+'</option>'}).join('')+'</select>'+
+   '<select class="ex_p" aria-label="Pattern di movimento">'+o(PATS,e.p)+'</select>'+
+   '<select class="ex_m" aria-label="Muscolo principale"'+(e.m&&!e.auto?' data-man="1"':'')+'>'+o(MUSCLES,e.m)+'</select>'+
    '<input class="ex_s" type="number" min="0" inputmode="numeric" aria-label="Serie" placeholder="Serie" value="'+esc(e.s==null?'':e.s)+'">'+
    '<input class="ex_r" type="text" aria-label="Ripetizioni" placeholder="es. 8-10" value="'+esc(e.r==null?'':e.r)+'">'+
+   '<input class="ex_tg" type="text" aria-label="Carico target (%1RM / RIR)" placeholder="es. 75% 1RM · RIR 2" value="'+esc(e.tg||'')+'">'+
    '<input class="ex_k" type="number" min="0" step="0.5" inputmode="decimal" aria-label="Kg" placeholder="Kg" value="'+esc(e.k==null?'':e.k)+'">'+
    '<input class="ex_rec" type="number" min="0" step="15" inputmode="numeric" aria-label="Recupero in secondi" placeholder="s" value="'+esc(e.rec==null?'':e.rec)+'">'+
-   '<textarea class="ex_nt" rows="2" aria-label="Note esecutive e tecniche" placeholder="Postura, respirazione, tempo…">'+esc(e.nt||'')+'</textarea>'+
-   '<button type="button" class="xr" data-act="rmex" aria-label="Rimuovi esercizio">×</button></div>';
+   '<textarea class="ex_nt" rows="2" aria-label="Note esecutive e tecniche" placeholder="Postura, respirazione, tempo…"'+(e.auto?' data-auto="1"':'')+'>'+esc(e.nt||'')+'</textarea>'+
+   '<button type="button" class="xr" data-act="swap" aria-label="Sostituisci dalla libreria" title="Sostituisci dalla libreria">⇄</button>'+
+   '<button type="button" class="xr" data-act="rmex" aria-label="Rimuovi esercizio" title="Rimuovi esercizio">×</button></div>';
+}
+function dayBlock(d,i){
+  d=d||{};var es=d.es&&d.es.length?d.es:[{},{},{}];
+  return '<section class="asec day"><div class="dayh"><span class="kick dnum">Seduta '+(i+1)+'</span><input class="day_t" aria-label="Nome della seduta" placeholder="Es. Upper A" value="'+esc(d.t||'')+'"><span class="sp"></span>'+
+   '<button type="button" class="mini" data-act="lib">Libreria esercizi</button><button type="button" class="xr" data-act="rmday" aria-label="Rimuovi seduta" title="Rimuovi seduta">×</button></div>'+
+   '<div class="xwrap">'+XH+'<div class="exs">'+es.map(exRow).join('')+'</div></div><button type="button" class="addx" data-act="addex">+ Aggiungi esercizio</button></section>';
 }
 function refreshEx(){
-  var rows=[].slice.call(document.querySelectorAll('#exs .exr'));
-  rows.forEach(function(r,i){
-    if(i===0)r.classList.remove('lk');
-    r.querySelector('.lkb').disabled=(i===0);
-    r.classList.toggle('grp',r.classList.contains('lk')||!!(rows[i+1]&&rows[i+1].classList.contains('lk')));
+  [].forEach.call(document.querySelectorAll('#days .exs'),function(box){
+    var rows=[].slice.call(box.querySelectorAll('.exr'));
+    rows.forEach(function(r,i){
+      if(i===0)r.classList.remove('lk');
+      r.querySelector('.lkb').disabled=(i===0);
+      r.classList.toggle('grp',r.classList.contains('lk')||!!(rows[i+1]&&rows[i+1].classList.contains('lk')));
+    });
   });
+  [].forEach.call(document.querySelectorAll('#days .day'),function(d,i){d.querySelector('.dnum').textContent='Seduta '+(i+1)});
 }
 function exLabel(e){return (e.g?'<i class="dc">SS '+String.fromCharCode(64+(+e.g))+'</i> ':'')+esc(e.n)}
+function readRow(r){var q=function(c){return r.querySelector(c).value.trim()};
+  return {n:q('.ex_n'),p:q('.ex_p'),m:q('.ex_m'),s:num(q('.ex_s')),r:q('.ex_r'),tg:q('.ex_tg'),k:num(q('.ex_k')),rec:num(q('.ex_rec')),nt:q('.ex_nt'),lk:r.classList.contains('lk')}}
+function readDays(){return [].map.call(document.querySelectorAll('#days .day'),function(d){
+  return {t:d.querySelector('.day_t').value.trim(),es:[].map.call(d.querySelectorAll('.exs .exr'),readRow).filter(function(x){return x.n})}})}
 function schedaForm(){openGen()}
 function openGen(){cur='gen';closeModal();render();window.scrollTo(0,0)}
+var gctx=null,gTouched=false,gDirty=false;
 function renderGen(){
   var u=find(suid);if(!u){cur='schede';suid=null;render();return}
-  var td=todayIso(),names=EXDB.map(function(e){return e[0]}),ps=pqState(u.pq);
+  gctx=profile(u);gTouched=false;gDirty=false;
+  var td=todayIso(),names=EXDB.map(function(e){return e.n}),ps=pqState(u.pq),f=autoFreq(gctx),sp=splitFromPref(u.split,f);
   var past=exNames(suid);Object.keys(past).forEach(function(k){if(!EXI[k])names.push(past[k])});
   document.getElementById('main').innerHTML=
    '<div class="ahead"><button class="back" data-act="gback">← Schede</button><div><div class="kick">Profilo atleta</div><h2 style="margin:0">'+esc(u.n+' '+u.c)+'</h2></div><span class="pqb '+ps+'">'+PQT[ps]+'</span><span class="sp"></span>'+steps('gen')+'</div>'+
-   '<div class="kick">Modulo 03 — Programmazione</div><h2 class="atitle">Nuova scheda di allenamento</h2>'+profSum(u)+
-   '<section class="asec"><h3>Impostazione</h3><div class="fg">'+fld('sc_n','Nome scheda *','','text',' placeholder="Es. Forza – mesociclo 1"')+nfld('sc_f','Volte a settimana (ripetizioni della scheda)',1,' min="1" max="7" step="1"')+
-    afld('sc_logic','Logica di lavoro','','Es. mesociclo di forza: 4–6 ripetizioni a RIR 2, progressione lineare del carico, 3 sedute a settimana…')+'</div>'+
-    '<div class="keyd"><h4>Date chiave</h4><div class="fg">'+fld('sc_start','Data di inizio',td,'date')+fld('sc_del','Settimana di scarico (deload) – inizio',addDays(td,21),'date')+fld('sc_cam','Cambio scheda (orientativo)',addDays(td,42),'date')+'</div><p class="status" id="keyh"></p></div></section>'+
+   '<div class="kick">Modulo 03 — Programmazione</div><h2 class="atitle">Nuova scheda di allenamento</h2>'+profSum(u,gctx)+
+   '<section class="asec"><h3>Impostazione</h3><div class="fg">'+fld('sc_n','Nome scheda *','','text',' placeholder="Es. Forza – mesociclo 1"')+
+    '<label class="fl">Sedute a settimana<select id="sc_f">'+[1,2,3,4,5,6].map(function(n){return '<option'+(n===f?' selected':'')+'>'+n+'</option>'}).join('')+'</select></label>'+
+    '<label class="fl">Split delle sedute<select id="sc_sp">'+SPL.map(function(s){return '<option'+(s===sp?' selected':'')+'>'+s+'</option>'}).join('')+'</select></label></div>'+
+    '<p class="status" style="margin-top:10px">Preferenza del cliente: <b>'+esc(u.split||'nessuna')+'</b> <span class="ptnote">La decisione finale spetta al Personal Trainer</span></p>'+
+    '<div class="genbar"><button type="button" class="btn blk" data-act="genauto">⚡ Genera proposta automatica</button><span class="status" id="sph">Incrocia obiettivi, sport, gruppi prioritari, livello e test funzionali. Poi puoi aggiungere, sostituire o modificare tutto.</span></div>'+
+    '<div class="fg" style="margin-top:16px">'+afld('sc_logic','Logica di lavoro','','Es. mesociclo di forza: 4–6 ripetizioni a RIR 2, progressione lineare del carico, 3 sedute a settimana…')+'</div>'+
+    '<div class="keyd"><h4>Tempistiche di programmazione</h4><div class="fg">'+fld('sc_start','Data di inizio',td,'date')+fld('sc_del','Settimana di scarico (deload) – inizio',addDays(td,21),'date')+fld('sc_cam','Cambio scheda (orientativo)',addDays(td,42),'date')+'</div><p class="status" id="keyh"></p></div></section>'+
    '<section class="asec"><h3>Riscaldamento (warm-up) <small>inserito in automatico, modificabile</small><button type="button" class="mini" data-act="regw">Rigenera</button></h3><textarea id="sc_wu" class="pro" aria-label="Riscaldamento"></textarea></section>'+
-   '<section class="asec"><h3>Esercizi</h3><p class="status" style="margin:-8px 0 12px">Scegli un esercizio dall’elenco: muscolo e note esecutive si compilano da soli e restano modificabili. SS mette l’esercizio in superserie con quello sopra.</p>'+
-    '<div class="xwrap"><div class="xh exr"><span></span><span>Esercizio</span><span>Muscolo</span><span>Serie</span><span>Rip.</span><span>Kg</span><span>Rec. (s)</span><span>Note esecutive e tecniche</span><span></span></div><div id="exs">'+exRow()+exRow()+exRow()+exRow()+'</div></div>'+
-    '<button type="button" class="addx" data-act="addex">+ Aggiungi esercizio</button><datalist id="exlist">'+names.map(function(n){return '<option value="'+esc(n)+'">'}).join('')+'</datalist></section>'+
+   '<p class="status" style="margin:0 0 10px">In ogni seduta: scegli un esercizio dall’elenco (muscolo, pattern, carichi e note si compilano da soli), oppure apri la <b>Libreria esercizi</b> per cercare per pattern. ⇄ sostituisce l’esercizio, SS lo mette in superserie con quello sopra.</p>'+
+   '<div id="days"></div><button type="button" class="addx dayadd" data-act="addday">+ Aggiungi seduta</button>'+
+   '<datalist id="exlist">'+names.map(function(n){return '<option value="'+esc(n)+'">'}).join('')+'</datalist>'+
    '<section class="asec"><h3>Defaticamento (cool-down) <small>inserito in automatico, modificabile</small><button type="button" class="mini" data-act="regc">Rigenera</button></h3><textarea id="sc_cd" class="pro" aria-label="Defaticamento"></textarea></section>'+
    '<section class="asec"><h3>Volume settimanale per muscolo</h3><div id="vol"></div></section>'+
+   '<section class="asec"><h3>Legenda e guida all’esecuzione <small>generata dagli esercizi scelti</small></h3><div id="leg"></div></section>'+
    '<div class="status" id="scstat" role="status"></div><div class="afoot"><button class="btn" data-act="gback">Annulla</button><button class="btn pri" id="scsave" data-act="smsave">Salva scheda</button></div>';
-  refreshEx();updGen();
+  buildAuto();
 }
-function readEx(){return [].map.call(document.querySelectorAll('#exs .exr'),function(r){var q=function(c){return r.querySelector(c).value.trim()};
-  return {n:q('.ex_n'),m:q('.ex_m'),s:num(q('.ex_s')),r:q('.ex_r'),k:num(q('.ex_k')),rec:num(q('.ex_rec')),nt:q('.ex_nt'),lk:r.classList.contains('lk')}}).filter(function(x){return x.n})}
+function buildAuto(){
+  var u=find(suid),c=gctx,f=+gid('sc_f').value||3,sp=gid('sc_sp').value,P=genPlan(u,c,f,sp);
+  gid('days').innerHTML=P.days.map(dayBlock).join('');
+  var lg=gid('sc_logic');if(!lg.getAttribute('data-man'))lg.value=P.logic;
+  var nm=gid('sc_n');if(!nm.getAttribute('data-man'))nm.value=(c.ob.length?c.ob.join(' + '):'Scheda')+' · '+sp;
+  gid('sph').textContent='Proposta generata: '+P.days.length+(P.days.length===1?' seduta ':' sedute ')+sp+'.'+(P.note?' '+P.note:'')+' Modifica liberamente esercizi e parametri.';
+  gTouched=false;refreshEx();updGen();
+}
 function updGen(){
-  if(cur!=='gen'||!document.getElementById('exs'))return;
-  var s=document.getElementById('sc_start').value,dl=document.getElementById('sc_del').value,cm=document.getElementById('sc_cam').value,h=[];
+  if(cur!=='gen'||!gid('days'))return;
+  var s=gid('sc_start').value,dl=gid('sc_del').value,cm=gid('sc_cam').value,h=[];
   if(dl)h.push('Scarico dal '+fdate(dl)+' al '+fdate(addDays(dl,6))+(s?' (settimana '+(Math.floor((Date.parse(dl)-Date.parse(s))/864e5/7)+1)+')':''));
   if(s&&cm)h.push('durata del programma: '+fmt1((Date.parse(cm)-Date.parse(s))/864e5/7)+' settimane');
-  document.getElementById('keyh').textContent=(h.join(' · ')||'')+(h.length?'. ':'')+'Proposta automatica: scarico nella 4ª settimana, cambio scheda dopo 6 settimane.';
-  var es=readEx(),wu=document.getElementById('sc_wu'),cd=document.getElementById('sc_cd');
-  if(!wu.getAttribute('data-man'))wu.value=genWarm(es);
+  gid('keyh').textContent=(h.join(' · ')||'')+(h.length?'. ':'')+'Proposta automatica: scarico nella 4ª settimana, cambio scheda dopo 6 settimane.';
+  var days=readDays(),es=flatEs(days),wu=gid('sc_wu'),cd=gid('sc_cd'),f=+gid('sc_f').value||1,n=days.length||1;
+  if(!wu.getAttribute('data-man'))wu.value=genWarm(days);
   if(!cd.getAttribute('data-man'))cd.value=genCool(es);
-  document.getElementById('vol').innerHTML=volHtml(es,document.getElementById('sc_f').value,find(suid));
+  gid('vol').innerHTML=(n!==f?'<p class="status" style="margin-top:0">La scheda ha '+n+(n===1?' seduta diversa':' sedute diverse')+' per '+f+(f==1?' allenamento':' allenamenti')+' a settimana: si ripetono a rotazione e il volume è calcolato di conseguenza.</p>':'')+volHtml(es,f/n,find(suid));
+  gid('leg').innerHTML=legendHtml(es);
 }
-function genDirty(){return cur==='gen'&&!!document.getElementById('exs')&&(readEx().length>0||document.getElementById('sc_n').value.trim()!=='')}
+function genDirty(){return cur==='gen'&&!!gid('days')&&gDirty}
 function guardGen(fn){
   if(!genDirty()){fn();return}
   leaveFn=fn;modal('<h3>Uscire senza salvare?</h3><p>La scheda che stai compilando non è ancora salvata e andrà persa.</p><div class="mrow"><button data-act="mclose">Resta</button><button class="danger" data-act="leaveok">Esci senza salvare</button></div>');
 }
+// ---- Legenda e guida all’esecuzione ----
+function legendBody(e){
+  var two=!(e.role==='mob'||e.role==='carry'||(e.role==='core'&&hasF(e,'tm'))),lab=e.role==='plyo'?['Caricamento','Fase esplosiva']:['Fase eccentrica','Fase concentrica'];
+  return '<p><b>A cosa serve:</b> '+esc(e.sc)+'</p><p><b>Muscoli target:</b> primari '+esc(e.mp)+(e.ms&&e.ms!=='—'?'; secondari '+esc(e.ms):'')+'.</p><p><b>Assetto iniziale:</b> '+esc(e.as)+'</p>'+
+   (two?'<p><b>'+lab[0]+':</b> '+esc(e.ec)+'</p><p><b>'+lab[1]+':</b> '+esc(e.co)+'</p>':'<p><b>Esecuzione:</b> '+esc(e.ec+' '+e.co)+'</p>')+
+   '<p><b>Respirazione:</b> '+esc(breath(e)+(hasF(e,'vs')?' Sui carichi alti usa una breve apnea (Valsalva); evita l’apnea prolungata in caso di ipertensione.':''))+'</p><p><b>Sicurezza:</b> '+esc(e.si)+'</p>';
+}
+function legendHtml(es){
+  var seen={},L=[];es.forEach(function(x){var k=ekey(x.n);if(!k||seen[k])return;seen[k]=1;L.push(x)});
+  if(!L.length)return '<p class="status">La legenda compare quando scegli gli esercizi.</p>';
+  return '<div class="lgg">'+L.map(function(x){var e=EXI[ekey(x.n)];
+    return '<article class="lg"><h5>'+esc(x.n)+(e?' <i class="pt">'+e.p+'</i> <small>'+esc(SUBL[e.sub])+'</small>':'')+'</h5>'+(e?legendBody(e):'<p>Esercizio personalizzato: segui le note esecutive indicate in tabella.</p>'+(x.nt?'<p>'+esc(x.nt)+'</p>':''))+'</article>'}).join('')+'</div>';
+}
+// ---- Libreria esercizi (ricerca e filtri per pattern) ----
+var libT=null,libP='',libQ='';
+function openLib(day,row){
+  libT={day:day,row:row};libQ='';
+  var ce=row?EXI[ekey(row.querySelector('.ex_n').value)]:null;libP=ce?ce.p:'';
+  var di=[].indexOf.call(document.querySelectorAll('#days .day'),day)+1,dt=day.querySelector('.day_t').value.trim();
+  modal('<div class="lhd"><h3>Libreria esercizi</h3><button type="button" class="xr" data-act="mclose" aria-label="Chiudi">×</button></div>'+
+   '<p class="status">'+(row?'Sostituisci «'+esc(row.querySelector('.ex_n').value||'esercizio')+'» nella seduta '+di:'Aggiungi alla seduta '+di+(dt?' — '+esc(dt):''))+'</p>'+
+   '<input class="search" id="libq" type="search" placeholder="Cerca per nome, muscolo o pattern…" autocomplete="off">'+
+   '<div class="ufil" id="libf" role="group" aria-label="Filtra per pattern"></div><div class="status" id="libst" role="status"></div><div id="libl"></div>'+
+   '<div class="mrow"><button data-act="mclose">Chiudi</button></div>');
+  document.querySelector('#modal .mbox').classList.add('xl');listLib();
+}
+function libWarn(e){var c=gctx;if(!c)return '';
+  if(c.avoidN[e.n]||(c.avoid.oh&&hasF(e,'oh')))return '<i class="lw">sconsigliato dai test</i>';
+  if(c.avoid.pl&&e.role==='plyo')return '<i class="lw">sconsigliato dal PAR-Q</i>';
+  if(e.lv>c.lvl)return '<i class="lw">livello superiore al cliente</i>';
+  return c.bonus[e.n]>0?'<i class="dc">consigliato</i>':''}
+function listLib(){
+  var q=libQ.toLowerCase().trim(),L=EXDB.filter(function(e){return (!libP||e.p===libP)&&(!q||[e.n,e.p,SUBL[e.sub],e.m,e.mp,e.ms].join(' ').toLowerCase().indexOf(q)>-1)});
+  gid('libf').innerHTML=[''].concat(PATS).map(function(p){return '<button type="button" data-lp="'+p+'" aria-pressed="'+(libP===p)+'">'+(p||'Tutti')+'<span>'+EXDB.filter(function(e){return !p||e.p===p}).length+'</span></button>'}).join('');
+  gid('libl').innerHTML=L.length?L.map(function(e){
+    return '<div class="lit"><div class="lin"><b>'+esc(e.n)+' '+libWarn(e)+'</b><span class="lbd"><i class="pt">'+e.p+'</i>'+esc(cap1(SUBL[e.sub]))+' · '+esc(e.mp)+' · '+['','base','intermedio','avanzato'][e.lv]+'</span></div>'+
+     '<button type="button" class="btn pri sm" data-act="libpick" data-n="'+esc(e.n)+'">'+(libT&&libT.row?'Sostituisci':'Aggiungi')+'</button>'+
+     '<details class="guide"><summary>Guida all’esecuzione</summary>'+legendBody(e)+'</details></div>'}).join(''):'<div class="empty">Nessun esercizio trovato.</div>';
+}
+function setRow(r,o,keep){
+  var sv=function(c,v){var el=r.querySelector(c);if(el&&!(keep&&keep.indexOf(c)>-1&&el.value.trim()))el.value=v==null?'':v};
+  sv('.ex_n',o.n);sv('.ex_p',o.p);
+  var m=r.querySelector('.ex_m');if(!m.getAttribute('data-man'))m.value=o.m||'';
+  sv('.ex_s',o.s);sv('.ex_r',o.r);sv('.ex_tg',o.tg);sv('.ex_k',o.k);sv('.ex_rec',o.rec);
+  var nt=r.querySelector('.ex_nt');if(!nt.value.trim()||nt.getAttribute('data-auto')==='1'){nt.value=o.nt||'';nt.setAttribute('data-auto','1')}
+}
+function libPick(n){
+  var e=EXI[ekey(n)];if(!e||!libT)return;var o=rowFrom(e,gctx);
+  if(libT.row){
+    var old=EXI[ekey(libT.row.querySelector('.ex_n').value)],same=old&&old.role===e.role;
+    libT.row.querySelector('.ex_k').value='';
+    setRow(libT.row,o,same?['.ex_s','.ex_r','.ex_rec']:null);closeModal();
+  }else{
+    var box=libT.day.querySelector('.exs'),empty=[].filter.call(box.querySelectorAll('.exr'),function(r){return !r.querySelector('.ex_n').value.trim()})[0];
+    if(empty)setRow(empty,o);else box.insertAdjacentHTML('beforeend',exRow(o));
+    st('libst','Aggiunto «'+e.n+'». Puoi aggiungerne altri o chiudere la libreria.');
+  }
+  gTouched=gDirty=true;refreshEx();updGen();
+}
+// ---- Salvataggio e visualizzazione ----
 async function saveScheda(){
-  var nome=document.getElementById('sc_n').value.trim();
-  if(!nome){st('scstat','Inserisci il nome della scheda.');document.getElementById('sc_n').focus();return}
-  var es=readEx();
-  var gn=0;es.forEach(function(x,i){if(x.lk&&i>0){if(!es[i-1].g)es[i-1].g=++gn;x.g=es[i-1].g}});es.forEach(function(x){delete x.lk});
-  if(!es.length){st('scstat','Aggiungi almeno un esercizio.');return}
-  var gv=function(id){return document.getElementById(id).value.trim()},start=gv('sc_start')||todayIso();
-  var o={uid:String(suid),nome:nome,data:start,deload:gv('sc_del'),cambio:gv('sc_cam'),freq:num(gv('sc_f'))||1,logica:gv('sc_logic'),wu:gv('sc_wu'),cd:gv('sc_cd'),es:es,ts:Date.now()};
-  var b=document.getElementById('scsave');b.disabled=true;b.textContent='Salvataggio…';
-  try{o.id=newId('s');await Store.put('schede',o);SCH.unshift(o);cur='schede';render();window.scrollTo(0,0);viewScheda(o.id)}
+  var nome=gid('sc_n').value.trim();
+  if(!nome){st('scstat','Inserisci il nome della scheda.');gid('sc_n').focus();return}
+  var days=readDays().filter(function(d){return d.es.length});
+  if(!days.length){st('scstat','Aggiungi almeno un esercizio.');return}
+  days.forEach(function(d,j){var gn=0;if(!d.t)d.t='Seduta '+(j+1);
+    d.es.forEach(function(x,i){if(x.lk&&i>0){if(!d.es[i-1].g)d.es[i-1].g=++gn;x.g=d.es[i-1].g}});d.es.forEach(function(x){delete x.lk})});
+  var flat=[];days.forEach(function(d,i){d.es.forEach(function(x){flat.push(Object.assign({d:i},x))})});
+  var gv=function(id){return gid(id).value.trim()},start=gv('sc_start')||todayIso();
+  var o={uid:String(suid),nome:nome,data:start,deload:gv('sc_del'),cambio:gv('sc_cam'),freq:+gv('sc_f')||days.length,split:gv('sc_sp'),logica:gv('sc_logic'),wu:gv('sc_wu'),cd:gv('sc_cd'),days:days,es:flat,v:2,ts:Date.now()};
+  var b=gid('scsave');b.disabled=true;b.textContent='Salvataggio…';
+  try{o.id=newId('s');await Store.put('schede',o);SCH.unshift(o);gDirty=false;cur='schede';render();window.scrollTo(0,0);viewScheda(o.id)}
   catch(e){b.disabled=false;b.textContent='Salva scheda';st('scstat','Salvataggio non riuscito. Riprova.')}
 }
+function schedaDays(sc){return sc.days&&sc.days.length?sc.days:[{t:'',es:sc.es||[]}]}
+function exTable(es){
+  return '<div class="xwrap"><table class="stab"><thead><tr><th>Esercizio</th><th>Pattern</th><th>Muscolo</th><th>Serie</th><th>Rip.</th><th>Carico target</th><th>Kg</th><th>Rec.</th><th>Note esecutive (postura e respirazione)</th></tr></thead><tbody>'+
+   es.map(function(e){var d=EXI[ekey(e.n)];return '<tr><td>'+exLabel(e)+'</td><td>'+esc(e.p||(d?d.p:''))+'</td><td>'+esc(e.m||'')+'</td><td>'+esc(e.s)+'</td><td>'+esc(e.r)+'</td><td class="tg2">'+esc(e.tg||'')+'</td><td>'+esc(fnum(e.k))+'</td><td>'+(e.rec!==''&&e.rec!=null?esc(e.rec)+' s':'')+'</td><td class="nt">'+esc(e.nt||'')+'</td></tr>'}).join('')+'</tbody></table></div>';
+}
 function schedaBody(sc,u){
-  var h='<div class="status">'+(u?esc(u.n+' '+u.c)+' · ':'')+'inizio '+fdate(sc.data)+(sc.freq>1?' · '+sc.freq+' volte a settimana':'')+'</div>';
-  if(sc.deload||sc.cambio)h+='<div class="keyd"><h4>Date chiave</h4><dl class="det"><dt>Data di inizio</dt><dd>'+fdate(sc.data)+'</dd>'+(sc.deload?'<dt>Settimana di scarico</dt><dd>dal '+fdate(sc.deload)+' al '+fdate(addDays(sc.deload,6))+'</dd>':'')+(sc.cambio?'<dt>Cambio scheda (orientativo)</dt><dd>'+fdate(sc.cambio)+'</dd>':'')+'</dl></div>';
+  var days=schedaDays(sc),v2=!!(sc.days&&sc.days.length),es=flatEs(days),f=+sc.freq||1;
+  var h='<div class="status">'+(u?esc(u.n+' '+u.c)+' · ':'')+'inizio '+fdate(sc.data)+(v2?' · '+f+(f===1?' seduta':' sedute')+' a settimana'+(sc.split?' · '+esc(sc.split):''):(f>1?' · '+f+' volte a settimana':''))+'</div>';
   var lg=sc.logica||sc.note;if(lg)h+='<h4>Logica di lavoro</h4><div class="prot">'+esc(lg)+'</div>';
+  if(sc.deload||sc.cambio)h+='<div class="keyd"><h4>Tempistiche di programmazione</h4><dl class="det"><dt>Data di inizio</dt><dd>'+fdate(sc.data)+'</dd>'+(sc.deload?'<dt>Settimana di scarico</dt><dd>dal '+fdate(sc.deload)+' al '+fdate(addDays(sc.deload,6))+'</dd>':'')+(sc.cambio?'<dt>Cambio scheda (orientativo)</dt><dd>'+fdate(sc.cambio)+'</dd>':'')+'</dl></div>';
   if(sc.wu)h+='<h4>Riscaldamento (warm-up)</h4><div class="prot">'+esc(sc.wu)+'</div>';
-  h+='<h4>Esercizi</h4><div class="xwrap"><table class="stab"><thead><tr><th>Esercizio</th><th>Muscolo</th><th>Serie</th><th>Rip.</th><th>Kg</th><th>Rec.</th><th>Note esecutive e tecniche</th></tr></thead><tbody>'+
-   sc.es.map(function(e){return '<tr><td>'+exLabel(e)+'</td><td>'+esc(e.m||'')+'</td><td>'+esc(e.s)+'</td><td>'+esc(e.r)+'</td><td>'+esc(fnum(e.k))+'</td><td>'+(e.rec!==''&&e.rec!=null?esc(e.rec)+' s':'')+'</td><td class="nt">'+esc(e.nt||'')+'</td></tr>'}).join('')+'</tbody></table></div>';
+  days.forEach(function(d,i){h+='<h4>'+(v2?'Seduta '+(i+1)+(d.t&&d.t!=='Seduta '+(i+1)?' — '+esc(d.t):''):'Esercizi')+'</h4>'+exTable(d.es)});
+  if(v2&&days.length!==f)h+='<p class="status">Le '+days.length+' sedute si alternano a rotazione per arrivare a '+f+' allenamenti a settimana.</p>';
   if(sc.cd)h+='<h4>Defaticamento (cool-down)</h4><div class="prot">'+esc(sc.cd)+'</div>';
-  if(sc.es.some(function(e){return e.m}))h+='<h4>Volume settimanale per muscolo</h4>'+volHtml(sc.es,sc.freq,u);
+  if(es.some(function(e){return e.m}))h+='<h4>Volume settimanale per muscolo</h4>'+volHtml(es,f/days.length,u);
+  h+='<h4>Legenda e guida all’esecuzione</h4>'+legendHtml(es);
   return h;
 }
 function viewScheda(id){
   var sc=findS(id);if(!sc)return;var u=find(sc.uid);
-  modal('<h3>'+esc(sc.nome)+'</h3>'+schedaBody(sc,u)+'<div class="status" id="sdstat"></div><div class="mrow"><button data-act="mclose">Chiudi</button><button data-act="prn">Stampa</button><button class="pri" data-act="sdl" data-id="'+esc(sc.id)+'">Scarica</button></div>');
+  modal('<h3>'+esc(sc.nome)+'</h3>'+schedaBody(sc,u)+'<div class="status" id="sdstat"></div><div class="mrow"><button data-act="mclose">Chiudi</button><button data-act="prn">Stampa / PDF</button><button data-act="scsv" data-id="'+esc(sc.id)+'">CSV</button><button data-act="sdl" data-id="'+esc(sc.id)+'">Scarica HTML</button><button class="pri" data-act="sxl" data-id="'+esc(sc.id)+'">Esporta Excel (.xlsx)</button></div>');
   document.querySelector('#modal .mbox').classList.add('xl');
 }
 function schedaHtml(u,sc){
-  return '<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(sc.nome)+'</title><style>@page{size:A4;margin:14mm}*{box-sizing:border-box}body{font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;max-width:900px;margin:0 auto;padding:0 16px 32px;background:#f3f3f0;color:#0b0b0b}'+
-   '.top{background:#000;color:#fff;margin:0 -16px 20px;padding:16px 20px;border-bottom:3px solid #FFD60A;font-weight:700;font-size:20px}.top b{color:#FFD60A}h1{margin:0 0 4px;font-size:26px}h4{margin:20px 0 8px;font-size:16px}.status{color:#4a4a4a}'+
+  return '<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(sc.nome)+'</title><style>@page{size:A4;margin:14mm}*{box-sizing:border-box}body{font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;max-width:1000px;margin:0 auto;padding:0 16px 32px;background:#f3f3f0;color:#0b0b0b}'+
+   '.top{background:#000;color:#fff;margin:0 -16px 20px;padding:16px 20px;border-bottom:3px solid #FFD60A;font-weight:700;font-size:20px}.top b{color:#FFD60A}h1{margin:0 0 4px;font-size:26px}h4{margin:22px 0 8px;font-size:16px}.status{color:#4a4a4a}'+
    '.keyd{border:2px solid #FFD60A;background:#fffbe6;border-radius:12px;padding:12px 16px;margin-top:14px}.keyd h4{margin:0 0 6px}.det{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:0}.det dt{color:#4a4a4a}.det dd{margin:0}'+
-   '.prot{white-space:pre-line;background:#fff;border:1px solid #cdcdcd;border-radius:10px;padding:10px 14px}.xwrap{overflow-x:auto}table{border-collapse:collapse;width:100%;background:#fff}th,td{border:1px solid #bdbdbd;padding:7px 9px;text-align:left;vertical-align:top}th{background:#000;color:#FFD60A;font-size:13px}td.nt{font-size:13px;min-width:220px}'+
+   '.prot{white-space:pre-line;background:#fff;border:1px solid #cdcdcd;border-radius:10px;padding:10px 14px}.xwrap{overflow-x:auto}table{border-collapse:collapse;width:100%;background:#fff}th,td{border:1px solid #bdbdbd;padding:7px 9px;text-align:left;vertical-align:top}th{background:#000;color:#FFD60A;font-size:13px}td.nt{font-size:13px;min-width:220px}td.tg2{font-size:13px;min-width:130px}'+
    '.dc{font-style:normal;font-size:11px;font-weight:700;background:#FFD60A;color:#000;border-radius:99px;padding:1px 8px}.vs{font-size:12px;font-weight:700;border-radius:99px;padding:2px 9px}.vs.ok{background:#e3f4e8;color:#14622f}.vs.lo{background:#fff3b0;color:#5c4a00}.vs.hi{background:#fde8e8;color:#9b1c1c}'+
+   '.lgg{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}.lg{background:#fff;border:1px solid #cdcdcd;border-left:4px solid #FFD60A;border-radius:10px;padding:10px 14px;font-size:13.5px}.lg h5{margin:0 0 6px;font-size:15px}.lg p{margin:4px 0}.lg small{color:#4a4a4a}.pt{font-style:normal;font-size:11px;font-weight:700;background:#000;color:#FFD60A;border-radius:6px;padding:1px 7px}'+
    'button{margin-top:18px;padding:10px 18px;background:#FFD60A;border:0;border-radius:8px;font-weight:700;cursor:pointer}'+
-   '@media print{body{background:#fff;max-width:none;padding:0;font-size:10.5pt}.top{background:#fff;color:#000;border-bottom:2px solid #000;margin:0 0 12px}.top b{color:#000}th{background:#eee;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}tr,.keyd,.prot{break-inside:avoid}.keyd{background:#fff;border-color:#000}button{display:none}}</style></head><body>'+
-   '<div class="top"><b>S.</b>peaking</div><h1>'+esc(sc.nome)+'</h1>'+schedaBody(sc,u)+'<button onclick="window.print()">Stampa</button></body></html>';
+   '@media print{body{background:#fff;max-width:none;padding:0;font-size:10pt}.top{background:#fff;color:#000;border-bottom:2px solid #000;margin:0 0 12px}.top b{color:#000}.xwrap{overflow:visible}table{font-size:8.5pt}td.nt,td.tg2{min-width:0}th{background:#eee;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}tr,.keyd,.prot,.lg{break-inside:avoid}h4{break-after:avoid}.keyd{background:#fff;border-color:#000}.lgg{display:block;columns:2;column-gap:10px}.lg{margin-bottom:6px;border-color:#888}.pt{background:#fff;color:#000;border:1px solid #000}button{display:none}}</style></head><body>'+
+   '<div class="top"><b>S.</b>peaking</div><h1>'+esc(sc.nome)+'</h1>'+schedaBody(sc,u)+'<button onclick="window.print()">Stampa / PDF</button></body></html>';
 }
+// ---- Eventi del generatore ----
 document.addEventListener('input',function(e){
   if(cur!=='gen')return;var t=e.target;
+  if(t.id==='libq'){libQ=t.value;listLib();return}
+  gDirty=true;if(t.closest('#days'))gTouched=true;
   if(t.classList.contains('ex_n')){var r=t.closest('.exr'),i=EXI[ekey(t.value)];
-    if(i){var m=r.querySelector('.ex_m'),nt=r.querySelector('.ex_nt');if(!m.getAttribute('data-man'))m.value=i[1];if(!nt.value.trim()||nt.getAttribute('data-auto')==='1'){nt.value=i[3];nt.setAttribute('data-auto','1')}}}
+    if(i){var o=rowFrom(i,gctx);r.querySelector('.ex_p').value=i.p;setRow(r,o,['.ex_n','.ex_s','.ex_r','.ex_tg','.ex_k','.ex_rec'])}}
   else if(t.classList.contains('ex_nt'))t.setAttribute('data-auto','0');
-  else if(t.id==='sc_start'&&t.value){var d=document.getElementById('sc_del'),c=document.getElementById('sc_cam');if(!d.getAttribute('data-man'))d.value=addDays(t.value,21);if(!c.getAttribute('data-man'))c.value=addDays(t.value,42)}
-  else if(t.id==='sc_del'||t.id==='sc_cam'||t.id==='sc_wu'||t.id==='sc_cd')t.setAttribute('data-man','1');
+  else if(t.id==='sc_start'&&t.value){var d=gid('sc_del'),c=gid('sc_cam');if(!d.getAttribute('data-man'))d.value=addDays(t.value,21);if(!c.getAttribute('data-man'))c.value=addDays(t.value,42)}
+  else if(['sc_del','sc_cam','sc_wu','sc_cd','sc_n','sc_logic'].indexOf(t.id)>-1)t.setAttribute('data-man','1');
   updGen();
 });
-document.addEventListener('change',function(e){if(cur!=='gen')return;if(e.target.classList.contains('ex_m'))e.target.setAttribute('data-man','1');updGen()});
+document.addEventListener('change',function(e){
+  if(cur!=='gen')return;var t=e.target;
+  if(t.classList.contains('ex_m'))t.setAttribute('data-man','1');
+  if(t.id==='sc_f'||t.id==='sc_sp'){
+    if(!gTouched)buildAuto();
+    else st('sph','Hai modificato le sedute a mano: premi «Genera proposta automatica» per ricostruirle con '+gid('sc_f').value+' sedute '+gid('sc_sp').value+'.');
+  }
+  updGen();
+});
 document.addEventListener('click',function(e){
-  var a=e.target.closest('[data-act]');if(!a)return;var k=a.getAttribute('data-act');
+  if(cur!=='gen')return;
+  var lp=e.target.closest('[data-lp]');if(lp){libP=lp.getAttribute('data-lp');listLib();return}
+  var a=e.target.closest('[data-act]');if(!a)return;var k=a.getAttribute('data-act'),day=a.closest('.day');
   if(k==='gback')guardGen(function(){cur='schede';render();window.scrollTo(0,0)});
-  else if(k==='leaveok'){closeModal();var f=leaveFn;leaveFn=null;if(f)f()}
-  else if(k==='regw'){document.getElementById('sc_wu').removeAttribute('data-man');updGen()}
-  else if(k==='regc'){document.getElementById('sc_cd').removeAttribute('data-man');updGen()}
+  else if(k==='leaveok'){closeModal();var f=leaveFn;leaveFn=null;gDirty=false;if(f)f()}
+  else if(k==='regw'){gid('sc_wu').removeAttribute('data-man');updGen()}
+  else if(k==='regc'){gid('sc_cd').removeAttribute('data-man');updGen()}
+  else if(k==='genauto'){if(gTouched)modal('<h3>Rigenerare le sedute?</h3><p>Le modifiche fatte a mano agli esercizi verranno sostituite dalla nuova proposta.</p><div class="mrow"><button data-act="mclose">Annulla</button><button class="pri" data-act="regenok">Rigenera</button></div>');else buildAuto()}
+  else if(k==='regenok'){closeModal();buildAuto();gDirty=true}
+  else if(k==='addday'){var n=document.querySelectorAll('#days .day').length;gid('days').insertAdjacentHTML('beforeend',dayBlock({},n));gTouched=gDirty=true;refreshEx();updGen()}
+  else if(k==='rmday'&&day){if(document.querySelectorAll('#days .day').length>1){day.remove();gTouched=gDirty=true;refreshEx();updGen()}}
+  else if(k==='addex'&&day){day.querySelector('.exs').insertAdjacentHTML('beforeend',exRow());gTouched=gDirty=true;refreshEx();updGen()}
+  else if(k==='rmex'){var r=a.closest('.exr');if(r&&r.parentNode.querySelectorAll('.exr').length>1){r.remove();gTouched=gDirty=true;refreshEx();updGen()}}
+  else if(k==='lk'){var rw=a.closest('.exr');if(rw){rw.classList.toggle('lk');gTouched=gDirty=true;refreshEx()}}
+  else if(k==='lib'&&day)openLib(day,null);
+  else if(k==='swap'&&day)openLib(day,a.closest('.exr'));
+  else if(k==='libpick')libPick(a.getAttribute('data-n'));
 });
 async function saveBlob(blob,name){
   try{
@@ -1178,11 +1929,127 @@ async function saveBlob(blob,name){
     else{var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove()}
   }catch(e){if(!(e&&e.code==='declined'))throw e}
 }
+function fileBase(sc,u){return ('Scheda_'+(u?u.c+'_'+u.n:'')+'_'+sc.data).replace(/[^\w.\-]+/g,'_')}
 async function dlScheda(id){
   var sc=findS(id);if(!sc)return;var u=find(sc.uid);
-  try{await saveBlob(new Blob([schedaHtml(u,sc)],{type:'text/html'}),('Scheda_'+(u?u.c+'_'+u.n:'')+'_'+sc.data+'.html').replace(/[^\w.\-]+/g,'_'))}
+  try{await saveBlob(new Blob([schedaHtml(u,sc)],{type:'text/html'}),fileBase(sc,u)+'.html')}
   catch(e){st('sdstat','Download non riuscito. Riprova.')}
 }
+// ---- Esportazione Excel (.xlsx, generato nel browser senza librerie) e CSV ----
+function crc32(u8){var t=crc32.t,c,i,k;if(!t){t=crc32.t=[];for(i=0;i<256;i++){c=i;for(k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[i]=c>>>0}}
+  c=0xFFFFFFFF;for(i=0;i<u8.length;i++)c=t[(c^u8[i])&255]^(c>>>8);return (c^0xFFFFFFFF)>>>0}
+function zipStore(files,type){
+  var enc=new TextEncoder(),parts=[],cen=[],off=0;
+  files.forEach(function(f){
+    var nm=enc.encode(f.n),d=enc.encode(f.d),crc=crc32(d),h=new DataView(new ArrayBuffer(30)),c=new DataView(new ArrayBuffer(46));
+    h.setUint32(0,0x04034b50,true);h.setUint16(4,20,true);h.setUint16(6,0x0800,true);h.setUint16(12,0x21,true);h.setUint32(14,crc,true);h.setUint32(18,d.length,true);h.setUint32(22,d.length,true);h.setUint16(26,nm.length,true);
+    c.setUint32(0,0x02014b50,true);c.setUint16(4,20,true);c.setUint16(6,20,true);c.setUint16(8,0x0800,true);c.setUint16(14,0x21,true);c.setUint32(16,crc,true);c.setUint32(20,d.length,true);c.setUint32(24,d.length,true);c.setUint16(28,nm.length,true);c.setUint32(42,off,true);
+    parts.push(new Uint8Array(h.buffer),nm,d);cen.push(new Uint8Array(c.buffer),nm);off+=30+nm.length+d.length;
+  });
+  var cs=0;cen.forEach(function(b){cs+=b.length});
+  var e=new DataView(new ArrayBuffer(22));e.setUint32(0,0x06054b50,true);e.setUint16(8,files.length,true);e.setUint16(10,files.length,true);e.setUint32(12,cs,true);e.setUint32(16,off,true);
+  return new Blob(parts.concat(cen,[new Uint8Array(e.buffer)]),{type:type});
+}
+function xcol(i){var s='';i++;while(i){var m=(i-1)%26;s=String.fromCharCode(65+m)+s;i=Math.floor((i-1)/26)}return s}
+function xesc(s){return String(s==null?'':s).replace(/[\x00-\x08\x0B\x0C\x0E-\x1F]/g,'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+var XHEAD='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n';
+function xsheet(S){
+  var x=XHEAD+'<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheetPr><pageSetUpPr fitToPage="1"/></sheetPr>';
+  if(S.freeze)x+='<sheetViews><sheetView workbookViewId="0"><pane ySplit="'+S.freeze+'" topLeftCell="A'+(S.freeze+1)+'" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews>';
+  x+='<cols>'+S.cols.map(function(w,i){return '<col min="'+(i+1)+'" max="'+(i+1)+'" width="'+w+'" customWidth="1"/>'}).join('')+'</cols><sheetData>';
+  S.rows.forEach(function(r,ri){
+    x+='<row r="'+(ri+1)+'"'+(r.h?' ht="'+r.h+'" customHeight="1"':'')+'>';
+    (r.c||[]).forEach(function(c,ci){if(!c)return;var v=c[0],s=c[1]||0,ref=xcol(ci)+(ri+1);
+      if(v===''||v==null)x+='<c r="'+ref+'" s="'+s+'"/>';
+      else if(typeof v==='number'&&isFinite(v))x+='<c r="'+ref+'" s="'+s+'"><v>'+v+'</v></c>';
+      else x+='<c r="'+ref+'" s="'+s+'" t="inlineStr"><is><t xml:space="preserve">'+xesc(v)+'</t></is></c>'});
+    x+='</row>';
+  });
+  x+='</sheetData>';
+  if(S.merges&&S.merges.length)x+='<mergeCells count="'+S.merges.length+'">'+S.merges.map(function(m){return '<mergeCell ref="'+m+'"/>'}).join('')+'</mergeCells>';
+  return x+'<pageMargins left="0.4" right="0.4" top="0.5" bottom="0.5" header="0.3" footer="0.3"/><pageSetup paperSize="9" orientation="landscape" fitToWidth="1" fitToHeight="0"/></worksheet>';
+}
+var XSTYLES=XHEAD+'<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">'+
+ '<fonts count="5"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="16"/><name val="Calibri"/></font><font><b/><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><color rgb="FFFFD60A"/><name val="Calibri"/></font><font><b/><sz val="12"/><name val="Calibri"/></font></fonts>'+
+ '<fills count="5"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FF000000"/><bgColor indexed="64"/></patternFill></fill><fill><patternFill patternType="solid"><fgColor rgb="FFFFD60A"/><bgColor indexed="64"/></patternFill></fill><fill><patternFill patternType="solid"><fgColor rgb="FFFFF9DB"/><bgColor indexed="64"/></patternFill></fill></fills>'+
+ '<borders count="2"><border><left/><right/><top/><bottom/><diagonal/></border><border><left style="thin"><color rgb="FFBDBDBD"/></left><right style="thin"><color rgb="FFBDBDBD"/></right><top style="thin"><color rgb="FFBDBDBD"/></top><bottom style="thin"><color rgb="FFBDBDBD"/></bottom><diagonal/></border></borders>'+
+ '<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="10">'+
+ '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/>'+
+ '<xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1"/>'+
+ '<xf numFmtId="0" fontId="2" fillId="0" borderId="0" xfId="0" applyFont="1" applyAlignment="1"><alignment vertical="top"/></xf>'+
+ '<xf numFmtId="0" fontId="3" fillId="2" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment vertical="center" wrapText="1"/></xf>'+
+ '<xf numFmtId="0" fontId="0" fillId="0" borderId="1" xfId="0" applyBorder="1" applyAlignment="1"><alignment vertical="top" wrapText="1"/></xf>'+
+ '<xf numFmtId="0" fontId="2" fillId="3" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment vertical="center"/></xf>'+
+ '<xf numFmtId="0" fontId="0" fillId="4" borderId="1" xfId="0" applyFill="1" applyBorder="1" applyAlignment="1"><alignment vertical="top"/></xf>'+
+ '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1"><alignment vertical="top" wrapText="1"/></xf>'+
+ '<xf numFmtId="0" fontId="4" fillId="0" borderId="0" xfId="0" applyFont="1"/>'+
+ '<xf numFmtId="0" fontId="2" fillId="0" borderId="1" xfId="0" applyFont="1" applyBorder="1" applyAlignment="1"><alignment vertical="top" wrapText="1"/></xf>'+
+ '</cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>';
+function xlsxBook(sheets){
+  var R='http://schemas.openxmlformats.org/officeDocument/2006/relationships',P='http://schemas.openxmlformats.org/package/2006/relationships',T='application/vnd.openxmlformats-officedocument.spreadsheetml.';
+  var files=[
+   {n:'[Content_Types].xml',d:XHEAD+'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="'+T+'sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="'+T+'styles+xml"/>'+sheets.map(function(s,i){return '<Override PartName="/xl/worksheets/sheet'+(i+1)+'.xml" ContentType="'+T+'worksheet+xml"/>'}).join('')+'</Types>'},
+   {n:'_rels/.rels',d:XHEAD+'<Relationships xmlns="'+P+'"><Relationship Id="rId1" Type="'+R+'/officeDocument" Target="xl/workbook.xml"/></Relationships>'},
+   {n:'xl/workbook.xml',d:XHEAD+'<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="'+R+'"><sheets>'+sheets.map(function(s,i){return '<sheet name="'+xesc(s.name)+'" sheetId="'+(i+1)+'" r:id="rId'+(i+1)+'"/>'}).join('')+'</sheets></workbook>'},
+   {n:'xl/_rels/workbook.xml.rels',d:XHEAD+'<Relationships xmlns="'+P+'">'+sheets.map(function(s,i){return '<Relationship Id="rId'+(i+1)+'" Type="'+R+'/worksheet" Target="worksheets/sheet'+(i+1)+'.xml"/>'}).join('')+'<Relationship Id="rId'+(sheets.length+1)+'" Type="'+R+'/styles" Target="styles.xml"/></Relationships>'},
+   {n:'xl/styles.xml',d:XSTYLES}
+  ].concat(sheets.map(function(s,i){return {n:'xl/worksheets/sheet'+(i+1)+'.xml',d:xsheet(s)}}));
+  return zipStore(files,T+'sheet');
+}
+function weeksOf(sc){var w=sc.cambio&&sc.data?Math.round((Date.parse(sc.cambio)-Date.parse(sc.data))/6048e5):6;return Math.max(1,Math.min(12,w||6))}
+function dlWeek(sc){return sc.deload&&sc.data?Math.floor((Date.parse(sc.deload)-Date.parse(sc.data))/6048e5)+1:0}
+function hgt(t,cw){var n=0;String(t==null?'':t).split('\n').forEach(function(l){n+=Math.max(1,Math.ceil(l.length/cw))});return Math.max(16,n*15)}
+function xlsxScheda(sc,u){
+  var days=schedaDays(sc),wk=weeksOf(sc),dw=dlWeek(sc),es=flatEs(days);
+  var base=['Esercizio','Pattern','Muscolo','Serie','Ripetizioni','Carico target (%1RM / RIR)','Kg','Recupero','Note esecutive (postura e respirazione)'],W=[30,11,14,7,12,24,8,10,54],N=base.length+wk;
+  for(var i=0;i<wk;i++)W.push(12);
+  var R=[],M=[],add=function(c,h){R.push({c:c,h:h});return R.length},mer=function(r,a,b){M.push(xcol(a)+r+':'+xcol(b)+r)},r;
+  r=add([['S.peaking — Scheda di allenamento',1]],26);mer(r,0,N-1);add([]);
+  [['Atleta',u?u.n+' '+u.c:''],['Scheda',sc.nome],['Obiettivi',u&&u.ob?u.ob.join(', '):''],['Gara / sport',u?u.gara:''],['Data di inizio',fdate(sc.data)],
+   ['Settimana di scarico',sc.deload?'dal '+fdate(sc.deload)+' al '+fdate(addDays(sc.deload,6))+(dw?' (settimana '+dw+')':''):''],['Cambio scheda (orientativo)',sc.cambio?fdate(sc.cambio):''],
+   ['Sedute a settimana',String(sc.freq||1)+(sc.split?' · '+sc.split:'')]].forEach(function(x){if(!x[1])return;r=add([[x[0],2],[x[1],7]]);mer(r,1,8)});
+  var lg=sc.logica||sc.note;if(lg){r=add([['Logica di lavoro',2],[lg,7]],hgt(lg,150));mer(r,1,8)}
+  add([]);
+  var block=function(title,txt){if(!txt)return;add([[title,8]],20);txt.split('\n').forEach(function(l){r=add([[l,7]],hgt(l,170));mer(r,0,8)});add([])};
+  block('Riscaldamento (warm-up)',sc.wu);
+  var head=base.concat([]);for(i=0;i<wk;i++)head.push('Sett. '+(i+1)+(i+1===dw?' (scarico)':''));
+  days.forEach(function(d,j){
+    var t=days.length>1||d.t?'Seduta '+(j+1)+(d.t&&d.t!=='Seduta '+(j+1)?' — '+d.t:''):'Esercizi',bar=[[t,5]];for(i=1;i<N;i++)bar.push(['',5]);
+    r=add(bar,22);mer(r,0,N-1);
+    add(head.map(function(h){return [h,3]}),32);
+    d.es.forEach(function(e){
+      var nm=(e.g?'SS '+String.fromCharCode(64+(+e.g))+' · ':'')+e.n,p=e.p||(EXI[ekey(e.n)]||{}).p||'';
+      var row=[[nm,9],[p,4],[e.m||'',4],[e.s===''||e.s==null?'':+e.s,4],[e.r||'',4],[e.tg||'',4],[e.k===''||e.k==null?'':+e.k,4],[e.rec!==''&&e.rec!=null?e.rec+' s':'',4],[e.nt||'',4]];
+      for(i=0;i<wk;i++)row.push(['',6]);
+      add(row,Math.max(hgt(e.nt,58),hgt(nm,30),hgt(e.tg,24)));
+    });
+    add([]);
+  });
+  block('Defaticamento (cool-down)',sc.cd);
+  r=add([['Come usare il foglio: nelle colonne «Sett.» annota il carico usato e le ripetizioni fatte (es. 60×8). Quando completi tutte le serie al limite alto delle ripetizioni con il RIR indicato, aumenta il carico.',7]],32);mer(r,0,N-1);
+  var seen={},LR=[{c:['Esercizio','Pattern','A cosa serve','Muscoli primari','Muscoli secondari','Assetto iniziale','Fase eccentrica / esecuzione','Fase concentrica','Respirazione','Sicurezza'].map(function(h){return [h,3]}),h:30}],LW=[24,12,40,26,26,42,34,34,34,34];
+  es.forEach(function(x){var k=ekey(x.n);if(!k||seen[k])return;seen[k]=1;var e=EXI[k];
+    var v=e?[x.n,e.p+' · '+SUBL[e.sub],e.sc,e.mp,e.ms,e.as,e.ec,e.co,breath(e),e.si]:[x.n,x.p||'','Esercizio personalizzato','','',x.nt||'','','','',''];
+    var h=16;v.forEach(function(t,i){h=Math.max(h,hgt(t,LW[i]))});LR.push({c:v.map(function(t,i){return [t,i?4:9]}),h:h});
+  });
+  return xlsxBook([{name:'Scheda',cols:W,rows:R,merges:M},{name:'Legenda esercizi',cols:LW,rows:LR,merges:[],freeze:1}]);
+}
+function csvScheda(sc,u){
+  var days=schedaDays(sc),wk=weeksOf(sc),dw=dlWeek(sc),q=function(v){return '"'+String(v==null?'':v).replace(/"/g,'""')+'"'},L=[],row=function(a){L.push(a.map(q).join(';'))};
+  row(['S.peaking — Scheda di allenamento']);row(['Atleta',u?u.n+' '+u.c:'']);row(['Scheda',sc.nome]);row(['Data di inizio',fdate(sc.data)]);
+  if(sc.deload)row(['Settimana di scarico','dal '+fdate(sc.deload)+' al '+fdate(addDays(sc.deload,6))]);if(sc.cambio)row(['Cambio scheda',fdate(sc.cambio)]);
+  row(['Sedute a settimana',String(sc.freq||1)+(sc.split?' · '+sc.split:'')]);row([]);
+  var h=['Seduta','Esercizio','Pattern','Muscolo','Serie','Ripetizioni','Carico target (%1RM / RIR)','Kg','Recupero (s)','Note esecutive'];for(var i=0;i<wk;i++)h.push('Sett. '+(i+1)+(i+1===dw?' (scarico)':''));row(h);
+  days.forEach(function(d,j){d.es.forEach(function(e){var p=e.p||(EXI[ekey(e.n)]||{}).p||'',r=[d.t||'Seduta '+(j+1),(e.g?'SS '+String.fromCharCode(64+(+e.g))+' · ':'')+e.n,p,e.m||'',e.s,e.r,e.tg||'',fnum(e.k),e.rec,e.nt||''];for(i=0;i<wk;i++)r.push('');row(r)})});
+  return new Blob(['﻿'+L.join('\r\n')],{type:'text/csv;charset=utf-8'});
+}
+async function expScheda(id,kind){
+  var sc=findS(id);if(!sc)return;var u=find(sc.uid);
+  try{if(kind==='xlsx')await saveBlob(xlsxScheda(sc,u),fileBase(sc,u)+'.xlsx');else await saveBlob(csvScheda(sc,u),fileBase(sc,u)+'.csv');st('sdstat',kind==='xlsx'?'File Excel scaricato.':'File CSV scaricato.')}
+  catch(e){st('sdstat','Esportazione non riuscita. Riprova.')}
+}
+document.addEventListener('click',function(e){var a=e.target.closest('[data-act="sxl"],[data-act="scsv"]');if(a)expScheda(a.getAttribute('data-id'),a.getAttribute('data-act')==='sxl'?'xlsx':'csv')});
+
 async function doDelSchede(){
   var ids=Object.keys(ssel);
   for(var i=0;i<ids.length;i++){try{await Store.del('schede',ids[i])}catch(e){}}
@@ -1208,9 +2075,6 @@ document.addEventListener('click',function(e){
   if(a){var k=a.getAttribute('data-act'),ex=a.getAttribute('data-ex');
     if(k==='sback'){suid=null;sdm=false;ssel={};trend=[];eq='';renderSchede()}
     else if(k==='sadd')schedaForm();
-    else if(k==='addex'){document.getElementById('exs').insertAdjacentHTML('beforeend',exRow());refreshEx();updGen()}
-    else if(k==='lk'){var rw=a.closest('.exr');if(rw){rw.classList.toggle('lk');refreshEx()}}
-    else if(k==='rmex'){var r=a.closest('.exr');if(r&&document.querySelectorAll('#exs .exr').length>1){r.remove();refreshEx();updGen()}}
     else if(k==='smsave')saveScheda();
     else if(k==='sdel'){sdm=!sdm;ssel={};listSchede()}
     else if(k==='scancel'){sdm=false;ssel={};listSchede()}

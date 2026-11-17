@@ -16,7 +16,17 @@ Dal dettaglio atleta («Test funzionali») o dai passi in alto (1. Anamnesi · 2
 I risultati sono salvati nel cliente e finiscono nel backup.
 
 ## Generatore di schede
-Pagina intera con: logica di lavoro e riquadro **Date chiave** (inizio, settimana di scarico proposta nella 4ª settimana, cambio scheda proposto dopo 6 settimane, tutto modificabile); **warm-up** e **cool-down** generati in automatico dai muscoli allenati e modificabili; tabella esercizi con muscolo, serie, ripetizioni, kg, recupero e **note esecutive e tecniche** (compilate in automatico per gli esercizi della libreria); **volume settimanale per muscolo** con confronto MEV/MRV (valori indicativi). Le stesse sezioni compaiono nella scheda visualizzata, stampata e scaricata.
+Pagina intera, in ordine: impostazione (nome, **sedute a settimana**, **split**), pulsante **⚡ Genera proposta automatica**, **Logica di lavoro**, riquadro **Tempistiche di programmazione** (inizio, scarico nella 4ª settimana, cambio scheda dopo 6 settimane, tutto modificabile), warm-up, **sedute**, cool-down, volume settimanale, **legenda**.
+
+- **Selezione automatica**: incrocia obiettivi multipli, sport o gara (Hyrox, judo, corsa, calcio, nuoto…), gruppi prioritari (esercizio dedicato a inizio seduta e una serie in più), livello, PAR-Q, carico degli sport extra e test funzionali (es. Shoulder Mobility limitato → niente spinte sopra la testa; Thomas positivo → allungamento flessori; meno di 3 trazioni → lat machine).
+- **Split**: parte dalla preferenza del cliente (Upper/Lower, Push/Pull/Legs, Full Body, Monofrequenza; senza preferenza sceglie in base alle sedute). Il PT può cambiarlo e rigenerare; se ha già modificato le sedute chiede conferma.
+- **Prescrizione**: serie, ripetizioni, **carico target (%1RM / RIR)**, kg calcolati dal 1RM stimato quando c'è, recupero. Al massimo 2 fondamentali per seduta; i muscoli oltre l'MRV vengono riequilibrati.
+- **Tabella per seduta**: esercizio, pattern, muscolo, serie, ripetizioni, carico target, kg, recupero, note esecutive (postura e respirazione). Scorre in orizzontale su schermi piccoli.
+- **Libreria esercizi**: 69 esercizi per pattern (Push, Pull, Squat, Hinge, Carry, Isopush, Mobilità) con ricerca, filtri, guida all'esecuzione e avvisi (sconsigliato dai test o dal PAR-Q, livello superiore). ⇄ sostituisce l'esercizio di una riga.
+- **Legenda e guida all'esecuzione**: per ogni esercizio scelto, a cosa serve, muscoli primari e secondari, assetto iniziale, fase eccentrica e concentrica, respirazione, sicurezza.
+
+## Esportazione della scheda
+Dalla scheda salvata: **Stampa / PDF** (A4 senza menu, legenda su due colonne), **Esporta Excel (.xlsx)** con intestazione atleta, sedute e colonne «Sett. 1…N» per annotare i carichi (più un foglio «Legenda esercizi»), **CSV** (separatore «;» per Excel in italiano), **Scarica HTML**. Le schede create con la versione precedente si aprono ed esportano normalmente.
 
 ## Stato degli atleti
 Calcolato dalla scheda più recente di ogni atleta (data di cambio scheda, o 6 settimane dall'inizio se manca):
