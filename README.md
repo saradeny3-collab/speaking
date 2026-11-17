@@ -3,6 +3,9 @@
 Anamnesi · Valutazione funzionale · Preparazione atletica.
 Barra di navigazione scura a sinistra (in basso su smartphone), area di lavoro centrale chiara, accenti gialli, stampa A4 pulita.
 
+## Nuovo cliente: anamnesi
+«+ Nuovo Cliente» apre la pagina «Anamnesi, obiettivi e stile di vita»: dati anagrafici e misure (età, sesso, peso, altezza, livello, circonferenze, certificato medico, con BMI e rapporti vita/fianchi e vita/altezza calcolati), PAR-Q a 7 domande, stato di salute, obiettivi a scelta multipla, gara o sport obiettivo, sport extra settimanali con stima del carico, gruppi muscolari prioritari e preferenza di split (la decisione finale spetta al Personal Trainer). Dal dettaglio atleta il pulsante «Anamnesi» riapre il modulo per modificarlo.
+
 ## Stato degli atleti
 Calcolato dalla scheda più recente di ogni atleta:
 - **Attivi**: scheda iniziata da meno di 42 giorni (6 settimane).
