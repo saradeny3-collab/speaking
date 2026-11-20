@@ -77,6 +77,7 @@ Dalla scheda salvata (o dall’anteprima dell’editor) il pulsante **📲 Condi
 - **Invia i risultati al PT** manda il riepilogo della seduta (es. «Panca piana: 60 kg × 8, 60 kg × 7») su WhatsApp, Telegram o un’altra app.
 - Il link contiene solo la scheda: niente anamnesi, PAR-Q, infortuni, test o logica di lavoro. La scheda sta dopo il «#» dell’indirizzo, quindi non arriva a GitHub né ad altri server; chi ha il link però può leggerla, quindi va mandato solo all’atleta.
 - Il link è una **fotografia** della scheda: se la modifichi, manda un link nuovo. Con Firebase (fase 11) potrà diventare un link sempre aggiornato.
+- Prima dell’invio la finestra controlla che il sito pubblicato sia aggiornato. Se all’atleta compare «link tagliato», rimandalo con «Copia link» incollato nella chat.
 - Se apri l’app dal file sul computer e non dal sito, la prima volta ti chiede l’indirizzo del sito pubblicato (es. `https://tuonome.github.io/speaking/`).
 
 ## Stato degli atleti
