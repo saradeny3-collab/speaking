@@ -2650,6 +2650,187 @@ var SPDOSE={
   'Pallof press':{s:3,r:'30 s per lato',tg:'Tenuta isometrica',rpe:'7',rec:45},
   'Bird dog':{s:3,r:'8 per lato',tg:'Zavorrato leggero (cavigliere o manubrio)',rpe:'7',rec:45}}
 };
+// Esercizi del programma «Proposta di workout per il judo agonistico» (12 settimane, 20 sedute)
+var EXRAW4=[
+['Uchi-komi (ripetizione tecnica)','Pull','k','','',1,'cond','tm','Dorsali, glutei, quadricipiti, core (lavoro specifico)','Avambracci, deltoidi',
+ 'Ripetizione dell’entrata tecnica senza proiettare, con compagno o elastici: rende automatico e veloce il gesto di gara.',
+ 'Guardia di combattimento, presa sul judogi del compagno o sulle impugnature dell’elastico fissato al palo.',
+ 'Esegui kuzushi ed entrata sulla tecnica scelta (tokui-waza) e torna in guardia.',
+ 'Ripeti senza pause per il tempo indicato; nella versione esplosiva massima velocità di entrata.',
+ 'La tecnica corretta viene prima della velocità; elastico ben fissato.','k'],
+['Nage-komi (proiezioni ripetute)','Hinge','k','','',2,'cond','tm','Glutei, quadricipiti, dorsali, core (lavoro specifico)','Avambracci, polpacci',
+ 'Proiezioni complete ripetute sul compagno (uke): potenza e precisione del lancio in condizioni di fatica.',
+ 'Tatami con materassone o zona di caduta ampia, compagno che sa cadere (ukemi).',
+ 'Entra e proietta il compagno con la tecnica indicata, accompagnandolo nella caduta.',
+ 'Riprendi la guardia e ripeti a ritmo costante fino alla fine del tempo.',
+ 'Uke esperto nelle cadute; superficie adatta; ritmo sostenibile senza perdere il controllo.','w'],
+['Randori','Pull','k','','',2,'cond','tm','Tutto il corpo (combattimento libero)','Sistemi aerobico e lattacido',
+ 'Combattimento libero di allenamento, in piedi o a terra: allena tecnica, tattica e capacità di sostenere gli scambi di gara.',
+ 'Tatami, compagno di peso e livello simili, arbitro o allenatore che gestisce tempi e cambi.',
+ 'Combatti per il tempo indicato con l’intensità richiesta (leggera, tecnica, media, massima simil-shiai).',
+ 'Recupero tra un cambio e l’altro come indicato; cambia compagno a ogni ripresa.',
+ 'Intensità adeguata al periodo; con dolori acuti o stanchezza eccessiva riduci i cambi.','w'],
+['Ne-waza / katame-waza (circuito a terra)','Isopush','k','','',2,'cond','tm','Core, adduttori, dorsali, avambracci (lavoro a terra)','Collo, spalle',
+ 'Circuito di lotta a terra (immobilizzazioni, leve, strangolamenti, ribaltamenti) con uke più o meno attivo.',
+ 'A terra sul tatami, posizione di partenza indicata dall’allenatore (es. guardia, uke a quattro zampe).',
+ 'Esegui le sequenze di ne-waza per il tempo indicato, con uke leggermente attivo o in resistenza.',
+ 'Cambia ruolo o sequenza alla fine di ogni ripresa.',
+ 'Leve e strangolamenti solo controllati e con resa immediata; attenzione a collo e gomiti.','w'],
+['Burpee','Squat','sp','Quadricipiti','Petto,Core',1,'plyo','hi','Quadricipiti, glutei, pettorali','Tricipiti, deltoidi, addominali',
+ 'Esercizio a corpo libero che unisce piegamento e salto: condizionamento generale e potenza.',
+ 'In piedi, piedi alla larghezza delle anche.',
+ 'Scendi con le mani a terra, porta i piedi indietro in plank ed esegui un piegamento.',
+ 'Riporta i piedi sotto le anche e salta verso l’alto con le braccia sopra la testa.',
+ 'Atterraggi morbidi; schiena in linea nel plank.','w'],
+['Sprint','Carry','k','','',2,'cond','','Quadricipiti, glutei, femorali, polpacci (lavoro alattacido)','Core, flessori dell’anca',
+ 'Corse brevi alla massima velocità (50 m, 100 m, in salita o con zavorra): potenza e rapidità.',
+ 'Riscaldamento completo con allunghi progressivi; partenza in piedi o da tre appoggi.',
+ 'Accelera al massimo per la distanza indicata, con braccia attive e busto leggermente inclinato in avanti.',
+ 'Rallenta gradualmente e recupera camminando fino alla ripetizione successiva.',
+ 'Recupero completo tra gli sprint; con zavorra o in salita mantieni la tecnica.','w'],
+['Corsa continua','Carry','k','','',1,'cond','tm','Sistema aerobico, gambe','Core',
+ 'Corsa di 5–10 km a ritmo moderato-alto: capacità aerobica per recuperare tra gli scambi e tra gli incontri.',
+ 'Scarpe da corsa, percorso piano.',
+ 'Corri a ritmo costante moderato-alto, al limite della conversazione.',
+ 'Mantieni il ritmo fino alla fine della distanza indicata.',
+ 'Ritmo adeguato al livello; con dolori a caviglie o ginocchia preferisci la bici.','w'],
+['Corsa a intervalli','Carry','k','','',2,'cond','tm','Sistemi aerobico e anaerobico, gambe','Core',
+ 'Interval running: alternanza di sprint e passo per allenare il recupero tra sforzi massimali.',
+ 'Dopo il riscaldamento, percorso piano o pista.',
+ 'Corri 1 minuto a velocità di sprint.',
+ 'Cammina o corri piano per 2 minuti (recupero attivo) e ripeti per tutta la durata.',
+ 'Intensità alta: solo con buona base aerobica e PAR-Q negativo.','w'],
+['Circuito pesi (multiarticolari senza pausa)','Squat','k','','',2,'cond','vs','Quadricipiti, glutei, pettorali, dorsali, catena posteriore','Core, spalle',
+ 'Esercizi fondamentali uno dopo l’altro senza pausa (es. squat, panca, stacco): resistenza alla forza.',
+ 'Prepara i bilancieri con il carico indicato per ogni esercizio vicini tra loro.',
+ 'Esegui le ripetizioni del primo esercizio e passa subito al successivo.',
+ 'Recupera solo alla fine del giro; ripeti per il numero di giri indicato.',
+ 'Tecnica di ogni esercizio sempre corretta; riduci il carico se la forma peggiora.','b'],
+['Circuito cardio','Squat','k','','',1,'cond','tm','Tutto il corpo (lavoro metabolico)','Core',
+ 'Circuito a corpo libero ad alta intensità (es. burpees, box jump, sprint, mountain climber, jumping jack): resistenza specifica.',
+ 'Prepara le postazioni degli esercizi indicati vicine tra loro.',
+ 'Esegui ogni esercizio per il tempo indicato passando subito al successivo.',
+ 'Recupera alla fine del giro e ripeti.',
+ 'Intensità alta: atterraggi morbidi e tecnica pulita anche in fatica.','w'],
+['Battle rope','Pull','k','Deltoidi','Core',1,'cond','tm','Deltoidi, avambracci, core','Dorsali, gambe',
+ 'Onde con le funi pesanti a braccia alternate o simultanee: resistenza di braccia e presa.',
+ 'In piedi in mezzo squat davanti all’ancoraggio, una fune per mano, busto eretto.',
+ 'Muovi le braccia rapidamente creando onde continue lungo le funi.',
+ 'Mantieni il ritmo per il tempo indicato senza perdere la postura.',
+ 'Schiena neutra, ginocchia morbide; con dolore alla spalla riduci l’ampiezza.','k'],
+['Agilità: speed ladder e coni','Squat','k','','',1,'cond','tm','Polpacci, quadricipiti, glutei (coordinazione)','Core',
+ 'Esercizi di appoggi rapidi sulla scala di coordinazione e cambi di direzione tra i coni: agilità e rapidità di piedi.',
+ 'Scala a terra o coni disposti secondo lo schema scelto.',
+ 'Esegui gli schemi di appoggio (dentro-fuori, laterali, incrociati) o i cambi di direzione alla massima rapidità controllata.',
+ 'Recupera camminando e ripeti con uno schema diverso.',
+ 'Appoggi sull’avampiede; superficie non scivolosa.','k'],
+['Salti laterali sugli ostacoli','Squat','sp','Quadricipiti','Glutei,Polpacci',2,'plyo','','Quadricipiti, glutei, polpacci','Adduttori, abduttori, core',
+ 'Salti laterali a piedi uniti sopra ostacoli di media altezza: reattività e stabilità laterale.',
+ 'Di fianco a un ostacolo basso o medio, piedi uniti, ginocchia morbide.',
+ 'Salta lateralmente oltre l’ostacolo.',
+ 'Atterra morbido e rimbalza subito dall’altra parte.',
+ 'Ostacoli che cadono se toccati; atterraggi con ginocchia allineate.','k'],
+['Salti sui gradini','Squat','sp','Quadricipiti','Glutei,Polpacci',2,'plyo','','Quadricipiti, glutei, polpacci','Core',
+ 'Salti a piedi uniti su gradini o gradoni: forza esplosiva delle gambe.',
+ 'Davanti a una scalinata, piedi alla larghezza delle anche.',
+ 'Piegamento rapido e salto su uno o due gradini.',
+ 'Atterra con tutto il piede, ristabilizzati e ripeti; scendi camminando.',
+ 'Gradini stabili e asciutti; altezza adeguata al livello.','w'],
+['Salto in lungo da fermo','Squat','sp','Quadricipiti','Glutei,Ischiocrurali',1,'plyo','','Quadricipiti, glutei, femorali','Polpacci, core',
+ 'Balzo in avanti a piedi uniti da fermo: potenza orizzontale delle gambe.',
+ 'In piedi, piedi alla larghezza delle anche, braccia pronte allo slancio.',
+ 'Piegamento rapido delle gambe con slancio delle braccia indietro.',
+ 'Salta in avanti il più lontano possibile e atterra morbido, stabile, sulle gambe piegate.',
+ 'Atterraggio controllato prima del salto successivo.','w'],
+['Salti ginocchia al petto (tuck jump)','Squat','sp','Quadricipiti','Core,Polpacci',2,'plyo','','Quadricipiti, flessori dell’anca, polpacci','Addominali',
+ 'Salto verticale portando le ginocchia al petto: esplosività e reattività.',
+ 'In piedi, piedi alla larghezza delle anche, braccia avanti.',
+ 'Piegamento rapido delle gambe.',
+ 'Salta e porta le ginocchia verso il petto, poi atterra morbido sugli avampiedi.',
+ 'Evitalo con dolori a ginocchia o caviglie; atterraggi silenziosi.','w'],
+['Affondi esplosivi (jump lunge)','Squat','sp','Quadricipiti','Glutei',2,'plyo','lr','Quadricipiti, grande gluteo','Polpacci, stabilizzatori del bacino',
+ 'Affondi con salto e cambio di gamba in volo, anche con manubri leggeri: potenza monopodalica.',
+ 'In affondo, ginocchio posteriore vicino al suolo, busto eretto, manubri leggeri se indicato.',
+ 'Spingi in modo esplosivo con entrambe le gambe e salta.',
+ 'In volo cambia gamba e atterra in affondo ammortizzando.',
+ 'Carico basso (circa 30% del peso corporeo al massimo); ginocchio anteriore in linea con il piede.','d'],
+['Piegamenti pliometrici (power push-up)','Push','sp','Petto','Tricipiti,Deltoidi',2,'plyo','','Grande pettorale, tricipite','Deltoide anteriore, core',
+ 'Piegamenti esplosivi con stacco delle mani dal suolo: potenza di spinta per controllare la distanza e le prese.',
+ 'In posizione di plank, mani poco più larghe delle spalle, corpo in linea.',
+ 'Scendi in modo controllato fino a sfiorare il suolo.',
+ 'Spingi in modo esplosivo staccando le mani (con o senza battuta) e riatterra ammortizzando.',
+ 'Polsi forti e corpo rigido; inizia dalla versione su rialzo.','w'],
+['Power clean','Hinge','hp','Glutei','Ischiocrurali,Quadricipiti,Dorso',3,'plyo','vs','Grande gluteo, ischiocrurali, quadricipiti, trapezi','Polpacci, dorsali, erettori spinali',
+ 'Girata al petto da terra: potenza totale del corpo (estensione esplosiva di anche, ginocchia e caviglie).',
+ 'Bilanciere a terra sopra il mezzo piede, presa poco più larga delle spalle, schiena neutra, spalle sopra il bilanciere.',
+ 'Stacca il bilanciere da terra in modo controllato fino sopra le ginocchia.',
+ 'Estendi esplosivamente le gambe, alza le spalle e infilati sotto il bilanciere ricevendolo sulle spalle con i gomiti alti.',
+ 'Tecnica appresa con un istruttore; bilanciere vicino al corpo.','b'],
+['Strappo (snatch)','Hinge','hp','Glutei','Ischiocrurali,Quadricipiti,Deltoidi',3,'plyo','vs,oh','Glutei, femorali, quadricipiti, trapezi, deltoidi','Core, polsi, polpacci',
+ 'Sollevamento del bilanciere da terra sopra la testa in un unico movimento: massima espressione di forza esplosiva.',
+ 'Bilanciere a terra, presa larga, schiena neutra, spalle sopra il bilanciere.',
+ 'Stacca da terra in modo controllato fino sopra le ginocchia.',
+ 'Estendi esplosivamente il corpo e infilati sotto il bilanciere ricevendolo a braccia tese sopra la testa, poi alzati.',
+ 'Solo per atleti esperti nella pesistica; con spalle limitate o dolorose non eseguirlo.','b'],
+['Slancio (clean and jerk)','Hinge','hp','Glutei','Quadricipiti,Deltoidi,Tricipiti',3,'plyo','vs,oh','Glutei, quadricipiti, trapezi, deltoidi','Tricipiti, core',
+ 'Girata al petto seguita da slancio sopra la testa: forza e potenza di tutto il corpo.',
+ 'Come nel power clean: bilanciere a terra, presa poco più larga delle spalle, schiena neutra.',
+ 'Gira il bilanciere al petto, poi breve piegamento delle gambe (dip).',
+ 'Spingi esplosivamente con le gambe e porta il bilanciere sopra la testa a braccia tese (in affondo o a piedi paralleli).',
+ 'Solo per atleti esperti; evitalo con limitazioni della spalla.','b'],
+['Jump squat con kettlebell','Squat','sp','Quadricipiti','Glutei,Polpacci',2,'plyo','hi','Quadricipiti, glutei','Polpacci, core, avambracci',
+ 'Interpretazione della «pliometria con kettlebell» del programma: salti tenendo un kettlebell da 16–24 kg tra le gambe.',
+ 'Kettlebell tra le gambe con entrambe le mani, piedi larghi, busto eretto.',
+ 'Piegamento rapido delle gambe tenendo le braccia distese.',
+ 'Salta verso l’alto e atterra morbido, pronto per la ripetizione successiva.',
+ 'Kettlebell vicino al corpo; carico secondo il livello.','k']
+];
+// dati: sport, dosaggio di partenza, carico per zona infortuni
+(function(){
+ var z={'Uchi-komi (ripetizione tecnica)':{spalla:1,lomb:1,ginoc:1,anca:1},'Nage-komi (proiezioni ripetute)':{lomb:2,spalla:1,ginoc:1,anca:1},'Randori':{spalla:1,lomb:1,ginoc:1,anca:1,cavig:1,cerv:1,gomito:1},
+  'Ne-waza / katame-waza (circuito a terra)':{cerv:2,gomito:1,spalla:1,lomb:1},'Burpee':{spalla:1,polso:1},'Sprint':{cavig:2,ginoc:1,anca:2},'Corsa continua':{cavig:2,ginoc:1,anca:1},'Corsa a intervalli':{cavig:2,ginoc:1,anca:1},
+  'Circuito pesi (multiarticolari senza pausa)':{lomb:2,ginoc:1,anca:1,spalla:1},'Circuito cardio':{ginoc:1,cavig:2,polso:1},'Battle rope':{spalla:1,lomb:1},'Agilità: speed ladder e coni':{cavig:2,ginoc:1},
+  'Piegamenti pliometrici (power push-up)':{polso:2,spalla:1},'Power clean':{polso:2,spalla:1},'Strappo (snatch)':{polso:2,spalla:2},'Slancio (clean and jerk)':{polso:2,spalla:2},'Affondi esplosivi (jump lunge)':{}};
+ EXRAW4.forEach(function(r){EXM[r[0]]={spo:'judo',iz:z[r[0]]||{}}});
+})();
+// indicazioni della dispensa «Proposta di workout per il judo agonistico»
+[['Uchi-komi (ripetizione tecnica)','Con elastici 5 × 1 min (sessione 1); esplosivo 5–6 × 1 min (sessioni 4, 16, 20); veloce 6 × 1 min ad alta intensità (sessione 10).'],
+ ['Nage-komi (proiezioni ripetute)','Circuito 5 × 3 min (sessione 6); dinamico 7 × 3 min (sessione 12); ad alta velocità 6 × 3 min (sessione 18).'],
+ ['Randori','Da leggero 5 × 3 min nelle prime settimane a 8 × 4 min a massima intensità (simil shiai) nella fase di picco; randori a terra intenso 6 × 3 min (sessione 14).'],
+ ['Ne-waza / katame-waza (circuito a terra)','Circuito di ne-waza 5 × 2 min (sessione 3); katame-waza con uke leggermente attivo 5 × 2 min a intensità moderata (sessione 8).'],
+ ['Burpee','3 × 15 a corpo libero (sessione 1) e nei circuiti cardio.'],
+ ['Sprint','50 m 5 × 5 (sessione 2), in salita 5–6 volte, 100 m 5–6 volte, con zavorra sui 100 m e in salita con giubbino da 5–10 kg.'],
+ ['Corsa continua','5–10 km a ritmo moderato-alto (sessione 7); 8–10 km a ritmo medio-alto, conversazione a fatica (sessione 19).'],
+ ['Corsa a intervalli','30 minuti: 1 minuto di sprint e 2 minuti al passo (sessione 13).'],
+ ['Circuito pesi (multiarticolari senza pausa)','Squat, panca, stacco 3 giri × 10 al 70% (sessione 5) e 3 × 8 al 60–70% (sessione 17); squat, military, rematore 3 × 15 al 50–60% (sessione 11).'],
+ ['Circuito cardio','Battle rope, jumping jack, mountain climber 3 × 2 min (40 s per esercizio); burpees, sprint, salti pliometrici 4–5 × 3 min; burpees, box jump, mountain climber 4–5 × 3 min.'],
+ ['Battle rope','4 × 1 min ad alta o massima intensità, braccia alternate (sessioni 11 e 17).'],
+ ['Agilità: speed ladder e coni','Speed ladder 4 × 2 min a intensità moderata (sessione 9); agilità con i coni 4 × 1 min (sessione 15).'],
+ ['Salti laterali sugli ostacoli','4 × 12 a corpo libero, ostacoli di media altezza (sessione 9).'],
+ ['Salti sui gradini','4 × 10 a corpo libero (sessione 4).'],
+ ['Salto in lungo da fermo','4 × 10 a corpo libero (sessioni 10 e 15).'],
+ ['Salti ginocchia al petto (tuck jump)','4 × 6 a corpo libero (sessione 20) e nei circuiti cardio.'],
+ ['Affondi esplosivi (jump lunge)','4 × 10 con manubri pari al 30% del peso corporeo (sessioni 9 e 15).'],
+ ['Piegamenti pliometrici (power push-up)','4 × 12 (con giubbino da 5–10 kg se allenato); con stacco delle mani 4 × 15–20 nella fase di picco.'],
+ ['Power clean','4 × 6 al 70% 1RM, recupero 2–3 minuti (sessione 4).'],
+ ['Strappo (snatch)','4 × 6 al 60–70% 1RM (sessione 10); 5 × 3 all’85–90% 1RM nella sessione finale.'],
+ ['Slancio (clean and jerk)','4 × 6 al 70–75% 1RM, recupero 2–3 minuti (sessione 16).'],
+ ['Jump squat con kettlebell','«Pliometria con kettlebell» 3 × 15 con 16–24 kg secondo il livello (sessione 6).'],
+ ['Squat','4 × 8 al 70% (sessione 1); 5 × 5 all’85% (sessione 3); nei circuiti al 50–70%.'],
+ ['Panca piana','4 × 8 al 70% (sessione 1); dinamica 4 × 6 al 60%; esplosiva 4 × 8 al 50–60%; con elastici 4 × 8 al 50–60%.'],
+ ['Stacco da terra','4 × 8 al 70% (sessione 1); esplosivo 4 × 6 al 60%; pesante 5 × 5 all’80–85%; massimale 5 × 3 all’85–90%.'],
+ ['Military press','4 × 8 al 70–75% (sessioni 3 e 8); pesante 4 × 6 al 75–80% (sessione 14).'],
+ ['Rematore con bilanciere','4 × 8 al 70–80% (sessioni 3 e 8); pesante 4 × 6 al 75–80% (sessione 14).'],
+ ['Trazioni alla sbarra','4 × 8 a corpo libero; zavorrate 4 × 6 con il 10–30% del peso corporeo; esplosive 4 × 6–8 (+5–15 kg se allenato).'],
+ ['Trazioni sul judogi (Gi pull-up)','4 × 8 a corpo libero (sessione 8); +5–15 kg se allenato (sessione 17).'],
+ ['Trazioni con asciugamano / salita alla fune','Climbing su corda 4 giri × 5 con 5–10 kg di zavorra (sessione 5).'],
+ ['Kettlebell swing','3 × 20 con il 30–40% del peso corporeo (sessione 3); 3 × 15 con kettlebell pesanti (sessione 18).'],
+ ['Box jump','3 × 12 (sessione 2); 4 × 8 (sessione 16).'],
+ ['Affondi','Con manubri 3 × 12 al 30–40% 1RM (sessione 2).'],
+ ['Jump squat zavorrato','4 × 6 al 40% 1RM (sessione 6); con manubri al 20–30% del peso corporeo (sessione 12); al 20–30% dell’1RM di squat (sessione 18).'],
+ ['Plank','Con sovraccarico 4 × 1 min, 10–20% del peso corporeo sulla schiena (sessione 13).'],
+ ['Crunch','Addominali con peso 4 × 15, 10–20% del peso corporeo (sessioni 7 e 19).']
+].forEach(function(x){(DZX[x[0]]=DZX[x[0]]||[]).push(['Judo 12 settimane',x[1]])});
 // Attrezzatura degli esercizi della prima libreria
 var EQO={'Panca piana':'b','Panca inclinata manubri':'d','Piegamenti':'w','Dip alle parallele':'w','Croci ai cavi':'c','Military press':'b','Lento manubri seduto':'d','Push press':'b','Landmine press':'b','Alzate laterali':'d','Pushdown ai cavi':'c','French press':'b',
  'Trazioni alla sbarra':'w','Lat machine':'c,m','Rematore con bilanciere':'b','Rematore manubrio':'d','Pulley basso':'c,m','Body row (trazioni orizzontali)':'w','Face pull':'c','Pullover ai cavi':'c','Curl con bilanciere':'b','Curl manubri':'d','Curl a martello':'d',
@@ -2658,7 +2839,7 @@ var EQO={'Panca piana':'b','Panca inclinata manubri':'d','Piegamenti':'w','Dip a
  'Farmer walk':'d,k','Suitcase carry':'d,k','Overhead carry':'k,d','Spinta slitta':'k','Plank':'w','Side plank':'w','Dead bug':'w','Bird dog':'w','Hollow hold':'w','Pallof press':'c','Copenhagen plank':'w','Crunch ai cavi':'c','Lancio laterale palla medica':'k','Wall sit':'w',
  'Dislocazioni con bastone':'k','Allungamento femorali con elastico':'k'};
 var EQN={b:'Bilanciere',d:'Manubri',m:'Macchine',c:'Cavi',w:'Corpo libero',k:'Kettlebell e piccoli attrezzi'};
-var EXDB=EXRAW.concat(EXRAW2,EXRAW3).map(function(r,i){return {n:r[0],p:r[1],sub:r[2],m:r[3],sy:r[4]?r[4].split(','):[],lv:r[5],role:r[6],fl:r[7]?r[7].split(','):[],mp:r[8],ms:r[9],sc:r[10],as:r[11],ec:r[12],co:r[13],si:r[14],eq:(r[15]||EQO[r[0]]||'w').split(','),x:i>=EXRAW.length?1:0}});
+var EXDB=EXRAW.concat(EXRAW2,EXRAW3,EXRAW4).map(function(r,i){return {n:r[0],p:r[1],sub:r[2],m:r[3],sy:r[4]?r[4].split(','):[],lv:r[5],role:r[6],fl:r[7]?r[7].split(','):[],mp:r[8],ms:r[9],sc:r[10],as:r[11],ec:r[12],co:r[13],si:r[14],eq:(r[15]||EQO[r[0]]||'w').split(','),x:i>=EXRAW.length?1:0}});
 // Esercizi a catena posteriore classificati come complementari nel manuale CSEN
 ['Ponte glutei','Hyperextension 45°','Nordic curl'].forEach(function(n){EXDB.forEach(function(e){if(e.n===n)e.cx=1})});
 EXDB.forEach(function(e){var m=EXM[e.n];if(m)Object.assign(e,m)});
@@ -3037,9 +3218,10 @@ SPO.hyrox[2]=SPO.hyrox[1];
 Object.keys(SPT).forEach(function(s){Object.keys(SPT[s]).forEach(function(k){DTT[k]=SPT[s][k].t;MOBN[k]=k==='HU'||k==='JH'?['ms','mh']:['mk','mh','mf','mi','ms'];DM[k]=DM.F})});
 // fase dalla data della gara (settimane mancanti) oppure 1
 function weeksTo(d,start){return d&&!isNaN(Date.parse(d))?Math.ceil((Date.parse(d)-Date.parse(start||todayIso()))/864e5/7):null}
-function autoFase(sp,garad,start){var w=weeksTo(garad,start),b=FASB[sp];if(w==null||w<0)return 1;return w<=b[2]?4:w<=b[1]?3:w<=b[0]?2:1}
+function autoFase(sp,garad,start){if(sp==='judo12')return autoFase12(garad,start);var w=weeksTo(garad,start),b=FASB[sp];if(w==null||w<0)return 1;return w<=b[2]?4:w<=b[1]?3:w<=b[0]?2:1}
 // fine della fase corrente: con la data gara il passaggio alla fase successiva; senza, la durata della fase
 function faseEnd(sp,n,garad,start){
+  if(sp==='judo12'){if(n>=7)return addDays(start,n===7?28:21);var w=weeksTo(garad,start);if(garad&&w>=0)return n===6?garad:addDays(garad,-7*FASB.judo12[n-1]);return addDays(start,14)}
   if(garad&&weeksTo(garad,start)>=0){var b=FASB[sp];return n===4?garad:addDays(garad,-7*b[n-1])}
   return addDays(start,7*FASL[sp][n])}
 function spDose(o,d,e,c){
@@ -3056,7 +3238,7 @@ function spDose(o,d,e,c){
   o.tg=x.join(' · ');return o;
 }
 function sportPlan(u,c,f,sp){
-  var s=SPSI[sp],ph=(c.fase&&c.fase.sp===s&&c.fase.n)||1,seq=SPO[s][ph][Math.max(1,Math.min(6,+f||3))-1],lv=c.lvl===1?1:Math.min(3,c.lvl+1),used={},sub=[],n={},tot={};
+  var s=SPSI[sp],ph=(c.fase&&c.fase.sp===s&&c.fase.n)||1,so=SPO[s][ph],seq=Array.isArray(so[0])?so[Math.max(1,Math.min(6,+f||3))-1]:so,lv=c.lvl===1?1:Math.min(3,c.lvl+1),used={},sub=[],n={},tot={};
   seq.forEach(function(k){tot[k]=(tot[k]||0)+1});
   var days=seq.map(function(k){
     var D=SPT[s][k],sl=D.f[ph]||D.f[ph===4?3:1]||D.f[2]||D.f[1],es=[];
@@ -3073,15 +3255,68 @@ function sportPlan(u,c,f,sp){
     n[k]=(n[k]||0)+1;
     return {type:k,t:D.t+(tot[k]>1?' '+String.fromCharCode(64+n[k]):''),es:es,extra:0};
   });
-  var note=f>4&&ph===4?'In tapering bastano 3–4 sedute: le altre restano leggere.':'';
+  var note=s==='judo12'?(seq.length===1&&+f>1?'La seduta si ripete '+f+' volte a settimana.':seq.length!==+f?seq.length+' sessioni del blocco per '+f+(f==1?' seduta':' sedute')+' a settimana: si alternano a rotazione.':''):f>4&&ph===4?'In tapering bastano 3–4 sedute: le altre restano leggere.':'';
   return {days:days,note:note,logic:sportLogic(u,c,f,s,ph,seq,sub)};
 }
+// ---- Programma «Proposta di workout per il judo agonistico»: 12 settimane, 20 sedute, verso la gara ----
+SPS.judo12='Judo: 12 settimane verso la gara';SPSI[SPS.judo12]='judo12';SPNAME.judo12='Judo 12 settimane';
+FASI.judo12=[null,
+ {t:'Settimane 1–2 · Costruzione della base',w:'off-season',o:'costruire la base: forza e resistenza per sostenere sforzi prolungati, agilità e rapidità, forza massima'},
+ {t:'Settimane 3–4 · Sviluppo della potenza',w:'off-season',o:'potenza esplosiva (forza generata in modo rapido), resistenza alla forza durante i combattimenti, forza dinamica per le proiezioni'},
+ {t:'Settimane 5–6 · Resistenza e tecnica',w:'off-season',o:'resistenza cardiovascolare per recuperare dopo uno sforzo importante, forza dei gruppi muscolari principali, agilità e velocità'},
+ {t:'Settimane 7–8 · Picco di performance',w:'pre-season',o:'forza esplosiva per l’efficacia delle tecniche, resistenza muscolare alla fatica, forza dinamica'},
+ {t:'Settimane 9–10 · Preparazione alla gara',w:'pre-season',o:'sostenere sforzi massimali e recuperare velocemente, forza massimale da esprimere in gara, velocità e agilità'},
+ {t:'Settimane 11–12 · Fase di picco',w:'in-season, gara principale',o:'capacità aerobica e anaerobica per il rendimento in gara e massima esplosività'},
+ {t:'In stagione · Mantenimento tra le gare',w:'in-season, gare minori',o:'mantenere forza, potenza e resistenza con meno carico, affinare tecnica e tattica, gestire il recupero'},
+ {t:'Transizione · Recupero attivo',w:'2–4 settimane dopo la stagione o la gara',o:'scarico fisico e mentale con allenamenti leggeri, anche altri sport come nuoto e bici'}];
+var R2=105,R3=150,R4=210;
+SPT.judo12={
+ JS1:{t:'Sessione 1 · Forza e resistenza',f:{1:[X('Squat','sb!',{s:4,r:'8',pct:[70,70],rec:R2},{g:1}),X('Panca piana','po!',{s:4,r:'8',pct:[70,70],rec:R2},{g:1}),X('Stacco da terra','hb!',{s:4,r:'8',pct:[70,70],rec:R3},{g:1}),X('Burpee','',{s:3,r:'15',tg:'Corpo libero',rpe:'8',rec:75}),X('Uchi-komi (ripetizione tecnica)','',{s:5,r:'1 min',tg:'Con elastici',rpe:'7',rec:60})]}},
+ JS2:{t:'Sessione 2 · Agilità e rapidità',f:{1:[X('Box jump','sp',{s:3,r:'12',tg:'Salti pliometrici su box, corpo libero',rpe:'7',rec:R2}),X('Trazioni alla sbarra','lv',{s:4,r:'8',tg:'Corpo libero',rpe:'8',rec:R2},{g:1}),X('Affondi','su',{s:3,r:'12 per lato',pct:[30,40],tg:'Con manubri',rec:R2},{g:1}),X('Sprint','',{s:5,r:'50 m',tg:'5 × 5 alla massima intensità',rpe:'9',rec:R3}),X('Randori','',{s:5,r:'3 min',tg:'Leggero',rpe:'6',rec:120})]}},
+ JS3:{t:'Sessione 3 · Forza massima',f:{1:[X('Squat','sb!',{s:5,r:'5',pct:[85,85],rec:R4},{g:1}),X('Rematore con bilanciere','lo!',{s:4,r:'8',pct:[75,80],rec:R3},{g:1}),X('Military press','pv',{s:4,r:'8',pct:[70,75],tg:'Overhead press',rec:R3},{g:1}),X('Kettlebell swing','hp',{s:3,r:'20',tg:'Kettlebell pari al 30–40% del peso corporeo',rpe:'8',rec:R2}),X('Ne-waza / katame-waza (circuito a terra)','',{s:5,r:'2 min',tg:'Circuito di ne-waza',rpe:'7',rec:120})]}},
+ JS4:{t:'Sessione 4 · Potenza esplosiva',f:{1:[X('Power clean','hp',{s:4,r:'6',pct:[70,70],rpe:'8',rec:R3}),X('Salti sui gradini','sp',{s:4,r:'10',tg:'Corpo libero',rpe:'7',rec:R2}),X('Stacco da terra','hb',{s:4,r:'6',pct:[60,60],tg:'Esplosivo: massima velocità in salita',rec:R3},{g:1}),X('Sprint','',{s:5,r:'in salita',tg:'Massima velocità',rpe:'9',rec:R3}),X('Uchi-komi (ripetizione tecnica)','',{s:5,r:'1 min',tg:'Esplosivo',rpe:'8',rec:90})]}},
+ JS5:{t:'Sessione 5 · Resistenza alla forza',f:{1:[X('Circuito pesi (multiarticolari senza pausa)','',{s:3,r:'10 per esercizio',tg:'Squat, panca, stacco senza pausa · 70% 1RM ciascuno',rpe:'8',rec:R4}),X('Trazioni con asciugamano / salita alla fune','lv',{s:4,r:'5 salite',tg:'Climbing su corda con 5–10 kg di zavorra',rpe:'8',rec:R3}),X('Trazioni alla sbarra','lv',{s:4,r:'6',tg:'Zavorrate con il 10–20% del peso corporeo',rpe:'9',rec:R3},{g:1}),X('Circuito cardio','',{s:3,r:'2 min',tg:'Battle rope, jumping jack, mountain climber · 40 s per esercizio',rpe:'8',rec:R2}),X('Randori','',{s:6,r:'3 min',tg:'Intensità media',rpe:'7',rec:120})]}},
+ JS6:{t:'Sessione 6 · Forza dinamica',f:{1:[X('Jump squat zavorrato','sp',{s:4,r:'6',pct:[40,40],tg:'Con bilanciere',rpe:'8',rec:R3}),X('Panca piana','po',{s:4,r:'6',pct:[60,60],tg:'Dinamica: massima velocità in spinta',rec:R3},{g:1}),X('Trazioni alla sbarra','lv',{s:4,r:'6',tg:'Esplosive, eventualmente +5–10 kg',rpe:'8',rec:120},{g:1}),X('Jump squat con kettlebell','sp',{s:3,r:'15',tg:'Kettlebell 16–24 kg secondo il livello',rpe:'8',rec:R2}),X('Nage-komi (proiezioni ripetute)','',{s:5,r:'3 min',tg:'Circuito di proiezioni',rpe:'8',rec:120})]}},
+ JS7:{t:'Sessione 7 · Resistenza cardiovascolare',f:{1:[X('Corsa continua','',{s:1,r:'5-10 km',tg:'Ritmo moderato-alto · poi 10 min di recupero',rpe:'7',rec:600}),X('Circuito cardio','',{s:4,r:'3 min',tg:'Burpees, sprint, salti pliometrici · alta intensità',rpe:'9',rec:120}),X('Piegamenti pliometrici (power push-up)','po',{s:4,r:'12',tg:'Eventualmente con giubbino da 5–10 kg',rpe:'8',rec:120}),X('Crunch','core',{s:4,r:'15',tg:'Addominali con peso secondo la preparazione',rpe:'8',rec:90}),X('Randori','',{s:8,r:'3 min',tg:'Tecnico, intensità moderata',rpe:'7',rec:120})]}},
+ JS8:{t:'Sessione 8 · Allenamento della forza',f:{1:[X('Stacco da terra','hb!',{s:5,r:'5',pct:[80,85],tg:'Pesante',rec:R4},{g:1}),X('Military press','pv',{s:4,r:'8',pct:[70,75],rec:R3},{g:1}),X('Rematore con bilanciere','lo!',{s:4,r:'8',pct:[70,75],rec:R3},{g:1}),X('Trazioni sul judogi (Gi pull-up)','lv',{s:4,r:'8',tg:'Corpo libero',rpe:'8',rec:R3}),X('Ne-waza / katame-waza (circuito a terra)','',{s:5,r:'2 min',tg:'Katame-waza con uke leggermente attivo, intensità moderata',rpe:'7',rec:120})]}},
+ JS9:{t:'Sessione 9 · Agilità e velocità',f:{1:[X('Salti laterali sugli ostacoli','sp',{s:4,r:'12',tg:'Ostacoli di media altezza',rpe:'7',rec:90}),X('Agilità: speed ladder e coni','',{s:4,r:'2 min',tg:'Speed ladder, intensità moderata',rpe:'6',rec:90}),X('Affondi esplosivi (jump lunge)','su',{s:4,r:'10',tg:'Manubri pari al 30% del peso corporeo',rpe:'8',rec:R3}),X('Sprint','',{s:5,r:'100 m',tg:'Massima intensità',rpe:'9',rec:180}),X('Randori','',{s:6,r:'3 min',tg:'Intensità leggera',rpe:'6',rec:90})]}},
+ JS10:{t:'Sessione 10 · Forza esplosiva',f:{1:[X('Strappo (snatch)','hp',{s:4,r:'6',pct:[60,70],rpe:'8',rec:R3}),X('Salto in lungo da fermo','sp',{s:4,r:'10',tg:'Corpo libero',rpe:'8',rec:90}),X('Piegamenti pliometrici (power push-up)','po',{s:4,r:'12',tg:'Corpo libero',rpe:'8',rec:90}),X('Sprint','',{s:6,r:'in salita',tg:'Massima intensità, lunghezza secondo il luogo',rpe:'9',rec:240}),X('Uchi-komi (ripetizione tecnica)','',{s:6,r:'1 min',tg:'Veloce, alta intensità',rpe:'8',rec:90})]}},
+ JS11:{t:'Sessione 11 · Resistenza muscolare',f:{1:[X('Circuito pesi (multiarticolari senza pausa)','',{s:3,r:'15 per esercizio',tg:'Squat, military press, rematore senza pausa · 50–60% 1RM',rpe:'8',rec:R3}),X('Battle rope','',{s:4,r:'1 min',tg:'Alta intensità, braccia alternate',rpe:'8',rec:90}),X('Trazioni alla sbarra','lv',{s:4,r:'8',tg:'Con variazioni di presa, corpo libero',rpe:'8',rec:R3},{g:1}),X('Circuito cardio','',{s:4,r:'3 min',tg:'Burpees, box jump, mountain climber · poco recupero tra gli esercizi',rpe:'9',rec:90}),X('Randori','',{s:10,r:'3 min',tg:'Intenso',rpe:'8',rec:90})]}},
+ JS12:{t:'Sessione 12 · Forza dinamica',f:{1:[X('Jump squat zavorrato','sp',{s:4,r:'8',tg:'Con manubri pari al 20–30% del peso corporeo',rpe:'8',rec:R3}),X('Panca piana','po',{s:4,r:'8',pct:[50,60],tg:'Esplosiva',rec:R3},{g:1}),X('Trazioni alla sbarra','lv',{s:4,r:'8',tg:'Esplosive, corpo libero o +5–10 kg',rpe:'8',rec:R3},{g:1}),X('Nage-komi (proiezioni ripetute)','',{s:7,r:'3 min',tg:'Dinamico',rpe:'8',rec:R3})]}},
+ JS13:{t:'Sessione 13 · Resistenza cardiovascolare',f:{1:[X('Corsa a intervalli','',{s:1,r:'30 min',tg:'1 min di sprint e 2 min al passo (recupero attivo)',rpe:'8',rec:''}),X('Circuito cardio','',{s:5,r:'3 min',tg:'Burpees, sprint, salti pliometrici · 1 min per esercizio',rpe:'9',rec:90}),X('Piegamenti pliometrici (power push-up)','po',{s:4,r:'15',tg:'Con salto',rpe:'8',rec:90}),X('Plank','core',{s:4,r:'1 min',tg:'Con sovraccarico del 10–20% del peso corporeo sulla schiena',rpe:'8',rec:90}),X('Randori','',{s:8,r:'4 min',tg:'Tecnico intenso',rpe:'8',rec:R3})]}},
+ JS14:{t:'Sessione 14 · Forza massimale',f:{1:[X('Stacco da terra','hb!',{s:5,r:'3',pct:[85,90],rec:R4},{g:1}),X('Military press','pv',{s:4,r:'6',pct:[75,80],rec:180},{g:1}),X('Rematore con bilanciere','lo!',{s:4,r:'6',pct:[75,80],rec:180},{g:1}),X('Trazioni alla sbarra','lv',{s:4,r:'6',tg:'Con sovraccarico del 20–30% del peso corporeo',rpe:'9',rec:180},{g:1}),X('Randori','',{s:6,r:'3 min',tg:'A terra (ne-waza), intenso',rpe:'8',rec:R3})]}},
+ JS15:{t:'Sessione 15 · Agilità e velocità',f:{1:[X('Agilità: speed ladder e coni','',{s:4,r:'1 min',tg:'Agilità con i coni',rpe:'7',rec:90}),X('Salto in lungo da fermo','sp',{s:4,r:'10',tg:'Corpo libero',rpe:'8',rec:90}),X('Affondi esplosivi (jump lunge)','su',{s:4,r:'10',tg:'Manubri pari al 30% del peso corporeo',rpe:'8',rec:90}),X('Sprint','',{s:6,r:'100 m',tg:'Massima intensità',rpe:'9',rec:R3}),X('Randori','',{s:8,r:'3 min',tg:'In piedi alla massima intensità (simil shiai)',rpe:'9',rec:R3})]}},
+ JS16:{t:'Sessione 16 · Forza e potenza',f:{1:[X('Slancio (clean and jerk)','hp',{s:4,r:'6',pct:[70,75],rpe:'8',rec:R3}),X('Box jump','sp',{s:4,r:'8',tg:'Corpo libero',rpe:'8',rec:90}),X('Piegamenti pliometrici (power push-up)','po',{s:4,r:'12',tg:'Con saltello',rpe:'8',rec:90}),X('Sprint','',{s:5,r:'100 m',tg:'Con zavorra',rpe:'9',rec:180}),X('Uchi-komi (ripetizione tecnica)','',{s:6,r:'1 min',tg:'Esplosivo, alta intensità',rpe:'9',rec:R3})]}},
+ JS17:{t:'Sessione 17 · Resistenza muscolare',f:{1:[X('Circuito pesi (multiarticolari senza pausa)','',{s:3,r:'8 per esercizio',tg:'Squat, panca, stacco senza pausa · 60–70% 1RM',rpe:'8',rec:180}),X('Battle rope','',{s:4,r:'1 min',tg:'Massima intensità',rpe:'9',rec:90}),X('Trazioni sul judogi (Gi pull-up)','lv',{s:4,r:'8',tg:'Corpo libero, +5–15 kg se allenato',rpe:'8',rec:90}),X('Circuito cardio','',{s:5,r:'3 min',tg:'Burpees, box jump, mountain climber · 1 min per esercizio',rpe:'9',rec:90}),X('Randori','',{s:8,r:'4 min',tg:'Intensità medio-alta',rpe:'8',rec:R3})]}},
+ JS18:{t:'Sessione 18 · Forza dinamica',f:{1:[X('Jump squat zavorrato','sp',{s:4,r:'6',pct:[20,30],tg:'Bilanciere o manubri, % dell’1RM di squat',rpe:'8',rec:R3}),X('Panca piana','po',{s:4,r:'8',pct:[50,60],tg:'Con elastici per aumentare la tensione in distensione',rec:R3},{g:1}),X('Trazioni alla sbarra','lv',{s:4,r:'6',tg:'Esplosive, +5–15 kg se allenato',rpe:'8',rec:90},{g:1}),X('Kettlebell swing','hp',{s:3,r:'15',tg:'Kettlebell pesante a discrezione dell’allenatore',rpe:'8',rec:R3}),X('Nage-komi (proiezioni ripetute)','',{s:6,r:'3 min',tg:'Ad alta velocità',rpe:'9',rec:120})]}},
+ JS19:{t:'Sessione 19 · Resistenza cardiovascolare',f:{1:[X('Corsa continua','',{s:1,r:'8-10 km',tg:'Ritmo medio-alto, conversazione a fatica',rpe:'7',rec:''}),X('Circuito cardio','',{s:5,r:'3 min',tg:'Burpees, salti ginocchia al petto, box jump · 1 min per esercizio',rpe:'9',rec:R3}),X('Piegamenti pliometrici (power push-up)','po',{s:4,r:'20',tg:'Con stacco delle mani',rpe:'8',rec:90}),X('Crunch','core',{s:4,r:'15',tg:'Con peso del 10–20% del peso corporeo (disco, slam ball, kettlebell)',rpe:'8',rec:90}),X('Randori','',{s:8,r:'4 min',tg:'Prevalentemente tecnico, massima intensità',rpe:'9',rec:240})]}},
+ JS20:{t:'Sessione 20 · Forza esplosiva (finale)',f:{1:[X('Strappo (snatch)','hp',{s:5,r:'3',pct:[85,90],tg:'Massimo carico',rpe:'9',rec:R4}),X('Salti ginocchia al petto (tuck jump)','sp',{s:4,r:'6',tg:'Corpo libero',rpe:'8',rec:90}),X('Piegamenti pliometrici (power push-up)','po',{s:4,r:'15',tg:'Con stacco delle mani',rpe:'8',rec:90}),X('Sprint','',{s:6,r:'in salita',tg:'Con giubbino zavorrato da 5–10 kg',rpe:'9',rec:R3}),X('Uchi-komi (ripetizione tecnica)','',{s:6,r:'1 min',tg:'Esplosivo, alta intensità',rpe:'9',rec:120})]}},
+ JM1:{t:'Mantenimento · Forza e tecnica',f:{1:[X('Squat','sb!',{s:3,r:'5',pct:[75,80],tg:'dosaggio indicativo',rec:R3},{g:1}),X('Panca piana','po!',{s:3,r:'5',pct:[75,75],tg:'dosaggio indicativo',rec:R3},{g:1}),X('Trazioni sul judogi (Gi pull-up)','lv',{s:3,r:'6',tg:'dosaggio indicativo',rpe:'7',rec:120}),X('Uchi-komi (ripetizione tecnica)','',{s:4,r:'1 min',tg:'Tecnica e velocità · dosaggio indicativo',rpe:'7',rec:90}),X('Randori','',{s:5,r:'3 min',tg:'Tecnico-tattico, intensità moderata · dosaggio indicativo',rpe:'7',rec:120})]}},
+ JM2:{t:'Mantenimento · Velocità e potenza',f:{1:[X('Power clean','hp',{s:3,r:'3',pct:[70,70],tg:'dosaggio indicativo',rpe:'7',rec:R3}),X('Salto in lungo da fermo','sp',{s:3,r:'5',tg:'dosaggio indicativo',rpe:'7',rec:90}),X('Sprint','',{s:4,r:'50 m',tg:'Veloce, recupero completo · dosaggio indicativo',rpe:'8',rec:R3}),X('Nage-komi (proiezioni ripetute)','',{s:4,r:'3 min',tg:'dosaggio indicativo',rpe:'7',rec:120}),X('Plank','core',{s:3,r:'45 s',rpe:'6',rec:60})]}},
+ JT1:{t:'Transizione · Recupero attivo',f:{1:[X('Cyclette / bike a bassa intensità','',{s:1,r:'30-45 min',tg:'Oppure nuoto · bassa intensità · dosaggio indicativo',rpe:'3–4',rec:''}),X('90/90 anche','',{s:2,r:'45-60 s',tg:'Senza dolore',rpe:'3',rec:30}),X('Rotazioni toraciche in quadrupedia','',{s:2,r:'8 per lato',rpe:'3',rec:30}),X('World’s greatest stretch','',{s:2,r:'5 per lato',rpe:'3',rec:30}),X('Bird dog','core',{s:2,r:'8 per lato',rpe:'4',rec:45}),X('Pallof press','core',{s:2,r:'10 per lato',rpe:'4',rec:45})]}}
+};
+SPO.judo12={1:['JS1','JS2','JS3'],2:['JS4','JS5','JS6'],3:['JS7','JS8','JS9'],4:['JS10','JS11','JS12'],5:['JS13','JS14','JS15','JS16','JS17','JS18'],6:['JS19','JS20'],7:['JM1','JM2'],8:['JT1']};
+Object.keys(SPT.judo12).forEach(function(k){DTT[k]=SPT.judo12[k].t;MOBN[k]=['mk','mh','mf','mi','ms'];DM[k]=DM.F});
+// blocco dalla data della gara: le 12 settimane finiscono il giorno della gara; dopo la gara 4 settimane di transizione
+FASB.judo12=[10,8,6,4,2];
+function autoFase12(garad,start){var w=weeksTo(garad,start);if(w==null)return 1;if(w<0)return w>=-4?8:1;return w<=2?6:w<=4?5:w<=6?4:w<=8?3:w<=10?2:1}
+function useJ12(c,start){var w=weeksTo(c&&c.garad,start);return w!=null&&w<=12&&w>=-4}
 function sportLogic(u,c,f,s,ph,seq,sub){
   var F=FASI[s][ph],L=[],w=weeksTo(c.garad);
   L.push('Programma dalla dispensa '+(s==='hyrox'?'«Periodizzazione e programmazione HYROX»':'«Preparazione fisica per il judo agonistico di alto livello»')+': '+F.t+' ('+F.w+' del macrociclo di 24 settimane).'+(c.garad?' Gara il '+fdate(c.garad)+(w>=0?': mancano '+w+(w===1?' settimana.':' settimane.'):' (data già passata: aggiorna l’anamnesi).'):' Senza data della gara la fase si sceglie a mano (aggiungila nell’anamnesi per il calcolo automatico).'));
   L.push('Obiettivo della fase: '+F.o+'.');
+  if(s==='judo12'){L.splice(0,1,'Programma dalla dispensa «Proposta di workout per il judo agonistico» (12 settimane, 20 sedute): '+F.t+' ('+F.w+').'+(c.garad?' Gara il '+fdate(c.garad)+(w>=0?': mancano '+w+(w===1?' settimana.':' settimane.'):': gara passata da '+(-w)+(w===-1?' settimana.':' settimane.')):' Senza data della gara il blocco si sceglie a mano (aggiungila nell’anamnesi per il calcolo automatico).'));
+    L.push('Sedute: '+seq.map(function(k){return DTT[k]}).join(' · ')+'; '+f+(f==1?' seduta':' sedute')+' a settimana. La scelta finale spetta al Personal Trainer.');
+    if(ph<=6)L.push(ph===5?'Settimane 9–10: le sessioni 13–15 nella prima settimana, 16–18 nella seconda.':ph===6?'Settimane 11–12: le ultime due sessioni (la 20 è la sessione finale) portano alla gara principale; il resto della settimana va scaricato.':'Il blocco dura 2 settimane: le sue sessioni si ripetono in entrambe, aumentando gradualmente l’intensità.');
+    L.push('Lungo periodo (stagione): off-season 8–12 settimane dopo la fine della stagione (settimane 1–6 del programma: forza di base e potenza); pre-season 6–8 settimane (settimane 7–10: forza specifica, potenza, condizione); in-season 16–24 settimane (settimane 11–12 prima delle gare principali, mantenimento tra le altre); transizione 2–4 settimane di recupero attivo.');
+    L.push('Calendario gare: per le gare importanti usa le settimane 11–12 per arrivare al picco; per le gare minori sedute di mantenimento, per non andare in overtraining; dopo la gara inserisci sedute di recupero attivo per prevenire gli infortuni.');
+    L.push('Ogni seduta unisce condizionamento in palestra e lavoro sul tatami (uchi-komi, nage-komi, ne-waza, randori). Gli esercizi vanno proposti ad atleti esperti e capaci di eseguirli, da tecnici in grado di spiegarli correttamente.');
+    L.push('Monitora la condizione fisica e mentale e adatta il calendario a esigenze, infortuni o stanchezza; integra con il supporto di un nutrizionista e di uno psicologo dello sport.');
+    if(ph>=7)L.push('La dispensa descrive questo periodo senza sedute dettagliate: le sedute proposte sono costruite da me con gli esercizi del programma (dosaggio indicativo).');
+    L.push('Per il lungo periodo, fuori dalle 12 settimane, c’è anche il macrociclo di 24 settimane dell’altra dispensa (split «'+SPS.judo+'»).');
+  }else
   L.push(f+(f==1?' seduta':' sedute')+' a settimana: '+seq.map(function(k){return DTT[k]}).join(' · ')+'. La scelta finale spetta al Personal Trainer.');
-  if(s==='hyrox'){
+  if(s==='judo12'){}else if(s==='hyrox'){
     L.push('Gara: 8 × 1 km di corsa alternati alle 8 stazioni (SkiErg 1000 m, sled push 50 m, sled pull 50 m, burpee broad jump 80 m, vogatore 1000 m, farmers carry 200 m, sandbag lunges 100 m, wall ball 75/100). Circa metà del tempo è corsa: il fattore decisivo è il compromised running, cioè tenere il passo subito dopo una stazione.');
     L.push(['','Corsa: 70% del volume in zona 2 (FC < 75% FCmax), 30% mobilità e tecnica di corsa. Forza con pesi liberi da 6 a 10 ripetizioni al 75–80% 1RM. Stazioni solo in tecnica.',
       'Corsa: ripetute da 400 a 1200 m a ritmo gara o 5 km, alternate a corse lunghe in zona 2 da 60–75 minuti. Forza resistente con superserie e circuiti a tempo (4 × 12–15, 90 s di recupero) e più volume sulle stazioni.',
@@ -3381,7 +3616,7 @@ function custRender(){
 function renderGen(){
   var u=find(suid);if(!u){cur='schede';suid=null;render();return}
   gctx=profile(u);gTouched=false;gDirty=false;GW={wu:[],cd:[],man:{},sig:{}};
-  var td=todayIso(),names=EXDB.map(function(e){return e.n}),ps=pqState(u.pq),f=autoFreq(gctx),sp=gctx.spk.length?SPS[gctx.spk[0]]:splitFromPref(u.split,f);
+  var td=todayIso(),names=EXDB.map(function(e){return e.n}),ps=pqState(u.pq),f=autoFreq(gctx),so=spOpts(gctx),sp=so.length?so[0]:splitFromPref(u.split,f);if(SPSI[sp]==='judo12')f=autoFase12(gctx.garad)>=6?2:3;
   gCust=dayPlan(sp,f).days.map(function(d){return d.type});gSpPrev=sp;var kd=keyDates(td,gctx);
   var past=exNames(suid);Object.keys(past).forEach(function(k){if(!EXI[k])names.push(past[k])});
   document.getElementById('main').innerHTML=
@@ -3389,7 +3624,7 @@ function renderGen(){
    '<div class="kick">Modulo 03 — Programmazione</div><h2 class="atitle">Nuova scheda di allenamento</h2>'+profSum(u,gctx)+
    '<section class="asec"><h3>Impostazione</h3><div class="fg">'+fld('sc_n','Nome scheda *','','text',' placeholder="Es. Forza – mesociclo 1"')+
     '<label class="fl">Sedute a settimana<select id="sc_f">'+[1,2,3,4,5,6].map(function(n){return '<option'+(n===f?' selected':'')+'>'+n+'</option>'}).join('')+'</select></label>'+
-    '<label class="fl">Split delle sedute<select id="sc_sp">'+gctx.spk.map(function(s){return SPS[s]}).concat(SPL).map(function(s){return '<option value="'+esc(s)+'"'+(s===sp?' selected':'')+'>'+esc(splLabel(s))+'</option>'}).join('')+'</select></label>'+
+    '<label class="fl">Split delle sedute<select id="sc_sp">'+so.concat(SPL).map(function(s){return '<option value="'+esc(s)+'"'+(s===sp?' selected':'')+'>'+esc(splLabel(s))+'</option>'}).join('')+'</select></label>'+
     '<label class="fl" id="sc_fasew"'+(SPSI[sp]?'':' hidden')+'>Fase della preparazione<select id="sc_fase">'+faseOpts(sp)+'</select></label></div>'+
     '<p class="status" id="fasech"'+(SPSI[sp]?'':' hidden')+'>'+faseHint()+'</p>'+
     '<div class="custw" id="sc_custw" hidden><div class="kick" style="margin-bottom:8px">Split personalizzato: tipo di ogni seduta</div><div class="fg" id="sc_cust"></div></div>'+
@@ -3420,7 +3655,7 @@ function updGen(){
   if(cur!=='gen'||!gid('days'))return;
   var s=gid('sc_start').value,dl=gid('sc_del').value,cm=gid('sc_cam').value,h=[];
   if(dl)h.push('Scarico dal '+fdate(dl)+' al '+fdate(addDays(dl,6))+(s?' (settimana '+(Math.floor((Date.parse(dl)-Date.parse(s))/864e5/7)+1)+')':''));
-  if(s&&cm)h.push('durata del programma: '+fmt1((Date.parse(cm)-Date.parse(s))/864e5/7)+' settimane');
+  if(s&&cm){var dw=(Date.parse(cm)-Date.parse(s))/864e5/7;h.push('durata del programma: '+fmt1(dw)+(dw===1?' settimana':' settimane'))}
   var kd=keyDates(s||todayIso(),gctx);
   gid('keyh').textContent=(h.join(' · ')||'')+(h.length?'. ':'')+(kd.why||'Proposta automatica: scarico nella 4ª settimana, cambio scheda dopo 6 settimane.');
   var days=readDays(),es=flatEs(days),f=+gid('sc_f').value||1,n=days.length||1;
@@ -3430,13 +3665,16 @@ function updGen(){
   [].forEach.call(document.querySelectorAll('#days .exr'),function(r){var w=r.querySelector('.inw');if(w)w.innerHTML=injTagN(r.querySelector('.ex_n').value,gctx)});
   refreshAlts();
 }
+function spOpts(c){var o=[];(c.spk||[]).forEach(function(s){if(s==='judo'){if(useJ12(c))o.push(SPS.judo12,SPS.judo);else o.push(SPS.judo,SPS.judo12)}else o.push(SPS[s])});return o}
 function spFase(c){var e=gid('sc_sp');return c&&c.fase&&e&&SPSI[e.value]===c.fase.sp?c.fase:null}
 function faseOpts(sp){var s=SPSI[sp];if(!s)return '';if(!gctx.fase||gctx.fase.sp!==s)gctx.fase={sp:s,n:autoFase(s,gctx.garad,gid('sc_start')?gid('sc_start').value:'')};
   return FASI[s].slice(1).map(function(F,i){return '<option value="'+(i+1)+'"'+(gctx.fase.n===i+1?' selected':'')+'>'+esc(F.t+' ('+F.w.replace('settimane','sett.')+')')+'</option>'}).join('')}
 function faseHint(){var c=gctx;if(!c||!c.fase)return '';var w=weeksTo(c.garad,gid('sc_start')?gid('sc_start').value:''),a=autoFase(c.fase.sp,c.garad,gid('sc_start')?gid('sc_start').value:'');
   return c.garad&&w>=0?'Gara il '+fdate(c.garad)+': mancano '+w+(w===1?' settimana':' settimane')+' → fase consigliata dalla dispensa: '+FASI[c.fase.sp][a].t+'.'+(a!==c.fase.n?' Hai scelto un’altra fase.':''):'Aggiungi la data della gara nell’anamnesi per calcolare la fase in automatico; ora la scegli tu.'}
 function keyDates(start,c){var cam=addDays(start,42),del=addDays(start,21),why='',sf=spFase(c);
-  if(sf){var s=sf.sp,n=sf.n,end=faseEnd(s,n,c.garad,start);
+  if(sf&&sf.sp==='judo12'){var n2=sf.n,e2=faseEnd('judo12',n2,c.garad,start);del='';cam=e2>addDays(start,6)?e2:addDays(start,14);
+    why=n2===8?'Transizione: 2–4 settimane di recupero attivo, poi nuova scheda.':n2===7?'Mantenimento in stagione: rivedi la scheda dopo 4 settimane o prima della prossima gara importante.':n2===6?'Fase di picco: niente scarico, la scheda porta alla gara'+(c.garad?' del '+fdate(c.garad)+'.':'.'):'Blocco di 2 settimane del programma: niente scarico, poi il blocco successivo ('+FASI.judo12[n2+1].t+')'+(c.garad?', calcolato dalla data della gara.':'.')}
+  else if(sf){var s=sf.sp,n=sf.n,end=faseEnd(s,n,c.garad,start);
     if(s==='hyrox'&&n<4){cam=addDays(start,28);why='Mesociclo 3+1 della dispensa Hyrox: 3 settimane di carico, la 4ª di scarico, poi nuova scheda.'}
     if(n===4){del='';why='Tapering: nessuna settimana di scarico, la scheda porta alla gara.'}
     if(end&&end>start&&(end<cam||n===4)){cam=end;if(del&&del>=addDays(cam,-6))del='';why=(why?why+' ':'')+(n===4?'Cambio scheda alla data della gara.':'Cambio scheda il '+fdate(cam)+', inizio della '+FASI[s][n+1].t+(c.garad?' (calcolato dalla data della gara).':' (durata della fase nella dispensa).'))}}
@@ -3512,6 +3750,11 @@ var GLOSS=[
  ['Kuzushi','Sbilanciamento dell’avversario che prepara la proiezione.'],
  ['Uchi-komi / nage-komi / randori','Uchi-komi: ripetizione dell’entrata senza proiettare. Nage-komi: lanci ripetuti. Randori: combattimento libero di allenamento.'],
  ['Ukemi','Tecniche di caduta del judo; il rinforzo del collo aiuta a proteggerlo nelle cadute.'],
+ ['Off-season, pre-season, in-season, transizione','Periodi della stagione agonistica: off-season (8–12 settimane dopo le gare, forza di base), pre-season (6–8 settimane, forza specifica e condizione), in-season (16–24 settimane di gare, mantenimento e picchi), transizione (2–4 settimane di recupero attivo).'],
+ ['Shiai','Gara di judo; «randori simil shiai» è un combattimento di allenamento all’intensità della gara.'],
+ ['Tori / uke','Tori esegue la tecnica, uke la subisce e cade.'],
+ ['Ne-waza / katame-waza','Lotta a terra; katame-waza sono le tecniche di controllo (immobilizzazioni, leve, strangolamenti).'],
+ ['Tokui-waza','La tecnica preferita dell’atleta, su cui costruisce attacchi e uchi-komi.'],
  ['Golden score','Tempo supplementare senza limite del judo: vince il primo che segna.'],
  ['Valgismo / varismo','Valgismo: ginocchia verso l’interno («a X»). Varismo: ginocchia verso l’esterno («ad arco»). Da osservare nei test di squat.']
 ];
@@ -3539,14 +3782,25 @@ var DISP=[
   ['Microciclo tipo (atleta d’élite)','<table class="stab"><thead><tr><th>Giorno</th><th>Mattino</th><th>Pomeriggio / sera</th></tr></thead><tbody><tr><td><b>Lunedì</b></td><td>Forza massima e core (squat, stacco, panca, gi pull-up)</td><td>Tatami: tecnica analitica + uchi-komi + 4 randori leggeri</td></tr><tr><td><b>Martedì</b></td><td>HIIT (air bike 30/15 o corsa a intervalli)</td><td>Tatami: nage-komi intensi + 6 randori specifici</td></tr><tr><td><b>Mercoledì</b></td><td>Riposo attivo / fisioterapia</td><td>Mobilità e prevenzione (Y-T-W-L, Nordic curl, TGU)</td></tr><tr><td><b>Giovedì</b></td><td>Potenza esplosiva (power clean, landmine, palla medica, jump squat)</td><td>Tatami: situazionale, difesa dalle prese + 6 randori intensi</td></tr><tr><td><b>Venerdì</b></td><td>Circuito specifico (presa sul judogi + complex con bilanciere)</td><td>Tatami: simulazione di gara (4 incontri da 4 minuti)</td></tr><tr><td><b>Sabato</b></td><td>Aerobico lungo Z2 (45 min di corsa o nuoto)</td><td>Riposo</td></tr><tr><td><b>Domenica</b></td><td>Riposo completo</td><td>Riposo completo</td></tr></tbody></table>'],
   ['Seduta tipo: potenza e presa (fase 2)','<ul><li><b>Riscaldamento (12 min):</b> 5 min di corda; 2 giri di 8 Y-T-W-L, 5 Turkish get-up leggeri per lato, 10 cat-cow.</li><li><b>Blocco A, potenza:</b> power clean da sospensione 4 × 3 al 75% (2,5 min); jump squat zavorrato 3 × 5 al 30% (2 min).</li><li><b>Blocco B, forza specifica e rotazione:</b> landmine rotational press 4 × 5 per lato (90 s); gi pull-up 4 × max (90 s).</li><li><b>Blocco C, stabilità e presa:</b> Zercher carry 3 × 30 m (90 s); pinch grip con 2 dischi da 10 kg 3 × fino al cedimento (60 s).</li></ul>']]}
 ];
+DISP.push({id:'judo12',t:'Judo agonistico: stagione e programma di 12 settimane',f:'WhatsApp Scan 2026-05-26 at 08.47.24.pdf e 08.48.20.pdf («Proposta di workout per il judo agonistico»)',
+ i:'Programma di 12 settimane e 20 sedute che unisce forza, potenza, agilità e resistenza al lavoro tecnico sul tatami, dentro una periodizzazione annuale adattabile al calendario gare. Va proposto ad atleti esperti da tecnici in grado di spiegare correttamente gli esercizi.',
+ g:'Nel <b>generatore</b>, con «judo» nel campo gara dell’anamnesi, c’è lo split <b>«'+SPS.judo12+'»</b>. È proposto per primo quando la gara è entro 12 settimane (o passata da meno di 4: transizione). Il blocco si calcola dalla <b>data della gara</b> e si può cambiare a mano, anche su «Mantenimento tra le gare» o «Transizione». Oltre le 12 settimane resta proposto per primo il macrociclo di 24 settimane della dispensa «Judo agonistico».',
+ s:[
+ ['Lungo, medio e breve periodo','<table class="stab"><thead><tr><th>Orizzonte</th><th>Cosa si programma</th><th>Nell’app</th></tr></thead><tbody><tr><td><b>Lungo</b> (stagione, 6–12 mesi)</td><td>Off-season, pre-season, in-season, transizione; macrociclo di 24 settimane verso le gare bersaglio</td><td>Split «Judo agonistico (dispensa)» con le 4 fasi; periodo della stagione nella logica di lavoro</td></tr><tr><td><b>Medio</b> (12 settimane verso la gara)</td><td>6 blocchi di 2 settimane: base, potenza, resistenza e tecnica, picco di performance, preparazione alla gara, fase di picco</td><td>Split «Judo: 12 settimane verso la gara», blocco calcolato dalla data della gara</td></tr><tr><td><b>Breve</b> (settimana e singola gara)</td><td>Sedute del blocco; mantenimento per le gare minori; recupero attivo dopo la gara</td><td>Blocchi «Mantenimento tra le gare» e «Transizione», date di cambio scheda</td></tr></tbody></table>'],
+ ['Linee guida generali','<ul><li><b>Varietà:</b> combinare forza, potenza, resistenza e agilità.</li><li><b>Progressività:</b> aumentare gradualmente intensità e difficoltà, per stimolare adattamenti continui senza traumi.</li><li><b>Specificità:</b> integrare uchi-komi, nage-komi e randori, in piedi e a terra.</li><li><b>Equilibrio</b> tra pesistica e condizionamento generale e tecnica specifica di judo.</li><li><b>Recupero e rigenerazione:</b> giorni di stretching, mobilità e rilassamento.</li><li><b>Periodizzazione:</b> cicli di costruzione della forza, sviluppo della potenza ecc. per arrivare pronti alle gare.</li></ul>'],
+ ['Periodizzazione della stagione','<table class="stab"><thead><tr><th>Periodo</th><th>Durata</th><th>Obiettivo</th><th>Settimane del programma</th></tr></thead><tbody><tr><td><b>Off-season</b></td><td>8–12 settimane, subito dopo la stagione</td><td>Recupero degli infortuni, forza di base, punti deboli</td><td>1–6: forza di base e potenza</td></tr><tr><td><b>Pre-season</b></td><td>6–8 settimane</td><td>Dalla forza di base alla forza specifica e alla potenza, condizione generale</td><td>7–10: resistenza e tecnica, picco di performance</td></tr><tr><td><b>In-season</b></td><td>16–24 settimane</td><td>Mantenere forza, potenza e resistenza; tecnica, tattica, recupero</td><td>11–12 prima delle gare principali; mantenimento con meno carico tra le altre</td></tr><tr><td><b>Transizione</b></td><td>2–4 settimane</td><td>Recupero attivo, scarico fisico e mentale verso l’off-season</td><td>Allenamenti leggeri, anche nuoto e ciclismo</td></tr></tbody></table>'],
+ ['Adattamento al calendario gare','<ul><li><b>Gare importanti:</b> settimane 11–12 per arrivare al picco di forma.</li><li><b>Gare minori:</b> sedute di mantenimento, per evitare l’overtraining e favorire il recupero.</li><li><b>Dopo la gara:</b> sedute di recupero attivo per prevenire gli infortuni.</li><li>Monitorare sempre condizione fisica e mentale e adattare il calendario a esigenze, infortuni e stanchezza; integrare il supporto nutrizionale e psicologico con professionisti.</li></ul>'],
+ ['Programma di 12 settimane: i blocchi','<table class="stab"><thead><tr><th>Settimane</th><th>Blocco</th><th>Sessioni</th><th>Obiettivi</th></tr></thead><tbody><tr><td>1–2</td><td>Costruzione della base</td><td>1 forza e resistenza · 2 agilità e rapidità · 3 forza massima</td><td>Base di forza e resistenza, rapidità delle tecniche, forza massimale per sollevare e proiettare</td></tr><tr><td>3–4</td><td>Sviluppo della potenza</td><td>4 potenza esplosiva · 5 resistenza alla forza · 6 forza dinamica</td><td>Forza generata in modo rapido, resistenza nei combattimenti, movimenti rapidi per le proiezioni</td></tr><tr><td>5–6</td><td>Resistenza e tecnica</td><td>7 resistenza cardiovascolare · 8 forza · 9 agilità e velocità</td><td>Recupero dopo lo sforzo, forza dei gruppi principali, movimenti rapidi negli incontri</td></tr><tr><td>7–8</td><td>Picco di performance</td><td>10 forza esplosiva · 11 resistenza muscolare · 12 forza dinamica</td><td>Massima forza esplosiva, resistenza alla fatica, rapidità</td></tr><tr><td>9–10</td><td>Preparazione alla gara</td><td>13 cardio · 14 forza massimale · 15 agilità · 16 forza e potenza · 17 resistenza muscolare · 18 forza dinamica</td><td>Sostenere sforzi massimali e recuperare in fretta, forza massimale, velocità</td></tr><tr><td>11–12</td><td>Fase di picco</td><td>19 resistenza cardiovascolare · 20 forza esplosiva (finale)</td><td>Capacità aerobica e anaerobica, esplosività per la gara</td></tr></tbody></table><p>Struttura di ogni voce: esercizio · serie × ripetizioni · % 1RM o peso corporeo · recupero tra le serie. Le sedute complete, con dosaggi e recuperi, sono nel generatore.</p>'],
+ ['Sedute in sintesi','<ul><li><b>1:</b> squat, panca, stacco 4 × 8 al 70%; burpees 3 × 15; uchi-komi con elastici 5 × 1 min.</li><li><b>2:</b> box jump 3 × 12; trazioni 4 × 8; affondi con manubri 3 × 12; sprint 50 m 5 × 5; randori leggero 5 × 3 min.</li><li><b>3:</b> squat 5 × 5 all’85%; rematore 4 × 8 al 75–80%; overhead press 4 × 8 al 70–75%; swing 3 × 20; ne-waza 5 × 2 min.</li><li><b>4:</b> power clean 4 × 6 al 70%; salti sui gradini 4 × 10; stacco esplosivo 4 × 6 al 60%; sprint in salita × 5; uchi-komi esplosivo 5 × 1 min.</li><li><b>5:</b> circuito squat-panca-stacco 3 × 10 al 70%; fune 4 × 5; trazioni zavorrate 4 × 6; circuito cardio 3 × 2 min; randori medio 6 × 3 min.</li><li><b>6:</b> jump squat 4 × 6 al 40%; panca dinamica 4 × 6 al 60%; pull-up esplosivi 4 × 6; pliometria con kettlebell 3 × 15; nage-komi 5 × 3 min.</li><li><b>7:</b> corsa 5–10 km; circuito cardio 4 × 3 min; push-up pliometrici 4 × 12; addominali con peso 4 × 15; randori tecnico 8 × 3 min.</li><li><b>8:</b> stacco 5 × 5 all’80–85%; military e row 4 × 8 al 70–75%; trazioni con judogi 4 × 8; katame-waza 5 × 2 min.</li><li><b>9:</b> salti laterali 4 × 12; speed ladder 4 × 2 min; affondi esplosivi 4 × 10; sprint 100 m × 5; randori leggero 6 × 3 min.</li><li><b>10:</b> strappo 4 × 6 al 60–70%; salto in lungo 4 × 10; power push-up 4 × 12; sprint in salita × 6; uchi-komi veloce 6 × 1 min.</li><li><b>11:</b> circuito squat-military-rematore 3 × 15 al 50–60%; battle rope 4 × 1 min; pull-up 4 × 8; circuito cardio 4 × 3 min; randori intenso 10 × 3 min.</li><li><b>12:</b> jump squat con manubri 4 × 8; panca esplosiva 4 × 8 al 50–60%; trazioni esplosive 4 × 8; nage-komi dinamico 7 × 3 min.</li><li><b>13:</b> interval running 30 min (1 min sprint, 2 min passo); circuito cardio 5 × 3 min; piegamenti con salto 4 × 15; plank zavorrato 4 × 1 min; randori tecnico intenso 8 × 4 min.</li><li><b>14:</b> stacco 5 × 3 all’85–90%; military e row 4 × 6 al 75–80%; trazioni +20–30% PC 4 × 6; randori a terra 6 × 3 min.</li><li><b>15:</b> agilità con coni 4 × 1 min; salto in lungo 4 × 10; affondi esplosivi 4 × 10; sprint 100 m × 6; randori simil shiai 8 × 3 min.</li><li><b>16:</b> clean and jerk 4 × 6 al 70–75%; jump box 4 × 8; piegamenti con saltello 4 × 12; sprint zavorrato 100 m × 5; uchi-komi esplosivo 6 × 1 min.</li><li><b>17:</b> circuito squat-panca-stacco 3 × 8 al 60–70%; battle rope 4 × 1 min; trazioni con judogi 4 × 8; circuito cardio 5 × 3 min; randori 8 × 4 min.</li><li><b>18:</b> jump squat 4 × 6 al 20–30%; panca con elastici 4 × 8; trazioni esplosive 4 × 6; swing pesante 3 × 15; nage-komi veloce 6 × 3 min.</li><li><b>19:</b> corsa 8–10 km; circuito cardio 5 × 3 min; piegamenti con stacco 4 × 20; addominali con peso 4 × 15; randori tecnico 8 × 4 min.</li><li><b>20 (finale):</b> strappo 5 × 3 all’85–90%; tuck jump 4 × 6; piegamenti con stacco 4 × 15; sprint in salita zavorrato × 6; uchi-komi esplosivo 6 × 1 min.</li></ul>']]});
 var dispSel='hyrox';
-function dispEx(id){return EXDB.filter(function(e){return e.spo===id||(DZX[e.n]&&DZX[e.n].some(function(z){return z[0]===SPNAME[id]||z[0]===SPNAME[id].split(' ')[0]}))})}
+var DLAB={hyrox:'Hyrox',judo:'Judo',judo12:'Judo 12 settimane'};
+function dispEx(id){return EXDB.filter(function(e){return (DZX[e.n]||[]).some(function(z){return z[0]===DLAB[id]})})}
 function renderDisp(){
   var D=DISP.filter(function(d){return d.id===dispSel})[0]||DISP[0],ex=dispEx(D.id);
   document.getElementById('main').innerHTML='<div class="kick">Preparazione specifica</div><h2 class="atitle">Dispense</h2>'+
    '<div class="ufil" role="group" aria-label="Scegli la dispensa">'+DISP.map(function(d){return '<button type="button" data-disp="'+d.id+'" aria-pressed="'+(d.id===D.id)+'">'+esc(SPNAME[d.id])+'</button>'}).join('')+'</div>'+
    '<section class="asec"><h3>'+esc(D.t)+'</h3><p class="status" style="margin-top:0">Fonte: '+esc(D.f)+'</p><p>'+esc(D.i)+'</p>'+
-   '<div class="info" style="margin:12px 0 0">Nel <b>generatore</b>, se nell’anamnesi il campo «Gare, competizioni o sport» contiene «'+(D.id==='hyrox'?'Hyrox':'judo')+'», lo split proposto è <b>«'+esc(SPS[D.id])+'»</b>: sedute della dispensa, dosaggi e logica di lavoro della fase. La fase si calcola dalla <b>data della gara</b> (anamnesi) e si può cambiare a mano.</div></section>'+
+   '<div class="info" style="margin:12px 0 0">'+(D.g||'Nel <b>generatore</b>, se nell’anamnesi il campo «Gare, competizioni o sport» contiene «'+(D.id==='hyrox'?'Hyrox':'judo')+'», c’è lo split <b>«'+esc(SPS[D.id])+'»</b>: sedute della dispensa, dosaggi e logica di lavoro della fase. La fase si calcola dalla <b>data della gara</b> (anamnesi) e si può cambiare a mano.')+'</div></section>'+
    D.s.map(function(x){return '<section class="asec dsp"><h3>'+esc(x[0])+'</h3>'+x[1].replace(/<table/g,'<div class="xwrap"><table').replace(/<\/table>/g,'</table></div>')+'</section>'}).join('')+
    '<section class="asec"><h3>Esercizi della dispensa in libreria <small>'+ex.length+'</small></h3><p class="status" style="margin-top:0">Tocca un esercizio per la guida completa e le indicazioni della dispensa.</p>'+
    '<div class="lgw">'+ex.map(function(e){return '<details class="lg"><summary><span>'+esc(e.n)+'</span><i class="pt">'+esc(exType(e)||e.p)+'</i></summary><div class="lgb">'+legendBody(e)+'</div></details>'}).join('')+'</div></section>'+
@@ -3557,7 +3811,7 @@ function glossHtml(){return '<dl class="gls">'+GLOSS.map(function(g){return '<di
 // ---- Libreria esercizi (ricerca e filtri rapidi per pattern, tipo e attrezzatura) ----
 // libT: {day,row} nel generatore · {ed:1,i} nell’editor (i = riga da sostituire, null = aggiungi)
 var libT=null,libP='',libQ='',libK='',libE='',libS='';
-function sportsOf(e){var o=[];if(e.spo)o.push(e.spo==='hyrox'?'Hyrox':'Judo');(DZX[e.n]||[]).forEach(function(z){if(o.indexOf(z[0])<0)o.push(z[0])});return o}
+function sportsOf(e){var o=[];if(e.spo)o.push(e.spo==='hyrox'?'Hyrox':'Judo');(DZX[e.n]||[]).forEach(function(z){var l=/^Judo/.test(z[0])?'Judo':z[0];if(o.indexOf(l)<0)o.push(l)});return o}
 function openLib(t){
   libT=t;libQ='';libK='';libE='';libS='';
   var curN='',label;
@@ -3887,7 +4141,7 @@ document.addEventListener('change',function(e){
     if(v==='__lib')openLib({day:t.closest('.day'),row:ar});else genReplace(ar,v);return}
   if(t.classList.contains('ex_m'))t.setAttribute('data-man','1');
   if(t.id==='sc_sp'){var fw=gid('sc_fasew');if(fw){fw.hidden=!SPSI[t.value];gid('fasech').hidden=!SPSI[t.value];gid('sc_fase').innerHTML=faseOpts(t.value);gid('fasech').textContent=faseHint()}}
-  if(t.id==='sc_fase'){gctx.fase={sp:SPSI[gid('sc_sp').value],n:+t.value};gid('fasech').textContent=faseHint()}
+  if(t.id==='sc_fase'){gctx.fase={sp:SPSI[gid('sc_sp').value],n:+t.value};if(gctx.fase.sp==='judo12'&&!gTouched)gid('sc_f').value=+t.value>=6?2:3;gid('fasech').textContent=faseHint()}
   if(t.id==='sc_sp'){if(t.value==='Personalizzato'&&gSpPrev!=='Personalizzato')gCust=dayPlan(gSpPrev,+gid('sc_f').value||3,gCust).days.map(function(d){return d.type});gSpPrev=t.value;custRender()}
   else if(t.id==='sc_f')custRender();
   else if(t.classList.contains('sc_ct'))gCust[+t.getAttribute('data-ci')]=t.value;
@@ -4219,6 +4473,7 @@ var BLK=[
  {id:'hxst',t:'Stazioni Hyrox: burpee + wall ball',d:'Corsa, burpee broad jump e wall ball in successione.',rows:[['Corsa a ritmo gara',{s:3,r:'1000 m',tg:'Ritmo gara',rpe:'8',rec:''}],['Burpee broad jump',{s:3,r:'20 m',tg:'Ritmo gara',rpe:'9',rec:''},1],['Wall ball',{s:3,r:'20',tg:'Ritmo gara',rpe:'9',rec:120},1]]},
  {id:'jdgrip',t:'Blocco presa (judo)',d:'Gi pull-up, kumi-kata isometrico e pinch grip (dispensa judo).',rows:[['Trazioni sul judogi (Gi pull-up)',{s:4,r:'max',rpe:'9',rec:90}],['Kumi-kata isometrico ai cavi',{s:3,r:'30 s per braccio',rpe:'8',rec:60}],['Pinch grip con dischi',{s:3,r:'30-45 s',rpe:'8',rec:60}]]},
  {id:'jdhiit',t:'HIIT judo: 15/15 e 30/15',d:'Uchi-komi con elastico 15/15 + air bike 30/15.',rows:[['Uchi-komi con elastico (15/15)',{s:1,r:'8-10 min (15 s / 15 s)',rpe:'9',rec:180}],['Air bike 30/15',{s:4,r:'4 min (30 s / 15 s)',rpe:'9',rec:60}]]},
+ {id:'jdtat',t:'Lavoro sul tatami (judo)',d:'Uchi-komi, nage-komi e randori del programma di 12 settimane.',rows:[['Uchi-komi (ripetizione tecnica)',{s:5,r:'1 min',tg:'Esplosivo',rpe:'8',rec:90}],['Nage-komi (proiezioni ripetute)',{s:5,r:'3 min',rpe:'8',rec:120}],['Randori',{s:6,r:'3 min',tg:'Intensità media',rpe:'7',rec:120}]]},
  {id:'empty',t:'Blocco vuoto',d:'3 righe vuote collegate in superserie, da compilare a mano.',empty:3}
 ];
 function openBlock(){var D=ED.sc.days[ED.day];

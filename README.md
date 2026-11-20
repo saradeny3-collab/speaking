@@ -74,8 +74,31 @@ Voce **Dispense** nel menu: le due dispense consultabili (modello prestativo, 4 
 - Glossario con i termini delle dispense (compromised running, Roxzone, zona 2, VT2, EMOM, unbroken, tapering, RFD, kumi-kata, kuzushi, uchi-komi, randori, ukemi, golden score).
 - I dosaggi che la dispensa non indica sono segnati «dosaggio indicativo» e vanno validati dal Personal Trainer.
 
+## Judo: stagione agonistica e programma di 12 settimane (nuovo)
+Dalla dispensa «Proposta di workout per il judo agonistico» (due scansioni, 30 pagine). La preparazione del judo è coperta su tre orizzonti:
+- **Lungo periodo (stagione):** off-season (8–12 settimane), pre-season (6–8), in-season (16–24) e transizione (2–4), oltre al macrociclo di 24 settimane della prima dispensa.
+- **Medio periodo (12 settimane verso la gara):** 20 sessioni in 6 blocchi da 2 settimane:
+  1. Costruzione della base (sessioni 1–3);
+  2. Sviluppo della potenza (4–6);
+  3. Resistenza e tecnica (7–9);
+  4. Picco di performance (10–12);
+  5. Preparazione alla gara (13–18);
+  6. Fase di picco (19–20).
+- **Breve periodo:** «Mantenimento tra le gare» per le gare minori e «Transizione · recupero attivo» dopo la gara. La dispensa descrive questi due periodi senza sedute dettagliate, quindi le sedute sono costruite da me e segnate «dosaggio indicativo».
+
+Nel generatore, con «judo» nel campo gara dell’anamnesi:
+- **Programma proposto:** se la gara è entro 12 settimane (o passata da meno di 4) viene proposto per primo lo split **«Judo: 12 settimane verso la gara»**; altrimenti il macrociclo di 24 settimane. Entrambi restano nel menu.
+- **Blocco:** si calcola dalla data della gara, con cambio scheda alla fine del blocco e nella fase di picco alla gara.
+- **Sedute:** ogni seduta unisce palestra e tatami (uchi-komi, nage-komi, ne-waza, randori) con i dosaggi della dispensa: % 1RM con i kg dal massimale, % del peso corporeo e recuperi.
+
+Altre novità:
+- **Libreria:** 22 esercizi nuovi (randori, uchi-komi, nage-komi, ne-waza, sprint, corsa continua e a intervalli, circuiti pesi e cardio, battle rope, agilità, salti, power push-up, power clean, strappo, slancio…). Le indicazioni «Dalla dispensa Judo 12 settimane» sono anche sugli esercizi già presenti.
+- **Pagina Dispense:** terza scheda «Judo 12 settimane».
+- **Editor:** nuovo blocco «Lavoro sul tatami (judo)».
+- **Glossario:** periodi della stagione, shiai, tori/uke, ne-waza/katame-waza, tokui-waza.
+
 ## Libreria esercizi
-216 esercizi. Ai 191 di prima se ne aggiungono 25 dalle dispense:
+238 esercizi. Ai 191 di base se ne aggiungono 47 dalle dispense (22 del programma judo di 12 settimane, elencati sopra) e 25 dalle prime due:
 - **Hyrox**: SkiErg, vogatore, sled pull alla fune, sled drag, burpee broad jump, affondi con sandbag, rematore Pendlay, corsa a ritmo gara, ripetute a soglia, corsa lunga in zona 2;
 - **judo**: gi pull-up, trazioni con asciugamano o fune, pinch grip, kumi-kata isometrico, landmine rotational press, squat jump con elastico, jump squat zavorrato, power clean da sospensione, Turkish get-up, Zercher carry, isometrie del collo, Y-T-W-L, uchi-komi con elastico, complex con bilanciere, air bike 30/15.
 
