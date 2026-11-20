@@ -244,6 +244,7 @@ h2{font-weight:800}
 .lmeta{color:var(--muted);font-size:13px}
 .lfr{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 4px}.lfr .kick{min-width:64px}.lfr .ufil{margin:0 0 6px}
 .lfr .ufil button{padding:5px 11px;font-size:13px}
+.glw{margin:18px 0 0}.glw>summary{display:inline-flex;align-items:center;gap:8px;list-style:none;cursor:pointer;background:var(--brand);color:#fff;border-radius:10px;padding:9px 16px;font-weight:700;font-size:15px}.glw>summary::-webkit-details-marker{display:none}.glw>summary::after{content:'▾';font-size:13px}.glw[open]>summary::after{content:'▴'}.glw[open]>summary{margin-bottom:12px}
 .gls{display:grid;gap:8px 22px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));margin:0;font-size:14px}.gls dt{font-weight:800}.gls dd{margin:0 0 4px;color:var(--muted)}
 .achips{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 10px;margin:0 0 14px;-webkit-overflow-scrolling:touch}
 .achip{display:flex;align-items:center;gap:9px;flex-shrink:0;border:1.5px solid var(--line);background:var(--surface);color:var(--text);border-radius:99px;padding:5px 16px 5px 5px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;text-align:left}
@@ -350,6 +351,7 @@ body:has(#modal) .stage{display:none!important}
 .mbox h4{break-after:avoid}.keyd,.prot,.stab tr{break-inside:avoid}.keyd{background:#fff!important;border-color:#000!important}
 .lgg,.gls{display:block!important;columns:2;column-gap:10px}.gls div{break-inside:avoid;font-size:9pt}.gls dd{color:#333!important}.lg{break-inside:avoid;border:1px solid #888!important;margin-bottom:6px;background:#fff!important;font-size:8.5pt}
 .pt{background:#fff!important;color:#000!important;border:1px solid #000}
+.noprn,.glw:not([open]){display:none!important}.glw>summary{background:#fff!important;color:#000!important;padding:0!important;font-size:12pt}.glw>summary::after{display:none}
 .lghd{display:none!important}.lg>summary::after{display:none}.lg>summary{padding:4px 8px;font-size:9pt}.lgb{padding:0 8px 6px}.lg[open]{grid-column:auto}.lgs{break-after:avoid}
 }
 </style>
@@ -3178,16 +3180,16 @@ function exTable(es){
 }
 function schedaBody(sc,u){
   var days=schedaDays(sc),v2=!!(sc.days&&sc.days.length),es=flatEs(days),f=+sc.freq||1;
-  var h='<div class="status">'+(u?esc(u.n+' '+u.c)+' · ':'')+'inizio '+fdate(sc.data)+(v2?' · '+f+(f===1?' seduta':' sedute')+' a settimana'+(sc.split?' · '+esc(sc.split):''):(f>1?' · '+f+' volte a settimana':''))+'</div>';
-  var lg=sc.logica||sc.note;if(lg)h+='<h4>Logica di lavoro</h4><div class="prot">'+esc(lg)+'</div>';
+  var h='<div class="status">'+(u?esc(u.n+' '+u.c)+' · ':'')+'inizio '+fdate(sc.data)+'<span class="noprn">'+(v2?' · '+f+(f===1?' seduta':' sedute')+' a settimana'+(sc.split?' · '+esc(sc.split):''):(f>1?' · '+f+' volte a settimana':''))+'</span></div>';
+  var lg=sc.logica||sc.note;if(lg)h+='<div class="noprn"><h4>Logica di lavoro</h4><div class="prot">'+esc(lg)+'</div></div>';
   if(sc.deload||sc.cambio)h+='<div class="keyd"><h4>Tempistiche di programmazione</h4><dl class="det"><dt>Data di inizio</dt><dd>'+fdate(sc.data)+'</dd>'+(sc.deload?'<dt>Settimana di scarico</dt><dd>dal '+fdate(sc.deload)+' al '+fdate(addDays(sc.deload,6))+'</dd>':'')+(sc.cambio?'<dt>Cambio scheda (orientativo)</dt><dd>'+fdate(sc.cambio)+'</dd>':'')+'</dl></div>';
   if(sc.wuL&&sc.wuL.length)h+='<h4>Riscaldamento (warm-up)</h4>'+wuTable(sc.wuL,'wu');else if(sc.wu)h+='<h4>Riscaldamento (warm-up)</h4><div class="prot">'+esc(sc.wu)+'</div>';
   days.forEach(function(d,i){h+='<h4>'+(v2?'Seduta '+(i+1)+(d.t&&d.t!=='Seduta '+(i+1)?' — '+esc(d.t):''):'Esercizi')+'</h4>'+exTable(d.es)});
-  if(v2&&days.length!==f)h+='<p class="status">Le '+days.length+' sedute si alternano a rotazione per arrivare a '+f+' allenamenti a settimana.</p>';
+  if(v2&&days.length!==f)h+='<p class="status noprn">Le '+days.length+' sedute si alternano a rotazione per arrivare a '+f+' allenamenti a settimana.</p>';
   if(sc.cdL&&sc.cdL.length)h+='<h4>Defaticamento (cool-down)</h4>'+wuTable(sc.cdL,'cd');else if(sc.cd)h+='<h4>Defaticamento (cool-down)</h4><div class="prot">'+esc(sc.cd)+'</div>';
   if(es.some(function(e){return e.m}))h+='<h4>Volume settimanale per muscolo</h4>'+volHtml(es,f/days.length,u);
   h+='<h4>Legenda e guida all’esecuzione</h4>'+legendHtml(es,(sc.wuL||[]).concat(sc.cdL||[]));
-  h+='<h4>Glossario dei termini tecnici</h4>'+glossHtml();
+  h+='<details class="glw"><summary>📖 Glossario dei termini tecnici</summary>'+glossHtml()+'</details>';
   return h;
 }
 function viewScheda(id){
@@ -3203,9 +3205,9 @@ function schedaHtml(u,sc){
    '.keyd{border:2px solid #4B0082;background:#f5f0fb;border-radius:12px;padding:12px 16px;margin-top:14px}.keyd h4{margin:0 0 6px}.det{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:0}.det dt{color:#4a4a4a}.det dd{margin:0}'+
    '.prot{white-space:pre-line;background:#fff;border:1px solid #cdcdcd;border-radius:10px;padding:10px 14px}.xwrap{overflow-x:auto}table{border-collapse:collapse;width:100%;background:#fff}th,td{border:1px solid #bdbdbd;padding:7px 9px;text-align:left;vertical-align:top}th{background:#4B0082;color:#fff;font-size:13px}td.nt{font-size:13px;min-width:220px}td.tg2{font-size:13px;min-width:130px}'+
    '.dc{font-style:normal;font-size:11px;font-weight:700;background:#4B0082;color:#fff;border-radius:99px;padding:1px 8px}.vs{font-size:12px;font-weight:700;border-radius:99px;padding:2px 9px}.vs.ok{background:#e3f4e8;color:#14622f}.vs.lo{background:#fdebd0;color:#7a4300}.vs.hi{background:#fde8e8;color:#9b1c1c}'+
-   '.lgg{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));align-items:start}.lg{background:#fff;border:1px solid #cdcdcd;border-left:4px solid #4B0082;border-radius:10px;font-size:13.5px}.lg>summary{cursor:pointer;list-style:none;display:flex;gap:8px;align-items:center;padding:9px 12px;font-weight:700;font-size:15px}.lg>summary::-webkit-details-marker{display:none}.lg>summary span{flex:1}.lg>summary::after{content:"▾";color:#4B0082}.lg[open]{grid-column:1/-1}.lg[open]>summary::after{content:"▴"}.lgb{padding:2px 14px 10px}.lg p{margin:4px 0}.lmeta{color:#4a4a4a;font-size:12.5px}.lghd{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 0 8px}.lghd .status{flex:1}.lghd button{margin:0;padding:6px 12px;font-size:13px}.lgs{margin:16px 0 8px;font-size:14px}.gls{display:grid;gap:6px 18px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));margin:0;font-size:13px}.gls dt{font-weight:700}.gls dd{margin:0 0 4px}.pt{font-style:normal;font-size:11px;font-weight:700;background:#4B0082;color:#fff;border-radius:6px;padding:1px 7px}'+
+   '.lgg{display:grid;gap:8px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));align-items:start}.lg{background:#fff;border:1px solid #cdcdcd;border-left:4px solid #4B0082;border-radius:10px;font-size:13.5px}.lg>summary{cursor:pointer;list-style:none;display:flex;gap:8px;align-items:center;padding:9px 12px;font-weight:700;font-size:15px}.lg>summary::-webkit-details-marker{display:none}.lg>summary span{flex:1}.lg>summary::after{content:"▾";color:#4B0082}.lg[open]{grid-column:1/-1}.lg[open]>summary::after{content:"▴"}.lgb{padding:2px 14px 10px}.lg p{margin:4px 0}.lmeta{color:#4a4a4a;font-size:12.5px}.lghd{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 0 8px}.lghd .status{flex:1}.lghd button{margin:0;padding:6px 12px;font-size:13px}.lgs{margin:16px 0 8px;font-size:14px}.glw{margin:18px 0 0}.glw>summary{display:inline-block;list-style:none;cursor:pointer;background:#4B0082;color:#fff;border-radius:8px;padding:9px 16px;font-weight:700}.glw>summary::-webkit-details-marker{display:none}.glw[open]>summary{margin-bottom:12px}.gls{display:grid;gap:6px 18px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));margin:0;font-size:13px}.gls dt{font-weight:700}.gls dd{margin:0 0 4px}.pt{font-style:normal;font-size:11px;font-weight:700;background:#4B0082;color:#fff;border-radius:6px;padding:1px 7px}'+
    'button{margin-top:18px;padding:10px 18px;background:#4B0082;color:#fff;border:0;border-radius:8px;font-weight:700;cursor:pointer}'+
-   '@media print{body{background:#fff;max-width:none;padding:0;font-size:10pt}.top{background:#fff;color:#000;border-bottom:2px solid #000;margin:0 0 12px}.top b{color:#000}.xwrap{overflow:visible}table{font-size:8.5pt}td.nt,td.tg2{min-width:0}td:nth-child(4),td:nth-child(5),td:nth-child(6),td:nth-child(8){white-space:nowrap}td.nt{width:38%}td.tg2{width:13%}.lg{font-size:8.5pt}th{background:#eee;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}tr,.keyd,.prot,.lg{break-inside:avoid}h4{break-after:avoid}.keyd{background:#fff;border-color:#000}.lgg,.gls{display:block;columns:2;column-gap:10px}.gls div{break-inside:avoid}.lg{margin-bottom:6px;border-color:#888}.pt{background:#fff;color:#000;border:1px solid #000}button,.lghd{display:none}.lg>summary::after{display:none}.lg[open]{grid-column:auto}}</style></head><body>'+
+   '@media print{body{background:#fff;max-width:none;padding:0;font-size:10pt}.top{background:#fff;color:#000;border-bottom:2px solid #000;margin:0 0 12px}.top b{color:#000}.xwrap{overflow:visible}table{font-size:8.5pt}td.nt,td.tg2{min-width:0}td:nth-child(4),td:nth-child(5),td:nth-child(6),td:nth-child(8){white-space:nowrap}td.nt{width:38%}td.tg2{width:13%}.lg{font-size:8.5pt}th{background:#eee;color:#000;-webkit-print-color-adjust:exact;print-color-adjust:exact}tr,.keyd,.prot,.lg{break-inside:avoid}h4{break-after:avoid}.keyd{background:#fff;border-color:#000}.lgg,.gls{display:block;columns:2;column-gap:10px}.gls div{break-inside:avoid}.lg{margin-bottom:6px;border-color:#888}.pt{background:#fff;color:#000;border:1px solid #000}button,.lghd,.noprn,.glw:not([open]){display:none}.glw>summary{background:#fff;color:#000;padding:0}.lg>summary::after{display:none}.lg[open]{grid-column:auto}}</style></head><body>'+
    '<div class="top"><b>S.</b>peaking</div><h1>'+esc(sc.nome)+'</h1>'+schedaBody(sc,u)+'<button onclick="window.print()">Stampa / PDF</button>'+
    '<script>addEventListener("beforeprint",function(){document.querySelectorAll("details.lg").forEach(function(d){d.open=true})});document.addEventListener("click",function(e){var b=e.target.closest("[data-act=lgall]");if(!b)return;var L=b.closest(".lgw").querySelectorAll("details.lg"),o=[].some.call(L,function(d){return !d.open});L.forEach(function(d){d.open=o});b.textContent=o?"Chiudi tutte":"Apri tutte"})<\/script></body></html>';
 }
@@ -3346,10 +3348,8 @@ function xlsxScheda(sc,u){
   for(var i=0;i<wk;i++)W.push(12);
   var R=[],M=[],add=function(c,h){R.push({c:c,h:h});return R.length},mer=function(r,a,b){M.push(xcol(a)+r+':'+xcol(b)+r)},r;
   r=add([['S.peaking — Scheda di allenamento',1]],26);mer(r,0,N-1);add([]);
-  [['Atleta',u?u.n+' '+u.c:''],['Livello',u?u.liv:''],['Scheda',sc.nome],['Obiettivi',u&&u.ob?u.ob.join(', '):''],['Gara / sport',u?u.gara:''],['Data di inizio',fdate(sc.data)],
-   ['Settimana di scarico',sc.deload?'dal '+fdate(sc.deload)+' al '+fdate(addDays(sc.deload,6))+(dw?' (settimana '+dw+')':''):''],['Cambio scheda (orientativo)',sc.cambio?fdate(sc.cambio):''],
-   ['Sedute a settimana',String(sc.freq||1)+(sc.split?' · '+sc.split:'')]].forEach(function(x){if(!x[1])return;r=add([[x[0],2],[x[1],7]]);mer(r,1,L1)});
-  var lg=sc.logica||sc.note;if(lg){r=add([['Logica di lavoro',2],[lg,7]],hgt(lg,170));mer(r,1,L1)}
+  [['Atleta',u?u.n+' '+u.c:''],['Obiettivi',u&&u.ob?u.ob.join(', '):''],['Gara / sport',u?u.gara:''],['Data di inizio',fdate(sc.data)],
+   ['Settimana di scarico',sc.deload?'dal '+fdate(sc.deload)+' al '+fdate(addDays(sc.deload,6))+(dw?' (settimana '+dw+')':''):''],['Cambio scheda (orientativo)',sc.cambio?fdate(sc.cambio):'']].forEach(function(x){if(!x[1])return;r=add([[x[0],2],[x[1],7]]);mer(r,1,L1)});
   add([]);
   var block=function(title,txt){if(!txt)return;add([[title,8]],20);txt.split('\n').forEach(function(l){r=add([[l,7]],hgt(l,190));mer(r,0,L1)});add([])};
   block('Riscaldamento (warm-up)',sc.wu);
