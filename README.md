@@ -67,6 +67,17 @@ Dalla scheda salvata o dall'editor:
 - **Stampa / Esporta PDF**: apre la stampa del browser; scegli «Salva come PDF» per un documento A4 senza menu, con legenda (e glossario, se aperto) su due colonne. Non escono sedute a settimana, split e logica di lavoro.
 - **Esporta Excel (.xlsx)**: foglio «Scheda» con intestazione atleta (atleta, obiettivi, gara, date; senza livello, nome scheda, sedute a settimana e logica di lavoro) e colonne Seduta, Esercizio, Pattern, Muscolo, Serie, Ripetizioni, RPE, Carico target, Recupero, Note, più «Sett. 1…N» (scarico segnato) per annotare i carichi settimana per settimana; fogli «Legenda esercizi» e «Glossario».
 - **CSV** (separatore «;» per Excel in italiano) e **Scarica HTML**.
+- **📲 Condividi con l’atleta**: link alla versione interattiva per smartphone (vedi sotto).
+
+## Condivisione con l’atleta (link per smartphone)
+Dalla scheda salvata (o dall’anteprima dell’editor) il pulsante **📲 Condividi con l’atleta** crea un link alla versione interattiva della scheda:
+- **WhatsApp** (apre direttamente la chat dell’atleta, se il telefono è nell’anamnesi), **Telegram**, **Altre app…** (menu di condivisione del telefono), **Copia link**, **Anteprima**.
+- L’atleta apre il link in Safari o Chrome, senza installare nulla: sedute a schede, settimana corrente (con la settimana di scarico segnalata), riscaldamento e defaticamento, per ogni esercizio serie, ripetizioni, RPE, carico target, recupero e note, e la tendina «Come si esegue».
+- Per ogni serie segna **kg** e **ripetizioni** e tocca **✓**: parte il **timer di recupero** (vibrazione e suono alla fine, +15 s, Stop; in superserie parte dopo l’ultimo esercizio). I dati restano sul suo telefono, settimana per settimana.
+- **Invia i risultati al PT** manda il riepilogo della seduta (es. «Panca piana: 60 kg × 8, 60 kg × 7») su WhatsApp, Telegram o un’altra app.
+- Il link contiene solo la scheda: niente anamnesi, PAR-Q, infortuni, test o logica di lavoro. La scheda sta dopo il «#» dell’indirizzo, quindi non arriva a GitHub né ad altri server; chi ha il link però può leggerla, quindi va mandato solo all’atleta.
+- Il link è una **fotografia** della scheda: se la modifichi, manda un link nuovo. Con Firebase (fase 11) potrà diventare un link sempre aggiornato.
+- Se apri l’app dal file sul computer e non dal sito, la prima volta ti chiede l’indirizzo del sito pubblicato (es. `https://tuonome.github.io/speaking/`).
 
 ## Stato degli atleti
 Calcolato dalla scheda più recente di ogni atleta (data di cambio scheda, o 6 settimane dall'inizio se manca):
