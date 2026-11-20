@@ -56,8 +56,32 @@ Nell’editor e nel generatore, quando inserisci un esercizio (scritto, dalla li
 5. **Funzionale / correttivo**: mobilità dai test, rinforzo per l’infortunio, esercizio specifico dello sport, trasporto.
 Ogni campo è modificabile (con l’elenco della libreria) e «⇄ Altra» propone un’alternativa della stessa tipologia. «+ Aggiungi» lo inserisce subito dopo e propone il successivo. Il tasto ✦ su una riga apre le proposte per quell’esercizio; la spunta «Proponi a ogni esercizio» le attiva o disattiva in automatico.
 
+## Dispense di preparazione specifica: Hyrox e judo agonistico (nuovo)
+Voce **Dispense** nel menu: le due dispense consultabili (modello prestativo, 4 fasi del macrociclo, mesociclo, microciclo tipo, stazioni o qualità specifiche, sedute tipo) e l’elenco dei loro esercizi in libreria con la guida completa.
+- **Anamnesi**: se il campo «Gare, competizioni o sport» contiene «Hyrox» o «judo», il generatore usa il programma della dispensa. Il nuovo campo **«Data della gara obiettivo»** serve a calcolare la fase.
+- **Generatore**: lo split proposto è **«Hyrox (dispensa)»** o **«Judo agonistico (dispensa)»**, con il menu **«Fase della preparazione»**. La fase si calcola dalle settimane che mancano alla gara e si può cambiare a mano:
+  - Hyrox: Base (oltre 16 settimane), Build (9–16), Specific (3–8), Taper (ultime 2);
+  - judo: Preparazione generale (oltre 16), Conversione (9–16), Specificità (4–8), Taper (ultime 3).
+- **Sedute della dispensa** con i dosaggi di ogni fase:
+  - Hyrox: forza gambe + stazioni, forza parte alta + catena posteriore, compromised running; con 4–6 sedute si aggiungono ripetute di corsa, corsa lunga in zona 2 e riposo attivo;
+  - judo: forza massima e core, ipertrofia funzionale e presa, prevenzione e mobilità, potenza esplosiva e presa, circuito specifico, HIIT e aerobico in zona 2.
+- **Profilo dell’atleta**: livello, PAR-Q, test e infortuni restano validi. Un esercizio non adatto viene sostituito con un’alternativa del profilo, e la logica di lavoro elenca le sostituzioni.
+- **Date chiave**:
+  - Hyrox: mesociclo 3+1 (cambio scheda dopo 4 settimane, scarico nella 4ª);
+  - entrambi: cambio scheda anticipato all’inizio della fase successiva;
+  - in Taper: niente scarico e cambio scheda alla data della gara.
+- **Editor**, «+ Aggiungi blocco»: Compromised running (Hyrox), Stazioni Hyrox (burpee + wall ball), Blocco presa (judo), HIIT judo 15/15 e 30/15.
+- Glossario con i termini delle dispense (compromised running, Roxzone, zona 2, VT2, EMOM, unbroken, tapering, RFD, kumi-kata, kuzushi, uchi-komi, randori, ukemi, golden score).
+- I dosaggi che la dispensa non indica sono segnati «dosaggio indicativo» e vanno validati dal Personal Trainer.
+
 ## Libreria esercizi
-191 esercizi: quelli già presenti, il **repertorio del corso Personal Trainer CSEN** e 28 esercizi di **riscaldamento e defaticamento** (cardio leggero, mobilità, attivazione, allungamento, foam rolling) (petto, dorso, spalle, braccia, cosce, glutei, polpacci, addome). Organizzati per **pattern di movimento** (Push, Pull, Squat, Hinge, Carry, Isopush, Mobilità), con barra di ricerca e **filtri rapidi** per pattern, **tipo** (Base multiarticolare, Complementare di isolamento, Esplosivo, Core, Mobilità, Riscaldamento) e **attrezzatura** (bilanciere, manubri, macchine, cavi, corpo libero, piccoli attrezzi). Avvisi «sconsigliato dai test», «sconsigliato dal PAR-Q», «livello superiore».
+216 esercizi. Ai 191 di prima se ne aggiungono 25 dalle dispense:
+- **Hyrox**: SkiErg, vogatore, sled pull alla fune, sled drag, burpee broad jump, affondi con sandbag, rematore Pendlay, corsa a ritmo gara, ripetute a soglia, corsa lunga in zona 2;
+- **judo**: gi pull-up, trazioni con asciugamano o fune, pinch grip, kumi-kata isometrico, landmine rotational press, squat jump con elastico, jump squat zavorrato, power clean da sospensione, Turkish get-up, Zercher carry, isometrie del collo, Y-T-W-L, uchi-komi con elastico, complex con bilanciere, air bike 30/15.
+
+Nuovo tipo **Condizionamento** (ergometri, corsa, circuiti a tempo): non conta nel volume per muscolo. Nuovo filtro **Sport** (Hyrox · Judo). Legenda e libreria mostrano le indicazioni «Dalla dispensa…».
+
+I 191 di base comprendono gli esercizi originali, il **repertorio del corso Personal Trainer CSEN** e 28 esercizi di **riscaldamento e defaticamento** (cardio leggero, mobilità, attivazione, allungamento, foam rolling) (petto, dorso, spalle, braccia, cosce, glutei, polpacci, addome). Organizzati per **pattern di movimento** (Push, Pull, Squat, Hinge, Carry, Isopush, Mobilità), con barra di ricerca e **filtri rapidi** per pattern, **tipo** (Base multiarticolare, Complementare di isolamento, Esplosivo, Core, Trasporto, Condizionamento, Mobilità, Riscaldamento) e **attrezzatura** (bilanciere, manubri, macchine, cavi, corpo libero, piccoli attrezzi). Avvisi «sconsigliato dai test», «sconsigliato dal PAR-Q», «livello superiore».
 
 ## Legenda e glossario
 La legenda mostra solo i **nomi degli esercizi come pulsanti**: un clic apre la tendina con la spiegazione completa («Apri tutte» per aprirle insieme; in stampa e PDF escono tutte aperte). Per ogni esercizio: tipo e attrezzatura, scopo funzionale, muscoli target primari e secondari, postura e assetto iniziale, fase eccentrica e concentrica, respirazione, sicurezza. In fondo alla scheda c'è il pulsante **📖 Glossario dei termini tecnici** (1RM, RIR, RPE, superserie, MEV/MRV, deload, Valsalva, DOMS…): resta chiuso e si apre solo con un clic. In stampa e PDF esce solo se l'hai aperto.
