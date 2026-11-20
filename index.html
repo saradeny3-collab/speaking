@@ -79,10 +79,13 @@ h2{font-size:22px;margin:0 0 4px}
 .cells{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;font-size:14px;color:var(--muted)}
 .cells b{color:var(--text);font-size:16px}
 .cells span{overflow:hidden;text-overflow:ellipsis}
+.unm{min-width:0}.unm b{overflow-wrap:anywhere}.unm .dc{margin-left:6px}.ubd{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}.ubd:empty{display:none}.ubd .st{margin-left:0}
+.cells>span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cells>span[data-l]::before{content:attr(data-l) ": ";font-weight:600;color:#555}
+.stage.tablet .cells>span[data-l]::before{content:none}.cells>span[data-l="Obiettivi"]{white-space:normal}.stage.tablet .cells>*{min-width:0}
 .uhead{display:none}
 .stage.tablet .uhead{display:grid;padding:0 14px 8px 68px;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
-.stage.tablet .cells{display:grid;grid-template-columns:1.3fr .8fr 1.5fr 1fr 1.7fr 1fr;gap:12px;align-items:center}
-.stage.tablet .uhead{grid-template-columns:1.3fr .8fr 1.5fr 1fr 1.7fr 1fr;gap:12px}
+.stage.tablet .cells{display:grid;grid-template-columns:minmax(170px,1.8fr) .6fr 1.6fr .9fr 1.1fr 1.6fr;gap:14px;align-items:center}
+.stage.tablet .uhead{grid-template-columns:minmax(170px,1.8fr) .6fr 1.6fr .9fr 1.1fr 1.6fr;gap:14px;font-weight:700}
 .stage.tablet .urow{align-items:center}
 .stage.tablet .urow input[type=checkbox]{margin-top:0}
 .stage.tablet .cells{font-size:13px}.stage.tablet .cells b{font-size:15px}
@@ -570,7 +573,8 @@ function listUtenti(){
      '<div class="info" style="margin-top:0">I clienti restano nel browser in cui li hai inseriti e non passano da soli da un dispositivo all’altro (né tra due browser dello stesso telefono). Se li hai già inseriti sul PC: lì <b>Backup → Esporta backup (JSON)</b>, manda il file al telefono, poi qui <b>Backup → Importa backup</b>.<div style="margin-top:10px"><button type="button" class="btn sm pri" data-act="imp">Importa backup</button></div></div>');
   h += L.map(function(u){
     return '<div class="urow'+(sel[u.id]?' sel':'')+'" data-row="'+esc(u.id)+'">'+(dm?'<input type="checkbox"'+(sel[u.id]?' checked':'')+' aria-label="Seleziona">':'')+
-    '<div class="atv">'+esc((u.n[0]||'')+(u.c[0]||'')).toUpperCase()+'</div><div class="cells"><b>'+esc(u.n+' '+u.c)+(hasDoc(u)?' <i class="dc">documento</i>':'')+badges(u)+'</b><span>'+(ageOf(u)!==''?ageOf(u)+' anni':'—')+'</span><span>'+esc(u.ob&&u.ob.length?u.ob.join(', '):'—')+'</span><span>'+esc(u.liv?u.liv.split(' ')[0]:'—')+'</span><span>'+esc(u.t||'—')+'</span><span>'+esc(u.e||'—')+'</span></div></div>';
+    '<div class="av">'+esc((u.n[0]||'')+(u.c[0]||'')).toUpperCase()+'</div><div class="cells"><div class="unm"><b>'+esc(u.n+' '+u.c)+'</b>'+(hasDoc(u)?'<i class="dc">documento</i>':'')+'<div class="ubd">'+badges(u)+'</div></div>'+
+    '<span data-l="Età">'+(ageOf(u)!==''?ageOf(u)+' anni':'—')+'</span><span data-l="Obiettivi">'+esc(u.ob&&u.ob.length?u.ob.join(', '):'—')+'</span><span data-l="Livello">'+esc(u.liv?u.liv.split(' ')[0]:'—')+'</span><span data-l="Telefono">'+esc(u.t||'—')+'</span><span data-l="Email">'+esc(u.e||'—')+'</span></div></div>';
   }).join('');
   document.getElementById('ulist').innerHTML = h;
   renderDues();
@@ -1218,7 +1222,7 @@ function listSU(){
   var q=sq.toLowerCase().trim(),L=U.filter(function(u){return !q||(u.n+' '+u.c).toLowerCase().indexOf(q)>-1}).sort(function(a,b){return (a.c+a.n).localeCompare(b.c+b.n)});
   document.getElementById('sucount').textContent=L.length+(L.length===1?' cliente':' clienti');
   document.getElementById('sulist').innerHTML=L.length?L.map(function(u){var sc=schedeOf(u.id);
-    return '<div class="urow" data-su="'+esc(u.id)+'" style="cursor:pointer"><div class="atv">'+esc((u.n[0]||'')+(u.c[0]||'')).toUpperCase()+'</div><div class="cells two"><b>'+esc(u.n+' '+u.c)+'</b><span>'+(sc.length?sc.length+(sc.length===1?' scheda':' schede')+' · ultima del '+fdate(sc[0].data):'Nessuna scheda')+'</span></div></div>'}).join(''):'<div class="empty">Nessun cliente. Aggiungili dalla Home con «+ Nuovo Cliente».</div>';
+    return '<div class="urow" data-su="'+esc(u.id)+'" style="cursor:pointer"><div class="av">'+esc((u.n[0]||'')+(u.c[0]||'')).toUpperCase()+'</div><div class="cells two"><b>'+esc(u.n+' '+u.c)+'</b><span>'+(sc.length?sc.length+(sc.length===1?' scheda':' schede')+' · ultima del '+fdate(sc[0].data):'Nessuna scheda')+'</span></div></div>'}).join(''):'<div class="empty">Nessun cliente. Aggiungili dalla Home con «+ Nuovo Cliente».</div>';
 }
 function listSchede(){
   if(!find(suid)||!document.getElementById('slist'))return;
@@ -3788,10 +3792,24 @@ function shareData(sc,u){
    W:wl(sc.wuL),C:wl(sc.cdL),wt:sc.wuL&&sc.wuL.length?'':(sc.wu||''),ct:sc.cdL&&sc.cdL.length?'':(sc.cd||'')};
 }
 // indirizzo del sito: quello della pagina se è pubblicata (GitHub Pages), altrimenti quello indicato dal PT
+function siteHere(){return /^https?:$/.test(location.protocol)&&!/^(localhost|127\.|0\.0\.0\.0|\[::1\])/.test(location.hostname)}
 function siteBase(){
-  if(/^https?:$/.test(location.protocol)&&!/^(localhost|127\.|0\.0\.0\.0|\[::1\])/.test(location.hostname))return location.href.split('#')[0];
+  if(siteHere())return location.href.split('#')[0].split('?')[0];
   try{return localStorage.getItem('spk_site')||''}catch(e){return ''}
 }
+// controlla che all'indirizzo del link ci sia la versione con la vista atleta (GitHub Pages permette la lettura da altri siti)
+var SITEOK={};
+async function checkSite(base){
+  if(SITEOK[base]!=null)return SITEOK[base];
+  try{var r=await fetch(base+(base.indexOf('?')>-1?'&':'?')+'v='+Date.now(),{cache:'no-store'});var t=r.ok?await r.text():'';SITEOK[base]=r.ok?(t.indexOf('function athleteMode')>-1?'ok':(/S\.peaking|speaking/i.test(t)?'old':'other')):'missing'}
+  catch(e){SITEOK[base]='unknown'}
+  return SITEOK[base];
+}
+function siteMsg(k){return {
+  old:'<b>Attenzione:</b> il sito pubblicato ha ancora la versione vecchia, senza la vista per l’atleta: chi apre il link vede la schermata del PT vuota. Carica questo index.html su GitHub (sostituisci il file nella root), aspetta 1–2 minuti e riapri questa finestra.',
+  missing:'<b>Attenzione:</b> all’indirizzo indicato non c’è nessuna pagina (errore 404). Controlla l’indirizzo del sito e che GitHub Pages sia attivo.',
+  other:'<b>Attenzione:</b> all’indirizzo indicato non c’è S.peaking. Controlla l’indirizzo: deve essere quello del sito pubblicato (https://tuonome.github.io/nome-repository/), non quello del repository su github.com.',
+  unknown:'Non riesco a verificare il sito da qui: prima di mandarlo, prova il link con «Anteprima».'}[k]||''}
 function waPhone(t){var d=String(t||'').replace(/[^\d+]/g,'');if(!d)return '';
   if(d.charAt(0)==='+')d=d.slice(1);else if(d.slice(0,2)==='00')d=d.slice(2);else if(/^3\d{8,9}$/.test(d))d='39'+d;
   d=d.replace(/\D/g,'');return /^\d{8,15}$/.test(d)?d:''}
@@ -3808,7 +3826,7 @@ function shareModal(){
   var link=shareLink(),u=SHL.u,ph=waPhone(u&&u.t),back='<button data-act="shback">← Torna alla scheda</button>';
   if(!link){
     modal('<h3>Condividi con l’atleta</h3><p>Per creare il link serve l’indirizzo del sito pubblicato su GitHub Pages (questa pagina è aperta dal computer, non dal sito).</p>'+
-     '<label class="fl"><span>Indirizzo del sito</span><input id="shsite" type="url" placeholder="https://tuonome.github.io/speaking/" value=""></label>'+
+     '<label class="fl"><span>Indirizzo del sito</span><input id="shsite" type="url" placeholder="https://tuonome.github.io/speaking/" value="'+esc(SHL.edit||'')+'"></label>'+
      '<div class="status" id="shst"></div><div class="mrow">'+back+'<button class="pri" data-act="shsite">Salva indirizzo</button></div>');
     document.querySelector('#modal .mbox').classList.add('shm');return}
   modal('<h3>Condividi con l’atleta</h3>'+
@@ -3824,8 +3842,13 @@ function shareModal(){
    '<textarea id="shlink" class="shl" readonly rows="2" aria-label="Link della scheda">'+esc(link)+'</textarea>'+
    (!ph&&u?'<p class="status" style="margin:0">Con il telefono dell’atleta nell’anamnesi, WhatsApp apre direttamente la sua chat.</p>':'')+
    '<div class="info" style="margin:0">Il link contiene solo la scheda (esercizi, serie, note e date): niente anamnesi, infortuni o test. Chi lo riceve può leggerla, quindi mandalo solo all’atleta. Il link è una fotografia della scheda di oggi: se la modifichi, manda un link nuovo. Serie e kg che l’atleta segna restano sul suo telefono.</div>'+
+   '<div id="shchk" class="status" style="margin:0">Controllo il sito pubblicato…</div>'+
+   (siteHere()?'':'<p class="status" style="margin:0">Indirizzo del sito: '+esc(siteBase())+' · <button type="button" class="mini" data-act="shedit">Cambia</button></p>')+
    '<div class="status" id="shst" role="status"></div><div class="mrow">'+back+'<button data-act="mclose">Chiudi</button></div>');
   document.querySelector('#modal .mbox').classList.add('shm');
+  var base=siteBase();checkSite(base).then(function(k){var c=gid('shchk');if(!c||siteBase()!==base)return;
+    if(k==='ok'){c.textContent='✓ Sito pubblicato aggiornato: il link funziona.';return}
+    c.className=k==='unknown'?'status':'warn';c.innerHTML=siteMsg(k)});
 }
 async function copyText(t,stid){
   try{await navigator.clipboard.writeText(t);st(stid,'Link copiato: incollalo nella chat con l’atleta.')}
@@ -3839,7 +3862,10 @@ document.addEventListener('click',function(e){
   else if(k==='shnat'&&SHL)navigator.share({title:SHL.sc.nome,text:shareMsg(0),url:shareLink()}).catch(function(){});
   else if(k==='shsite'){var v=(gid('shsite').value||'').trim();
     if(!/^https?:\/\/[^\s#]+$/i.test(v)){st('shst','Scrivi l’indirizzo completo, per esempio https://tuonome.github.io/speaking/');return}
-    try{localStorage.setItem('spk_site',v.split('#')[0])}catch(x){}shareModal()}
+    if(/^https?:\/\/(www\.)?github\.com\//i.test(v)){st('shst','Questo è l’indirizzo del repository, non del sito. Lo trovi in Settings → Pages: è del tipo https://tuonome.github.io/nome-repository/');return}
+    if(/^https?:\/\/[^\/]+\.github\.io\/[^\/.]+$/i.test(v))v+='/';
+    try{localStorage.setItem('spk_site',v.split('#')[0])}catch(x){}SHL.edit='';shareModal()}
+  else if(k==='shedit'&&SHL){SHL.edit=siteBase();try{localStorage.removeItem('spk_site')}catch(x){}shareModal()}
 });
 
 // ---- Modalità atleta: scheda interattiva sul telefono ----
