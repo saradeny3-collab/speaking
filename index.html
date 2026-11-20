@@ -182,6 +182,11 @@ h2{font-weight:800}
 .yn button[aria-pressed="true"][data-v="si"]{background:#d62828;color:#fff;border-color:#d62828}
 .ptnote{display:inline-block;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5px;font-weight:700;background:var(--brand);color:#fff;border-radius:8px;padding:3px 10px;vertical-align:middle;margin-left:6px}
 .warn{border-left:4px solid #d62828;background:#fde8e8;color:#5a0f0f;padding:10px 14px;border-radius:8px;font-size:14px;margin-top:12px}
+.dues{border:1px solid #f0b4b4;border-left:4px solid #d62828;background:#fff6f6;border-radius:10px;padding:12px 14px;margin:0 0 14px}.dues h3{margin:0 0 8px;font-size:15px;color:#9b1c1c}
+.dues ul{list-style:none;margin:0;padding:0}.dues li{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;padding:8px 0;border-top:1px solid #f3d0d0;cursor:pointer;font-size:14px;color:#222}.dues li:first-child{border-top:0}
+.dues li b{min-width:150px}.dues li span{flex:1 1 200px}.dues li .dd2{flex:0 0 auto;font-weight:600;color:#9b5a00}.dues li.near .dd2{color:#c2410c}.dues li.late .dd2{color:#d62828}
+.dues li:hover b{text-decoration:underline}.dues p{margin:8px 0 0;font-size:13px;color:#5a0f0f}
+@media print{.dues{display:none}}
 .info{border-left:4px solid var(--brand);background:var(--brand-soft);color:#2a0a4a;padding:10px 14px;border-radius:8px;font-size:14px;margin-top:14px}
 [hidden]{display:none!important}
 .afoot{display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;margin:6px 0 10px}
@@ -380,18 +385,31 @@ var BRAND='<div class="brand"><div class="bl"><svg viewBox="0 0 32 32" aria-hidd
 document.getElementById('hdr').innerHTML=BRAND;
 // Stato degli atleti, calcolato dalla scheda più recente:
 // Attivi = scheda iniziata da meno di 42 giorni (6 settimane);
-// In scadenza = cambio scheda (o fine dello stop per infortunio, se arriva prima) entro 7 giorni o già superato;
+// In scadenza = una scadenza (cambio scheda, fine dello stop medico per infortunio, scadenza del certificato medico) entro AVV giorni o già superata;
 // Check-in = atleta attivo senza check-in da almeno 14 giorni (conta dall'inizio scheda se non c'è un check-in).
 var FILT=[{id:'all',t:'Tutti'},{id:'scad',t:'In scadenza'},{id:'ck',t:'Check-in'},{id:'att',t:'Attivi'}];
 function todayIso(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
 function ago(iso){return Math.floor((Date.parse(todayIso())-Date.parse(iso))/864e5)}
+// Giorni di preavviso per tutte le scadenze (scheda, stop per infortunio, certificato medico)
+var AVV=10;
+function deadlines(u){
+  var L=[],sc=schedeOf(u.id);
+  if(sc.length&&sc[0].data&&!isNaN(Date.parse(sc[0].data)))L.push({k:'sch',d:sc[0].cambio||addDays(sc[0].data,42),t:'Cambio scheda'+(sc[0].nome?' «'+sc[0].nome+'»':'')});
+  injList(u).forEach(function(x){if(injStop(x)&&x.fino)L.push({k:'inj',d:x.fino,t:'Fine stop medico: '+injLabel(x,1)})});
+  if(u.certd)L.push({k:'cert',d:u.certd,t:'Scadenza certificato medico'});
+  L.forEach(function(x){x.left=-ago(x.d)});
+  return L.filter(function(x){return !isNaN(x.left)}).sort(function(a,b){return a.left-b.left});
+}
+function dueSoon(u){return deadlines(u).filter(function(x){return x.left<=AVV})}
+function leftTxt(n){return n>1?'tra '+n+' giorni':n===1?'domani':n===0?'oggi':'scaduta da '+(-n)+(n===-1?' giorno':' giorni')}
 function ustat(u){
   var sc=schedeOf(u.id),o={att:false,scad:false,ck:false,inj:false},ie=injEnd(u);
   o.inj=!!(ie&&ago(ie)>=0);
+  o.scad=dueSoon(u).length>0||u.cert==='Scaduto';
   if(!sc.length||!sc[0].data||isNaN(Date.parse(sc[0].data)))return o;
   var end=sc[0].cambio||addDays(sc[0].data,42);if(ie&&ie>=sc[0].data&&ie<end)end=ie;
   var left=-ago(end),last=u.ck&&u.ck>sc[0].data?u.ck:sc[0].data;
-  o.att=left>0;o.scad=left<=7;o.ck=o.att&&ago(last)>=14;return o;
+  o.att=left>0;o.ck=o.att&&ago(last)>=14;return o;
 }
 function counts(){var c={all:U.length,scad:0,ck:0,att:0};U.forEach(function(u){var s=ustat(u);if(s.scad)c.scad++;if(s.ck)c.ck++;if(s.att)c.att++});return c}
 function renderNav(){
@@ -509,11 +527,14 @@ function renderUtenti(){
    '<button class="ab" id="bdel" data-act="del" aria-label="Elimina clienti"><span class="i">−</span><span class="t">Elimina</span></button></div></div>'+
    '<div class="ufil" id="ufil" role="group" aria-label="Filtra per stato"></div>'+
    '<input class="search" id="usearch" type="search" placeholder="Cerca per nome, obiettivo, sport, email…" value="'+esc(uq)+'">'+
-   '<div id="dbar"></div><div id="ulist"></div>';
+   '<div id="dbar"></div><div id="dues"></div><div id="ulist"></div>';
   document.getElementById('usearch').addEventListener('input',function(e){uq=e.target.value;listUtenti()});
   listUtenti();
 }
-function badges(u){var s=ustat(u),h='';if(s.inj)h+='<i class="st scad">Verifica infortunio</i>';if(s.scad)h+='<i class="st scad">In scadenza</i>';if(s.ck)h+='<i class="st ck">Check-in</i>';if(s.att&&!s.scad&&!s.ck)h+='<i class="st att">Attivo</i>';return h}
+var DLS={sch:'Scheda',inj:'Stop infortunio',cert:'Certificato'};
+function badges(u){var s=ustat(u),h='';
+  dueSoon(u).forEach(function(x){h+='<i class="st scad" title="'+esc(x.t+' · '+fdate(x.d))+'">'+(x.left<0?(x.k==='inj'?'Verifica infortunio':x.k==='cert'?'Certificato scaduto':'Scheda scaduta'):DLS[x.k]+' '+(x.left===0?'oggi':'tra '+x.left+' gg'))+'</i>'});
+  if(u.cert==='Scaduto'&&!u.certd)h+='<i class="st scad">Certificato scaduto</i>';if(s.ck)h+='<i class="st ck">Check-in</i>';if(s.att&&!s.scad&&!s.ck)h+='<i class="st att">Attivo</i>';return h}
 function hasDoc(u){return !!(u.frontId||u.backId||u.frontBlob||u.backBlob)}
 function listUtenti(){
   var L = filtered(), n = Object.keys(sel).length, c = counts();
@@ -530,6 +551,17 @@ function listUtenti(){
     '<div class="av">'+esc((u.n[0]||'')+(u.c[0]||'')).toUpperCase()+'</div><div class="cells"><b>'+esc(u.n+' '+u.c)+(hasDoc(u)?' <i class="dc">documento</i>':'')+badges(u)+'</b><span>'+(ageOf(u)!==''?ageOf(u)+' anni':'—')+'</span><span>'+esc(u.ob&&u.ob.length?u.ob.join(', '):'—')+'</span><span>'+esc(u.liv?u.liv.split(' ')[0]:'—')+'</span><span>'+esc(u.t||'—')+'</span><span>'+esc(u.e||'—')+'</span></div></div>';
   }).join('');
   document.getElementById('ulist').innerHTML = h;
+  renderDues();
+}
+// Avviso in home: tutte le scadenze dei prossimi AVV giorni (e quelle già superate), dalla più vicina
+function renderDues(){
+  var box=document.getElementById('dues');if(!box)return;
+  var L=[];U.forEach(function(u){dueSoon(u).forEach(function(x){L.push({u:u,x:x})});if(u.cert==='Scaduto'&&!u.certd)L.push({u:u,x:{k:'cert',d:'',left:-1,t:'Certificato medico segnato come scaduto'}})});
+  L.sort(function(a,b){return a.x.left-b.x.left});
+  box.innerHTML=L.length?'<div class="dues" role="region" aria-label="Scadenze"><h3>⚠ Scadenze entro '+AVV+' giorni ('+L.length+')</h3><ul>'+L.map(function(r){
+    var x=r.x,late=x.left<0;
+    return '<li class="'+(late?'late':x.left<=3?'near':'')+'" data-row="'+esc(r.u.id)+'"><b>'+esc(r.u.n+' '+r.u.c)+'</b><span>'+esc(x.t)+'</span><span class="dd2">'+(x.d?fdate(x.d)+' · ':'')+(x.d?leftTxt(x.left):'da aggiornare')+'</span></li>'}).join('')+
+   '</ul><p>'+(L.some(function(r){return r.x.k==='inj'})?'Fine stop medico: prima di far tornare a caricare la zona serve il via libera del medico o del fisioterapista; poi aggiorna l’anamnesi e prepara la nuova scheda. ':'')+'Tocca un nome per aprire l’atleta.</p></div>':'';
 }
 function modal(html){var m=document.getElementById('modal');if(!m){m=document.createElement('div');m.id='modal';m.className='modal';document.body.appendChild(m)}m.innerHTML='<div class="mbox">'+html+'</div>'}
 function closeModal(){var m=document.getElementById('modal');if(m)m.remove()}
@@ -669,7 +701,7 @@ function renderAnam(){
    '<div class="kick">Modulo 01 — Intake e screening di sicurezza</div><h2 class="atitle">Anamnesi, obiettivi e stile di vita</h2>'+
    '<section class="asec"><h3>Dati anagrafici e misure iniziali</h3><div class="fg">'+
     fld('a_n','Nome *',v.n,'text',' autocomplete="off"')+fld('a_c','Cognome *',v.c,'text',' autocomplete="off"')+nfld('a_eta','Età (anni)',v.eta,' step="1"')+sfld('a_sx','Sesso biologico',['Uomo','Donna'],v.sx)+
-    nfld('a_peso','Peso (kg)',v.peso)+nfld('a_alt','Altezza (cm)',v.alt)+sfld('a_liv','Livello di esperienza',LIV,v.liv)+sfld('a_cert','Certificato medico di idoneità',['Presente e valido','Scaduto','Non presente'],v.cert)+
+    nfld('a_peso','Peso (kg)',v.peso)+nfld('a_alt','Altezza (cm)',v.alt)+sfld('a_liv','Livello di esperienza',LIV,v.liv)+sfld('a_cert','Certificato medico di idoneità',['Presente e valido','Scaduto','Non presente'],v.cert)+fld('a_certd','Scadenza certificato medico',v.certd,'date')+
     nfld('a_vita','Circ. vita (cm)',v.vita)+nfld('a_fia','Circ. fianchi (cm)',v.fia)+nfld('a_pet','Circ. torace (cm)',v.pet)+nfld('a_brac','Circ. braccio (cm)',v.brac)+nfld('a_cos','Circ. coscia (cm)',v.cos)+
    '</div><div class="info" id="idx" hidden></div>'+
    '<details class="adet"'+(v.t||v.e||v.cf||v.d||v.ci?' open':'')+'><summary>Contatti e dati personali (facoltativi)</summary><div class="fg">'+
@@ -732,7 +764,7 @@ async function saveAnam(next){
   var n=gv('a_n'),c=gv('a_c');
   if(!n||!c){st('astat','Inserisci nome e cognome.');document.getElementById(n?'a_c':'a_n').focus();return}
   var u=aid?find(aid):null,o=u?Object.assign({},u):{id:newId('u')};
-  Object.assign(o,{n:n,c:c,eta:nv('a_eta'),sx:gv('a_sx'),peso:nv('a_peso'),alt:nv('a_alt'),liv:gv('a_liv'),cert:gv('a_cert'),vita:nv('a_vita'),fia:nv('a_fia'),pet:nv('a_pet'),brac:nv('a_brac'),cos:nv('a_cos'),
+  Object.assign(o,{n:n,c:c,eta:nv('a_eta'),sx:gv('a_sx'),peso:nv('a_peso'),alt:nv('a_alt'),liv:gv('a_liv'),cert:gv('a_cert'),certd:gv('a_certd'),vita:nv('a_vita'),fia:nv('a_fia'),pet:nv('a_pet'),brac:nv('a_brac'),cos:nv('a_cos'),
    d:gv('a_d'),cf:gv('a_cf').toUpperCase(),t:gv('a_t'),e:gv('a_e'),ci:gv('a_ci'),pq:readPQ(),infl:readInj(),inf:gv('a_inf'),sal:gv('a_sal'),ob:readG('ob'),gara:gv('a_gara'),
    sp:readG('sp'),spAlt:gv('a_spalt'),sfreq:nv('a_sfreq'),ssess:nv('a_ssess'),sdur:nv('a_sdur'),srpe:nv('a_srpe'),scal:gv('a_scal'),mus:readG('mus'),split:readG('split')[0]||'',agg:todayIso()});
   try{await Store.put('utenti',o)}catch(e){st('astat',saveErr());return}
@@ -1086,10 +1118,12 @@ function openUser(id){
   var u=find(id); if(!u)return;
   var j=function(a){return a&&a.length?a.join(', '):''};
   var pm=[u.peso?fnum(u.peso)+' kg':'',u.alt?fnum(u.alt)+' cm':''].filter(Boolean).join(' · ');
-  var rows=[['Età',ageOf(u)!==''?ageOf(u)+' anni':''],['Sesso',u.sx],['Livello',u.liv],['Peso e altezza',pm],['Obiettivi',j(u.ob)],['Gara / sport obiettivo',u.gara],['Gruppi prioritari',j(u.mus)],['Infortuni',injText(u)],['Split preferito',u.split],['Telefono',u.t],['Email',u.e],['Ultimo check-in',u.ck?fdate(u.ck):'']];
+  var rows=[['Età',ageOf(u)!==''?ageOf(u)+' anni':''],['Sesso',u.sx],['Livello',u.liv],['Peso e altezza',pm],['Obiettivi',j(u.ob)],['Gara / sport obiettivo',u.gara],['Gruppi prioritari',j(u.mus)],['Infortuni',injText(u)],['Certificato medico',[u.cert,u.certd?'scade il '+fdate(u.certd):''].filter(Boolean).join(' · ')],['Split preferito',u.split],['Telefono',u.t],['Email',u.e],['Ultimo check-in',u.ck?fdate(u.ck):'']];
   var btn=function(s,l){return (u[s+'Id']||u[s+'Blob'])?'<button data-act="dl" data-id="'+esc(u.id)+'" data-side="'+s+'">Scarica '+l+'</button>':''};
   var docs=btn('front','fronte')+btn('back','retro'),ps=pqState(u.pq);
-  modal('<h3>'+esc(u.n+' '+u.c)+'</h3><div><span class="pqb '+ps+'">'+PQT[ps]+'</span></div><dl class="det">'+rows.map(function(r){return '<dt>'+r[0]+'</dt><dd>'+esc(r[1]||'—')+'</dd>'}).join('')+'</dl>'+
+  var dl=deadlines(u),ds=dl.filter(function(x){return x.left<=AVV});
+  var dlh=dl.length?'<div class="'+(ds.length?'warn':'info')+'" style="margin-top:10px"><b>Scadenze</b>'+(ds.length?' (avviso '+AVV+' giorni prima)':'')+'<br>'+dl.map(function(x){return esc(x.t)+': <b>'+fdate(x.d)+'</b> ('+leftTxt(x.left)+')'}).join('<br>')+'</div>':'';
+  modal('<h3>'+esc(u.n+' '+u.c)+'</h3><div><span class="pqb '+ps+'">'+PQT[ps]+'</span></div>'+dlh+'<dl class="det">'+rows.map(function(r){return '<dt>'+r[0]+'</dt><dd>'+esc(r[1]||'—')+'</dd>'}).join('')+'</dl>'+
    (docs?'<div class="idbox"><b>Documento d’identità</b><div class="idrow">'+docs+'</div><div class="status" id="dstat"></div></div>':'')+
    '<div class="mrow"><button data-act="mclose">Chiudi</button><button data-act="ckin" data-id="'+esc(u.id)+'">Check-in fatto oggi</button><button data-act="anam" data-id="'+esc(u.id)+'">Anamnesi</button><button data-act="test" data-id="'+esc(u.id)+'">Test funzionali</button><button data-act="edopen" data-uid="'+esc(u.id)+'">Editor scheda</button><button class="pri" data-act="gosch" data-id="'+esc(u.id)+'">Schede allenamento</button></div>');
 }

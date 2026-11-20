@@ -4,13 +4,13 @@ Anamnesi · Valutazione funzionale · Preparazione atletica.
 Barra di navigazione scura a sinistra (in basso su smartphone), area di lavoro centrale chiara, colore principale **viola #4B0082** con testo bianco, stampa A4 pulita.
 
 ## Nuovo cliente: anamnesi
-«+ Nuovo Cliente» apre la pagina «Anamnesi, obiettivi e stile di vita»: dati anagrafici e misure (età, sesso, peso, altezza, livello, circonferenze, certificato medico, con BMI e rapporti vita/fianchi e vita/altezza calcolati), PAR-Q a 7 domande, stato di salute con **infortuni e traumi** (zona, lato, stato, «fermo fino al»), obiettivi a scelta multipla, gara o sport obiettivo, sport extra settimanali con stima del carico, gruppi muscolari prioritari e preferenza di split (la decisione finale spetta al Personal Trainer). Dal dettaglio atleta il pulsante «Anamnesi» riapre il modulo per modificarlo.
+«+ Nuovo Cliente» apre la pagina «Anamnesi, obiettivi e stile di vita»: dati anagrafici e misure (età, sesso, peso, altezza, livello, circonferenze, certificato medico con data di scadenza, con BMI e rapporti vita/fianchi e vita/altezza calcolati), PAR-Q a 7 domande, stato di salute con **infortuni e traumi** (zona, lato, stato, «fermo fino al»), obiettivi a scelta multipla, gara o sport obiettivo, sport extra settimanali con stima del carico, gruppi muscolari prioritari e preferenza di split (la decisione finale spetta al Personal Trainer). Dal dettaglio atleta il pulsante «Anamnesi» riapre il modulo per modificarlo.
 
 ## Infortuni e traumi
 Nell’anamnesi, «+ Aggiungi infortunio o trauma»: zona (cervicale, spalla, gomito, polso/mano, lombare, anca/inguine, ginocchio, caviglia/piede), lato, stato e **«Fermo fino al»** (tasto 📅 calendario, oppure +1/+2/+4/+6 settimane da oggi): la data la chiedi al cliente.
 - **Acuto** e **In recupero**: la zona resta ferma. Tutti gli esercizi che la caricano sono esclusi e non entrano nella scheda, compresi rinforzo e mobilità della zona; il cliente allena il resto del corpo.
 - **Pregresso**: tutti ammessi; quelli ad alto carico sono segnalati «cautela». Solo qui vengono favoriti rinforzo e mobilità della zona (es. lombare → dead bug, bird dog, hip thrust; spalla → face pull, elevazioni prone).
-- **Scadenza**: la data «fermo fino al» è la scadenza per cambiare la scheda. Il generatore propone il cambio scheda in quella data (se arriva prima delle 6 settimane); l’editor la segnala con «Usa come cambio scheda»; l’atleta passa «In scadenza» 7 giorni prima e, a data superata, compare «Verifica infortunio». Gli esercizi restano esclusi finché non cambi lo stato in «Pregresso».
+- **Scadenza**: la data «fermo fino al» è la scadenza per cambiare la scheda. Il generatore propone il cambio scheda in quella data (se arriva prima delle 6 settimane); l’editor la segnala con «Usa come cambio scheda»; l’atleta passa «In scadenza» 10 giorni prima e, a data superata, compare «Verifica infortunio». Gli esercizi restano esclusi finché non cambi lo stato in «Pregresso».
 - **Blocco**: un esercizio escluso scritto a mano compare con l’etichetta rossa «escluso per infortunio»; al salvataggio la scheda non si salva finché non lo togli («Togli e salva»). In libreria il pulsante diventa «Escluso».
 Le regole valgono per selezione automatica, libreria, blocchi, proposte del prossimo esercizio, «Varia», riscaldamento ed editor. Per i clienti già salvati, gli infortuni scritti nelle note vengono riconosciuti e proposti alla prossima apertura dell’anamnesi.
 
@@ -71,7 +71,7 @@ Dalla scheda salvata o dall'editor:
 ## Stato degli atleti
 Calcolato dalla scheda più recente di ogni atleta (data di cambio scheda, o 6 settimane dall'inizio se manca):
 - **Attivi**: cambio scheda non ancora raggiunto.
-- **In scadenza**: cambio scheda (o fine dello stop per infortunio, se arriva prima) entro 7 giorni o già superato.
+- **In scadenza**: cambio scheda, fine dello stop medico per infortunio o scadenza del certificato medico entro **10 giorni** o già superati. In home il riquadro «⚠ Scadenze entro 10 giorni» le elenca dalla più vicina (un clic sul nome apre l’atleta); ogni atleta ha l’etichetta precisa («Scheda tra 9 gg», «Stop infortunio tra 5 gg», «Certificato scaduto»…) e il dettaglio atleta mostra tutte le date.
 - **Verifica infortunio**: la data «fermo fino al» è passata.
 - **Check-in**: atleta attivo senza check-in da almeno 14 giorni.
 
