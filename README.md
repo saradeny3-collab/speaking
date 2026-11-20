@@ -76,7 +76,7 @@ Dalla scheda salvata (o dall’anteprima dell’editor) il pulsante **📲 Condi
 - Per ogni serie segna **kg** e **ripetizioni** e tocca **✓**: parte il **timer di recupero** (vibrazione e suono alla fine, +15 s, Stop; in superserie parte dopo l’ultimo esercizio). I dati restano sul suo telefono, settimana per settimana.
 - **Invia i risultati al PT** manda il riepilogo della seduta (es. «Panca piana: 60 kg × 8, 60 kg × 7») su WhatsApp, Telegram o un’altra app.
 - Il link contiene solo la scheda: niente anamnesi, PAR-Q, infortuni, test o logica di lavoro. La scheda sta dopo il «#» dell’indirizzo, quindi non arriva a GitHub né ad altri server; chi ha il link però può leggerla, quindi va mandato solo all’atleta.
-- Il link è una **fotografia** della scheda: se la modifichi, manda un link nuovo. Con Firebase (fase 11) potrà diventare un link sempre aggiornato.
+- Il link è una **fotografia** della scheda: se la modifichi, manda un link nuovo. In futuro, con Firebase, potrà diventare un link sempre aggiornato.
 - Prima dell’invio la finestra controlla che il sito pubblicato sia aggiornato. Se all’atleta compare «link tagliato», rimandalo con «Copia link» incollato nella chat.
 - Se apri l’app dal file sul computer e non dal sito, la prima volta ti chiede l’indirizzo del sito pubblicato (es. `https://tuonome.github.io/speaking/`).
 
@@ -91,11 +91,30 @@ Calcolato dalla scheda più recente di ogni atleta (data di cambio scheda, o 6 s
 1. Carica `index.html` nella root del repository (il file, non lo zip).
 2. Settings → Pages → Deploy from a branch → main → / (root).
 
+## Accesso e cloud (Firebase)
+- All’apertura il sito chiede **email e password** (l’utente creato in Firebase → Authentication). «Password dimenticata?» manda un’email per sceglierne una nuova.
+- Clienti, anamnesi, test e schede sono salvati su **Firestore** (progetto `speaking-bb3af`, percorso `users/<tuo UID>/utenti` e `users/<tuo UID>/schede`): entrando con la stessa email da PC e telefono vedi gli stessi dati. Tornando sull’app dopo almeno un minuto, gli elenchi si aggiornano con le modifiche fatte altrove.
+- Resta una copia sul dispositivo (IndexedDB) per aprire l’app anche senza rete. Le modifiche fatte offline partono da sole quando torna la connessione; lo stato è nel menu **Backup** («Dati sincronizzati», «modifiche in attesa»).
+- **Primo accesso su un dispositivo che ha già dei clienti**: compare il riquadro «… non sono ancora nel cloud» con **Carica nel cloud** (si fa una volta sola). Si può fare anche da Backup → «Carica nel cloud i dati di questo dispositivo». I clienti già presenti nel cloud non vengono sovrascritti.
+- **Esci** (menu Backup): «Esci» tiene la copia sul dispositivo; «Esci e cancella da questo dispositivo» è per un computer o telefono non tuo.
+- Se Firebase non è raggiungibile (niente internet, oppure sito aperto dal file sul computer) puoi continuare con i dati salvati sul dispositivo: le modifiche vengono inviate al cloud al prossimo accesso.
+- Le **foto dei documenti** restano solo sul dispositivo in cui le hai caricate.
+- Il link per l’atleta (`#s=…`) non chiede l’accesso e non legge il cloud.
+- Regole di Firestore da tenere pubblicate:
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{uid}/{document=**} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+  }
+}
+```
+- Domini autorizzati (Authentication → Settings): `saradeny3-collab.github.io`.
+
 ## Dati
-- Si salvano nel browser (IndexedDB) e restano dopo la ricarica. Se l’archivio del browser non si apre (succede su iPhone e nei browser interni delle app), si usa un archivio semplificato e compare un avviso; se il browser non permette di salvare, il salvataggio dà errore invece di perdere i dati.
-- **Non si sincronizzano tra dispositivi né tra browser diversi**: i clienti inseriti sul PC non compaiono sul telefono. Per passarli: sul PC **Backup → Esporta backup (JSON)**, invia il file al telefono, poi sul telefono **Backup → Importa backup**. Sul telefono apri il link in Safari o Chrome, non dal browser interno di WhatsApp o Instagram (lì i dati possono sparire).
-- Su iPhone Safari può cancellare i dati di un sito non aperto per alcune settimane: usa l’app con regolarità e fai il backup.
+- **Backup → Esporta backup (JSON)** e **Importa backup (JSON)** (Unisci o Sostituisci) restano come copia di sicurezza; con l’accesso fatto, un backup importato va anche nel cloud.
+- Piano gratuito Firebase (Spark): 1 GiB di dati, 20.000 scritture e 50.000 letture al giorno, più che sufficienti per un Personal Trainer.
 - Il sito parte vuoto, senza dati di esempio.
-- Dal tasto **Backup**: **Esporta backup (JSON)** e **Importa backup (JSON)** (Unisci o Sostituisci).
-- Fai un backup regolare: se cancelli i dati del browser, i dati locali vanno persi.
-- Sono dati personali e sanitari: tieni conto del GDPR e proteggi i file di backup.
+- Sono dati personali e sanitari: tieni conto del GDPR, usa una password robusta e proteggi i file di backup.

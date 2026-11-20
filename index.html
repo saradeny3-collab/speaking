@@ -136,6 +136,18 @@ h2{font-size:22px;margin:0 0 4px}
 .stab{width:100%;border-collapse:collapse;font-size:14px}.stab th,.stab td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left}.stab th{color:var(--muted);font-weight:600;font-size:12px}
 
 
+#login{position:fixed;inset:0;z-index:1000;background:#000;display:flex;align-items:center;justify-content:center;padding:20px;overflow:auto}
+body.locked .app,body.locked .notice{display:none}
+.lbox{width:100%;max-width:400px;background:#101010;border:1px solid #6b6b6b;border-radius:18px;padding:26px;color:#fff}
+.lbox h2{margin:24px 0 4px}
+.lbox label{display:block;font-size:14px;margin:14px 0 6px;color:#d4d4d4}
+.lbox input{width:100%;padding:13px 14px;border-radius:12px;border:1px solid #6b6b6b;background:#000;color:#fff;font:inherit;font-size:16px}
+.lbox input:focus{outline:2px solid var(--brand-hi);outline-offset:1px}
+.lbox .lgo{width:100%;margin-top:20px;background:var(--brand);color:#fff;border:0;border-radius:14px;padding:15px;font:inherit;font-weight:800;font-size:17px;cursor:pointer}
+.lbox .lgo:disabled{opacity:.6;cursor:default}
+.lbox .llink{display:block;background:none;border:0;color:var(--brand-hi);text-decoration:underline;font:inherit;font-size:14px;margin-top:14px;cursor:pointer;padding:4px 0;text-align:left}
+.lmsg{font-size:14px;color:#e6e6e6;margin:14px 0 0}.lmsg:empty{display:none}
+.lnote{font-size:12.5px;color:#a8a8a8;margin:18px 0 0}
 .notice{background:#241040;color:#fff;border-bottom:2px solid var(--brand);padding:10px 20px;font-size:14px}
 :focus-visible{outline:3px solid var(--focus);outline-offset:2px}
 header{border-bottom:2px solid var(--brand)}
@@ -523,6 +535,111 @@ var Store=(function(){
       throw new Error('nostore')})}
   };
 })();
+// ---- Cloud (fase 11): Firebase Authentication (email e password) + Firestore ----
+// Dati in users/{uid}/utenti/{id} e users/{uid}/schede/{id}; ogni documento è {j: record in JSON, t: ora di modifica}.
+// Le foto dei documenti (Blob) restano solo sul dispositivo. La copia locale (IndexedDB) resta per aprire l'app anche senza rete.
+// Le modifiche non ancora confermate dal cloud sono annotate in localStorage (spk_q_<uid>) e vengono reinviate all'accesso successivo.
+var FB_VER='13.4.0';
+var FB_CFG={apiKey:"AIzaSyCN9Af4ePKidwsk-jm4axgLGzGwZM0eywE",authDomain:"speaking-bb3af.firebaseapp.com",projectId:"speaking-bb3af",storageBucket:"speaking-bb3af.firebasestorage.app",messagingSenderId:"767864609920",appId:"1:767864609920:web:c4fe9d238134303041da65"};
+var Cloud=(function(){
+  var F=null,auth=null,fs=null,user=null,pend=0,lastErr='',lastOk=0,ids={utenti:{},schede:{}},lo={first:false,utenti:0,schede:0};
+  function lsg(k){try{return JSON.parse(localStorage.getItem(k)||'null')}catch(e){return null}}
+  function lss(k,v){try{if(v==null)localStorage.removeItem(k);else localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+  function owner(){return user?user.uid:lsg('spk_owner')}
+  function queue(n,id,op){var w=owner();if(!w)return;var k='spk_q_'+w,q=lsg(k)||{};if(op)q[n+'/'+id]=op;else delete q[n+'/'+id];lss(k,Object.keys(q).length?q:null)}
+  function clean(o){var c={};Object.keys(o).forEach(function(k){var v=o[k];if(!(window.Blob&&v instanceof Blob))c[k]=v});return JSON.stringify(c)}
+  function ref(n,id){return F.f.doc(fs,'users',user.uid,n,String(id))}
+  function upd(){var e=document.getElementById('cloudst');if(e)e.textContent=status()}
+  function status(){
+    if(!user)return '';
+    if(lastErr)return '⚠ '+lastErr;
+    if(pend)return '☁ '+pend+(pend===1?' modifica':' modifiche')+' in attesa di essere inviate'+(navigator.onLine?'…':': manca la connessione, partono da sole quando torna internet.');
+    return '☁ Accesso con '+(user.email||'')+': dati sincronizzati con il cloud'+(lastOk?' (ultimo invio alle '+new Date(lastOk).toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'})+')':'')+'.';
+  }
+  function errTxt(e){var c=String((e&&e.code)||'').replace(/^firestore\//,'');
+    if(c==='permission-denied')return 'il cloud ha rifiutato i dati: controlla le regole di Firestore (devono permettere users/{uid}).';
+    if(c==='unavailable')return 'cloud non raggiungibile: le modifiche restano su questo dispositivo e ripartono alla prossima apertura.';
+    if(c==='resource-exhausted')return 'raggiunto il limite giornaliero del piano gratuito: le modifiche restano su questo dispositivo, riprova domani.';
+    return 'operazione nel cloud non riuscita ('+(c||(e&&e.message)||'errore')+'). Le modifiche restano su questo dispositivo.'}
+  function track(p,n,id){pend++;upd();
+    return p.then(function(){pend--;lastErr='';lastOk=Date.now();queue(n,id,null);upd()},
+      function(e){pend--;lastErr=errTxt(e);upd();showNotice('Cloud: '+lastErr)})}
+  function put(n,o){if(o==null||o.id==null)return;queue(n,o.id,'put');if(!user||!F)return;ids[n][String(o.id)]=1;
+    track(F.f.setDoc(ref(n,o.id),{j:clean(o),t:F.f.serverTimestamp()}),n,o.id)}
+  function del(n,id){if(id==null)return;queue(n,id,'del');if(!user||!F)return;delete ids[n][String(id)];track(F.f.deleteDoc(ref(n,id)),n,id)}
+  function load(){
+    var b='https://www.gstatic.com/firebasejs/'+FB_VER+'/firebase-';
+    var to=new Promise(function(_,rej){setTimeout(function(){rej(new Error('timeout'))},15000)});
+    return Promise.race([Promise.all([import(b+'app.js'),import(b+'auth.js'),import(b+'firestore.js')]),to]).then(function(m){
+      F={a:m[0],u:m[1],f:m[2]};var app=F.a.initializeApp(FB_CFG);auth=F.u.getAuth(app);
+      try{fs=F.f.initializeFirestore(app,{localCache:F.f.persistentLocalCache({tabManager:F.f.persistentMultipleTabManager()})})}catch(e){fs=F.f.getFirestore(app)}
+    })}
+  async function pull(){
+    var r={};
+    for(var n of ['utenti','schede']){
+      var s=await F.f.getDocs(F.f.collection(fs,'users',user.uid,n)),L=[];ids[n]={};
+      s.forEach(function(d){try{var o=JSON.parse(d.data().j);if(o&&o.id!=null){L.push(o);ids[n][String(o.id)]=1}}catch(e){}});
+      r[n]=L}
+    return r}
+  // all'accesso: reinvio le modifiche rimaste in sospeso, leggo il cloud e lo unisco alla copia locale.
+  // Prima volta su questo dispositivo: i dati che ci sono solo qui restano visibili e si propone di caricarli.
+  // Dalle volte successive il cloud comanda: ciò che non c'è più nel cloud (eliminato da un altro dispositivo) sparisce anche qui.
+  async function sync(){
+    var q=lsg('spk_q_'+user.uid)||{},keep={utenti:{},schede:{}},gone={utenti:{},schede:{}};
+    Object.keys(q).forEach(function(k){var p=k.indexOf('/'),n=k.slice(0,p),id=k.slice(p+1),arr=n==='utenti'?U:SCH;if(!keep[n])return;
+      if(q[k]==='del'){gone[n][id]=1;del(n,id)}
+      else{var o=arr.find(function(z){return String(z.id)===id});if(o){keep[n][id]=1;put(n,o)}else queue(n,id,null)}});
+    var r=await pull(),first=!lsg('spk_sync_'+user.uid);
+    Object.keys(keep).forEach(function(n){Object.keys(keep[n]).forEach(function(id){ids[n][id]=1});
+      r[n]=r[n].filter(function(c){return !gone[n][String(c.id)]});Object.keys(gone[n]).forEach(function(id){delete ids[n][id]})});
+    lo={first:first,utenti:0,schede:0};
+    for(var p of [['utenti',U],['schede',SCH]]){
+      var n=p[0],arr=p[1],lm={};arr.forEach(function(z){lm[String(z.id)]=z});
+      var out=r[n].map(function(c){var id=String(c.id),l=lm[id];
+        if(keep[n][id]&&l)return l;
+        if(l)Object.keys(l).forEach(function(k){if(window.Blob&&l[k] instanceof Blob&&c[k]==null)c[k]=l[k]});
+        return c});
+      var only=arr.filter(function(z){return !ids[n][String(z.id)]});
+      if(first){lo[n]=only.length;out=out.concat(only)}
+      else for(var z of only){try{await Store.ldel(n,z.id)}catch(e){}}
+      for(var c of out){if(!keep[n][String(c.id)]){try{await Store.lput(n,c)}catch(e){}}}
+      arr.length=0;out.forEach(function(x){arr.push(x)});
+    }
+    if(first&&!lo.utenti&&!lo.schede)lss('spk_sync_'+user.uid,1);
+    upd();return lo}
+  function upload(){var c={utenti:0,schede:0};
+    [['utenti',U],['schede',SCH]].forEach(function(p){p[1].forEach(function(o){if(!ids[p[0]][String(o.id)]){put(p[0],o);c[p[0]]++}})});
+    lss('spk_sync_'+user.uid,1);lo={first:false,utenti:0,schede:0};return c}
+  function aerr(e){var c=(e&&e.code)||'';
+    if(/invalid-credential|wrong-password|user-not-found|invalid-login/.test(c))return 'Email o password non corretti.';
+    if(/invalid-email/.test(c))return 'L’indirizzo email non è valido.';
+    if(/missing-password/.test(c))return 'Scrivi la password.';
+    if(/too-many-requests/.test(c))return 'Troppi tentativi: aspetta qualche minuto e riprova.';
+    if(/network-request-failed/.test(c))return 'Nessuna connessione a internet: controlla la rete e riprova.';
+    if(/user-disabled/.test(c))return 'Questo utente è disattivato in Firebase.';
+    if(/operation-not-allowed/.test(c))return 'In Firebase → Authentication l’accesso con Email/password non è attivo.';
+    if(/unauthorized-domain|requests-from-referer/.test(c))return 'Questo indirizzo non è tra i domini autorizzati di Firebase (Authentication → Settings → Domini autorizzati).';
+    return 'Accesso non riuscito ('+(c||(e&&e.message)||'errore')+').'}
+  return {
+    load:load,put:put,del:del,sync:sync,upload:upload,status:status,aerr:aerr,
+    user:function(){return user},pending:function(){return pend},localOnly:function(){return lo},
+    onAuth:function(cb){F.u.onAuthStateChanged(auth,function(u){user=u||null;cb(user)})},
+    signIn:function(e,p){return F.u.signInWithEmailAndPassword(auth,e,p)},
+    reset:function(e){return F.u.sendPasswordResetEmail(auth,e)},
+    signOut:async function(wipe){
+      if(wipe){var w=user&&user.uid;
+        for(var x of U.slice()){try{await Store.ldel('utenti',x.id)}catch(e){}}
+        for(var y of SCH.slice()){try{await Store.ldel('schede',y.id)}catch(e){}}
+        if(w){lss('spk_q_'+w,null);lss('spk_sync_'+w,null)}lss('spk_owner',null)}
+      await F.u.signOut(auth);
+      if(wipe){try{await F.f.terminate(fs);await F.f.clearIndexedDbPersistence(fs)}catch(e){}}
+    }
+  };
+})();
+// ogni salvataggio va nella copia locale e nel cloud; se il browser non ha archivio locale ma l'accesso è fatto, basta il cloud
+Store.lput=Store.put;Store.ldel=Store.del;
+Store.put=function(n,o){return Store.lput(n,o).catch(function(e){if(!Cloud.user())throw e}).then(function(){Cloud.put(n,o)})};
+Store.del=function(n,id){return Store.ldel(n,id).catch(function(e){if(!Cloud.user())throw e}).then(function(){Cloud.del(n,id)})};
 var U = [];
 var uq = '', dm = false, sel = {}, draft = {front:null,back:null};
 var dbCol = null, caps = {sample:null,assets:null,down:null};
@@ -546,7 +663,10 @@ function renderUtenti(){
    '<div class="top"><button class="newbtn" data-act="add">+ Nuovo Cliente</button>'+
    '<div class="dd"><button class="ddb" data-act="bkmenu" aria-haspopup="true" aria-expanded="false" aria-controls="bkm">Backup <span aria-hidden="true">▾</span></button>'+
    '<div class="ddm" id="bkm" role="menu" hidden><button role="menuitem" data-act="exp">Esporta backup (JSON)</button><button role="menuitem" data-act="imp">Importa backup (JSON)</button><button role="menuitem" data-act="prn">Stampa elenco</button>'+
-   '<p class="hint">I dati sono salvati solo in questo browser, su questo dispositivo: per passarli a un altro usa Esporta e poi Importa. Il backup contiene dati personali: conservalo con cura.</p></div></div></div>'+
+   (Cloud.user()?'<button role="menuitem" data-act="cloudup">Carica nel cloud i dati di questo dispositivo</button><button role="menuitem" data-act="logout">Esci ('+esc(Cloud.user().email||'')+')</button>'+
+   '<p class="hint" id="cloudst">'+esc(Cloud.status())+'</p><p class="hint">I dati sono salvati nel cloud (Firebase) e in una copia su questo dispositivo: li ritrovi entrando con la stessa email da PC e telefono. Il backup JSON resta una copia di sicurezza e contiene dati personali: conservalo con cura.</p>':
+   '<p class="hint">Stai lavorando senza cloud: i dati sono salvati solo in questo browser, su questo dispositivo. Per passarli a un altro usa Esporta e poi Importa. Il backup contiene dati personali: conservalo con cura.</p>')+'</div></div></div>'+
+   '<div id="cloudbar"></div>'+
    '<div class="status" id="bkstat" role="status"></div><input type="file" id="impf" accept="application/json,.json" hidden>'+
    '<div class="uh"><div><h2>Atleti</h2><p class="sub" id="ucount"></p></div><div class="uact">'+
    '<button class="ab" id="bdel" data-act="del" aria-label="Elimina clienti"><span class="i">−</span><span class="t">Elimina</span></button></div></div>'+
@@ -554,7 +674,7 @@ function renderUtenti(){
    '<input class="search" id="usearch" type="search" placeholder="Cerca per nome, obiettivo, sport, email…" value="'+esc(uq)+'">'+
    '<div id="dbar"></div><div id="dues"></div><div id="ulist"></div>';
   document.getElementById('usearch').addEventListener('input',function(e){uq=e.target.value;listUtenti()});
-  listUtenti();
+  listUtenti();cloudBar();
 }
 var DLS={sch:'Scheda',inj:'Stop infortunio',cert:'Certificato'};
 function badges(u){var s=ustat(u),h='';
@@ -569,8 +689,10 @@ function listUtenti(){
   renderNav();
   document.getElementById('dbar').innerHTML = dm ? '<div class="dbar"><span>Seleziona i clienti da eliminare ('+n+')</span><div><button data-act="cancel">Annulla</button><button class="danger" data-act="confirmdel"'+(n?'':' disabled')+'>Elimina</button></div></div>' : '';
   document.getElementById('bdel').classList.toggle('danger', dm);
-  var h = L.length ? '<div class="uhead"><span>Nominativo</span><span>Età</span><span>Obiettivi</span><span>Livello</span><span>Telefono</span><span>Email</span></div>' : (U.length?'<div class="empty">Nessun atleta corrisponde a questo filtro.</div>':'<div class="empty">Nessun cliente su questo dispositivo: usa «+ Nuovo Cliente» per iniziare.</div>'+
-     '<div class="info" style="margin-top:0">I clienti restano nel browser in cui li hai inseriti e non passano da soli da un dispositivo all’altro (né tra due browser dello stesso telefono). Se li hai già inseriti sul PC: lì <b>Backup → Esporta backup (JSON)</b>, manda il file al telefono, poi qui <b>Backup → Importa backup</b>.<div style="margin-top:10px"><button type="button" class="btn sm pri" data-act="imp">Importa backup</button></div></div>');
+  var h = L.length ? '<div class="uhead"><span>Nominativo</span><span>Età</span><span>Obiettivi</span><span>Livello</span><span>Telefono</span><span>Email</span></div>' : (U.length?'<div class="empty">Nessun atleta corrisponde a questo filtro.</div>':(Cloud.user()?'<div class="empty">Nessun cliente nel tuo archivio: usa «+ Nuovo Cliente» per iniziare.</div>'+
+     '<div class="info" style="margin-top:0">Se hai già inserito i clienti su un altro dispositivo, aprilo e accedi lì con la stessa email: l’app ti proporrà di caricarli nel cloud e poi compariranno anche qui. In alternativa importa un backup.<div style="margin-top:10px"><button type="button" class="btn sm pri" data-act="imp">Importa backup</button></div></div>':
+     '<div class="empty">Nessun cliente su questo dispositivo: usa «+ Nuovo Cliente» per iniziare.</div>'+
+     '<div class="info" style="margin-top:0">I clienti restano nel browser in cui li hai inseriti e non passano da soli da un dispositivo all’altro (né tra due browser dello stesso telefono). Se li hai già inseriti sul PC: lì <b>Backup → Esporta backup (JSON)</b>, manda il file al telefono, poi qui <b>Backup → Importa backup</b>.<div style="margin-top:10px"><button type="button" class="btn sm pri" data-act="imp">Importa backup</button></div></div>'));
   h += L.map(function(u){
     return '<div class="urow'+(sel[u.id]?' sel':'')+'" data-row="'+esc(u.id)+'">'+(dm?'<input type="checkbox"'+(sel[u.id]?' checked':'')+' aria-label="Seleziona">':'')+
     '<div class="av">'+esc((u.n[0]||'')+(u.c[0]||'')).toUpperCase()+'</div><div class="cells"><div class="unm"><b>'+esc(u.n+' '+u.c)+'</b>'+(hasDoc(u)?'<i class="dc">documento</i>':'')+'<div class="ubd">'+badges(u)+'</div></div>'+
@@ -3996,11 +4118,85 @@ function autoView(){setView(window.innerWidth>=768?'tablet':'mobile')}
 autoView();
 window.addEventListener('resize',autoView);
 if(/^#s=/.test(location.hash))athleteMode();
-else{
-try{render()}catch(e){gid('main').innerHTML='<div class="panel">Errore all’avvio: '+esc(e&&e.message||e)+'. Ricarica la pagina.</div>'}
+else boot();
+// ---- Avvio con accesso (Firebase) ----
 // a caricamento finito ridisegno solo le pagine di elenco, per non cancellare un modulo che si sta compilando
-Store.load().then(function(){if(cur==='home'||(cur==='schede'&&!suid)||(cur==='ed'&&!ED.dirty))render();else renderNav()});
+function safeRender(){if(cur==='home'||(cur==='schede'&&!suid)||(cur==='ed'&&!ED.dirty))render();else renderNav()}
+var CBhide=false,lastSync=0,started=false;
+function cloudBar(){var e=gid('cloudbar');if(!e)return;var o=Cloud.localOnly();
+  if(!Cloud.user()||CBhide||!o.first||!(o.utenti||o.schede)){e.innerHTML='';return}
+  e.innerHTML='<div class="info" style="margin:0 0 14px">Su questo dispositivo ci sono <b>'+o.utenti+(o.utenti===1?' cliente':' clienti')+' e '+o.schede+(o.schede===1?' scheda':' schede')+'</b> che non sono ancora nel cloud. Caricali una volta sola: poi li ritrovi su tutti i dispositivi in cui accedi con la tua email.'+
+   '<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn sm pri" data-act="cloudup">Carica nel cloud</button><button type="button" class="btn sm" data-act="cloudlater">Non ora</button></div></div>'}
+function loginView(mode,msg){
+  var L=gid('login');if(!L){L=document.createElement('div');L.id='login';document.body.appendChild(L)}
+  document.body.classList.add('locked');
+  var h='<div class="lbox">'+BRAND;
+  if(mode==='wait')h+='<p class="lmsg">Connessione in corso…</p>';
+  else if(mode==='fail')h+='<h2>Cloud non raggiungibile</h2><p class="lmsg">Non riesco a collegarmi a Firebase: manca internet, oppure il sito è aperto dal file sul computer invece che dall’indirizzo pubblicato.</p>'+
+    '<button class="lgo" data-act="lgretry">Riprova</button><button class="llink" data-act="lglocal">Continua con i dati salvati su questo dispositivo</button><p class="lmsg">In questo modo le modifiche restano su questo dispositivo e vengono inviate al cloud al prossimo accesso.</p>';
+  else h+='<h2>Accedi</h2><form id="lform" novalidate><label for="lem">Email</label><input id="lem" type="email" autocomplete="username" inputmode="email" required>'+
+    '<label for="lpw">Password</label><input id="lpw" type="password" autocomplete="current-password" required>'+
+    '<button class="lgo" type="submit">Accedi</button></form><button class="llink" data-act="lgreset">Password dimenticata?</button>'+
+    '<p class="lmsg" id="lmsg" role="status">'+esc(msg||'')+'</p><p class="lnote">Accesso riservato al Personal Trainer: usa l’email e la password create in Firebase → Authentication.</p>';
+  L.innerHTML=h+'</div>';
+  var f=gid('lem');if(f)f.focus();
 }
+function loginHide(){var L=gid('login');if(L)L.remove();document.body.classList.remove('locked')}
+async function startApp(u){
+  loginHide();
+  try{render()}catch(e){gid('main').innerHTML='<div class="panel">Errore all’avvio: '+esc(e&&e.message||e)+'. Ricarica la pagina.</div>'}
+  await Store.load();
+  if(u){var ow=null;try{ow=JSON.parse(localStorage.getItem('spk_owner')||'null')}catch(e){}
+    // la copia locale di un altro account non si mescola con questo
+    if(ow&&ow!==u.uid){for(var x of U.slice()){try{await Store.ldel('utenti',x.id)}catch(e){}}for(var y of SCH.slice()){try{await Store.ldel('schede',y.id)}catch(e){}}U.length=0;SCH.length=0}
+    try{localStorage.setItem('spk_owner',JSON.stringify(u.uid))}catch(e){}}
+  safeRender();
+  if(u)await cloudSync();
+}
+async function cloudSync(){
+  try{await Cloud.sync();lastSync=Date.now();safeRender()}
+  catch(e){var c=String((e&&e.code)||'');showNotice(/permission-denied/.test(c)?'Il cloud non permette di leggere i dati: controlla le regole di Firestore (devono permettere users/{uid}). Stai vedendo la copia salvata su questo dispositivo.':'Non riesco a leggere i dati dal cloud ('+(c||(e&&e.message)||'errore')+'): stai vedendo la copia salvata su questo dispositivo.')}
+}
+function boot(){
+  loginView('wait');
+  Cloud.load().then(function(){
+    Cloud.onAuth(function(u){
+      if(u&&!started){started=true;startApp(u)}
+      else if(!u&&started)location.reload();
+      else if(!u)loginView('form');
+    });
+  },function(){loginView('fail')});
+}
+document.addEventListener('submit',function(e){
+  if(e.target.id!=='lform')return;e.preventDefault();
+  var em=gid('lem').value.trim(),pw=gid('lpw').value,b=e.target.querySelector('button');
+  if(!em||!pw){st('lmsg','Scrivi email e password.');return}
+  b.disabled=true;st('lmsg','Accesso in corso…');
+  Cloud.signIn(em,pw).catch(function(x){b.disabled=false;st('lmsg',Cloud.aerr(x))});
+});
+document.addEventListener('click',function(e){
+  var a=e.target.closest('[data-act]');if(!a)return;var k=a.getAttribute('data-act');
+  if(k==='lgretry')location.reload();
+  else if(k==='lglocal'){started=true;startApp(null)}
+  else if(k==='lgreset'){var em=(gid('lem')||{}).value||'';em=em.trim();
+    if(!em){st('lmsg','Scrivi prima la tua email nel campo qui sopra, poi premi «Password dimenticata?».');return}
+    Cloud.reset(em).then(function(){st('lmsg','Ti ho mandato un’email per scegliere una nuova password (controlla anche lo spam).')},function(x){st('lmsg',Cloud.aerr(x))})}
+  else if(k==='cloudup'){closeBk();if(!Cloud.user())return;var c=Cloud.upload();cloudBar();
+    st('bkstat',c.utenti||c.schede?'Caricamento nel cloud avviato: '+c.utenti+' clienti e '+c.schede+' schede. Lo stato è nel menu Backup.':'Tutti i dati di questo dispositivo sono già nel cloud.')}
+  else if(k==='cloudlater'){CBhide=true;cloudBar()}
+  else if(k==='logout'){closeBk();var p=Cloud.pending();
+    modal('<h3>Esci</h3>'+(p?'<p class="status"><b>Attenzione:</b> '+p+(p===1?' modifica non è ancora stata inviata':' modifiche non sono ancora state inviate')+' al cloud (serve internet). Se esci ora restano solo su questo dispositivo; se cancelli i dati, vanno perse.</p>':'')+
+      '<p><b>Esci</b>: torni alla schermata di accesso; su questo dispositivo resta la copia dei dati per la prossima volta.</p><p><b>Esci e cancella da questo dispositivo</b>: da usare su un computer o telefono non tuo. I dati restano nel cloud; le foto dei documenti, che sono salvate solo qui, vengono cancellate.</p>'+
+      '<div class="mrow"><button data-act="mclose">Annulla</button><button data-act="lgout">Esci</button><button class="danger" data-act="lgwipe">Esci e cancella da questo dispositivo</button></div>')}
+  else if(k==='lgout'||k==='lgwipe'){a.disabled=true;Cloud.signOut(k==='lgwipe').then(function(){location.reload()},function(){location.reload()})}
+});
+// tornando sull'app dopo un po' (es. modifiche fatte sul telefono) rileggo il cloud, ma solo nelle pagine di elenco
+document.addEventListener('visibilitychange',function(){
+  if(document.visibilityState!=='visible'||!Cloud.user()||Date.now()-lastSync<60000)return;
+  if(cur==='home'&&!dm||(cur==='schede'&&!suid))cloudSync();
+});
+window.addEventListener('online',function(){var e=gid('cloudst');if(e)e.textContent=Cloud.status()});
+window.addEventListener('offline',function(){var e=gid('cloudst');if(e)e.textContent=Cloud.status()});
 </script>
 </body>
 </html>
