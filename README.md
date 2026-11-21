@@ -97,6 +97,21 @@ Altre novità:
 - **Editor:** nuovo blocco «Lavoro sul tatami (judo)».
 - **Glossario:** periodi della stagione, shiai, tori/uke, ne-waza/katame-waza, tokui-waza.
 
+## Corsa su strada: 5 km, 10 km, mezza maratona e maratona (nuovo)
+Dalla dispensa «Manuale metodologico di corsa su strada» (corsa-periodizzazione-programmazione.pdf). Voce **Dispense** → scheda «Corsa»: modello prestativo per distanza, sedute chiave, forza e prevenzione, 4 fasi, microciclo tipo, progressione dei carichi, esercizi in libreria.
+- **Anamnesi**: se il campo gara contiene corsa, podismo, running, 5 km, 10 km, mezza maratona o maratona, il generatore usa il programma della dispensa (non vale se c'è anche «Hyrox»).
+- **Generatore**: 4 split, **«Corsa 5 km (dispensa)»**, **«Corsa 10 km (dispensa)»**, **«Corsa mezza maratona (dispensa)»**, **«Corsa maratona (dispensa)»**; per primo quello della distanza scritta (10 km se manca). Fasi: Generale (costruzione), Specifica (ritmo gara), Rifinitura, Tapering, calcolate dalla data della gara:
+  - 5 e 10 km: oltre 10 settimane, 10–5, 4–3, ultime 2;
+  - mezza: oltre 12, 12–6, 5–4, ultime 3;
+  - maratona: oltre 14, 14–7, 6–4, ultime 3.
+- **Sedute** dal microciclo tipo: qualità (ripetute o tempo run) + forza 30 minuti, corsa rigenerante, corsa media / fartlek + mobilità, corsa facile + allunghi, lungo / prova di gara, riposo attivo + core. 5 sedute in partenza (1 = qualità + forza, 2 = + lungo, 3 = + corsa media, 4 = + rigenerante, 6 = + riposo attivo).
+- **Sedute chiave** della dispensa nella fase Specifica: 5 km 10–12 × 400 m a RG − 5"; 10 km 6 × 1000 m a RG; mezza tempo run 12–14 km a RG + 5"/10"; maratona lungo progressivo di 32 km.
+- **Date chiave**: scarico nella 4ª settimana e cambio scheda dopo 4 settimane (una settimana di scarico ogni 3–4 di carico); cambio anticipato all’inizio della fase successiva; in Tapering niente scarico e cambio alla data della gara.
+- **Profilo**: con un infortunio a caviglia/piede la corsa passa a bici o ellittica; i principianti fanno fartlek al posto di ripetute, tempo run e medi; il lungo progressivo diventa lungo lento.
+- **Editor**, «+ Aggiungi blocco»: Allunghi + ripetute, Forza e prevenzione podisti, Pliometria bassa e soleo.
+- Glossario: VO₂max, soglia anaerobica, economia di corsa, ritmo gara, deriva cardiaca, tempo run, lungo lento / progressivo, fartlek, allunghi, stiffness tendinea, ground contact time.
+- La dispensa non indica serie e ripetizioni della forza né la durata delle fasi (tranne il tapering): sono «dosaggio indicativo» e vanno validati dal Personal Trainer.
+
 ## Yanagi Academy: allenamenti di gruppo e squadra (judo)
 Voce **Yanagi Academy** nel menu, con due sezioni: **Gruppi e squadre** ed **Esercizi judo**, più il pulsante **⏱ Timer randori**.
 
@@ -147,11 +162,11 @@ Voce **Yanagi Academy** nel menu, con due sezioni: **Gruppi e squadre** ed **Ese
 I gruppi (con gare, atleti, cinture, infortuni del gruppo, test, materiale e maestro) sono salvati nel cloud (`users/<UID>/gruppi`), sul dispositivo e nel backup JSON. I gruppi creati prima continuano a funzionare: la vecchia gara diventa la gara A e le sedute già modificate restano come erano. Contenuti, dosaggi, minuti, coefficienti di carico e riferimenti dei test sono indicativi e vanno adattati dal tecnico.
 
 ## Libreria esercizi
-258 esercizi. Ai 191 di base se ne aggiungono 47 dalle dispense (22 del programma judo di 12 settimane, elencati sopra, e 25 dalle prime due) e 20 del database judo della Yanagi Academy (ukemi, uchi-komi statico, dinamico e su ostacoli, nage-komi su materassone, renraku-waza, kaeshi-waza, kumi-kata, ribaltamenti dalla tartaruga, osaekomi-waza, uscite dalle immobilizzazioni, trazioni con la cintura, piegamenti con fascia elastica, gambero, tira e molla con la cintura, lanci con la palla medica). Quelli delle prime due dispense:
+273 esercizi. Ai 191 di base se ne aggiungono 62 dalle dispense (15 della corsa: ripetute brevi e medie, tempo run, medio progressivo, lungo lento e progressivo, corsa rigenerante, fartlek, allunghi, bici o ellittica, squat monopodalico al box, calf raise eccentrico e isometrico per il soleo, ankle hops, saltelli con la corda) (22 del programma judo di 12 settimane, elencati sopra, e 25 dalle prime due) e 20 del database judo della Yanagi Academy (ukemi, uchi-komi statico, dinamico e su ostacoli, nage-komi su materassone, renraku-waza, kaeshi-waza, kumi-kata, ribaltamenti dalla tartaruga, osaekomi-waza, uscite dalle immobilizzazioni, trazioni con la cintura, piegamenti con fascia elastica, gambero, tira e molla con la cintura, lanci con la palla medica). Quelli delle prime due dispense:
 - **Hyrox**: SkiErg, vogatore, sled pull alla fune, sled drag, burpee broad jump, affondi con sandbag, rematore Pendlay, corsa a ritmo gara, ripetute a soglia, corsa lunga in zona 2;
 - **judo**: gi pull-up, trazioni con asciugamano o fune, pinch grip, kumi-kata isometrico, landmine rotational press, squat jump con elastico, jump squat zavorrato, power clean da sospensione, Turkish get-up, Zercher carry, isometrie del collo, Y-T-W-L, uchi-komi con elastico, complex con bilanciere, air bike 30/15.
 
-Tipi **Condizionamento** (ergometri, corsa, circuiti a tempo), **Speciale judo** e **Tatami (judo)**: non contano nel volume per muscolo e non entrano da soli nelle schede della palestra. Nuovo filtro **Sport** (Hyrox · Judo). Legenda e libreria mostrano le indicazioni «Dalla dispensa…».
+Tipi **Condizionamento** (ergometri, corsa, circuiti a tempo), **Speciale judo** e **Tatami (judo)**: non contano nel volume per muscolo e non entrano da soli nelle schede della palestra. Nella tendina «Varia» vengono prima gli esercizi dello stesso sport. Filtro **Sport** (Hyrox · Judo · Corsa). Legenda e libreria mostrano le indicazioni «Dalla dispensa…».
 
 I 191 di base comprendono gli esercizi originali, il **repertorio del corso Personal Trainer CSEN** e 28 esercizi di **riscaldamento e defaticamento** (cardio leggero, mobilità, attivazione, allungamento, foam rolling) (petto, dorso, spalle, braccia, cosce, glutei, polpacci, addome). Organizzati per **pattern di movimento** (Push, Pull, Squat, Hinge, Carry, Isopush, Mobilità), con barra di ricerca e **filtri rapidi** per pattern, **tipo** (Base multiarticolare, Complementare di isolamento, Esplosivo, Core, Trasporto, Condizionamento, Mobilità, Riscaldamento) e **attrezzatura** (bilanciere, manubri, macchine, cavi, corpo libero, piccoli attrezzi). Avvisi «sconsigliato dai test», «sconsigliato dal PAR-Q», «livello superiore».
 

@@ -985,7 +985,7 @@ function renderAnam(){
    '</div></section>'+
    '<section class="asec"><h3>Obiettivi principali <small>(selezione multipla)</small></h3>'+tgs('ob',OBJ,v.ob)+
     '<div class="fg">'+fld('a_gara','Gare, competizioni o sport specifici obiettivo',v.gara,'text',' placeholder="Es. Hyrox Milano, Maratona, Judo, Pallavolo, CrossFit, BJJ, OCR…"','full')+fld('a_garad','Data della gara obiettivo',v.garad,'date')+'</div>'+
-    '<p class="sub" style="margin:6px 0 0">Con <b>Hyrox</b> o <b>judo</b> nel campo sopra il generatore usa il programma a fasi delle dispense; la data della gara serve a calcolare la fase.</p></section>'+
+    '<p class="sub" style="margin:6px 0 0">Con <b>Hyrox</b>, <b>judo</b> o la <b>corsa su strada</b> (corsa, 5 km, 10 km, mezza maratona, maratona) nel campo sopra il generatore usa il programma a fasi delle dispense; la data della gara serve a calcolare la fase.</p></section>'+
    '<section class="asec"><h3>Attività extra e sport settimanali</h3>'+tgs('sp',SPORTS,v.sp)+
     '<div class="fg" id="spaltw"'+((v.sp||[]).indexOf('Altro')>-1?'':' hidden')+' style="margin-bottom:14px">'+fld('a_spalt','Altro sport (specifica)',v.spAlt,'text','','full')+'</div>'+
     '<div class="fg">'+nfld('a_sfreq','Frequenza sport extra (giorni/settimana)',v.sfreq,' max="7" step="1"')+nfld('a_ssess','Sessioni giornaliere',v.ssess,' step="1"')+nfld('a_sdur','Durata media (minuti)',v.sdur,' step="5"')+nfld('a_srpe','RPE intensità media (1-10)',v.srpe,' max="10" step="0.5"')+
@@ -3079,6 +3079,144 @@ var EXRAW5=[
   'Lancio palla medica dal petto':{polso:1,spalla:1},'Lancio palla medica all’indietro sopra la testa':{lomb:2,spalla:1}};
  EXRAW5.forEach(function(r){EXM[r[0]]={spo:'judo',iz:z[r[0]]||{}}});
 })();
+// Esercizi della dispensa «Manuale metodologico di corsa su strada» (5K · 10K · 21K · 42K)
+var EXRAW6=[
+['Ripetute brevi (300–400 m)','Carry','k','','',2,'cond','','Sistema aerobico ad alta intensità, quadricipiti, polpacci, glutei','Core, flessori dell’anca',
+ 'Potenza aerobica e VO₂max: ripetute da 300 a 400 m a ritmo gara 5 km o più veloce, con recupero attivo in corsa lenta. Seduta chiave dei 5 km.',
+ 'Dopo 15–20 minuti di corsa lenta, mobilità dinamica e 3–4 allunghi; pista o percorso piano misurato.',
+ 'Corri ogni ripetuta al ritmo indicato (es. ritmo gara 5 km − 5" al km), con passo reattivo, busto eretto e braccia rilassate.',
+ 'Recupera trottando piano per il tempo indicato (es. 1\'15"), poi riparti; chiudi con 10 minuti di defaticamento.',
+ 'Le ripetute devono essere tutte uguali: se le ultime rallentano molto, il ritmo era troppo alto. Non aumentare il chilometraggio settimanale di oltre il 10%.','w'],
+['Ripetute medie (1000 m)','Carry','k','','',2,'cond','','Sistema aerobico alla soglia anaerobica, quadricipiti, polpacci, glutei','Core',
+ 'Innalzamento della soglia anaerobica: ripetute da 800 a 1000 m a ritmo gara 10 km, con 2 minuti di corsa lenta tra l’una e l’altra. Seduta chiave dei 10 km.',
+ 'Dopo 15–20 minuti di corsa lenta e qualche allungo; percorso piano misurato o pista.',
+ 'Corri ogni ripetuta a ritmo costante, senza partire troppo forte nei primi 200 m.',
+ 'Recupero di corsa lenta per il tempo indicato; alla fine 10 minuti di defaticamento.',
+ 'Ritmo sostenibile per tutte le ripetute. Con fastidi a tendine d’Achille o ginocchio riduci il numero di ripetute, non il recupero.','w'],
+['Tempo run (ritmo soglia)','Carry','k','','',2,'cond','','Sistema aerobico di soglia alta, gambe','Core',
+ 'Corsa continua a ritmo di soglia (85–90% della FC massima): tenuta del ritmo e controllo della deriva cardiaca. Seduta chiave della mezza maratona (12–14 km a ritmo gara + 5"/10" al km).',
+ 'Dopo 15 minuti di corsa lenta; percorso regolare e possibilmente piano, cardiofrequenzimetro consigliato.',
+ 'Porta il ritmo al valore indicato nel primo chilometro e tienilo costante fino alla fine.',
+ 'Se la frequenza cardiaca sale troppo nella seconda metà (deriva) rallenta di pochi secondi al km; chiudi con 10 minuti di corsa lenta.',
+ 'Ritmo «comodamente duro»: riesci a dire poche parole, non a conversare.','w'],
+['Medio progressivo','Carry','k','','',2,'cond','','Sistema aerobico, gambe','Core',
+ 'Corsa continua in cui il ritmo cresce a tratti, da corsa lenta fino al ritmo gara: abitua a correre forte in fatica (mezza e maratona).',
+ 'Percorso regolare; prepara i tratti (es. ogni 4–5 km) in cui aumentare il ritmo.',
+ 'Parti a ritmo lento e aumenta la velocità a ogni tratto, di pochi secondi al km.',
+ 'L’ultimo tratto arriva al ritmo gara; poi 5–10 minuti di corsa lenta.',
+ 'Aumenti graduali: il primo tratto deve sembrare facile.','w'],
+['Lungo lento','Carry','k','','',1,'cond','tm','Sistema aerobico, gambe, tendini e articolazioni','Core',
+ 'Corsa lunga a bassa intensità (zona 2): resistenza aerobica, uso dei grassi come energia e resistenza meccanica di tendini e articolazioni. Distanza secondo la gara: 10–14 km per i 5 km, 14–18 km per i 10 km, 18–22 km per la mezza, 28–36 km per la maratona.',
+ 'Scarpe da corsa, acqua (e carboidrati oltre i 75–90 minuti); cardiofrequenzimetro consigliato.',
+ 'Corri in modo continuo a ritmo conversazionale, senza accelerare nel finale.',
+ 'Se la frequenza cardiaca esce dalla zona 2 rallenta; alla fine cammina qualche minuto.',
+ 'Aumenta il lungo gradualmente (volume settimanale +10% al massimo).','w'],
+['Lungo progressivo','Carry','k','','',2,'cond','','Sistema aerobico, ossidazione dei lipidi, catena posteriore','Core',
+ 'Lungo che finisce al ritmo gara o più veloce (es. maratona: 32 km = 20 km di corsa lenta + 8 km a ritmo gara + 4 km a ritmo gara − 5"): ossidazione dei lipidi e resilienza muscolare. Serve anche come prova di gara.',
+ 'Prova scarpe, abbigliamento e integrazione della gara; percorso simile a quello di gara.',
+ 'Prima parte a ritmo lento e regolare, senza fretta.',
+ 'Nella parte finale porta il ritmo al valore indicato e tienilo fino in fondo; poi 5 minuti di corsa lenta o camminata.',
+ 'Un lungo progressivo ogni 2–3 settimane al massimo; il giorno dopo solo corsa rigenerante o riposo.','w'],
+['Corsa lenta rigenerante','Carry','k','','',1,'cond','tm','Sistema aerobico, gambe','Core',
+ 'Corsa facile in zona 2 (45–60 minuti) il giorno dopo la qualità: favorisce il recupero e aggiunge volume aerobico senza fatica.',
+ 'Percorso morbido e piano se possibile.',
+ 'Corri a ritmo molto facile, devi poter parlare senza fatica.',
+ 'Mantieni il ritmo basso fino alla fine anche se ti senti bene.',
+ 'Se è troppo veloce non rigenera: tieni la frequenza cardiaca in zona 2.','w'],
+['Fartlek / corsa ritmica','Carry','k','','',1,'cond','tm','Sistema aerobico, gambe','Core',
+ 'Corsa con variazioni di ritmo, libere o a tempo (es. 1 minuto veloce e 1 minuto lento): ritmo, cambi di velocità e base aerobica.',
+ 'Dopo 10–15 minuti di corsa lenta.',
+ 'Alterna tratti veloci (ritmo 10 km o a sensazione) e tratti lenti per il tempo indicato.',
+ 'Nei tratti lenti continua a correre senza fermarti; chiudi con 10 minuti di corsa lenta.',
+ 'I tratti veloci sono controllati, non sprint.','w'],
+['Allunghi (strides)','Carry','k','','',1,'cond','','Gambe, sistema neuromuscolare','Core',
+ 'Tratti di 80–100 m in progressione fino a una velocità alta ma sciolta: tecnica, frequenza del passo ed economia di corsa senza fatica.',
+ 'Dopo la corsa lenta, su un tratto piano.',
+ 'Accelera gradualmente per 60–70 m fino a una velocità alta ma rilassata, con passo corto e veloce.',
+ 'Rallenta negli ultimi metri e torna al punto di partenza camminando o trottando.',
+ 'Non sono sprint: spalle e viso rilassati, appoggio sotto il bacino.','w'],
+['Bici o ellittica (cross-training)','Carry','k','','',1,'cond','tm','Sistema aerobico, quadricipiti, glutei','Core',
+ 'Lavoro aerobico senza impatto, in alternativa alla corsa quando caviglie, tibie o piedi vanno scaricati.',
+ 'Bici, cyclette o ellittica regolata sulla tua altezza.',
+ 'Pedala o muoviti a ritmo regolare all’intensità indicata.',
+ 'Tieni la durata della corsa che sostituisce, con la frequenza cardiaca nella stessa zona.',
+ 'Con fastidi al ginocchio controlla l’altezza del sellino.','m'],
+['Squat monopodalico al box','Squat','su','Quadricipiti','Glutei',1,'acc','lr','Quadricipiti, grande e medio gluteo','Stabilizzatori di anca e caviglia, core',
+ 'Stabilità dell’anca e controllo del ginocchio su una gamba, come nell’appoggio della corsa.',
+ 'In piedi su una gamba davanti a un box o una panca, l’altra gamba sollevata in avanti, braccia avanti.',
+ 'Scendi lentamente in 2–3 secondi fino a sederti sul box, ginocchio in linea con il secondo dito del piede, bacino orizzontale.',
+ 'Spingi sul piede e torna in piedi senza slanciarti.',
+ 'Il ginocchio non deve cadere verso l’interno; alza il box se non controlli la discesa.','w'],
+['Calf raise eccentrico monopodalico','Squat','si','Polpacci','',1,'iso','lr','Gastrocnemio, soleo, tendine d’Achille','Muscoli del piede',
+ 'Rinforzo eccentrico di polpacci e tendine d’Achille per assorbire i carichi d’impatto (fino a 3 volte il peso corporeo a ogni passo); prevenzione di tendinite achillea e fascite plantare.',
+ 'Avampiedi su un gradino, talloni fuori, una mano al muro per l’equilibrio.',
+ 'Sali sulle punte con due piedi, stacca un piede e scendi su una gamba sola in 3–4 secondi, sotto il livello del gradino.',
+ 'Riappoggia l’altro piede e risali con entrambi.',
+ 'Con dolore al tendine oltre 3–4 su 10 riduci il carico; nessun rimbalzo in basso.','w'],
+['Calf raise isometrico a ginocchia piegate (soleo)','Squat','si','Polpacci','',1,'iso','tm','Soleo','Gastrocnemio, tibiale posteriore',
+ 'Isometria per il soleo, il muscolo del polpaccio più impegnato nella corsa; migliora la tolleranza al carico del tendine d’Achille.',
+ 'In piedi o seduti, ginocchia piegate a circa 45°, eventualmente con manubri o al calf seduto.',
+ 'Sali sulle punte mantenendo le ginocchia piegate.',
+ 'Tieni la posizione alta per il tempo indicato, poi scendi lentamente.',
+ 'Tensione costante, senza dolore al tendine.','w,m'],
+['Ankle hops (saltelli di caviglia)','Squat','sp','Polpacci','',1,'plyo','hi','Polpacci, tendine d’Achille','Muscoli del piede, quadricipiti',
+ 'Pliometria bassa: aumenta la reattività della caviglia e riduce il tempo di contatto al suolo (ground contact time).',
+ 'In piedi, piedi alla larghezza delle anche, ginocchia quasi tese, peso sugli avampiedi.',
+ 'Atterra sugli avampiedi con le caviglie rigide, senza far toccare i talloni.',
+ 'Rimbalza subito verso l’alto con un salto basso e veloce, come una molla.',
+ 'Pochi centimetri di altezza: conta la rapidità del contatto. Evitali con dolore al tendine d’Achille o alla pianta del piede.','w'],
+['Saltelli con la corda','Squat','sp','Polpacci','',1,'plyo','tm','Polpacci, tendine d’Achille','Deltoidi, avambracci, core',
+ 'Pliometria bassa per la reattività della caviglia e la coordinazione; utile anche come riscaldamento.',
+ 'Corda della lunghezza giusta (manici all’altezza delle ascelle con un piede sulla corda), gomiti vicini ai fianchi.',
+ 'Gira la corda con i polsi e salta pochi centimetri sugli avampiedi.',
+ 'Ritmo regolare, atterraggi morbidi e veloci.',
+ 'Superficie non troppo dura; evitala con dolore acuto a caviglia o tendine d’Achille.','k']
+];
+(function(){
+ var run={cavig:2,ginoc:1,anca:1},IND=' · dosaggio indicativo',
+  d={'Ripetute brevi (300–400 m)':[run,{s:10,r:'400 m',tg:'RG 5 km − 5"/km · recupero 1\'15" di corsa lenta',rpe:'8–9',rec:75}],
+  'Ripetute medie (1000 m)':[run,{s:6,r:'1000 m',tg:'RG 10 km · recupero 2\' di corsa lenta',rpe:'8',rec:120}],
+  'Tempo run (ritmo soglia)':[run,{s:1,r:'12-14 km',tg:'RG mezza + 5"/10" al km, continuo',rpe:'7–8',rec:''}],
+  'Medio progressivo':[run,{s:1,r:'14-16 km',tg:'Da corsa lenta a ritmo gara, a tratti'+IND,rpe:'7',rec:''}],
+  'Lungo lento':[run,{s:1,r:'secondo la gara',tg:'Zona 2 · 5 km: 10–14 km · 10 km: 14–18 km · mezza: 18–22 km · maratona: 28–36 km',rpe:'4–5',rec:''}],
+  'Lungo progressivo':[run,{s:1,r:'32 km',tg:'Maratona: 20 km di corsa lenta + 8 km a RG + 4 km a RG − 5"',rpe:'7–8',rec:''}],
+  'Corsa lenta rigenerante':[run,{s:1,r:'45-60 min',tg:'Zona 2, ritmo facile',rpe:'3–4',rec:''}],
+  'Fartlek / corsa ritmica':[run,{s:1,r:'40-50 min',tg:'Variazioni di ritmo (es. 8 × 1\' veloce / 1\' lento)'+IND,rpe:'6–7',rec:''}],
+  'Allunghi (strides)':[run,{s:5,r:'100 m',tg:'Progressivi, veloci ma sciolti · ritorno al passo',rpe:'6',rec:60}],
+  'Bici o ellittica (cross-training)':[{ginoc:1},{s:1,r:'40-60 min',tg:'Zona 2 · stessa durata della corsa che sostituisce',rpe:'4–5',rec:''}],
+  'Squat monopodalico al box':[{},{s:3,r:'8 per lato',rir:'2',tg:'Stabilità dell’anca e controllo del ginocchio'+IND,rec:75}],
+  'Calf raise eccentrico monopodalico':[{cavig:2},{s:3,r:'12 per lato',tg:'Discesa in 3–4 s'+IND,rpe:'7',rec:60}],
+  'Calf raise isometrico a ginocchia piegate (soleo)':[{cavig:1},{s:3,r:'30-45 s',tg:'Ginocchia piegate a 45°'+IND,rpe:'7',rec:60}],
+  'Ankle hops (saltelli di caviglia)':[{cavig:2,ginoc:1},{s:3,r:'20',tg:'Contatti brevissimi'+IND,rpe:'6',rec:60}],
+  'Saltelli con la corda':[{cavig:2,ginoc:1},{s:3,r:'45-60 s',tg:'Saltelli bassi sugli avampiedi'+IND,rpe:'6',rec:45}]};
+ Object.keys(d).forEach(function(n){EXM[n]={spo:'corsa',iz:d[n][0],pz:d[n][1]}});
+ SPDOSE.corsa={'Stacco rumeno monopodalico':{s:3,r:'8 per lato',rir:'2',tg:'Spinta propulsiva'+IND,rec:75},
+  'Affondi':{s:3,r:'8 per lato',rir:'2',tg:'Affondi progressivi: carico in aumento'+IND,rec:75},
+  'Calf raise':{s:3,r:'12-15',tg:'Discesa lenta'+IND,rpe:'7',rec:60},
+  'Pallof press':{s:3,r:'10 per lato',tg:'Anti-rotazione'+IND,rpe:'7',rec:45},
+  'Plank':{s:3,r:'30-45 s',tg:'Core stability'+IND,rpe:'7',rec:45}};
+ var C='Corsa',Z=function(n,t){DZX[n]=(DZX[n]||[]).concat([[C,t]])};
+ Z('Ripetute brevi (300–400 m)','5 km: 10–12 × 400 m a ritmo gara − 5" al km, recupero 1\'15" di corsa lenta (potenza aerobica e VO₂max). Per 5 e 10 km ripetute brevi e medie da 300 a 1000 m a ritmo gara o superiore, con recuperi attivi in corsa lenta.');
+ Z('Ripetute medie (1000 m)','10 km: 6 × 1000 m a ritmo gara 10 km, recupero 2\' di corsa lenta (innalzamento della soglia anaerobica).');
+ Z('Tempo run (ritmo soglia)','Mezza maratona: 12–14 km a ritmo gara + 5"/10", continuo (tenuta di soglia e deriva cardiaca). Abituarsi a correre all’85–90% della FC massima per 80–100 minuti senza eccessiva deriva cardiaca.');
+ Z('Medio progressivo','Mezza maratona: lavoro specifico su tempo run e medi progressivi.');
+ Z('Lungo lento','Lunghi: 5 km 10–14 km a settimana; 10 km 14–18 km a settimana; mezza 18–22 km ogni 2 settimane; maratona 28–36 km ogni 2–3 settimane. Domenica: lungo lento o progressivo specifico per la distanza.');
+ Z('Lungo progressivo','Maratona: 32 km = 20 km di corsa lenta + 8 km a ritmo gara + 4 km a ritmo gara − 5", in corsa (ossidazione dei lipidi e resilienza muscolare). Blocco di specificità con lunghi lenti e progressivi da 28 a 36 km.');
+ Z('Corsa lenta rigenerante','Mercoledì: 45–60 minuti di corsa lenta facile (Z2). Sabato: 30–40 minuti di corsa lenta + 5 × 100 m di allunghi di tecnica.');
+ Z('Fartlek / corsa ritmica','Giovedì: corsa media o variazioni, corsa ritmica o fartlek dinamico, con mobilità di anca e caviglia.');
+ Z('Allunghi (strides)','Sabato: 30–40 minuti di corsa lenta + 5 × 100 m di allunghi di tecnica, con attivazione leggera.');
+ Z('Bici o ellittica (cross-training)','Alternativa senza impatto alla corsa quando la zona è ferma per infortunio (scelta mia, non è nella dispensa).');
+ Z('Squat monopodalico al box','Squat monopodalico e affondi progressivi: stabilità dell’anca e controllo del ginocchio.');
+ Z('Affondi','Affondi progressivi, con lo squat monopodalico: stabilità dell’anca e controllo del ginocchio.');
+ Z('Stacco rumeno monopodalico','Rinforzo di ischiocrurali e glutei per la spinta propulsiva.');
+ Z('Calf raise eccentrico monopodalico','Eccentrico e isometrico per polpacci e soleo: fondamentale per assorbire i carichi d’impatto (fino a 3 volte il peso corporeo a ogni passo).');
+ Z('Calf raise isometrico a ginocchia piegate (soleo)','Eccentrico e isometrico per polpacci e soleo: fondamentale per assorbire i carichi d’impatto.');
+ Z('Calf raise','Eccentrico e isometrico per polpacci e soleo (calf raise).');
+ Z('Pallof press','Core stability e anti-rotazione (Pallof press e plank): meno dispersioni di energia del tronco durante la falcata.');
+ Z('Plank','Core stability (Pallof press e plank); lunedì 15 minuti di core stability nel riposo attivo.');
+ Z('Ankle hops (saltelli di caviglia)','Pliometria bassa (saltelli con la corda, ankle hops): più reattività della caviglia e meno tempo di contatto al suolo.');
+ Z('Saltelli con la corda','Pliometria bassa (saltelli con la corda, ankle hops): più reattività della caviglia e meno tempo di contatto al suolo.');
+})();
 // Categorie metodologiche del judo: G generali (condizionali) · S speciali · T specifici (tatami e tecnica: uk ukemi · tw tachi-waza · nw ne-waza · rd randori)
 var JCAT={
  G:['Squat','Stacco da terra','Panca piana','Military press','Rematore con bilanciere','Trazioni alla sbarra','Power clean','Power clean da sospensione','Jump squat','Jump squat zavorrato','Jump squat con kettlebell','Squat jump con elastico','Box jump','Burpee','Lancio palla medica dal petto','Lancio palla medica all’indietro sopra la testa','Lancio laterale palla medica','Salto in lungo da fermo','Salti ginocchia al petto (tuck jump)','Salti laterali sugli ostacoli','Salti sui gradini','Affondi esplosivi (jump lunge)','Piegamenti pliometrici (power push-up)','Kettlebell swing','Affondi','Piegamenti','Plank','Side plank','Hollow hold','Dead bug','Turkish get-up','Sprint','Corsa continua','Corsa a intervalli','Circuito cardio','Circuito pesi (multiarticolari senza pausa)','Air bike 30/15','Agilità: speed ladder e coni','Battle rope'],
@@ -3096,7 +3234,7 @@ var EQO={'Panca piana':'b','Panca inclinata manubri':'d','Piegamenti':'w','Dip a
  'Farmer walk':'d,k','Suitcase carry':'d,k','Overhead carry':'k,d','Spinta slitta':'k','Plank':'w','Side plank':'w','Dead bug':'w','Bird dog':'w','Hollow hold':'w','Pallof press':'c','Copenhagen plank':'w','Crunch ai cavi':'c','Lancio laterale palla medica':'k','Wall sit':'w',
  'Dislocazioni con bastone':'k','Allungamento femorali con elastico':'k'};
 var EQN={b:'Bilanciere',d:'Manubri',m:'Macchine',c:'Cavi',w:'Corpo libero',k:'Kettlebell e piccoli attrezzi'};
-var EXDB=EXRAW.concat(EXRAW2,EXRAW3,EXRAW4,EXRAW5).map(function(r,i){return {n:r[0],p:r[1],sub:r[2],m:r[3],sy:r[4]?r[4].split(','):[],lv:r[5],role:r[6],fl:r[7]?r[7].split(','):[],mp:r[8],ms:r[9],sc:r[10],as:r[11],ec:r[12],co:r[13],si:r[14],eq:(r[15]||EQO[r[0]]||'w').split(','),x:i>=EXRAW.length?1:0}});
+var EXDB=EXRAW.concat(EXRAW2,EXRAW3,EXRAW4,EXRAW5,EXRAW6).map(function(r,i){return {n:r[0],p:r[1],sub:r[2],m:r[3],sy:r[4]?r[4].split(','):[],lv:r[5],role:r[6],fl:r[7]?r[7].split(','):[],mp:r[8],ms:r[9],sc:r[10],as:r[11],ec:r[12],co:r[13],si:r[14],eq:(r[15]||EQO[r[0]]||'w').split(','),x:i>=EXRAW.length?1:0}});
 // Esercizi a catena posteriore classificati come complementari nel manuale CSEN
 ['Ponte glutei','Hyperextension 45°','Nordic curl'].forEach(function(n){EXDB.forEach(function(e){if(e.n===n)e.cx=1})});
 EXDB.forEach(function(e){var m=EXM[e.n];if(m)Object.assign(e,m)});
@@ -3187,8 +3325,8 @@ function profile(u){
   var txt=[u.gara,(u.sp||[]).join(' '),u.spAlt].join(' ').toLowerCase();
   SPORTP.forEach(function(s){if(s.k.test(txt)){c.sportT.push(s.t);s.x.forEach(function(n){if(c.sport.indexOf(n)<0)c.sport.push(n);bon(n,3)})}});
   // obiettivo Hyrox o judo nel campo gara/sport: programma a fasi della dispensa
-  c.spk=[];var gtx=String(u.gara||'').toLowerCase();if(/hyrox/.test(gtx))c.spk.push('hyrox');if(/judo/.test(gtx))c.spk.push('judo');
-  c.garad=u.garad||'';c.fase=c.spk.length?{sp:c.spk[0],n:autoFase(c.spk[0],c.garad)}:null;
+  c.spk=[];var gtx=String(u.gara||'').toLowerCase();if(/hyrox/.test(gtx))c.spk.push('hyrox');if(/judo/.test(gtx))c.spk.push('judo');if(corsaIn(gtx))c.spk.push('corsa');c.cdist=corsaDist(gtx);
+  c.garad=u.garad||'';var sk0=c.spk[0]==='corsa'?c.cdist:c.spk[0];c.fase=c.spk.length?{sp:sk0,n:autoFase(sk0,c.garad)}:null;
   var fr=+u.sfreq||0,ss=+u.ssess||1,du=+u.sdur||0,rp=+u.srpe||0;
   if(fr&&du){var sed=fr*ss;c.extraDays=fr;c.hiLoad=sed>=5||(rp>0&&sed*du*rp>=2500)}
   var v=(u.test&&u.test.v)||{},both=function(k,re){return re.test(v[k+'_dx']||'')||re.test(v[k+'_sx']||'')};
@@ -3221,7 +3359,7 @@ function profile(u){
   return c;
 }
 function autoFreq(c){
-  if(c.spk&&c.spk.length)return c.fase&&c.fase.n===4&&c.spk[0]==='judo'?2:3;
+  if(c.spk&&c.spk.length)return c.spk[0]==='corsa'?5:c.fase&&c.fase.n===4&&c.spk[0]==='judo'?2:3;
   var f=c.lvl===3?4:3;if(c.ob.indexOf('Ipertrofia')>-1&&c.lvl>=2)f=4;
   if(c.extraDays>=4)f=Math.min(f,2);else if(c.extraDays>=2)f=Math.min(f,3);
   return f;
@@ -3502,18 +3640,19 @@ function sportPlan(u,c,f,sp){
     var D=SPT[s][k],sl=D.f[ph]||D.f[ph===4?3:1]||D.f[2]||D.f[1],es=[];
     sl.forEach(function(x){
       var e=EXI[ekey(x.n)],dz=x.d,day=es.map(function(r){return {n:r.n}}),ok=e&&okEx(e,c,lv)&&!(e.role!=='cond'&&es.some(function(r){return r.n===e.n}));
-      if(!ok){var alt=x.a?pick(slot(x.a),c,used,day.map(function(r){return EXI[ekey(r.n)]||r})):null;
+      if(!ok){var alt=x.a?(x.a.charAt(0)==='='?altNamed(x.a.slice(1),c,lv,es):pick(slot(x.a),c,used,day.map(function(r){return EXI[ekey(r.n)]||r}))):null;
+        if(alt&&e&&alt.n===e.n)alt=e;else
         sub.push('«'+x.n+'» → '+(alt?'«'+alt.n+'»':'nessuna alternativa adatta')+(e?' ('+(injHit(e,c).lvl==='avoid'?'zona ferma per infortunio':e.lv>lv?'livello':c.pq&&e.role==='plyo'?'PAR-Q':'test funzionali')+')':''));
-        if(!alt)return;if(!(x.g&&(alt.role===e.role||(alt.role!=='cond'&&e.role!=='cond'&&alt.role!=='plyo'))))dz=null;e=alt}
+        if(!alt)return;if(alt===e){}else if(!(x.g&&(alt.role===e.role||(alt.role!=='cond'&&e.role!=='cond'&&alt.role!=='plyo'))))dz=null;e=alt}
       var r=rowFrom(e,c);if(dz){spDose(r,dz,e,c)}
       if(x.k&&es.length)r.lk=1;used[e.n]=(used[e.n]||0)+1;es.push(r)});
-    if(c.mob.length&&k!=='HM'){var need=c.mob.filter(function(m){return MOBN[k].indexOf(m)>-1});
+    if(c.mob.length&&k!=='HM'&&k!=='RM'){var need=c.mob.filter(function(m){return MOBN[k].indexOf(m)>-1});
       if(need.length){var m=EXDB.filter(function(e){return e.role==='mob'&&okEx(e,c,lv)}).map(function(e){return {e:e,s:need.filter(function(q){return hasF(e,q)}).length*2-(used[e.n]||0)}}).filter(function(z){return z.s>0}).sort(function(a,b){return b.s-a.s})[0];
         if(m){used[m.e.n]=(used[m.e.n]||0)+1;es.push(rowFrom(m.e,c))}}}
     n[k]=(n[k]||0)+1;
     return {type:k,t:D.t+(tot[k]>1?' '+String.fromCharCode(64+n[k]):''),es:es,extra:0};
   });
-  var note=s==='judo12'?(seq.length===1&&+f>1?'La seduta si ripete '+f+' volte a settimana.':seq.length!==+f?seq.length+' sessioni del blocco per '+f+(f==1?' seduta':' sedute')+' a settimana: si alternano a rotazione.':''):f>4&&ph===4?'In tapering bastano 3–4 sedute: le altre restano leggere.':'';
+  var note=s==='judo12'?(seq.length===1&&+f>1?'La seduta si ripete '+f+' volte a settimana.':seq.length!==+f?seq.length+' sessioni del blocco per '+f+(f==1?' seduta':' sedute')+' a settimana: si alternano a rotazione.':''):f>4&&ph===4&&!CDIST[s]?'In tapering bastano 3–4 sedute: le altre restano leggere.':'';
   return {days:days,note:note,logic:sportLogic(u,c,f,s,ph,seq,sub)};
 }
 // ---- Programma «Proposta di workout per il judo agonistico»: 12 settimane, 20 sedute, verso la gara ----
@@ -3559,7 +3698,107 @@ Object.keys(SPT.judo12).forEach(function(k){DTT[k]=SPT.judo12[k].t;MOBN[k]=['mk'
 FASB.judo12=[10,8,6,4,2];
 function autoFase12(garad,start){var w=weeksTo(garad,start);if(w==null)return 1;if(w<0)return w>=-4?8:1;return w<=2?6:w<=4?5:w<=6?4:w<=8?3:w<=10?2:1}
 function useJ12(c,start){var w=weeksTo(c&&c.garad,start);return w!=null&&w<=12&&w>=-4}
+// ---- Programma dalla dispensa «Manuale metodologico di corsa su strada»: 5 km, 10 km, mezza maratona, maratona ----
+// Uno split per distanza (c5, c10, c21, c42), 4 fasi: generale, specifica, rifinitura, tapering. Microciclo tipo di 6 sedute.
+var CDIST={c5:'5 km',c10:'10 km',c21:'mezza maratona',c42:'maratona'},CORD=['c5','c10','c21','c42'];
+CORD.forEach(function(k){var nm=k==='c21'?'Corsa mezza maratona':k==='c42'?'Corsa maratona':'Corsa '+CDIST[k];SPS[k]=nm+' (dispensa)';SPSI[SPS[k]]=k;SPNAME[k]=nm});
+SPNAME.corsa='Corsa';
+(function(){
+ var W={c5:['oltre 10 settimane alla gara','10–5 settimane alla gara','4–3 settimane alla gara','ultime 2 settimane'],
+  c21:['oltre 12 settimane alla gara','12–6 settimane alla gara','5–4 settimane alla gara','ultime 3 settimane'],
+  c42:['oltre 14 settimane alla gara','14–7 settimane alla gara','6–4 settimane alla gara','ultime 3 settimane']};W.c10=W.c5;
+ var O=['costruire la base aerobica (corsa lenta in zona 2, fartlek) e la forza di base per tendini e articolazioni',
+  'lavorare al ritmo gara con la seduta chiave della distanza',
+  'rifinire ritmo e condizione: stesso ritmo con volume un po’ ridotto e prova di gara nel lungo',
+  'arrivare freschi al via: volume chilometrico −30/50% mantenendo invariata l’intensità delle ripetute'],
+  T=['Fase 1 · Generale (costruzione)','Fase 2 · Specifica (ritmo gara)','Fase 3 · Rifinitura','Fase 4 · Tapering'];
+ CORD.forEach(function(k){FASI[k]=[null].concat(T.map(function(t,i){return {t:t,w:W[k][i],o:O[i]}}))});
+ FASB.c5=FASB.c10=[10,4,2];FASB.c21=[12,5,3];FASB.c42=[14,6,3];
+ FASL.c5=FASL.c10=[0,6,6,2,2];FASL.c21=[0,6,7,2,3];FASL.c42=[0,8,8,3,3];
+ var IND=' · dosaggio indicativo',TP='Tapering: volume −30/50%, stesso ritmo';
+ // forza in palestra (30 minuti, nella seduta di qualità): uguale per tutte le distanze
+ var F={1:[X('Squat monopodalico al box','su',{s:3,r:'8 per lato',rir:'2',tg:'Stabilità dell’anca e controllo del ginocchio'+IND,rec:75},{g:1}),X('Stacco rumeno monopodalico','hu',{s:3,r:'8 per lato',rir:'2',tg:'Spinta propulsiva'+IND,rec:75},{g:1}),X('Calf raise eccentrico monopodalico','si:Polpacci',{s:3,r:'12 per lato',tg:'Discesa in 3–4 s'+IND,rpe:'7',rec:60},{g:1}),X('Pallof press','core',{s:3,r:'10 per lato',tg:'Anti-rotazione'+IND,rpe:'7',rec:45},{g:1})],
+  2:[X('Affondi','su',{s:3,r:'8 per lato',rir:'2',tg:'Affondi progressivi: carico in aumento'+IND,rec:75},{g:1}),X('Stacco rumeno monopodalico','hu',{s:3,r:'6 per lato',rir:'2',tg:'Più carico, spinta propulsiva'+IND,rec:90},{g:1}),X('Calf raise isometrico a ginocchia piegate (soleo)','si:Polpacci',{s:3,r:'30-45 s',tg:'Ginocchia piegate a 45°'+IND,rpe:'7',rec:60},{g:1}),X('Ankle hops (saltelli di caviglia)','si:Polpacci',{s:3,r:'20',tg:'Contatti brevissimi'+IND,rpe:'6',rec:60}),X('Plank','core',{s:3,r:'30-45 s',tg:'Core stability'+IND,rpe:'7',rec:45},{g:1})],
+  3:[X('Squat monopodalico al box','su',{s:2,r:'6 per lato',rir:'2',tg:'Mantenimento'+IND,rec:75},{g:1}),X('Stacco rumeno monopodalico','hu',{s:2,r:'6 per lato',rir:'2',tg:'Mantenimento'+IND,rec:75},{g:1}),X('Calf raise eccentrico monopodalico','si:Polpacci',{s:2,r:'10 per lato',tg:'Discesa in 3–4 s'+IND,rpe:'7',rec:60},{g:1}),X('Ankle hops (saltelli di caviglia)','si:Polpacci',{s:2,r:'15',tg:'Reattività'+IND,rpe:'6',rec:60}),X('Pallof press','core',{s:2,r:'10 per lato',rpe:'6',tg:'dosaggio indicativo',rec:45},{g:1})],
+  4:[X('Calf raise eccentrico monopodalico','si:Polpacci',{s:2,r:'8 per lato',tg:'Leggero · tapering'+IND,rpe:'5',rec:60},{g:1}),X('Ankle hops (saltelli di caviglia)','si:Polpacci',{s:2,r:'10',tg:'Reattività, poche ripetizioni'+IND,rpe:'5',rec:60}),X('Pallof press','core',{s:2,r:'8 per lato',tg:'dosaggio indicativo',rpe:'5',rec:45},{g:1})]};
+ // corsa per distanza e fase: Q qualità (martedì), V corsa media / variazioni (giovedì), L lungo (domenica)
+ var BK='=Bici o ellittica (cross-training)',AQ='=Fartlek / corsa ritmica|Bici o ellittica (cross-training)',AL='=Lungo lento|Bici o ellittica (cross-training)',
+  R=function(n,r,tg,rpe,o){return X(n,/^(Ripetute|Tempo run|Medio)/.test(n)?AQ:n==='Lungo progressivo'?AL:BK,Object.assign({s:1,r:r,tg:tg,rpe:rpe,rec:''},o||{}))},
+  FK=function(r,tg){return R('Fartlek / corsa ritmica',r,tg+IND,'6–7')},
+  D={c5:{Q:{1:FK('40 min','15\' di corsa lenta + 8 × 1\' veloce / 1\' lento + 10\' di defaticamento'),
+     2:R('Ripetute brevi (300–400 m)','400 m','10–12 ripetute a RG − 5"/km · recupero 1\'15" di corsa lenta · prima 15\' di corsa lenta, dopo 10\' di defaticamento','8–9',{s:10,rec:75}),
+     3:R('Ripetute brevi (300–400 m)','400 m','RG − 5"/km · recupero 1\'15" · volume ridotto, stesso ritmo'+IND,'8–9',{s:8,rec:75}),
+     4:R('Ripetute brevi (300–400 m)','400 m',TP+' (RG − 5"/km) · recupero 1\'15"','8',{s:6,rec:75})},
+    V:{1:FK('35-40 min','Corsa ritmica, cambi di ritmo a sensazione'),2:FK('40-45 min','Fartlek dinamico (es. 6 × 2\' a ritmo 10 km / 2\' lento)'),3:FK('40 min','Fartlek dinamico (es. 5 × 2\' / 2\')'),4:FK('25-30 min','Corsa ritmica breve · tapering')},
+    L:{1:R('Lungo lento','10-12 km','Zona 2'+IND,'4–5'),2:R('Lungo lento','12-14 km','Zona 2 · lungo settimanale (dispensa: 10–14 km)','4–5'),3:R('Lungo progressivo','12 km','Ultimi 3 km a ritmo gara: prova di gara'+IND,'7'),4:R('Lungo lento','7-9 km','Zona 2 · tapering: volume −30/50%','4')}},
+   c10:{Q:{1:FK('45 min','15\' di corsa lenta + 6 × 2\' veloce / 2\' lento + 10\' di defaticamento'),
+     2:R('Ripetute medie (1000 m)','1000 m','6 ripetute a RG 10 km · recupero 2\' di corsa lenta · prima 15\' di corsa lenta, dopo 10\' di defaticamento','8',{s:6,rec:120}),
+     3:R('Ripetute medie (1000 m)','1000 m','RG 10 km · recupero 2\' · volume ridotto, stesso ritmo'+IND,'8',{s:5,rec:120}),
+     4:R('Ripetute medie (1000 m)','1000 m',TP+' (RG 10 km) · recupero 2\'','8',{s:3,rec:120})},
+    V:{1:FK('40-45 min','Corsa ritmica, cambi di ritmo a sensazione'),2:FK('45-50 min','Fartlek dinamico (es. 5 × 3\' a ritmo 10 km / 2\' lento)'),3:FK('45 min','Fartlek dinamico (es. 4 × 3\' / 2\')'),4:FK('30 min','Corsa ritmica breve · tapering')},
+    L:{1:R('Lungo lento','12-14 km','Zona 2'+IND,'4–5'),2:R('Lungo lento','14-18 km','Zona 2 · lungo settimanale (dispensa: 14–18 km)','4–5'),3:R('Lungo progressivo','15 km','Ultimi 5 km a ritmo gara 10 km: prova di gara'+IND,'7'),4:R('Lungo lento','9-10 km','Zona 2 · tapering: volume −30/50%','4')}},
+   c21:{Q:{1:FK('50 min','15\' di corsa lenta + 5 × 3\' veloce / 2\' lento + 10\' di defaticamento'),
+     2:R('Tempo run (ritmo soglia)','12-14 km','RG + 5"/10" al km, continuo (85–90% FCmax) · prima 15\' di corsa lenta, dopo 10\' di defaticamento','7–8'),
+     3:R('Tempo run (ritmo soglia)','10 km','RG, continuo · volume ridotto'+IND,'8'),
+     4:R('Tempo run (ritmo soglia)','6-8 km',TP+' (RG)','7–8')},
+    V:{1:FK('45-50 min','Corsa ritmica, cambi di ritmo a sensazione'),2:R('Medio progressivo','12-14 km','Da corsa lenta a ritmo gara, a tratti'+IND,'7'),3:R('Medio progressivo','12 km','Ultimi 4 km a ritmo gara'+IND,'7'),4:FK('30 min','Corsa ritmica breve · tapering')},
+    L:{1:R('Lungo lento','16-18 km','Zona 2'+IND,'4–5'),2:R('Lungo lento','18-22 km','Zona 2 · ogni 2 settimane (dispensa); nella settimana alternata medio progressivo di 14–16 km','4–5'),3:R('Lungo progressivo','18 km','Ultimi 8 km a ritmo gara: prova di gara'+IND,'7–8'),4:R('Lungo lento','12 km','Zona 2 · tapering: volume −30/50%','4')}},
+   c42:{Q:{1:FK('50-60 min','15\' di corsa lenta + 6 × 3\' veloce / 2\' lento + 10\' di defaticamento'),
+     2:R('Tempo run (ritmo soglia)','10-12 km','Ritmo mezza maratona + 5"/10" al km, continuo'+IND,'7–8'),
+     3:R('Medio progressivo','14-16 km','Ultimi 8 km a ritmo maratona'+IND,'7'),
+     4:R('Tempo run (ritmo soglia)','6-8 km',TP+' (ritmo maratona)','7')},
+    V:{1:FK('50 min','Corsa ritmica, cambi di ritmo a sensazione'),2:R('Medio progressivo','14-18 km','Da corsa lenta a ritmo maratona, a tratti'+IND,'7'),3:R('Medio progressivo','14 km','Ultimi 6 km a ritmo maratona'+IND,'7'),4:FK('30-40 min','Corsa ritmica breve · tapering')},
+    L:{1:R('Lungo lento','22-26 km','Zona 2'+IND,'4–5'),2:R('Lungo progressivo','32 km','20 km di corsa lenta + 8 km a RG + 4 km a RG − 5" (dispensa) · ogni 2–3 settimane; nelle altre lungo lento di 24–28 km','7–8'),3:R('Lungo progressivo','28-30 km','Ultimo lungo a 3–4 settimane dalla gara, 10–12 km a RG'+IND,'7–8'),4:R('Lungo lento','16-20 km','Zona 2 · tapering: volume −30/50%','4')}}};
+ var MOB=[X('90/90 anche','',{s:2,r:'45-60 s',tg:'Mobilità dell’anca',rpe:'3',rec:30}),X('Mobilità caviglia knee-to-wall','',{s:2,r:'8 per lato',tg:'Mobilità della caviglia',rpe:'3',rec:30})],
+  STR=[X('Stretching polpacci alla parete','',{s:2,r:'30-45 s per lato',tg:'Stretching dopo il lungo',rpe:'3',rec:20}),X('Allungamento flessori dell’anca','',{s:2,r:'30-45 s per lato',tg:'Stretching dopo il lungo',rpe:'3',rec:20}),X('Allungamento femorali con elastico','',{s:2,r:'30-45 s per lato',tg:'Stretching dopo il lungo',rpe:'3',rec:20})];
+ CORD.forEach(function(k){var P=D[k],ph=[1,2,3,4],m=function(fn){var o={};ph.forEach(function(p){o[p]=fn(p)});return o};
+  SPT[k]={
+   RQ:{t:'Qualità (ripetute / tempo) + forza',f:m(function(p){return [P.Q[p]].concat(F[p])})},
+   RR:{t:'Corsa rigenerante',f:m(function(p){return [R('Corsa lenta rigenerante',p===4?'30-40 min':'45-60 min','Corsa lenta facile in zona 2'+(p===4?' · tapering':''),'3–4')]})},
+   RV:{t:'Corsa media / variazioni + mobilità',f:m(function(p){return [P.V[p]].concat(MOB)})},
+   RA:{t:'Corsa facile + allunghi',f:m(function(p){return [R('Corsa lenta rigenerante',p===4?'25-30 min':'30-40 min','Corsa lenta facile','3–4'),X('Allunghi (strides)','',{s:p===4?4:5,r:'100 m',tg:'Allunghi di tecnica, ritorno al passo',rpe:'6',rec:60}),X('Ponte glutei','hg',{s:2,r:'12',tg:'Attivazione leggera',rpe:'5',rec:30})]})},
+   RL:{t:'Lungo / prova di gara',f:m(function(p){return [P.L[p]].concat(STR)})},
+   RM:{t:'Riposo attivo + core',f:m(function(p){return [X('Foam rolling polpacci e femorali','',{s:1,r:'5 min',tg:'Riposo attivo',rpe:'2',rec:''}),MOB[0],MOB[1],X('Plank','core',{s:3,r:'30-45 s',tg:'Core stability (15 min in tutto)',rpe:'6',rec:45}),X('Side plank','core',{s:2,r:'30 s per lato',rpe:'6',rec:45}),X('Dead bug','core',{s:2,r:'8 per lato',rpe:'6',rec:45})]})}};
+  var sq=[['RQ'],['RQ','RL'],['RQ','RV','RL'],['RQ','RR','RV','RL'],['RQ','RR','RV','RA','RL'],['RM','RQ','RR','RV','RA','RL']];SPO[k]={1:sq,2:sq,3:sq,4:sq};
+  Object.keys(SPT[k]).forEach(function(s){DTT[s]=SPT[k][s].t;MOBN[s]=['mk','mh','mf','mi'];DM[s]=DM.F})});
+})();
+// distanza dal campo gara dell’anamnesi (10 km se non è indicata)
+function corsaDist(t){t=String(t||'').toLowerCase();
+  if(/mezza|half|21[,.]?(097)?\s?k|\b21\s?km/.test(t))return 'c21';
+  if(/marato|marathon|42[,.]?(195)?\s?k|\b42\s?km/.test(t))return 'c42';
+  if(/\b10\s?(k|km)\b|10\.000|diecimila/.test(t))return 'c10';
+  if(/\b5\s?(k|km)\b|5\.000|cinquemila/.test(t))return 'c5';
+  return 'c10'}
+function corsaIn(t){t=String(t||'').toLowerCase();return !/hyrox/.test(t)&&/corsa|podis|running|\brun\b|marato|marathon|mezza|\b(5|10|21|42)\s?(k|km)\b|strada/.test(t)}
+function corsaLogic(u,c,f,s,ph,seq,sub){
+  var F=FASI[s][ph],L=[],w=weeksTo(c.garad),dn=CDIST[s];
+  L.push('Programma dalla dispensa «Manuale metodologico di corsa su strada · Preparazione atletica alla corsa», distanza '+dn+': '+F.t+' ('+F.w+').'+(c.garad?' Gara il '+fdate(c.garad)+(w>=0?': mancano '+w+(w===1?' settimana.':' settimane.'):' (data già passata: aggiorna l’anamnesi).'):' Senza data della gara la fase si sceglie a mano (aggiungila nell’anamnesi per il calcolo automatico).'));
+  L.push('Obiettivo della fase: '+F.o+'.');
+  L.push(f+(f==1?' seduta':' sedute')+' a settimana: '+seq.map(function(k){return DTT[k]}).join(' · ')+'. La scelta finale spetta al Personal Trainer.');
+  L.push({c5:'Modello prestativo dei 5 km: gara al 93–98% della FC massima, substrato prevalente glicolisi aerobica / VO₂max; fattori limitanti tolleranza al lattato e VO₂max. Lungo di 10–14 km ogni settimana.',
+   c10:'Modello prestativo dei 10 km: gara al 90–95% della FC massima, soglia anaerobica e sistema aerobico; fattore limitante la velocità di soglia (LT). Lungo di 14–18 km ogni settimana.',
+   c21:'Modello prestativo della mezza maratona: gara all’85–90% della FC massima, aerobico di soglia alta; fattori limitanti deriva cardiaca e glicogeno. Obiettivo: correre all’85–90% della FC massima per 80–100 minuti senza eccessiva deriva cardiaca. Lungo di 18–22 km ogni 2 settimane.',
+   c42:'Modello prestativo della maratona: gara al 75–84% della FC massima, ossidazione dei lipidi e glicogeno; fattori limitanti deplezione del glicogeno e fatica muscolare. Focus su efficienza nell’uso dei grassi e resilienza della catena posteriore. Lungo di 28–36 km ogni 2–3 settimane.'}[s]);
+  L.push('Seduta chiave della dispensa: '+{c5:'10–12 × 400 m a RG − 5" con 1\'15" di corsa lenta (potenza aerobica e VO₂max)',c10:'6 × 1000 m a RG 10 km con 2\' di corsa lenta (innalzamento della soglia anaerobica)',c21:'tempo run di 12–14 km a RG + 5"/10", continuo (tenuta di soglia e deriva cardiaca)',c42:'lungo progressivo di 32 km: 20 km di corsa lenta + 8 km a RG + 4 km a RG − 5" (ossidazione dei lipidi e resilienza muscolare)'}[s]+'. È nella fase Specifica; nelle altre fasi la seduta è adattata (dosaggio indicativo). RG = ritmo gara della distanza; RG − 5" = 5 secondi al km più veloce.');
+  L.push(['','Fase generale: base aerobica con corsa lenta in zona 2 e fartlek; forza in palestra a volume più alto (squat monopodalico, stacco rumeno monopodalico, calf raise eccentrico, Pallof press).',
+   'Fase specifica: entra la seduta chiave al ritmo gara; forza con affondi progressivi, isometria del soleo e pliometria bassa (ankle hops).',
+   'Rifinitura: stesso ritmo con volume un po’ ridotto, prova di gara nel lungo; forza di mantenimento.',
+   'Tapering: nelle ultime 2–3 settimane il volume chilometrico scende del 30–50% mantenendo invariata l’intensità delle ripetute, per arrivare al via con le scorte di glicogeno al massimo e la muscolatura riposata.'][ph]);
+  if(ph<4)L.push('Progressione: non aumentare il volume chilometrico di oltre il 10% da una settimana all’altra; una settimana di scarico ogni 3–4 settimane di carico.');
+  L.push('Forza in palestra (30 minuti, nel giorno di qualità): non serve ad aumentare la massa ma a migliorare la stiffness tendinea e la restituzione elastica a ogni appoggio e a prevenire tendinite achillea, fascite plantare, sindrome della bandelletta ileo-tibiale e sofferenza rotulea. Esercizi chiave: squat monopodalico e affondi progressivi, stacco rumeno monopodalico, calf raise eccentrico e isometrico (polpacci e soleo), Pallof press e plank, pliometria bassa (corda, ankle hops). Serie e ripetizioni non sono nella dispensa: dosaggio indicativo.');
+  L.push('Microciclo tipo della dispensa: lunedì riposo attivo (stretching, mobilità o foam rolling + 15 minuti di core stability); martedì qualità (ripetute o tempo run) + forza in palestra 30 minuti; mercoledì corsa rigenerante 45–60 minuti in zona 2; giovedì corsa media o fartlek + mobilità di anca e caviglia; venerdì riposo completo; sabato 30–40 minuti di corsa lenta + 5 × 100 m di allunghi + attivazione leggera; domenica lungo lento o progressivo (o prova di gara) + stretching.'+(f<5?' Le sedute di corsa che non sono nella scheda vanno pianificate a parte.':''));
+  var fl=FASL[s];L.push('Durata delle fasi (la dispensa indica solo il tapering di 2–3 settimane; il resto l’ho scelto io): generale '+F_(FASI[s][1].w)+', specifica '+F_(FASI[s][2].w)+', rifinitura '+F_(FASI[s][3].w)+', tapering '+F_(FASI[s][4].w)+'. Senza data della gara: '+fl[1]+' + '+fl[2]+' + '+fl[3]+' + '+fl[4]+' settimane.');
+  if(c.hiLoad)L.push('Carico degli sport extra elevato: tienine conto nella distribuzione della fatica e del chilometraggio.');
+  if(sub.length)L.push('Sostituzioni per il profilo dell’atleta: '+sub.join('; ')+'.');
+  c.notes.forEach(function(n){L.push(n)});
+  L.push('Dosaggi presi dalla dispensa; dove la dispensa non li indica sono segnati «dosaggio indicativo» e vanno validati dal Personal Trainer.');
+  return '• '+L.join('\n• ');
+}
+function F_(w){return w.replace(' alla gara','')}
+// alternativa per nome (slot «=Nome|Nome»): il primo esercizio adatto al profilo e non già nella seduta
+function altNamed(L,c,lv,es){return L.split('|').map(function(n){return EXI[ekey(n)]}).filter(function(e){return e&&okEx(e,c,lv)&&!es.some(function(r){return r.n===e.n})})[0]||null}
 function sportLogic(u,c,f,s,ph,seq,sub){
+  if(CDIST[s])return corsaLogic(u,c,f,s,ph,seq,sub);
   var F=FASI[s][ph],L=[],w=weeksTo(c.garad);
   L.push('Programma dalla dispensa '+(s==='hyrox'?'«Periodizzazione e programmazione HYROX»':'«Preparazione fisica per il judo agonistico di alto livello»')+': '+F.t+' ('+F.w+' del macrociclo di 24 settimane).'+(c.garad?' Gara il '+fdate(c.garad)+(w>=0?': mancano '+w+(w===1?' settimana.':' settimane.'):' (data già passata: aggiorna l’anamnesi).'):' Senza data della gara la fase si sceglie a mano (aggiungila nell’anamnesi per il calcolo automatico).'));
   L.push('Obiettivo della fase: '+F.o+'.');
@@ -3774,7 +4013,8 @@ function altList(name,day,c,p,m){
       if(e.role==='wu'||(p!=='Mobilità'&&e.role==='mob'))return;
       if(m&&e.m===m)s=2+(p&&e.p===p?1:0);else if(p&&e.p===p)s=1;else return;
     }
-    s+=(c.bonus[e.n]||0)*.3+(c.prio.indexOf(e.m)>-1?.3:0)-(e.lv>c.lvl?1:0)-(injHit(e,c).lvl==='caut'?1.5:0)+(c.lvl===1&&hasEq(e,'m')?.3:0);
+    s+=(c.bonus[e.n]||0)*.3+(c.prio.indexOf(e.m)>-1?.3:0)-(e.lv>c.lvl?1:0)-(injHit(e,c).lvl==='caut'?1.5:0)+(c.lvl===1&&hasEq(e,'m')?.3:0)
+      +(e.spo?(a&&a.spo===e.spo?1.5:(c.spk||[]).indexOf(e.spo)>-1?1:-1):0);
     out.push({e:e,s:s,same:same});
   });
   return out.sort(function(x,y){return y.s-x.s}).slice(0,8);
@@ -3919,12 +4159,12 @@ function updGen(){
   gid('keyh').textContent=(h.join(' · ')||'')+(h.length?'. ':'')+(kd.why||'Proposta automatica: scarico nella 4ª settimana, cambio scheda dopo 6 settimane.');
   var days=readDays(),es=flatEs(days),f=+gid('sc_f').value||1,n=days.length||1;
   ['wu','cd'].forEach(function(k){if(GW.man[k])return;var L=k==='wu'?autoWU(days,gctx):autoCD(days,gctx),sg=JSON.stringify(L);if(sg!==GW.sig[k]){GW[k]=L;GW.sig[k]=sg;wuRender(k)}});
-  gid('vol').innerHTML=(n!==f?'<p class="status" style="margin-top:0">La scheda ha '+n+(n===1?' seduta diversa':' sedute diverse')+' per '+f+(f==1?' allenamento':' allenamenti')+' a settimana: si ripetono a rotazione e il volume è calcolato di conseguenza.</p>':'')+volHtml(es,f/n,find(suid))+(SPSI[gid('sc_sp').value]?'<p class="status">Programma '+esc(SPNAME[SPSI[gid('sc_sp').value]])+': il conteggio include stazioni, trasporti e salti, quindi gambe e glutei possono risultare «oltre MRV». MEV e MRV sono riferimenti per l’ipertrofia: qui contano i dosaggi della dispensa. Corsa ed ergometri non sono conteggiati.</p>':'');
+  gid('vol').innerHTML=(n!==f?'<p class="status" style="margin-top:0">La scheda ha '+n+(n===1?' seduta diversa':' sedute diverse')+' per '+f+(f==1?' allenamento':' allenamenti')+' a settimana: si ripetono a rotazione e il volume è calcolato di conseguenza.</p>':'')+volHtml(es,f/n,find(suid))+(CDIST[SPSI[gid('sc_sp').value]]?'<p class="status">Programma '+esc(SPNAME[SPSI[gid('sc_sp').value]])+': la corsa non è conteggiata; il volume riguarda solo gli esercizi di forza e di core. MEV e MRV sono riferimenti per l’ipertrofia: qui contano i dosaggi della dispensa.</p>':SPSI[gid('sc_sp').value]?'<p class="status">Programma '+esc(SPNAME[SPSI[gid('sc_sp').value]])+': il conteggio include stazioni, trasporti e salti, quindi gambe e glutei possono risultare «oltre MRV». MEV e MRV sono riferimenti per l’ipertrofia: qui contano i dosaggi della dispensa. Corsa ed ergometri non sono conteggiati.</p>':'');
   setLeg(gid('leg'),legendHtml(es,GW.wu.concat(GW.cd)));
   [].forEach.call(document.querySelectorAll('#days .exr'),function(r){var w=r.querySelector('.inw');if(w)w.innerHTML=injTagN(r.querySelector('.ex_n').value,gctx)});
   refreshAlts();
 }
-function spOpts(c){var o=[];(c.spk||[]).forEach(function(s){if(s==='judo'){if(useJ12(c))o.push(SPS.judo12,SPS.judo);else o.push(SPS.judo,SPS.judo12)}else o.push(SPS[s])});return o}
+function spOpts(c){var o=[];(c.spk||[]).forEach(function(s){if(s==='corsa'){o.push(SPS[c.cdist]);CORD.forEach(function(k){if(k!==c.cdist)o.push(SPS[k])})}else if(s==='judo'){if(useJ12(c))o.push(SPS.judo12,SPS.judo);else o.push(SPS.judo,SPS.judo12)}else o.push(SPS[s])});return o}
 function spFase(c){var e=gid('sc_sp');return c&&c.fase&&e&&SPSI[e.value]===c.fase.sp?c.fase:null}
 function faseOpts(sp){var s=SPSI[sp];if(!s)return '';if(!gctx.fase||gctx.fase.sp!==s)gctx.fase={sp:s,n:autoFase(s,gctx.garad,gid('sc_start')?gid('sc_start').value:'')};
   return FASI[s].slice(1).map(function(F,i){return '<option value="'+(i+1)+'"'+(gctx.fase.n===i+1?' selected':'')+'>'+esc(F.t+' ('+F.w.replace('settimane','sett.')+')')+'</option>'}).join('')}
@@ -3935,6 +4175,7 @@ function keyDates(start,c){var cam=addDays(start,42),del=addDays(start,21),why='
     why=n2===8?'Transizione: 2–4 settimane di recupero attivo, poi nuova scheda.':n2===7?'Mantenimento in stagione: rivedi la scheda dopo 4 settimane o prima della prossima gara importante.':n2===6?'Fase di picco: niente scarico, la scheda porta alla gara'+(c.garad?' del '+fdate(c.garad)+'.':'.'):'Blocco di 2 settimane del programma: niente scarico, poi il blocco successivo ('+FASI.judo12[n2+1].t+')'+(c.garad?', calcolato dalla data della gara.':'.')}
   else if(sf){var s=sf.sp,n=sf.n,end=faseEnd(s,n,c.garad,start);
     if(s==='hyrox'&&n<4){cam=addDays(start,28);why='Mesociclo 3+1 della dispensa Hyrox: 3 settimane di carico, la 4ª di scarico, poi nuova scheda.'}
+    if(CDIST[s]&&n<4){cam=addDays(start,28);why='Dispensa corsa: una settimana di scarico ogni 3–4 settimane di carico (qui 3 + 1, la 4ª è di scarico), poi nuova scheda.'}
     if(n===4){del='';why='Tapering: nessuna settimana di scarico, la scheda porta alla gara.'}
     if(end&&end>start&&(end<cam||n===4)){cam=end;if(del&&del>=addDays(cam,-6))del='';why=(why?why+' ':'')+(n===4?'Cambio scheda alla data della gara.':'Cambio scheda il '+fdate(cam)+', inizio della '+FASI[s][n+1].t+(c.garad?' (calcolato dalla data della gara).':' (durata della fase nella dispensa).'))}}
   if(c&&c.injEnd&&c.injEnd>start){
@@ -4051,8 +4292,18 @@ DISP.push({id:'judo12',t:'Judo agonistico: stagione e programma di 12 settimane'
  ['Adattamento al calendario gare','<ul><li><b>Gare importanti:</b> settimane 11–12 per arrivare al picco di forma.</li><li><b>Gare minori:</b> sedute di mantenimento, per evitare l’overtraining e favorire il recupero.</li><li><b>Dopo la gara:</b> sedute di recupero attivo per prevenire gli infortuni.</li><li>Monitorare sempre condizione fisica e mentale e adattare il calendario a esigenze, infortuni e stanchezza; integrare il supporto nutrizionale e psicologico con professionisti.</li></ul>'],
  ['Programma di 12 settimane: i blocchi','<table class="stab"><thead><tr><th>Settimane</th><th>Blocco</th><th>Sessioni</th><th>Obiettivi</th></tr></thead><tbody><tr><td>1–2</td><td>Costruzione della base</td><td>1 forza e resistenza · 2 agilità e rapidità · 3 forza massima</td><td>Base di forza e resistenza, rapidità delle tecniche, forza massimale per sollevare e proiettare</td></tr><tr><td>3–4</td><td>Sviluppo della potenza</td><td>4 potenza esplosiva · 5 resistenza alla forza · 6 forza dinamica</td><td>Forza generata in modo rapido, resistenza nei combattimenti, movimenti rapidi per le proiezioni</td></tr><tr><td>5–6</td><td>Resistenza e tecnica</td><td>7 resistenza cardiovascolare · 8 forza · 9 agilità e velocità</td><td>Recupero dopo lo sforzo, forza dei gruppi principali, movimenti rapidi negli incontri</td></tr><tr><td>7–8</td><td>Picco di performance</td><td>10 forza esplosiva · 11 resistenza muscolare · 12 forza dinamica</td><td>Massima forza esplosiva, resistenza alla fatica, rapidità</td></tr><tr><td>9–10</td><td>Preparazione alla gara</td><td>13 cardio · 14 forza massimale · 15 agilità · 16 forza e potenza · 17 resistenza muscolare · 18 forza dinamica</td><td>Sostenere sforzi massimali e recuperare in fretta, forza massimale, velocità</td></tr><tr><td>11–12</td><td>Fase di picco</td><td>19 resistenza cardiovascolare · 20 forza esplosiva (finale)</td><td>Capacità aerobica e anaerobica, esplosività per la gara</td></tr></tbody></table><p>Struttura di ogni voce: esercizio · serie × ripetizioni · % 1RM o peso corporeo · recupero tra le serie. Le sedute complete, con dosaggi e recuperi, sono nel generatore.</p>'],
  ['Sedute in sintesi','<ul><li><b>1:</b> squat, panca, stacco 4 × 8 al 70%; burpees 3 × 15; uchi-komi con elastici 5 × 1 min.</li><li><b>2:</b> box jump 3 × 12; trazioni 4 × 8; affondi con manubri 3 × 12; sprint 50 m 5 × 5; randori leggero 5 × 3 min.</li><li><b>3:</b> squat 5 × 5 all’85%; rematore 4 × 8 al 75–80%; overhead press 4 × 8 al 70–75%; swing 3 × 20; ne-waza 5 × 2 min.</li><li><b>4:</b> power clean 4 × 6 al 70%; salti sui gradini 4 × 10; stacco esplosivo 4 × 6 al 60%; sprint in salita × 5; uchi-komi esplosivo 5 × 1 min.</li><li><b>5:</b> circuito squat-panca-stacco 3 × 10 al 70%; fune 4 × 5; trazioni zavorrate 4 × 6; circuito cardio 3 × 2 min; randori medio 6 × 3 min.</li><li><b>6:</b> jump squat 4 × 6 al 40%; panca dinamica 4 × 6 al 60%; pull-up esplosivi 4 × 6; pliometria con kettlebell 3 × 15; nage-komi 5 × 3 min.</li><li><b>7:</b> corsa 5–10 km; circuito cardio 4 × 3 min; push-up pliometrici 4 × 12; addominali con peso 4 × 15; randori tecnico 8 × 3 min.</li><li><b>8:</b> stacco 5 × 5 all’80–85%; military e row 4 × 8 al 70–75%; trazioni con judogi 4 × 8; katame-waza 5 × 2 min.</li><li><b>9:</b> salti laterali 4 × 12; speed ladder 4 × 2 min; affondi esplosivi 4 × 10; sprint 100 m × 5; randori leggero 6 × 3 min.</li><li><b>10:</b> strappo 4 × 6 al 60–70%; salto in lungo 4 × 10; power push-up 4 × 12; sprint in salita × 6; uchi-komi veloce 6 × 1 min.</li><li><b>11:</b> circuito squat-military-rematore 3 × 15 al 50–60%; battle rope 4 × 1 min; pull-up 4 × 8; circuito cardio 4 × 3 min; randori intenso 10 × 3 min.</li><li><b>12:</b> jump squat con manubri 4 × 8; panca esplosiva 4 × 8 al 50–60%; trazioni esplosive 4 × 8; nage-komi dinamico 7 × 3 min.</li><li><b>13:</b> interval running 30 min (1 min sprint, 2 min passo); circuito cardio 5 × 3 min; piegamenti con salto 4 × 15; plank zavorrato 4 × 1 min; randori tecnico intenso 8 × 4 min.</li><li><b>14:</b> stacco 5 × 3 all’85–90%; military e row 4 × 6 al 75–80%; trazioni +20–30% PC 4 × 6; randori a terra 6 × 3 min.</li><li><b>15:</b> agilità con coni 4 × 1 min; salto in lungo 4 × 10; affondi esplosivi 4 × 10; sprint 100 m × 6; randori simil shiai 8 × 3 min.</li><li><b>16:</b> clean and jerk 4 × 6 al 70–75%; jump box 4 × 8; piegamenti con saltello 4 × 12; sprint zavorrato 100 m × 5; uchi-komi esplosivo 6 × 1 min.</li><li><b>17:</b> circuito squat-panca-stacco 3 × 8 al 60–70%; battle rope 4 × 1 min; trazioni con judogi 4 × 8; circuito cardio 5 × 3 min; randori 8 × 4 min.</li><li><b>18:</b> jump squat 4 × 6 al 20–30%; panca con elastici 4 × 8; trazioni esplosive 4 × 6; swing pesante 3 × 15; nage-komi veloce 6 × 3 min.</li><li><b>19:</b> corsa 8–10 km; circuito cardio 5 × 3 min; piegamenti con stacco 4 × 20; addominali con peso 4 × 15; randori tecnico 8 × 4 min.</li><li><b>20 (finale):</b> strappo 5 × 3 all’85–90%; tuck jump 4 × 6; piegamenti con stacco 4 × 15; sprint in salita zavorrato × 6; uchi-komi esplosivo 6 × 1 min.</li></ul>']]});
+DISP.push({id:'corsa',t:'Corsa su strada: preparazione atletica e programmazione (5 km, 10 km, mezza maratona, maratona)',f:'corsa-periodizzazione-programmazione.pdf («Manuale metodologico di corsa su strada»)',
+ i:'La corsa su strada richiede di integrare condizionamento cardiovascolare, tolleranza alla fatica neuromuscolare e prevenzione degli infortuni da sovraccarico. La dispensa dà i protocolli per la preparazione atletica e la periodizzazione su 5 km, 10 km, mezza maratona e maratona.',
+ g:'Nel <b>generatore</b>, se il campo «Gare, competizioni o sport» dell’anamnesi parla di corsa su strada (corsa, podismo, running, 5 km, 10 km, mezza maratona, maratona), ci sono 4 split: <b>«'+SPS.c5+'»</b>, <b>«'+SPS.c10+'»</b>, <b>«'+SPS.c21+'»</b> e <b>«'+SPS.c42+'»</b>. È proposto per primo quello della distanza scritta nel campo (10 km se non è indicata). La fase si calcola dalla <b>data della gara</b> e si può cambiare a mano. Le sedute seguono il microciclo tipo della dispensa: 5 sedute in partenza, 6 con il riposo attivo.',
+ s:[
+ ['Modello prestativo','<p>Tre fattori fisiologici: <b>massima potenza aerobica</b> (VO₂max), <b>soglia anaerobica</b> (LT) ed <b>economia di corsa</b> (RE). Nei 5 e 10 km prevalgono il reclutamento delle fibre e la capacità di lavorare a percentuali alte del VO₂max; nella mezza e nella maratona contano la soglia spostata verso l’alto, l’efficienza nell’uso dei grassi e la resistenza meccanica di tendini e articolazioni.</p><table class="stab"><thead><tr><th>Distanza</th><th>Substrato prevalente</th><th>Intensità (% FC max)</th><th>Fattore limitante</th><th>Lunghi</th></tr></thead><tbody><tr><td><b>5 km</b></td><td>Glicolisi aerobica / VO₂max</td><td>93–98%</td><td>Tolleranza al lattato e VO₂max</td><td>10–14 km ogni settimana</td></tr><tr><td><b>10 km</b></td><td>Soglia anaerobica / aerobico</td><td>90–95%</td><td>Velocità di soglia (LT)</td><td>14–18 km ogni settimana</td></tr><tr><td><b>Mezza maratona</b></td><td>Aerobico di soglia alta</td><td>85–90%</td><td>Deriva cardiaca e glicogeno</td><td>18–22 km ogni 2 settimane</td></tr><tr><td><b>Maratona</b></td><td>Ossidazione dei lipidi / glicogeno</td><td>75–84%</td><td>Deplezione del glicogeno e fatica muscolare</td><td>28–36 km ogni 2–3 settimane</td></tr></tbody></table>'],
+ ['Programmazione per distanza','<ul><li><b>5 e 10 km (velocità e soglia):</b> solida base aerobica con ripetute brevi e medie (300–1000 m) a ritmo gara o più veloci, con recuperi attivi in corsa lenta. Obiettivo: potenza aerobica e capacità di tollerare e smaltire il lattato.</li><li><b>Mezza maratona (21,097 km):</b> tempo run (corsa a ritmo soglia) e medi progressivi; abituarsi a correre all’85–90% della FC massima per 80–100 minuti senza eccessiva deriva cardiaca.</li><li><b>Maratona (42,195 km):</b> blocco di specificità con lunghi lenti e progressivi da 28 a 36 km; efficienza nell’uso dei grassi e resilienza della catena posteriore.</li></ul><table class="stab"><thead><tr><th>Distanza</th><th>Seduta</th><th>Struttura</th><th>Recupero</th><th>Obiettivo</th></tr></thead><tbody><tr><td><b>5 km</b></td><td>Ripetute brevi</td><td>10–12 × 400 m a RG − 5"</td><td>1\'15" di corsa lenta</td><td>Potenza aerobica e VO₂max</td></tr><tr><td><b>10 km</b></td><td>Ripetute medie</td><td>6 × 1000 m a RG 10 km</td><td>2\' di corsa lenta</td><td>Innalzamento della soglia anaerobica</td></tr><tr><td><b>Mezza</b></td><td>Tempo run / medio</td><td>12–14 km a RG + 5"/10"</td><td>Continuo</td><td>Tenuta di soglia e deriva cardiaca</td></tr><tr><td><b>Maratona</b></td><td>Lungo progressivo</td><td>32 km: 20 km di corsa lenta + 8 km a RG + 4 km a RG − 5"</td><td>In corsa</td><td>Ossidazione dei lipidi e resilienza muscolare</td></tr></tbody></table><p>RG = ritmo gara; RG − 5" = 5 secondi al km più veloce del ritmo gara.</p>'],
+ ['Preparazione atletica, forza e prevenzione','<p>La forza in palestra non serve ad aumentare la massa ma a migliorare la <b>stiffness tendinea</b> e la restituzione elastica a ogni appoggio, e a prevenire gli infortuni tipici: tendinite achillea, fascite plantare, sindrome della bandelletta ileo-tibiale, sofferenza rotulea.</p><ul><li><b>Squat monopodalico e affondi progressivi:</b> stabilità dell’anca e controllo del ginocchio.</li><li><b>Stacco rumeno monopodalico:</b> ischiocrurali e glutei per la spinta propulsiva.</li><li><b>Eccentrico e isometrico per polpacci e soleo (calf raise):</b> per assorbire i carichi d’impatto, fino a 3 volte il peso corporeo a ogni passo.</li><li><b>Core stability e anti-rotazione (Pallof press e plank):</b> meno dispersioni di energia del tronco nella falcata.</li><li><b>Pliometria bassa (saltelli con la corda, ankle hops):</b> più reattività della caviglia e meno tempo di contatto al suolo.</li></ul><p>Serie e ripetizioni non sono indicate nella dispensa: nell’app sono «dosaggio indicativo».</p>'],
+ ['Periodizzazione: 4 fasi','<table class="stab"><thead><tr><th>Fase</th><th>5 e 10 km</th><th>Mezza</th><th>Maratona</th><th>Contenuti nell’app</th></tr></thead><tbody><tr><td><b>1 · Generale (costruzione)</b></td><td>oltre 10 sett.</td><td>oltre 12 sett.</td><td>oltre 14 sett.</td><td>Corsa lenta in zona 2, fartlek, lungo lento; forza a volume più alto</td></tr><tr><td><b>2 · Specifica (ritmo gara)</b></td><td>10–5 sett.</td><td>12–6 sett.</td><td>14–7 sett.</td><td>Seduta chiave della distanza; affondi progressivi, soleo, ankle hops</td></tr><tr><td><b>3 · Rifinitura</b></td><td>4–3 sett.</td><td>5–4 sett.</td><td>6–4 sett.</td><td>Stesso ritmo, volume un po’ ridotto, prova di gara nel lungo; forza di mantenimento</td></tr><tr><td><b>4 · Tapering</b></td><td>ultime 2</td><td>ultime 3</td><td>ultime 3</td><td>Volume chilometrico −30/50%, intensità delle ripetute invariata</td></tr></tbody></table><p>Nelle ultime 2–3 settimane il volume si riduce del 30–50% mantenendo invariata l’intensità, per arrivare al via con le scorte di glicogeno al massimo e la muscolatura riposata. La dispensa indica le 4 fasi e il tapering; le altre durate (settimane mancanti alla gara) le ho scelte io e sono indicative.</p>'],
+ ['Microciclo settimanale tipo','<table class="stab"><thead><tr><th>Giorno</th><th>Seduta</th><th>Descrizione</th><th>Forza / core</th></tr></thead><tbody><tr><td><b>Lunedì</b></td><td>Riposo attivo</td><td>Stretching, mobilità articolare o foam rolling</td><td>Core stability (15 min)</td></tr><tr><td><b>Martedì</b></td><td>Qualità (ripetute / tempo)</td><td>Riscaldamento + lavoro a ritmo soglia o VO₂max + defaticamento</td><td>Forza con i pesi in palestra (30 min)</td></tr><tr><td><b>Mercoledì</b></td><td>Corsa rigenerante</td><td>45–60 min di corsa lenta facile (Z2)</td><td>Riposo</td></tr><tr><td><b>Giovedì</b></td><td>Corsa media / variazioni</td><td>Corsa ritmica o fartlek dinamico</td><td>Mobilità di anca e caviglia</td></tr><tr><td><b>Venerdì</b></td><td>Riposo completo</td><td>Recupero passivo, idratazione e nutrizione</td><td>Riposo</td></tr><tr><td><b>Sabato</b></td><td>Corsa facile + allunghi</td><td>30–40 min di corsa lenta + 5 × 100 m di allunghi di tecnica</td><td>Attivazione leggera</td></tr><tr><td><b>Domenica</b></td><td>Lungo / prova di gara</td><td>Lungo lento o progressivo specifico per la distanza</td><td>Stretching</td></tr></tbody></table><p>Nel generatore: 1 seduta = qualità + forza; 2 = + lungo; 3 = + corsa media; 4 = + rigenerante; 5 = + corsa facile e allunghi; 6 = + riposo attivo e core.</p>'],
+ ['Progressione dei carichi','<ul><li>Non aumentare il volume chilometrico di oltre il <b>10%</b> da una settimana all’altra.</li><li>Una <b>settimana di scarico</b> programmata ogni 3–4 settimane di carico (nell’app: 3 + 1, con cambio scheda dopo 4 settimane).</li></ul>']]});
 var dispSel='hyrox';
-var DLAB={hyrox:'Hyrox',judo:'Judo',judo12:'Judo 12 settimane'};
+var DLAB={hyrox:'Hyrox',judo:'Judo',judo12:'Judo 12 settimane',corsa:'Corsa'};
 function dispEx(id){return EXDB.filter(function(e){return (DZX[e.n]||[]).some(function(z){return z[0]===DLAB[id]})})}
 function renderDisp(){
   var D=DISP.filter(function(d){return d.id===dispSel})[0]||DISP[0],ex=dispEx(D.id);
@@ -4070,7 +4321,7 @@ function glossHtml(){return '<dl class="gls">'+GLOSS.map(function(g){return '<di
 // ---- Libreria esercizi (ricerca e filtri rapidi per pattern, tipo e attrezzatura) ----
 // libT: {day,row} nel generatore · {ed:1,i} nell’editor (i = riga da sostituire, null = aggiungi)
 var libT=null,libP='',libQ='',libK='',libE='',libS='';
-function sportsOf(e){var o=[];if(e.spo)o.push(e.spo==='hyrox'?'Hyrox':'Judo');(DZX[e.n]||[]).forEach(function(z){var l=/^Judo/.test(z[0])?'Judo':z[0];if(o.indexOf(l)<0)o.push(l)});return o}
+function sportsOf(e){var o=[];if(e.spo)o.push(e.spo==='hyrox'?'Hyrox':e.spo==='corsa'?'Corsa':'Judo');(DZX[e.n]||[]).forEach(function(z){var l=/^Judo/.test(z[0])?'Judo':z[0];if(o.indexOf(l)<0)o.push(l)});return o}
 function openLib(t){
   libT=t;libQ='';libK='';libE='';libS='';
   var curN='',label;
@@ -4111,7 +4362,7 @@ function listLib(){
   libChips('libf','data-lp',PATS,libP,null,'p',function(e,v){return e.p===v});
   libChips('libk','data-lk',LIBK,libK,null,'k',function(e,v){return exType(e)===v});
   libChips('libe','data-le',Object.keys(EQN),libE,EQN,'e',function(e,v){return hasEq(e,v)});
-  libChips('libs','data-ls',['Hyrox','Judo'],libS,null,'s',function(e,v){return sportsOf(e).indexOf(v)>-1});
+  libChips('libs','data-ls',['Hyrox','Judo','Corsa'],libS,null,'s',function(e,v){return sportsOf(e).indexOf(v)>-1});
   gid('libl').innerHTML=L.length?L.map(function(e){
     return '<div class="lit"><div class="lin"><b>'+esc(e.n)+' '+sportsOf(e).map(function(z){return '<i class="dc">'+z+'</i> '}).join('')+libWarn(e)+'</b><span class="lbd"><i class="pt">'+e.p+'</i>'+esc(cap1(SUBL[e.sub]))+' · '+esc(exType(e))+' · '+esc(eqText(e))+' · '+esc(e.mp)+' · livello '+['','base','intermedio','avanzato'][e.lv]+'</span></div>'+
      (gctx&&injHit(e,gctx).lvl==='avoid'?'<button type="button" class="btn sm" disabled title="Zona ferma per infortunio">Escluso</button>':'<button type="button" class="btn pri sm" data-act="libpick" data-n="'+esc(e.n)+'">'+(swap?'Sostituisci':'Aggiungi')+'</button>')+
@@ -4736,6 +4987,23 @@ var BLK=[
  {id:'jdtat',t:'Lavoro sul tatami (judo)',d:'Uchi-komi, nage-komi e randori del programma di 12 settimane.',rows:[['Uchi-komi (ripetizione tecnica)',{s:5,r:'1 min',tg:'Esplosivo',rpe:'8',rec:90}],['Nage-komi (proiezioni ripetute)',{s:5,r:'3 min',rpe:'8',rec:120}],['Randori',{s:6,r:'3 min',tg:'Intensità media',rpe:'7',rec:120}]]},
  {id:'empty',t:'Blocco vuoto',d:'3 righe vuote collegate in superserie, da compilare a mano.',empty:3}
 ];
+GLOSS.push(
+ ['VO₂max (massima potenza aerobica)','Quantità massima di ossigeno che l’organismo usa in un minuto; nei 5 km si corre al 93–98% della FC massima, vicino al VO₂max.'],
+ ['Soglia anaerobica (LT)','Velocità oltre la quale il lattato si accumula; alzarla è l’obiettivo principale dei 10 km e della mezza maratona.'],
+ ['Economia di corsa (RE)','Energia spesa per correre a una certa velocità: con un’economia migliore lo stesso ritmo costa meno fatica.'],
+ ['Ritmo gara (RG)','Ritmo al chilometro previsto in gara; «RG − 5"» è 5 secondi al km più veloce, «RG + 10"» 10 secondi più lento.'],
+ ['Deriva cardiaca','Aumento della frequenza cardiaca a ritmo costante nelle corse lunghe, per fatica, calore e disidratazione.'],
+ ['Tempo run','Corsa continua a ritmo di soglia, «comodamente dura», per 20–60 minuti o 10–14 km.'],
+ ['Lungo lento / progressivo','Lungo lento: corsa lunga in zona 2. Lungo progressivo: corsa lunga che finisce al ritmo gara o più veloce.'],
+ ['Fartlek','«Gioco di velocità»: corsa con variazioni di ritmo libere o a tempo.'],
+ ['Allunghi (strides)','Tratti di 80–100 m in progressione fino a una velocità alta ma sciolta, per tecnica ed economia di corsa.'],
+ ['Stiffness tendinea','Rigidità elastica di tendini e caviglia: più è alta, più energia si restituisce a ogni appoggio.'],
+ ['Ground contact time','Tempo di contatto del piede con il suolo a ogni passo; la pliometria bassa lo riduce.']);
+GLOSS.forEach(function(g){if(g[0]==='Tapering')g[1]='Riduzione progressiva del volume prima della gara mantenendo l’intensità, per arrivare freschi (Hyrox −35/45%, judo −50%, corsa −30/50% nelle ultime 2–3 settimane).'});
+BLK.splice(BLK.length-1,0,
+ {id:'rnrip',t:'Allunghi + ripetute (Corsa)',d:'Allunghi di tecnica e ripetute medie a ritmo gara 10 km (dispensa corsa).',rows:[['Allunghi (strides)',{s:4,r:'100 m',tg:'Prima delle ripetute',rpe:'6',rec:60}],['Ripetute medie (1000 m)',{s:6,r:'1000 m',tg:'RG 10 km · recupero 2\' di corsa lenta',rpe:'8',rec:120}]]},
+ {id:'rnfor',t:'Forza e prevenzione podisti (Corsa)',d:'Squat monopodalico, stacco rumeno monopodalico, calf raise eccentrico, Pallof press: 30 minuti (dispensa corsa).',rows:[['Squat monopodalico al box',{s:3,r:'8 per lato',tg:'RIR 2 · dosaggio indicativo',rpe:'8',rec:75}],['Stacco rumeno monopodalico',{s:3,r:'8 per lato',tg:'RIR 2 · dosaggio indicativo',rpe:'8',rec:75}],['Calf raise eccentrico monopodalico',{s:3,r:'12 per lato',tg:'Discesa in 3–4 s · dosaggio indicativo',rpe:'7',rec:60}],['Pallof press',{s:3,r:'10 per lato',tg:'dosaggio indicativo',rpe:'7',rec:45}]]},
+ {id:'rnply',t:'Pliometria bassa e soleo (Corsa)',d:'Saltelli con la corda, ankle hops e isometria del soleo (dispensa corsa).',rows:[['Saltelli con la corda',{s:3,r:'45-60 s',tg:'dosaggio indicativo',rpe:'6',rec:45}],['Ankle hops (saltelli di caviglia)',{s:3,r:'20',tg:'Contatti brevissimi · dosaggio indicativo',rpe:'6',rec:60}],['Calf raise isometrico a ginocchia piegate (soleo)',{s:3,r:'30-45 s',tg:'dosaggio indicativo',rpe:'7',rec:60}]]});
 function openBlock(){var D=ED.sc.days[ED.day];
   modal('<div class="lhd"><h3>Aggiungi blocco</h3><button type="button" class="xr" data-act="mclose" aria-label="Chiudi">×</button></div><p class="status">Alla seduta '+(ED.day+1)+(D.t?' — '+esc(D.t):'')+'. Gli esercizi sono scelti dal profilo dell’atleta (obiettivi, livello, test, PAR-Q) e restano modificabili.</p>'+
    '<div class="blkl">'+BLK.map(function(b){return '<button type="button" data-blk="'+b.id+'"><b>'+esc(b.t)+'</b><span>'+esc(b.d)+'</span></button>'}).join('')+'</div>'+
