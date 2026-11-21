@@ -98,35 +98,52 @@ Altre novità:
 - **Glossario:** periodi della stagione, shiai, tori/uke, ne-waza/katame-waza, tokui-waza.
 
 ## Yanagi Academy: allenamenti di gruppo e squadra (judo)
-Voce **Yanagi Academy** nel menu. «+ Nuovo gruppo o squadra» apre le impostazioni:
-- **Gruppo**: nome, categoria o fascia d’età (Bambini, Ragazzi/Esordienti, Cadetti, Junior, Senior, Master, Amatori, misto), inizio e fine facoltativa del programma.
-- **Giorni e orari**: spunta i giorni della settimana, con l’ora di inizio e la durata (da 1 a 3 ore).
-- **Obiettivo gara agonistica**: nome, data, livello e luogo. La fase si calcola dalla data: oltre 16 settimane *preparazione generale*, 9–16 *conversione*, 4–8 *specificità*, ultime 3 *taper*, poi 3 settimane di *transizione*. Ogni 4ª settimana è di scarico (non nel taper). La fase si può anche scegliere a mano; senza gara il gruppo resta in preparazione generale.
+Voce **Yanagi Academy** nel menu, con due sezioni: **Gruppi e squadre** ed **Esercizi judo**, più il pulsante **⏱ Timer randori**.
+
+**Gruppo** («+ Nuovo gruppo o squadra» → Impostazioni):
+- **Fascia d’età e livello**: Bambini (6–8 anni), Ragazzi (9–12), Esordienti (13–14), Agonisti Cadetti / Juniores / Seniores, Master, Amatori, misto. Bambini e Ragazzi: giochi, percorsi funzionali e randori di studio. Esordienti e Master: niente sovraccarichi pesanti.
+- **Giorni e orari**: giorni della settimana, ora di inizio e durata (da 1 a 3 ore).
+- **Calendario gare stagionali**: più gare, ognuna con data, livello, luogo e priorità. **A** = obiettivo (la periodizzazione costruisce il picco); **B** = gara minore (le sedute dei 2 giorni prima sono di mantenimento, volume al 70%).
+- **Attrezzi disponibili**: coni, cerchi, corde, materassi, palle, ostacoli, panca, cinture, elastici, palla medica, kettlebell, bilanciere e manubri, sbarra, fune, materassone. Servono per la preparazione atletica e per i percorsi.
 - **Atleti**: quelli in archivio (spunta) e altri nomi scritti a mano.
 
-**Calendario e sedute**: riepilogo, calendario del mese con le sedute colorate per fase (ora, focus, scarico, ✓ svolta, ✕ annullata, 🏆 gara) e l’elenco delle prossime sedute. Il calendario arriva alla data di fine, oppure a 3 settimane dopo la gara, oppure a 12 settimane dall’inizio.
+**Periodizzazione automatica** (dalla prossima gara A): oltre 16 settimane *preparazione generale*, 9–16 *conversione*, 4–8 *specificità*, ultime 3 *taper*, poi 3 settimane di *transizione* (saltate se la gara A successiva è entro 8 settimane). Ogni 4ª settimana è di scarico (volume 60%, non nel taper).
+- **Forza**: periodo preparatorio **50% forza massima · 50% esplosiva**; conversione 40/60; periodo agonistico **30% · 70%**. La ripartizione è fatta sulle serie della preparazione atletica.
+- **Taper e supercompensazione**: volume all’80%, 70%, 60% nelle ultime 3 settimane e al 50% nella settimana della gara, intensità mantenuta.
 
-**Struttura di ogni seduta**, proposta in automatico da fase, focus del giorno e durata:
-1. Riscaldamento (saluto, corsa con andature o giochi, mobilità, ukemi);
-2. Preparazione atletica (a corpo libero e piccoli attrezzi, diversa per fase);
-3. Tecnica ed esercizi specifici (tecnica del giorno, kumi-kata, uchi-komi, nage-komi o ne-waza, situazioni di gara);
-4. Randori (numero di round calcolato dai minuti; in specificità round da 4 min con golden score);
-5. Defaticamento (stretching, respirazione, saluto).
+**Calendario e sedute**: calendario del mese colorato per fase (gare A e B segnate), prossime sedute, riepilogo con la ripartizione della forza, alert infortuni.
 
-Il focus ruota tra i giorni: **A** forza e tachi-waza, **B** rapidità, potenza e ne-waza, **C** resistenza specifica e randori (**M** seduta completa con un solo allenamento a settimana). Per Bambini e Ragazzi: giochi, percorsi e randori di studio.
+**Builder della seduta** a blocchi temporali: Rei e accoglienza, Riscaldamento atletico, Ukemi, Preparazione atletica (o Percorso funzionale per i più giovani), Tecnica e kumi-kata, Randori, Defaticamento e saluto.
+- Barra «Scansione della lezione» con orari di inizio e fine di ogni blocco e totale dei minuti.
+- Ogni blocco: nome e minuti modificabili, ↑ ↓ per riordinare, × per togliere, esercizi con l’elenco della libreria; «+ Aggiungi blocco» (anche blocco libero).
+- **Randori**: modalità Kakari randori (attacco continuo), Ne-waza randori situazionale (6 situazioni di partenza a rotazione), Tachi-waza randori libero, misto, randori di studio; round, durata, recupero, cambio coppia, golden score finale.
+- **Timer acustico** a schermo intero: «Pronti», segnale e voce «Hajime» all’inizio, 3 bip negli ultimi 3 secondi, «Matte» al recupero, tono e scritta **CAMBIO COPPIA**, «Sore made» alla fine; pausa, salta, +15 s; lo schermo resta acceso dove il browser lo permette.
+- **Percorso funzionale** (settore giovanile): trascina gli attrezzi nel percorso (sul telefono si toccano), riordina le stazioni trascinandole, scegli l’esercizio di ogni stazione, giri e tempi; il timer guida i cambi di stazione.
+- **Stato della seduta**: programmata, svolta, annullata, presenti, **RPE medio del gruppo** e note.
 
-Nella seduta si cambiano minuti, esercizi (con l’elenco della libreria), dosaggi e note; si segna lo stato (programmata, svolta, annullata), i presenti e le note. «Salva seduta» vale solo per quella data; «Ripristina proposta automatica» torna alla proposta. Ci sono anche «Stampa / PDF», «Condividi con il gruppo» (testo per WhatsApp o altre app) e la guida «Come si esegue» per gli esercizi della libreria.
+**Carico e periodizzazione**: grafico e tabella settimana per settimana con fase, % forza massima/esplosiva, sedute, minuti, **carico previsto** (UA = minuti × RPE × volume) e **carico reale** (dalle sedute svolte con l’RPE). Segnala un aumento oltre il 30% rispetto alle ultime 4 settimane piene.
 
-**Esportazione**: «Stampa calendario / PDF» (A4 orizzontale) ed «Esporta Excel (.xlsx)», con il foglio «Calendario» (una riga per seduta, con le cinque parti) e il foglio «Gruppo» (dati e atleti).
+**Atleti, test e infortuni**:
+- Per ogni atleta: **cintura**, categoria di peso, anno di nascita.
+- **Alert infortuni**: gli infortuni dell’anamnesi (atleti in archivio) e quelli aggiunti nel gruppo compaiono nel gruppo, nella seduta e sul foglio tatami, con le varianti per zona (es. lombare: niente compressione assiale; spalla: niente cadute come uke su proiezioni di spalla) e l’avviso sotto ogni esercizio che carica la zona.
+- **Batteria test**: Overhead Squat, Plank, Judogi Grip Strength Test (isometrico e dinamico), Special Judo Fitness Test (con timer e indice calcolato). Registro con il confronto con il test precedente.
+- **Rivalutazione** ogni 6, 7 o 8 settimane: etichette «Test iniziale da fare», «Rivalutazione tra N gg», «scaduta»; il numero di test da fare compare anche sulla scheda del gruppo.
 
-I gruppi sono salvati nel cloud (`users/<UID>/gruppi`), sul dispositivo e nel backup JSON. Contenuti, dosaggi e minuti proposti sono indicativi e vanno adattati dal tecnico.
+**Esercizi judo**: database con tre categorie, **generali** (condizionali), **speciali** (judogi, cintura, elastici, gambero) e **specifici** (ukemi, tachi-waza, ne-waza, randori), con ricerca e guida «come si esegue».
+
+**Stampa ed esportazione**:
+- **🖨 Foglio bordo tatami (A4)**: foglio ad alto contrasto con orari dei blocchi, esercizi e dosaggi, randori, alert infortuni, presenze con la cintura e righe per le note.
+- «Stampa calendario / PDF» (A4 orizzontale) ed **Excel** con 4 fogli: Calendario (blocchi, forza, RPE, carico), Carico settimanale, Gruppo (gare, attrezzi, atleti con cintura) e Test.
+- «Condividi con il gruppo» (testo per WhatsApp o altre app, con gli orari).
+
+I gruppi (con gare, atleti, cinture, infortuni del gruppo e test) sono salvati nel cloud (`users/<UID>/gruppi`), sul dispositivo e nel backup JSON. I gruppi creati prima continuano a funzionare: la vecchia gara diventa la gara A e le sedute già modificate restano come erano. Contenuti, dosaggi, minuti, coefficienti di carico e riferimenti dei test sono indicativi e vanno adattati dal tecnico.
 
 ## Libreria esercizi
-238 esercizi. Ai 191 di base se ne aggiungono 47 dalle dispense (22 del programma judo di 12 settimane, elencati sopra) e 25 dalle prime due:
+258 esercizi. Ai 191 di base se ne aggiungono 47 dalle dispense (22 del programma judo di 12 settimane, elencati sopra, e 25 dalle prime due) e 20 del database judo della Yanagi Academy (ukemi, uchi-komi statico, dinamico e su ostacoli, nage-komi su materassone, renraku-waza, kaeshi-waza, kumi-kata, ribaltamenti dalla tartaruga, osaekomi-waza, uscite dalle immobilizzazioni, trazioni con la cintura, piegamenti con fascia elastica, gambero, tira e molla con la cintura, lanci con la palla medica). Quelli delle prime due dispense:
 - **Hyrox**: SkiErg, vogatore, sled pull alla fune, sled drag, burpee broad jump, affondi con sandbag, rematore Pendlay, corsa a ritmo gara, ripetute a soglia, corsa lunga in zona 2;
 - **judo**: gi pull-up, trazioni con asciugamano o fune, pinch grip, kumi-kata isometrico, landmine rotational press, squat jump con elastico, jump squat zavorrato, power clean da sospensione, Turkish get-up, Zercher carry, isometrie del collo, Y-T-W-L, uchi-komi con elastico, complex con bilanciere, air bike 30/15.
 
-Nuovo tipo **Condizionamento** (ergometri, corsa, circuiti a tempo): non conta nel volume per muscolo. Nuovo filtro **Sport** (Hyrox · Judo). Legenda e libreria mostrano le indicazioni «Dalla dispensa…».
+Tipi **Condizionamento** (ergometri, corsa, circuiti a tempo), **Speciale judo** e **Tatami (judo)**: non contano nel volume per muscolo e non entrano da soli nelle schede della palestra. Nuovo filtro **Sport** (Hyrox · Judo). Legenda e libreria mostrano le indicazioni «Dalla dispensa…».
 
 I 191 di base comprendono gli esercizi originali, il **repertorio del corso Personal Trainer CSEN** e 28 esercizi di **riscaldamento e defaticamento** (cardio leggero, mobilità, attivazione, allungamento, foam rolling) (petto, dorso, spalle, braccia, cosce, glutei, polpacci, addome). Organizzati per **pattern di movimento** (Push, Pull, Squat, Hinge, Carry, Isopush, Mobilità), con barra di ricerca e **filtri rapidi** per pattern, **tipo** (Base multiarticolare, Complementare di isolamento, Esplosivo, Core, Trasporto, Condizionamento, Mobilità, Riscaldamento) e **attrezzatura** (bilanciere, manubri, macchine, cavi, corpo libero, piccoli attrezzi). Avvisi «sconsigliato dai test», «sconsigliato dal PAR-Q», «livello superiore».
 
