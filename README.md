@@ -97,6 +97,30 @@ Altre novità:
 - **Editor:** nuovo blocco «Lavoro sul tatami (judo)».
 - **Glossario:** periodi della stagione, shiai, tori/uke, ne-waza/katame-waza, tokui-waza.
 
+## Yanagi Academy: allenamenti di gruppo e squadra (judo)
+Voce **Yanagi Academy** nel menu. «+ Nuovo gruppo o squadra» apre le impostazioni:
+- **Gruppo**: nome, categoria o fascia d’età (Bambini, Ragazzi/Esordienti, Cadetti, Junior, Senior, Master, Amatori, misto), inizio e fine facoltativa del programma.
+- **Giorni e orari**: spunta i giorni della settimana, con l’ora di inizio e la durata (da 1 a 3 ore).
+- **Obiettivo gara agonistica**: nome, data, livello e luogo. La fase si calcola dalla data: oltre 16 settimane *preparazione generale*, 9–16 *conversione*, 4–8 *specificità*, ultime 3 *taper*, poi 3 settimane di *transizione*. Ogni 4ª settimana è di scarico (non nel taper). La fase si può anche scegliere a mano; senza gara il gruppo resta in preparazione generale.
+- **Atleti**: quelli in archivio (spunta) e altri nomi scritti a mano.
+
+**Calendario e sedute**: riepilogo, calendario del mese con le sedute colorate per fase (ora, focus, scarico, ✓ svolta, ✕ annullata, 🏆 gara) e l’elenco delle prossime sedute. Il calendario arriva alla data di fine, oppure a 3 settimane dopo la gara, oppure a 12 settimane dall’inizio.
+
+**Struttura di ogni seduta**, proposta in automatico da fase, focus del giorno e durata:
+1. Riscaldamento (saluto, corsa con andature o giochi, mobilità, ukemi);
+2. Preparazione atletica (a corpo libero e piccoli attrezzi, diversa per fase);
+3. Tecnica ed esercizi specifici (tecnica del giorno, kumi-kata, uchi-komi, nage-komi o ne-waza, situazioni di gara);
+4. Randori (numero di round calcolato dai minuti; in specificità round da 4 min con golden score);
+5. Defaticamento (stretching, respirazione, saluto).
+
+Il focus ruota tra i giorni: **A** forza e tachi-waza, **B** rapidità, potenza e ne-waza, **C** resistenza specifica e randori (**M** seduta completa con un solo allenamento a settimana). Per Bambini e Ragazzi: giochi, percorsi e randori di studio.
+
+Nella seduta si cambiano minuti, esercizi (con l’elenco della libreria), dosaggi e note; si segna lo stato (programmata, svolta, annullata), i presenti e le note. «Salva seduta» vale solo per quella data; «Ripristina proposta automatica» torna alla proposta. Ci sono anche «Stampa / PDF», «Condividi con il gruppo» (testo per WhatsApp o altre app) e la guida «Come si esegue» per gli esercizi della libreria.
+
+**Esportazione**: «Stampa calendario / PDF» (A4 orizzontale) ed «Esporta Excel (.xlsx)», con il foglio «Calendario» (una riga per seduta, con le cinque parti) e il foglio «Gruppo» (dati e atleti).
+
+I gruppi sono salvati nel cloud (`users/<UID>/gruppi`), sul dispositivo e nel backup JSON. Contenuti, dosaggi e minuti proposti sono indicativi e vanno adattati dal tecnico.
+
 ## Libreria esercizi
 238 esercizi. Ai 191 di base se ne aggiungono 47 dalle dispense (22 del programma judo di 12 settimane, elencati sopra) e 25 dalle prime due:
 - **Hyrox**: SkiErg, vogatore, sled pull alla fune, sled drag, burpee broad jump, affondi con sandbag, rematore Pendlay, corsa a ritmo gara, ripetute a soglia, corsa lunga in zona 2;
@@ -146,7 +170,7 @@ Calcolato dalla scheda più recente di ogni atleta (data di cambio scheda, o 6 s
 
 ## Accesso e cloud (Firebase)
 - All’apertura il sito chiede **email e password** (l’utente creato in Firebase → Authentication). «Password dimenticata?» manda un’email per sceglierne una nuova.
-- Clienti, anamnesi, test e schede sono salvati su **Firestore** (progetto `speaking-bb3af`, percorso `users/<tuo UID>/utenti` e `users/<tuo UID>/schede`): entrando con la stessa email da PC e telefono vedi gli stessi dati. Tornando sull’app dopo almeno un minuto, gli elenchi si aggiornano con le modifiche fatte altrove.
+- Clienti, anamnesi, test e schede sono salvati su **Firestore** (progetto `speaking-bb3af`, percorso `users/<tuo UID>/utenti`, `users/<tuo UID>/schede` e `users/<tuo UID>/gruppi`): entrando con la stessa email da PC e telefono vedi gli stessi dati. Tornando sull’app dopo almeno un minuto, gli elenchi si aggiornano con le modifiche fatte altrove.
 - Resta una copia sul dispositivo (IndexedDB) per aprire l’app anche senza rete. Le modifiche fatte offline partono da sole quando torna la connessione; lo stato è nel menu **Backup** («Dati sincronizzati», «modifiche in attesa»).
 - **Primo accesso su un dispositivo che ha già dei clienti**: compare il riquadro «… non sono ancora nel cloud» con **Carica nel cloud** (si fa una volta sola). Si può fare anche da Backup → «Carica nel cloud i dati di questo dispositivo». I clienti già presenti nel cloud non vengono sovrascritti.
 - **Backup solo per il PT**: il menu Backup (e «Importa backup») compare solo dopo l’accesso con la tua email. L’atleta, con il link della scheda, non vede né menu né Backup. Se il cloud non è raggiungibile, «Continua con i dati salvati su questo dispositivo» compare solo su un dispositivo in cui hai già fatto l’accesso (o con il file aperto dal computer); su un telefono qualsiasi l’app resta chiusa.
