@@ -134,9 +134,17 @@ Voce **Yanagi Academy** nel menu, con due sezioni: **Gruppi e squadre** ed **Ese
 **Stampa ed esportazione**:
 - **🖨 Foglio bordo tatami (A4)**: foglio ad alto contrasto con orari dei blocchi, esercizi e dosaggi, randori, alert infortuni, presenze con la cintura e righe per le note.
 - «Stampa calendario / PDF» (A4 orizzontale) ed **Excel** con 4 fogli: Calendario (blocchi, forza, RPE, carico), Carico settimanale, Gruppo (gare, attrezzi, atleti con cintura) e Test.
-- «Condividi con il gruppo» (testo per WhatsApp o altre app, con gli orari).
+- **🖨 Stampa seduta completa (PDF)** e **🖨 Programma completo (PDF)** (dal calendario, scegli il periodo: una seduta per pagina): ogni seduta dal rei al defaticamento, blocchi con orari, ogni esercizio con orario e minuti indicativi (≈), dosaggio, note e guida all’esecuzione, materiale, alert infortuni, presenze. «Scarica file» salva la pagina HTML.
 
-I gruppi (con gare, atleti, cinture, infortuni del gruppo e test) sono salvati nel cloud (`users/<UID>/gruppi`), sul dispositivo e nel backup JSON. I gruppi creati prima continuano a funzionare: la vecchia gara diventa la gara A e le sedute già modificate restano come erano. Contenuti, dosaggi, minuti, coefficienti di carico e riferimenti dei test sono indicativi e vanno adattati dal tecnico.
+**Stemma**: lo stemma della squadra è accanto a «Yanagi Academy» in tutte le pagine e nelle stampe.
+
+**Atleti non in archivio**: «+ Nuovo atleta» (in Impostazioni o in «Atleti, test e infortuni») con nome, cognome, età, categoria (proposta dall’età), peso, cintura e categoria di peso facoltativa. Gli stessi dati si modificano per tutti gli atleti del gruppo.
+
+**Note del gruppo · materiale per la preparazione**: elenco del materiale necessario alle sedute in calendario (con il numero di sedute che lo usano) e di altro materiale utile; spunti quello che hai, il resto è segnato «da procurare» (anche nel calendario e su ogni seduta). Le sedute usano solo il materiale spuntato.
+
+**Condivisione solo con il maestro**: in Impostazioni spunta «Condividi il gruppo e le sedute con il maestro» e inserisci nome, cognome, età, grado (cintura), telefono, email, Telegram. «📤 Condividi con il maestro» (calendario e seduta) invia il programma del gruppo o la seduta completa via WhatsApp, Telegram, email, testo copiato o file. Gli alert infortuni si includono solo con la spunta apposita.
+
+I gruppi (con gare, atleti, cinture, infortuni del gruppo, test, materiale e maestro) sono salvati nel cloud (`users/<UID>/gruppi`), sul dispositivo e nel backup JSON. I gruppi creati prima continuano a funzionare: la vecchia gara diventa la gara A e le sedute già modificate restano come erano. Contenuti, dosaggi, minuti, coefficienti di carico e riferimenti dei test sono indicativi e vanno adattati dal tecnico.
 
 ## Libreria esercizi
 258 esercizi. Ai 191 di base se ne aggiungono 47 dalle dispense (22 del programma judo di 12 settimane, elencati sopra, e 25 dalle prime due) e 20 del database judo della Yanagi Academy (ukemi, uchi-komi statico, dinamico e su ostacoli, nage-komi su materassone, renraku-waza, kaeshi-waza, kumi-kata, ribaltamenti dalla tartaruga, osaekomi-waza, uscite dalle immobilizzazioni, trazioni con la cintura, piegamenti con fascia elastica, gambero, tira e molla con la cintura, lanci con la palla medica). Quelli delle prime due dispense:
