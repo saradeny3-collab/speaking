@@ -367,6 +367,9 @@ body.athm .side,body.athm .tabbar{display:none!important}body.athm main{width:10
 @media print{.sugg,.inw{display:none!important}}
 @media (max-width:600px){.rmr{grid-template-columns:1fr 1fr}.rmr .tout{grid-column:1/-1}.tcard .two{grid-template-columns:1fr}}
 @page{size:A4;margin:15mm}
+@page elenco{size:A4 landscape;margin:10mm}
+.elt td,.elt th{font-size:13px;white-space:nowrap}.elt td:last-child,.elt td:nth-child(8),.elt td:nth-child(10){white-space:normal;min-width:120px}
+@media print{.elp{page:elenco}.elt td,.elt th{font-size:8pt!important;padding:3px 5px!important}.elt tr{break-inside:avoid}.elt thead{display:table-header-group}}
 @media print{
 .btn,.afoot,.ahead .back{display:none!important}
 .asec{border:1px solid #888!important;break-inside:avoid}
@@ -471,13 +474,14 @@ document.addEventListener('click', function(e){
   var f = e.target.closest('[data-uf]'); if (f) { var v=f.getAttribute('data-uf'); guardGen(function(){ uf = v; cur = 'home'; render(); }); }
 });
 // Menu a tendina del Backup: si chiude cliccando fuori o con Esc
-function closeBk(){var m=document.getElementById('bkm');if(m&&!m.hidden){m.hidden=true;var b=document.querySelector('[data-act="bkmenu"]');if(b)b.setAttribute('aria-expanded','false')}}
+var DDM={bkmenu:'bkm',elmenu:'elm'};
+function closeBk(skip){Object.keys(DDM).forEach(function(k){if(k===skip)return;var m=document.getElementById(DDM[k]);if(m&&!m.hidden){m.hidden=true;var b=document.querySelector('[data-act="'+k+'"]');if(b)b.setAttribute('aria-expanded','false')}})}
 document.addEventListener('click',function(e){
-  var t=e.target.closest('[data-act="bkmenu"]'),m=document.getElementById('bkm');
-  if(t&&m){var open=m.hidden;m.hidden=!open;t.setAttribute('aria-expanded',String(open));if(open){var f=m.querySelector('button');if(f)f.focus()}return}
+  var t=e.target.closest('[data-act="bkmenu"],[data-act="elmenu"]'),k=t&&t.getAttribute('data-act'),m=k&&document.getElementById(DDM[k]);
+  if(t&&m){closeBk(k);var open=m.hidden;m.hidden=!open;t.setAttribute('aria-expanded',String(open));if(open){var f=m.querySelector('button');if(f)f.focus()}return}
   closeBk();
 });
-document.addEventListener('keydown',function(e){if(e.key==='Escape'){var m=document.getElementById('bkm');if(m&&!m.hidden){closeBk();var b=document.querySelector('[data-act="bkmenu"]');if(b)b.focus()}}});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){Object.keys(DDM).forEach(function(k){var m=document.getElementById(DDM[k]);if(m&&!m.hidden){closeBk();var b=document.querySelector('[data-act="'+k+'"]');if(b)b.focus()}})}});
 function setView(v){
   document.getElementById('stage').className = 'stage ' + v;
 }
@@ -663,11 +667,14 @@ function filtered(){
 function renderUtenti(){
   document.getElementById('main').innerHTML =
    '<div class="top"><button class="newbtn" data-act="add">+ Nuovo Cliente</button>'+
-   '<div class="dd"><button class="ddb" data-act="bkmenu" aria-haspopup="true" aria-expanded="false" aria-controls="bkm">Backup <span aria-hidden="true">▾</span></button>'+
-   '<div class="ddm" id="bkm" role="menu" hidden><button role="menuitem" data-act="exp">Esporta backup (JSON)</button><button role="menuitem" data-act="imp">Importa backup (JSON)</button><button role="menuitem" data-act="prn">Stampa elenco</button>'+
+   '<div class="dd"><button class="ddb" data-act="elmenu" aria-haspopup="true" aria-expanded="false" aria-controls="elm">Elenco atleti <span aria-hidden="true">▾</span></button>'+
+   '<div class="ddm" id="elm" role="menu" hidden><button role="menuitem" data-act="elpdf">Stampa / Esporta PDF</button><button role="menuitem" data-act="elxl">Esporta Excel (.xlsx)</button><button role="menuitem" data-act="elcsv">Esporta CSV</button>'+
+   '<p class="hint">Tutti gli atleti con i dati anagrafici: nome, cognome, codice fiscale, data di nascita, telefono, email, città, certificato medico e stato. Contiene dati personali: conserva e invia il file con cura.</p></div></div>'+
+   (!isPT()?'':'<div class="dd"><button class="ddb" data-act="bkmenu" aria-haspopup="true" aria-expanded="false" aria-controls="bkm">Backup <span aria-hidden="true">▾</span></button>'+
+   '<div class="ddm" id="bkm" role="menu" hidden><button role="menuitem" data-act="exp">Esporta backup (JSON)</button><button role="menuitem" data-act="imp">Importa backup (JSON)</button>'+
    (Cloud.user()?'<button role="menuitem" data-act="cloudup">Carica nel cloud i dati di questo dispositivo</button><button role="menuitem" data-act="logout">Esci ('+esc(Cloud.user().email||'')+')</button>'+
    '<p class="hint" id="cloudst">'+esc(Cloud.status())+'</p><p class="hint">I dati sono salvati nel cloud (Firebase) e in una copia su questo dispositivo: li ritrovi entrando con la stessa email da PC e telefono. Il backup JSON resta una copia di sicurezza e contiene dati personali: conservalo con cura.</p>':
-   '<p class="hint">Stai lavorando senza cloud: i dati sono salvati solo in questo browser, su questo dispositivo. Per passarli a un altro usa Esporta e poi Importa. Il backup contiene dati personali: conservalo con cura.</p>')+'</div></div></div>'+
+   '<p class="hint">Stai lavorando senza cloud: i dati sono salvati solo in questo browser, su questo dispositivo. Per passarli a un altro usa Esporta e poi Importa. Il backup contiene dati personali: conservalo con cura.</p>')+'</div></div>')+'</div>'+
    '<div id="cloudbar"></div>'+
    '<div class="status" id="bkstat" role="status"></div><input type="file" id="impf" accept="application/json,.json" hidden>'+
    '<div class="uh"><div><h2>Atleti</h2><p class="sub" id="ucount"></p></div><div class="uact">'+
@@ -692,9 +699,9 @@ function listUtenti(){
   document.getElementById('dbar').innerHTML = dm ? '<div class="dbar"><span>Seleziona i clienti da eliminare ('+n+')</span><div><button data-act="cancel">Annulla</button><button class="danger" data-act="confirmdel"'+(n?'':' disabled')+'>Elimina</button></div></div>' : '';
   document.getElementById('bdel').classList.toggle('danger', dm);
   var h = L.length ? '<div class="uhead"><span>Nominativo</span><span>Età</span><span>Obiettivi</span><span>Livello</span><span>Telefono</span><span>Email</span></div>' : (U.length?'<div class="empty">Nessun atleta corrisponde a questo filtro.</div>':(Cloud.user()?'<div class="empty">Nessun cliente nel tuo archivio: usa «+ Nuovo Cliente» per iniziare.</div>'+
-     '<div class="info" style="margin-top:0">Se hai già inserito i clienti su un altro dispositivo, aprilo e accedi lì con la stessa email: l’app ti proporrà di caricarli nel cloud e poi compariranno anche qui. In alternativa importa un backup.<div style="margin-top:10px"><button type="button" class="btn sm pri" data-act="imp">Importa backup</button></div></div>':
+     '<div class="info" style="margin-top:0">Se hai già inserito i clienti su un altro dispositivo, aprilo e accedi lì con la stessa email: l’app ti proporrà di caricarli nel cloud e poi compariranno anche qui. In alternativa importa un backup.'+(isPT()?'<div style="margin-top:10px"><button type="button" class="btn sm pri" data-act="imp">Importa backup</button></div>':'')+'</div>':
      '<div class="empty">Nessun cliente su questo dispositivo: usa «+ Nuovo Cliente» per iniziare.</div>'+
-     '<div class="info" style="margin-top:0">I clienti restano nel browser in cui li hai inseriti e non passano da soli da un dispositivo all’altro (né tra due browser dello stesso telefono). Se li hai già inseriti sul PC: lì <b>Backup → Esporta backup (JSON)</b>, manda il file al telefono, poi qui <b>Backup → Importa backup</b>.<div style="margin-top:10px"><button type="button" class="btn sm pri" data-act="imp">Importa backup</button></div></div>'));
+     '<div class="info" style="margin-top:0">I clienti restano nel browser in cui li hai inseriti e non passano da soli da un dispositivo all’altro (né tra due browser dello stesso telefono). Se li hai già inseriti sul PC: lì <b>Backup → Esporta backup (JSON)</b>, manda il file al telefono, poi qui <b>Backup → Importa backup</b>.'+(isPT()?'<div style="margin-top:10px"><button type="button" class="btn sm pri" data-act="imp">Importa backup</button></div>':'')+'</div>'));
   h += L.map(function(u){
     return '<div class="urow'+(sel[u.id]?' sel':'')+'" data-row="'+esc(u.id)+'">'+(dm?'<input type="checkbox"'+(sel[u.id]?' checked':'')+' aria-label="Seleziona">':'')+
     '<div class="av">'+esc((u.n[0]||'')+(u.c[0]||'')).toUpperCase()+'</div><div class="cells"><div class="unm"><b>'+esc(u.n+' '+u.c)+'</b>'+(hasDoc(u)?'<i class="dc">documento</i>':'')+'<div class="ubd">'+badges(u)+'</div></div>'+
@@ -4612,14 +4619,57 @@ async function applyImport(replace){
 }
 document.addEventListener('click',function(e){
   var a=e.target.closest('[data-act]');if(!a)return;var k=a.getAttribute('data-act');
+  if((k==='exp'||k==='imp'||k==='impmerge'||k==='imprepl')&&!isPT()){st('bkstat','Il backup è riservato al Personal Trainer: accedi con la tua email.');return}
   if(k==='exp')exportBackup();
   else if(k==='imp'){var f=document.getElementById('impf');if(f)f.click()}
   else if(k==='impmerge')applyImport(false);
   else if(k==='imprepl')applyImport(true);
+  else if(k==='elpdf'){closeBk();elencoPdf()}
+  else if(k==='elxl'||k==='elcsv'){closeBk();elencoExp(k==='elxl'?'xlsx':'csv')}
+  else if(k==='elprint')window.print();
   else if(k==='prn')window.print();
   else if(k==='gosch'){closeModal();suid=a.getAttribute('data-id');cur='schede';sdm=false;ssel={};trend=[];eq='';render();window.scrollTo(0,0)}
 });
-document.addEventListener('change',function(e){var t=e.target;if(t.id==='impf'&&t.files&&t.files[0]){readImport(t.files[0]);t.value=''}});
+document.addEventListener('change',function(e){var t=e.target;if(t.id==='impf'&&t.files&&t.files[0]){if(isPT())readImport(t.files[0]);t.value=''}});
+// ---- Elenco atleti con i dati anagrafici (PDF, Excel, CSV) ----
+function statoTxt(u){var s=ustat(u),L=dueSoon(u).map(function(x){return x.left<0?(x.k==='inj'?'Verifica infortunio':x.k==='cert'?'Certificato scaduto':'Scheda scaduta'):DLS[x.k]+' '+(x.left===0?'oggi':'tra '+x.left+' gg')});
+  if(u.cert==='Scaduto'&&!u.certd)L.push('Certificato scaduto');if(s.ck)L.push('Check-in');if(s.att&&!s.scad&&!s.ck)L.push('Attivo');if(!L.length)L.push(schedeOf(u.id).length?'Scheda terminata':'Senza scheda');return L.join(', ')}
+function certTxt(u){return (u.cert||'')+(u.certd?(u.cert?' · ':'')+'scad. '+fdate(u.certd):'')}
+var ELC=[['Cognome',16,function(u){return u.c}],['Nome',14,function(u){return u.n}],['Codice fiscale',19,function(u){return (u.cf||'').toUpperCase()}],
+ ['Data di nascita',13,function(u){return u.d?fdate(u.d):''}],['Età',6,function(u){var a=ageOf(u);return a===''?'':+a}],['Sesso',8,function(u){return u.sx||''}],
+ ['Telefono',15,function(u){return u.t||''}],['Email',28,function(u){return u.e||''}],['Città',16,function(u){return u.ci||''}],
+ ['Livello',14,function(u){return u.liv||''}],['Obiettivi',26,function(u){return (u.ob||[]).join(', ')}],['Gara / sport',22,function(u){return u.gara||''}],
+ ['Data gara',11,function(u){return u.garad?fdate(u.garad):''}],['Certificato medico',24,certTxt],['N. documento',14,function(u){return u.dn||''}],
+ ['Scadenza documento',13,function(u){return u.ds?fdate(u.ds):''}],['Stato',24,statoTxt]];
+// nel PDF solo le colonne principali, per stare in una pagina A4 orizzontale
+var ELP=['Cognome','Nome','Codice fiscale','Data di nascita','Età','Telefono','Email','Città','Certificato medico','Stato'];
+function elencoList(){return U.slice().sort(function(a,b){return ((a.c||'')+' '+(a.n||'')).localeCompare((b.c||'')+' '+(b.n||''),'it')})}
+function elencoPdf(){
+  var L=elencoList(),C=ELC.filter(function(c){return ELP.indexOf(c[0])>-1});
+  modal('<div class="elp"><h3 style="margin:0 0 4px">S.peaking — Elenco atleti</h3><p class="status" style="margin:0 0 12px">'+L.length+(L.length===1?' atleta':' atleti')+' · aggiornato al '+fdate(todayIso())+'</p>'+
+   (L.length?'<div class="xwrap"><table class="stab elt"><thead><tr><th>#</th>'+C.map(function(c){return '<th>'+esc(c[0])+'</th>'}).join('')+'</tr></thead><tbody>'+
+   L.map(function(u,i){return '<tr><td>'+(i+1)+'</td>'+C.map(function(c){var v=c[2](u);return '<td>'+esc(v===''||v==null?'—':String(v))+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table></div>':'<p>Nessun atleta in archivio.</p>')+
+   '<p class="status" style="font-size:11px;margin-top:10px">Documento con dati personali: conservalo e invialo con cura (GDPR).</p></div>'+
+   '<p class="status noprn">Premi «Stampa / Salva PDF» e, come stampante, scegli «Salva come PDF». Il foglio esce in orizzontale; l’Excel contiene anche livello, obiettivi, gara e documento.</p>'+
+   '<div class="mrow"><button data-act="mclose">Chiudi</button><button class="pri" data-act="elprint">Stampa / Salva PDF</button></div>');
+}
+async function elencoExp(kind){
+  var L=elencoList(),nm='Speaking_elenco_atleti_'+todayIso();
+  try{
+    if(kind==='xlsx'){
+      var R=[{c:[['S.peaking — Elenco atleti',1]],h:26},{c:[[L.length+(L.length===1?' atleta':' atleti')+' · aggiornato al '+fdate(todayIso()),7]]},{c:[]},
+        {c:[['#',3]].concat(ELC.map(function(c){return [c[0],3]})),h:30}];
+      L.forEach(function(u,i){var h=16,row=[[i+1,4]].concat(ELC.map(function(c,j){var v=c[2](u);h=Math.max(h,hgt(v,c[1]));return [v==null?'':v,j<2?9:4]}));R.push({c:row,h:h})});
+      R.push({c:[]});R.push({c:[['Documento con dati personali e sanitari: conservalo con cura (GDPR).',7]]});
+      await saveBlob(xlsxBook([{name:'Atleti',cols:[5].concat(ELC.map(function(c){return c[1]})),rows:R,merges:['A1:'+xcol(ELC.length)+'1','A2:'+xcol(ELC.length)+'2'],freeze:4}]),nm+'.xlsx');
+    }else{
+      var q=function(v){return '"'+String(v==null?'':v).replace(/"/g,'""')+'"'},T=[['#'].concat(ELC.map(function(c){return c[0]})).map(q).join(';')];
+      L.forEach(function(u,i){T.push([i+1].concat(ELC.map(function(c){return c[2](u)})).map(q).join(';'))});
+      await saveBlob(new Blob(['\ufeff'+T.join('\r\n')],{type:'text/csv;charset=utf-8'}),nm+'.csv');
+    }
+    st('bkstat',(kind==='xlsx'?'File Excel':'File CSV')+' dell’elenco scaricato: '+L.length+(L.length===1?' atleta.':' atleti.'));
+  }catch(e){st('bkstat','Esportazione non riuscita. Riprova.')}
+}
 // ---- Condivisione con l’atleta ----
 // Il link contiene la scheda compressa dopo il «#»: quella parte dell’indirizzo non arriva a GitHub né ad altri server.
 // Lo stesso index.html, aperto con #s=…, mostra la versione interattiva per smartphone (modalità atleta).
@@ -4860,7 +4910,8 @@ function loginView(mode,msg){
   var h='<div class="lbox">'+BRAND;
   if(mode==='wait')h+='<p class="lmsg">Connessione in corso…</p>';
   else if(mode==='fail')h+='<h2>Cloud non raggiungibile</h2><p class="lmsg">Non riesco a collegarmi a Firebase: manca internet, oppure il sito è aperto dal file sul computer invece che dall’indirizzo pubblicato.</p>'+
-    '<button class="lgo" data-act="lgretry">Riprova</button><button class="llink" data-act="lglocal">Continua con i dati salvati su questo dispositivo</button><p class="lmsg">In questo modo le modifiche restano su questo dispositivo e vengono inviate al cloud al prossimo accesso.</p>';
+    '<button class="lgo" data-act="lgretry">Riprova</button>'+(canLocal()?'<button class="llink" data-act="lglocal">Continua con i dati salvati su questo dispositivo</button><p class="lmsg">In questo modo le modifiche restano su questo dispositivo e vengono inviate al cloud al prossimo accesso.</p>':
+    '<p class="lmsg">L’app è riservata al Personal Trainer: senza accesso non si può entrare da questo dispositivo. Se sei un atleta, apri il link della scheda che ti ha mandato il tuo PT.</p>');
   else h+='<h2>Accedi</h2><form id="lform" novalidate><label for="lem">Email</label><input id="lem" type="email" autocomplete="username" inputmode="email" required>'+
     '<label for="lpw">Password</label><input id="lpw" type="password" autocomplete="current-password" required>'+
     '<button class="lgo" type="submit">Accedi</button></form><button class="llink" data-act="lgreset">Password dimenticata?</button>'+
@@ -4868,6 +4919,11 @@ function loginView(mode,msg){
   L.innerHTML=h+'</div>';
   var f=gid('lem');if(f)f.focus();
 }
+// Area riservata al PT: con l’accesso a Firebase, oppure senza cloud solo su un dispositivo in cui il PT ha già fatto l’accesso (o con il file aperto dal computer)
+var LOCALOK=false;
+function ptDevice(){try{return !!JSON.parse(localStorage.getItem('spk_owner')||'null')}catch(e){return false}}
+function canLocal(){return location.protocol==='file:'||ptDevice()}
+function isPT(){return !AV&&(!!(window.Cloud&&Cloud.user())||(LOCALOK&&canLocal()))}
 function loginHide(){var L=gid('login');if(L)L.remove();document.body.classList.remove('locked')}
 async function startApp(u){
   loginHide();
@@ -4904,7 +4960,7 @@ document.addEventListener('submit',function(e){
 document.addEventListener('click',function(e){
   var a=e.target.closest('[data-act]');if(!a)return;var k=a.getAttribute('data-act');
   if(k==='lgretry')location.reload();
-  else if(k==='lglocal'){started=true;startApp(null)}
+  else if(k==='lglocal'){if(!canLocal())return;LOCALOK=true;started=true;startApp(null)}
   else if(k==='lgreset'){var em=(gid('lem')||{}).value||'';em=em.trim();
     if(!em){st('lmsg','Scrivi prima la tua email nel campo qui sopra, poi premi «Password dimenticata?».');return}
     Cloud.reset(em).then(function(){st('lmsg','Ti ho mandato un’email per scegliere una nuova password (controlla anche lo spam).')},function(x){st('lmsg',Cloud.aerr(x))})}

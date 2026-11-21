@@ -127,6 +127,12 @@ Dalla scheda salvata (o dall’anteprima dell’editor) il pulsante **📲 Condi
 - Prima dell’invio la finestra controlla che il sito pubblicato sia aggiornato. Se all’atleta compare «link tagliato», rimandalo con «Copia link» incollato nella chat.
 - Se apri l’app dal file sul computer e non dal sito, la prima volta ti chiede l’indirizzo del sito pubblicato (es. `https://tuonome.github.io/speaking/`).
 
+## Elenco atleti (PDF, Excel, CSV)
+In home il pulsante **Elenco atleti ▾** esporta tutti gli atleti in ordine di cognome, con la data di aggiornamento:
+- **Stampa / Esporta PDF**: anteprima a schermo, poi «Stampa / Salva PDF» → «Salva come PDF». Foglio A4 orizzontale con cognome, nome, codice fiscale, data di nascita, età, telefono, email, città, certificato medico (con scadenza) e stato.
+- **Esporta Excel (.xlsx)** e **CSV**: in più sesso, livello, obiettivi, gara o sport, data gara, numero e scadenza del documento.
+I dati vengono dall’anamnesi («Contatti e dati personali»): i campi vuoti escono vuoti. È un file con dati personali: conservalo e invialo con cura.
+
 ## Stato degli atleti
 Calcolato dalla scheda più recente di ogni atleta (data di cambio scheda, o 6 settimane dall'inizio se manca):
 - **Attivi**: cambio scheda non ancora raggiunto.
@@ -143,6 +149,7 @@ Calcolato dalla scheda più recente di ogni atleta (data di cambio scheda, o 6 s
 - Clienti, anamnesi, test e schede sono salvati su **Firestore** (progetto `speaking-bb3af`, percorso `users/<tuo UID>/utenti` e `users/<tuo UID>/schede`): entrando con la stessa email da PC e telefono vedi gli stessi dati. Tornando sull’app dopo almeno un minuto, gli elenchi si aggiornano con le modifiche fatte altrove.
 - Resta una copia sul dispositivo (IndexedDB) per aprire l’app anche senza rete. Le modifiche fatte offline partono da sole quando torna la connessione; lo stato è nel menu **Backup** («Dati sincronizzati», «modifiche in attesa»).
 - **Primo accesso su un dispositivo che ha già dei clienti**: compare il riquadro «… non sono ancora nel cloud» con **Carica nel cloud** (si fa una volta sola). Si può fare anche da Backup → «Carica nel cloud i dati di questo dispositivo». I clienti già presenti nel cloud non vengono sovrascritti.
+- **Backup solo per il PT**: il menu Backup (e «Importa backup») compare solo dopo l’accesso con la tua email. L’atleta, con il link della scheda, non vede né menu né Backup. Se il cloud non è raggiungibile, «Continua con i dati salvati su questo dispositivo» compare solo su un dispositivo in cui hai già fatto l’accesso (o con il file aperto dal computer); su un telefono qualsiasi l’app resta chiusa.
 - **Esci** (menu Backup): «Esci» tiene la copia sul dispositivo; «Esci e cancella da questo dispositivo» è per un computer o telefono non tuo.
 - Se Firebase non è raggiungibile (niente internet, oppure sito aperto dal file sul computer) puoi continuare con i dati salvati sul dispositivo: le modifiche vengono inviate al cloud al prossimo accesso.
 - Le **foto dei documenti** restano solo sul dispositivo in cui le hai caricate.
