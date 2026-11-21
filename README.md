@@ -4,7 +4,29 @@ Anamnesi · Valutazione funzionale · Preparazione atletica.
 Barra di navigazione scura a sinistra (in basso su smartphone), area di lavoro centrale chiara, colore principale **viola #4B0082** con testo bianco, stampa A4 pulita.
 
 ## Nuovo cliente: anamnesi
-«+ Nuovo Cliente» apre la pagina «Anamnesi, obiettivi e stile di vita»: dati anagrafici e misure (età, sesso, peso, altezza, livello, circonferenze, certificato medico con data di scadenza, con BMI e rapporti vita/fianchi e vita/altezza calcolati), PAR-Q a 7 domande, stato di salute con **infortuni e traumi** (zona, lato, stato, «fermo fino al»), obiettivi a scelta multipla, gara o sport obiettivo, sport extra settimanali con stima del carico, gruppi muscolari prioritari e preferenza di split (la decisione finale spetta al Personal Trainer). Dal dettaglio atleta il pulsante «Anamnesi» riapre il modulo per modificarlo.
+«+ Nuovo Cliente» apre la pagina «Anamnesi, obiettivi e stile di vita»: dati anagrafici e misure (data di nascita ed età calcolata, sesso, FC a riposo, peso, altezza, livello, circonferenze, certificato medico con data di scadenza, con BMI e rapporti vita/fianchi e vita/altezza calcolati), PAR-Q a 7 domande, stato di salute con **infortuni e traumi** (zona, lato, stato, «fermo fino al»), **condizioni frequenti** della dispensa Over 55–70, obiettivi a scelta multipla, gara o sport obiettivo, sport extra settimanali e **cardio** (vedi sotto) con stima del carico, gruppi muscolari prioritari e preferenza di split (la decisione finale spetta al Personal Trainer). Dal dettaglio atleta il pulsante «Anamnesi» riapre il modulo per modificarlo.
+
+## Over 55–70 (dispensa Master) (nuovo)
+Dalla «Dispensa tecnico-operativa: allenamento Over 55–70» (guida-allenamento-master-55-70.pdf).
+- **Età**: nell’anamnesi la **data di nascita** è accanto all’età, che si calcola da sola. **Dai 55 anni** compare l’avviso «Over 55» e l’app applica la dispensa.
+- **Regole Over 55** su ogni scheda: RIR 2–3 (mai cedimento sui multiarticolari), carichi fino all’85% 1RM, niente salti né esercizi balistici, isometrie di 20–30 s, al massimo 3 serie, respirazione senza apnea; la potenza si allena con la concentrica veloce. Principianti o fragili partono dalle macchine isotoniche.
+- **Generatore**: split **«Over 55–70: Total Body multicomponente (dispensa)»** con i giorni A (forza base e stabilità) e B (equilibrio, potenza e mobilità) della scheda modello, 2–3 sedute. Fase 1 con le macchine (principianti o fragili, o TUG ≥ 10 s), fase 2 con manubri e cavi. Scarico nella 4ª settimana (volume −30/40%) e cambio scheda dopo 6 settimane per la rivalutazione.
+- **Condizioni** (anamnesi, valgono a ogni età): ipertensione, osteoporosi, ernia o lombalgia, gonartrosi, impingement di spalla, sarcopenia. Escludono gli esercizi sconsigliati dal prontuario, favoriscono quelli consigliati e scrivono gli accorgimenti nella logica di lavoro (es. ipertensione: carichi al 60–70% 1RM).
+- **Test**: nuova sezione con Chair Stand (30 s), Arm Curl (30 s), Single Leg Stance (dx/sx) e Timed Up and Go, con i riferimenti della dispensa; i risultati orientano la scheda (es. TUG ≥ 10 s → equilibrio ogni seduta, niente salti).
+- **Zone cardio**: con la FC a riposo, formula di Karvonen (FC max = 220 − età); senza, percentuale della FC max teorica.
+- **Libreria**: 10 esercizi nuovi (box squat alla sedia, sit-to-stand, stacco sumo con kettlebell, shoulder press ai cavi sul piano scapolare, plank sulle ginocchia, abduzioni con elastico, equilibrio su cuscino propriocettivo, camminata su tapis roulant o all’aperto, step-up su gradino basso), filtro Sport «Over 55».
+- **Dispense**: scheda «Over 55–70» con fisiologia, screening e test, prontuario delle patologie, macchine o pesi liberi, scheda modello, monitoraggio. Glossario: sarcopenia, dinapenia, Karvonen, doppio progressivo, Chair Stand, TUG, piano scapolare.
+
+## Cardio settimanale (nuovo)
+Nell’anamnesi, sezione sport extra, «+ Aggiungi cardio»: attività (camminata o corsa all’aperto, bici, tapis roulant, cyclette, ellittica, vogatore, nuoto…), giorni a settimana, durata, intensità (zona 1–2, 2–3, 3–4, intervalli), quando rispetto alla palestra, distanza, FC media e note.
+- Entra nel **carico extra** (minuti × RPE) insieme agli sport: con carico alto la scheda toglie una serie ai complementari e un esercizio per seduta.
+- **Generatore ed editor**: riquadro «Cardio della settimana» (modificabile, «Riprendi dall’anamnesi») e indicazioni nella logica di lavoro: minuti rispetto ai 150 dell’OMS (se bastano non si aggiunge aerobico in palestra), cardio prima dei pesi (interferenza), corsa e seduta gambe, cardio intenso con obiettivo forza o ipertrofia.
+- Nella **scheda** (a schermo, stampa, PDF, Excel, CSV e link dell’atleta) con la zona di frequenza cardiaca.
+
+## Allenamento a casa (nuovo)
+Nel generatore (Impostazione) e nell’editor (Impostazioni della scheda): **«Dove si allena»** → «In palestra» oppure «A casa / solo alcuni attrezzi», con l’elenco da spuntare (manubri, kettlebell, bilanciere, panca, sbarra, elastici, miniband, TRX, fitball, step, palla medica, corda, foam roller, tappetino, cyclette, tapis roulant, vogatore, ellittica, cavi, macchine). Il corpo libero è sempre incluso.
+- Selezione automatica, programmi delle dispense, «Varia», proposte, blocchi e riscaldamento usano solo esercizi eseguibili con quegli attrezzi; in libreria gli altri sono segnati «attrezzo non disponibile».
+- La scelta è salvata nella scheda e ricordata come predefinita per l’atleta; compare in scheda, stampa ed Excel.
 
 ## Infortuni e traumi
 Nell’anamnesi, «+ Aggiungi infortunio o trauma»: zona (cervicale, spalla, gomito, polso/mano, lombare, anca/inguine, ginocchio, caviglia/piede), lato, stato e **«Fermo fino al»** (tasto 📅 calendario, oppure +1/+2/+4/+6 settimane da oggi): la data la chiedi al cliente.
@@ -157,12 +179,17 @@ Voce **Yanagi Academy** nel menu, con due sezioni: **Gruppi e squadre** ed **Ese
 
 **Note del gruppo · materiale per la preparazione**: elenco del materiale necessario alle sedute in calendario (con il numero di sedute che lo usano) e di altro materiale utile; spunti quello che hai, il resto è segnato «da procurare» (anche nel calendario e su ogni seduta). Le sedute usano solo il materiale spuntato.
 
-**Condivisione solo con il maestro**: in Impostazioni spunta «Condividi il gruppo e le sedute con il maestro» e inserisci nome, cognome, età, grado (cintura), telefono, email, Telegram. «📤 Condividi con il maestro» (calendario e seduta) invia il programma del gruppo o la seduta completa via WhatsApp, Telegram, email, testo copiato o file. Gli alert infortuni si includono solo con la spunta apposita.
+**Accesso condiviso: maestro e altro utente** (nuovo):
+- In Impostazioni: «Maestro · condivisione» (nome, cognome, età, grado, telefono, **email**, Telegram) e **«Altro utente · condivisione»** (nome, cognome, età, grado cintura, telefono, **email**, qualifica: Personal Trainer o altro). L’email è quella con cui la persona entra nell’app.
+- Salvando il gruppo con almeno una spunta, il gruppo diventa **condiviso** (copia nel cloud in `shared/<id gruppo>`). Togliendo le spunte e salvando, l’accesso viene ritirato.
+- **«📤 Condividi accesso»** (calendario e seduta): per ogni persona **link dell’app** + **PDF** del programma completo (periodo a scelta) o della seduta + **Excel** del calendario, con Condividi i file, WhatsApp, Email, Telegram o «Copia messaggio e link».
+- Chi riceve il link lo apre, accede con la sua email (la prima volta «Primo accesso: crea la password» e conferma l’email con il link ricevuto) e trova il gruppo nella Yanagi Academy con la **stessa visuale del PT**: calendario, sedute, carico, atleti, test e infortuni del gruppo. Può segnare sedute svolte, presenze, RPE e note, modificare le sedute e registrare i test: le modifiche arrivano anche al PT (sedute e test si uniscono voce per voce, vince la più recente). Non vede i clienti del PT, le schede né le anamnesi; non può cambiare la condivisione né eliminare il gruppo.
+- Gli infortuni dall’anamnesi degli atleti in archivio si condividono solo con la spunta «Mostra anche gli infortuni…»; quelli aggiunti nel gruppo fanno parte del gruppo.
 
 I gruppi (con gare, atleti, cinture, infortuni del gruppo, test, materiale e maestro) sono salvati nel cloud (`users/<UID>/gruppi`), sul dispositivo e nel backup JSON. I gruppi creati prima continuano a funzionare: la vecchia gara diventa la gara A e le sedute già modificate restano come erano. Contenuti, dosaggi, minuti, coefficienti di carico e riferimenti dei test sono indicativi e vanno adattati dal tecnico.
 
 ## Libreria esercizi
-273 esercizi. Ai 191 di base se ne aggiungono 62 dalle dispense (15 della corsa: ripetute brevi e medie, tempo run, medio progressivo, lungo lento e progressivo, corsa rigenerante, fartlek, allunghi, bici o ellittica, squat monopodalico al box, calf raise eccentrico e isometrico per il soleo, ankle hops, saltelli con la corda) (22 del programma judo di 12 settimane, elencati sopra, e 25 dalle prime due) e 20 del database judo della Yanagi Academy (ukemi, uchi-komi statico, dinamico e su ostacoli, nage-komi su materassone, renraku-waza, kaeshi-waza, kumi-kata, ribaltamenti dalla tartaruga, osaekomi-waza, uscite dalle immobilizzazioni, trazioni con la cintura, piegamenti con fascia elastica, gambero, tira e molla con la cintura, lanci con la palla medica). Quelli delle prime due dispense:
+283 esercizi. Ai 191 di base se ne aggiungono 72 dalle dispense (10 della dispensa Over 55–70, elencati sopra) (15 della corsa: ripetute brevi e medie, tempo run, medio progressivo, lungo lento e progressivo, corsa rigenerante, fartlek, allunghi, bici o ellittica, squat monopodalico al box, calf raise eccentrico e isometrico per il soleo, ankle hops, saltelli con la corda) (22 del programma judo di 12 settimane, elencati sopra, e 25 dalle prime due) e 20 del database judo della Yanagi Academy (ukemi, uchi-komi statico, dinamico e su ostacoli, nage-komi su materassone, renraku-waza, kaeshi-waza, kumi-kata, ribaltamenti dalla tartaruga, osaekomi-waza, uscite dalle immobilizzazioni, trazioni con la cintura, piegamenti con fascia elastica, gambero, tira e molla con la cintura, lanci con la palla medica). Quelli delle prime due dispense:
 - **Hyrox**: SkiErg, vogatore, sled pull alla fune, sled drag, burpee broad jump, affondi con sandbag, rematore Pendlay, corsa a ritmo gara, ripetute a soglia, corsa lunga in zona 2;
 - **judo**: gi pull-up, trazioni con asciugamano o fune, pinch grip, kumi-kata isometrico, landmine rotational press, squat jump con elastico, jump squat zavorrato, power clean da sospensione, Turkish get-up, Zercher carry, isometrie del collo, Y-T-W-L, uchi-komi con elastico, complex con bilanciere, air bike 30/15.
 
@@ -172,6 +199,12 @@ I 191 di base comprendono gli esercizi originali, il **repertorio del corso Pers
 
 ## Legenda e glossario
 La legenda mostra solo i **nomi degli esercizi come pulsanti**: un clic apre la tendina con la spiegazione completa («Apri tutte» per aprirle insieme; in stampa e PDF escono tutte aperte). Per ogni esercizio: tipo e attrezzatura, scopo funzionale, muscoli target primari e secondari, postura e assetto iniziale, fase eccentrica e concentrica, respirazione, sicurezza. In fondo alla scheda c'è il pulsante **📖 Glossario dei termini tecnici** (1RM, RIR, RPE, superserie, MEV/MRV, deload, Valsalva, DOMS…): resta chiuso e si apre solo con un clic. In stampa e PDF esce solo se l'hai aperto.
+
+## Invio di PDF ed Excel (nuovo)
+Alla fine del generatore **«Salva e invia PDF · Excel»**, nella scheda salvata **«📤 Invia PDF ed Excel»**, nell’editor **«📤 Invia PDF · Excel»** (anche con le modifiche non salvate).
+- Il **PDF** è un file vero, creato nel browser (A4, testo selezionabile, intestazione e numeri di pagina), con tutto il contenuto della stampa; il glossario solo se spunti la casella. L’**Excel** è quello di sempre.
+- Numero di telefono ed email sono quelli dell’anamnesi (modificabili). Pulsanti: **Condividi i file** (sul telefono: WhatsApp, Mail o altra app con i due file allegati), **WhatsApp al numero**, **Email**, **Scarica PDF**, **Scarica Excel**.
+- WhatsApp ed email non permettono a un sito di allegare file da soli: con «WhatsApp al numero» ed «Email» i due file si scaricano e si apre la chat o l’email già indirizzata con il messaggio; poi si allegano con 📎.
 
 ## Esportazione della scheda
 Dalla scheda salvata o dall'editor:
@@ -210,7 +243,7 @@ Calcolato dalla scheda più recente di ogni atleta (data di cambio scheda, o 6 s
 
 ## Accesso e cloud (Firebase)
 - All’apertura il sito chiede **email e password** (l’utente creato in Firebase → Authentication). «Password dimenticata?» manda un’email per sceglierne una nuova.
-- Clienti, anamnesi, test e schede sono salvati su **Firestore** (progetto `speaking-bb3af`, percorso `users/<tuo UID>/utenti`, `users/<tuo UID>/schede` e `users/<tuo UID>/gruppi`): entrando con la stessa email da PC e telefono vedi gli stessi dati. Tornando sull’app dopo almeno un minuto, gli elenchi si aggiornano con le modifiche fatte altrove.
+- Clienti, anamnesi, test e schede sono salvati su **Firestore** (progetto `speaking-bb3af`, percorso `users/<tuo UID>/utenti`, `users/<tuo UID>/schede` e `users/<tuo UID>/gruppi`; i gruppi Yanagi condivisi anche in `shared/<id gruppo>`): entrando con la stessa email da PC e telefono vedi gli stessi dati. Tornando sull’app dopo almeno un minuto, gli elenchi si aggiornano con le modifiche fatte altrove.
 - Resta una copia sul dispositivo (IndexedDB) per aprire l’app anche senza rete. Le modifiche fatte offline partono da sole quando torna la connessione; lo stato è nel menu **Backup** («Dati sincronizzati», «modifiche in attesa»).
 - **Primo accesso su un dispositivo che ha già dei clienti**: compare il riquadro «… non sono ancora nel cloud» con **Carica nel cloud** (si fa una volta sola). Si può fare anche da Backup → «Carica nel cloud i dati di questo dispositivo». I clienti già presenti nel cloud non vengono sovrascritti.
 - **Backup solo per il PT**: il menu Backup (e «Importa backup») compare solo dopo l’accesso con la tua email. L’atleta, con il link della scheda, non vede né menu né Backup. Se il cloud non è raggiungibile, «Continua con i dati salvati su questo dispositivo» compare solo su un dispositivo in cui hai già fatto l’accesso (o con il file aperto dal computer); su un telefono qualsiasi l’app resta chiusa.
@@ -218,7 +251,7 @@ Calcolato dalla scheda più recente di ogni atleta (data di cambio scheda, o 6 s
 - Se Firebase non è raggiungibile (niente internet, oppure sito aperto dal file sul computer) puoi continuare con i dati salvati sul dispositivo: le modifiche vengono inviate al cloud al prossimo accesso.
 - Le **foto dei documenti** restano solo sul dispositivo in cui le hai caricate.
 - Il link per l’atleta (`#s=…`) non chiede l’accesso e non legge il cloud.
-- Regole di Firestore da tenere pubblicate:
+- Regole di Firestore da tenere pubblicate (**aggiornate in fase 19**: senza il blocco `shared` i gruppi non si condividono). Firebase → Firestore Database → Regole → incolla → Pubblica:
 ```
 rules_version = '2';
 service cloud.firestore {
@@ -226,9 +259,20 @@ service cloud.firestore {
     match /users/{uid}/{document=**} {
       allow read, write: if request.auth != null && request.auth.uid == uid;
     }
+    match /shared/{gid} {
+      allow read: if request.auth != null && (resource.data.owner == request.auth.uid
+        || (request.auth.token.email_verified == true && request.auth.token.email in resource.data.members));
+      allow create: if request.auth != null && request.resource.data.owner == request.auth.uid;
+      allow update: if request.auth != null && (resource.data.owner == request.auth.uid
+        || (request.auth.token.email_verified == true && request.auth.token.email in resource.data.members
+            && request.resource.data.owner == resource.data.owner
+            && request.resource.data.members == resource.data.members));
+      allow delete: if request.auth != null && resource.data.owner == request.auth.uid;
+    }
   }
 }
 ```
+- **Invitati** (maestro, altro utente): l’account lo crea l’invitato con «Primo accesso: crea la password» dal link ricevuto (in Authentication → Settings deve restare permessa la creazione di account, come da impostazione predefinita). Deve confermare l’email: senza conferma le regole non mostrano il gruppo. Ogni account vede solo i propri dati e i gruppi condivisi con la sua email.
 - Domini autorizzati (Authentication → Settings): `saradeny3-collab.github.io`.
 
 ## Dati
