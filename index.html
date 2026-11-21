@@ -54,6 +54,9 @@ h2{font-size:22px;margin:0 0 4px}
 .stage.tablet header{display:none}
 .stage.tablet .side button{display:flex;align-items:center;gap:12px;background:none;border:none;color:var(--muted);font:inherit;padding:12px 14px;border-radius:12px;cursor:pointer;text-align:left}
 .stage.tablet .side button[aria-current="true"]{background:var(--brand-soft);color:var(--brand-hi);font-weight:600}
+.side .sylogo{margin-top:auto;flex-direction:column;justify-content:center;gap:8px;padding:18px 10px 6px;border-top:1px solid #333;border-radius:0;color:#d4d4d4;font-size:13px;font-weight:600;letter-spacing:.04em;text-align:center}
+.side .sylogo img{width:120px;max-width:80%;height:auto}
+.side .sylogo[aria-current="true"],.side .sylogo:hover{background:none;color:var(--brand-hi)}
 .stage.tablet .tabbar{display:none}
 .stage.tablet main{padding:32px 40px}
 .stage.tablet .grid{grid-template-columns:1fr 1fr}
@@ -559,7 +562,8 @@ function renderNav(){
   var items = [{id:'home',t:'Home',i:I.home},{id:'schede',t:'Schede',i:I.plan},{id:'ed',t:'Editor',i:I.edit},{id:'disp',t:'Dispense',i:I.book},{id:'yan',t:'Yanagi',i:I.yan}], c=counts();
   document.getElementById('tabbar').innerHTML = items.map(function(x){return '<button class="tab" data-go="'+x.id+'"'+(x.id===cur||((cur==='anam'||cur==='test')&&x.id==='home')||(cur==='gen'&&x.id==='schede')?' aria-current="true"':'')+'>'+x.i+'<span>'+x.t+'</span></button>'}).join('');
   document.getElementById('side').innerHTML = '<div class="sbrand">'+BRAND+'</div>'+items.map(function(x){var f=x.id==='schede'?'Schede allenamento':x.id==='ed'?'Editor schede':x.id==='disp'?'Dispense':x.id==='yan'?'Yanagi Academy':'Atleti';return '<button data-go="'+x.id+'"'+((x.id===cur&&!(cur==='home'&&uf!=='all'))||((cur==='anam'||cur==='test')&&x.id==='home')||(cur==='gen'&&x.id==='schede')?' aria-current="true"':'')+'>'+x.i+'<span>'+f+'</span>'+(x.id==='home'?'<b class="n">'+c.all+'</b>':'')+'</button>'}).join('')+
-   '<div class="slab">Stato atleti</div>'+FILT.slice(1).map(function(f){return '<button data-uf="'+f.id+'"'+(cur==='home'&&uf===f.id?' aria-current="true"':'')+'><i class="sd '+f.id+'"></i><span>'+f.t+'</span><b class="n">'+c[f.id]+'</b></button>'}).join('');
+   '<div class="slab">Stato atleti</div>'+FILT.slice(1).map(function(f){return '<button data-uf="'+f.id+'"'+(cur==='home'&&uf===f.id?' aria-current="true"':'')+'><i class="sd '+f.id+'"></i><span>'+f.t+'</span><b class="n">'+c[f.id]+'</b></button>'}).join('')+
+    (typeof YLOGO==='string'&&YLOGO?'<button class="sylogo" data-go="yan" title="Apri Yanagi Academy"'+(cur==='yan'?' aria-current="true"':'')+'><img src="'+YLOGO+'" alt="Stemma Yanagi Academy"><span>Yanagi Academy</span></button>':'');
 }
 function render(){
   if (cur === 'home') renderUtenti();

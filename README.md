@@ -136,7 +136,7 @@ Voce **Yanagi Academy** nel menu, con due sezioni: **Gruppi e squadre** ed **Ese
 - «Stampa calendario / PDF» (A4 orizzontale) ed **Excel** con 4 fogli: Calendario (blocchi, forza, RPE, carico), Carico settimanale, Gruppo (gare, attrezzi, atleti con cintura) e Test.
 - **🖨 Stampa seduta completa (PDF)** e **🖨 Programma completo (PDF)** (dal calendario, scegli il periodo: una seduta per pagina): ogni seduta dal rei al defaticamento, blocchi con orari, ogni esercizio con orario e minuti indicativi (≈), dosaggio, note e guida all’esecuzione, materiale, alert infortuni, presenze. «Scarica file» salva la pagina HTML.
 
-**Stemma**: lo stemma della squadra è accanto a «Yanagi Academy» in tutte le pagine e nelle stampe.
+**Stemma**: lo stemma della squadra è in fondo alla barra nera a sinistra (su PC) fin dall’apertura dell’app (un clic apre la Yanagi Academy), accanto a «Yanagi Academy» in tutte le pagine della sezione e nelle stampe.
 
 **Atleti non in archivio**: «+ Nuovo atleta» (in Impostazioni o in «Atleti, test e infortuni») con nome, cognome, età, categoria (proposta dall’età), peso, cintura e categoria di peso facoltativa. Gli stessi dati si modificano per tutti gli atleti del gruppo.
 
