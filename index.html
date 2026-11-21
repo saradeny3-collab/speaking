@@ -6695,6 +6695,8 @@ var WR=[278,278,355,556,556,889,667,191,333,333,389,584,278,333,278,278,556,556,
 // con «Condividi i file» il telefono li passa all’app scelta; con «WhatsApp al numero» ed «Email» i file si scaricano e si apre la chat o l’email già indirizzata.
 var XLT='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 function canShareFiles(){try{return !!(navigator.canShare&&navigator.share&&navigator.canShare({files:[new File(['x'],'a.pdf',{type:'application/pdf'})]}))}catch(e){return false}}
+function gmailHref(to,sj,body){return 'https://mail.google.com/mail/?view=cm&fs=1&to='+encodeURIComponent(to||'')+'&su='+encodeURIComponent(sj||'')+'&body='+encodeURIComponent(body||'')}
+// l’email si apre subito (nel tocco), i file si scaricano dopo: se l’apertura aspetta i download il browser la blocca o apre una pagina vuota
 function mailHref(to,sj,body){return 'mailto:'+encodeURIComponent(to||'').replace(/%40/g,'@')+'?subject='+encodeURIComponent(sj||'')+'&body='+encodeURIComponent(body||'')}
 var SNDX=null;
 async function schedaFiles(sc,u,gloss){var nm=fileBase(sc,u);
@@ -6709,7 +6711,7 @@ function sendModal(id){var sc=findS(id);if(!sc)return;var u=find(sc.uid);SNDX={i
   modal('<h3>Invia PDF ed Excel</h3><p class="sub" style="margin:0 0 10px">'+esc(sc.nome)+(u?' · '+esc(u.n+' '+u.c):'')+(id==='__ed'&&ED.dirty?' · <b>con le modifiche non ancora salvate</b>':'')+'</p>'+
    '<div class="fg">'+fld('snd_tel','WhatsApp: numero di telefono',u&&u.t||'','tel',' placeholder="es. 333 1234567" autocomplete="off"')+fld('snd_mail','Email',u&&u.e||'','email',' placeholder="nome@esempio.it" autocomplete="off"')+'</div>'+
    '<label class="ychk"><input type="checkbox" id="snd_gl"> Aggiungi il glossario dei termini tecnici al PDF</label>'+
-   '<div class="shb">'+(canShareFiles()?'<button class="shx pri" data-snd data-act="sndsh" disabled>📤 Condividi i file</button>':'')+'<button class="shx wa" data-snd data-act="sndwa" disabled>WhatsApp al numero</button><button class="shx" data-snd data-act="sndml" disabled>Email</button><button class="shx" data-snd data-act="sndpdf" disabled>Scarica PDF</button><button class="shx" data-snd data-act="sndxl" disabled>Scarica Excel</button></div>'+
+   '<div class="shb">'+(canShareFiles()?'<button class="shx pri" data-snd data-act="sndsh" disabled>📤 Condividi i file</button>':'')+'<button class="shx wa" data-snd data-act="sndwa" disabled>WhatsApp al numero</button><button class="shx" data-snd data-act="sndml" disabled>Email (app di posta)</button><button class="shx" data-snd data-act="sndgm" disabled>Gmail</button><button class="shx" data-snd data-act="sndpdf" disabled>Scarica PDF</button><button class="shx" data-snd data-act="sndxl" disabled>Scarica Excel</button></div>'+
    '<p class="status" id="snd_st" role="status"></p><div class="mrow"><button data-act="sndback">← Torna alla scheda</button><button data-act="mclose">Chiudi</button></div>');
   document.querySelector('#modal .mbox').classList.add('shm');sndPrep()}
 async function sndDl(files){for(var i=0;i<files.length;i++){await saveBlob(files[i],files[i].name);if(i<files.length-1)await new Promise(function(r){setTimeout(r,400)})}}
@@ -6719,12 +6721,13 @@ async function sndDo(k){if(!SNDX||!SNDX.files)return;var F=SNDX.files,tel=(gid('
   if(k==='sndwa'){var p=waPhone(tel);if(!p){st('snd_st','Scrivi il numero di telefono per WhatsApp.');gid('snd_tel').focus();return}
     var w=window.open('','_blank');try{await sndDl(F)}catch(e){}var url='https://wa.me/'+p+'?text='+encodeURIComponent(tx+'\n(PDF ed Excel allegati)');if(w)w.location.href=url;else location.href=url;
     st('snd_st','PDF ed Excel scaricati. Nella chat WhatsApp di '+tel+' tocca 📎 → Documento e allega i due file ('+F[0].name+', '+F[1].name+').');return}
-  if(k==='sndml'){if(!/@/.test(ml)){st('snd_st','Scrivi l’indirizzo email.');gid('snd_mail').focus();return}
-    try{await sndDl(F)}catch(e){}location.href=mailHref(ml,sj,tx+'\n\nAllegati: '+F[0].name+', '+F[1].name);
-    st('snd_st','PDF ed Excel scaricati e email a '+ml+' aperta: allega i due file con 📎 prima di inviare.')}}
+  if(k==='sndml'||k==='sndgm'){if(!/@/.test(ml)){st('snd_st','Scrivi l’indirizzo email.');gid('snd_mail').focus();return}
+    var bd=tx+'\n\nAllegati: '+F[0].name+', '+F[1].name;if(k==='sndgm')window.open(gmailHref(ml,sj,bd),'_blank');else location.href=mailHref(ml,sj,bd);
+    try{await sndDl(F)}catch(e){}
+    st('snd_st','Email a '+ml+' aperta'+(k==='sndgm'?' in Gmail':'')+' e PDF ed Excel scaricati: allega i due file con 📎 prima di inviare. Se l’app di posta non si apre, usa «Gmail» o, sul telefono, «Condividi i file».')}}
 document.addEventListener('click',function(e){var a=e.target.closest('[data-act]');if(!a)return;var k=a.getAttribute('data-act');
   if(k==='send')sendModal(a.getAttribute('data-id'));
-  else if(/^snd(sh|wa|ml|pdf|xl)$/.test(k))sndDo(k);
+  else if(/^snd(sh|wa|ml|gm|pdf|xl)$/.test(k))sndDo(k);
   else if(k==='sndback'&&SNDX){var id=SNDX.id;SNDX=null;viewScheda(id)}});
 document.addEventListener('change',function(e){if(e.target.id==='snd_gl')sndPrep()});
 
@@ -6799,7 +6802,7 @@ function yAccShare(g,d){var R=yAccRec(g).filter(function(r){return YEMRE.test(St
    (d?'':'<div class="fg" id="yaccf">'+fld('yacc_da','PDF dal',a,'date')+fld('yacc_al','al',addDays(a,27),'date')+'</div>')+
    '<label class="ychk"><input type="checkbox" id="yacc_gd" checked> Guida all’esecuzione nel PDF</label><label class="ychk"><input type="checkbox" id="yacc_ij"> Alert infortuni nel PDF (dati sanitari)</label>'+
    R.map(function(r){var x=r.x;return '<div class="yaccr"><p style="margin:0"><b>'+esc(r.t)+': '+esc(r.nm)+'</b><br><span class="sub">'+esc([x.mail,x.tel,x.tg?'@'+x.tg:''].filter(Boolean).join(' · '))+'</span></p>'+
-    '<div class="shb">'+(canShareFiles()?'<button class="shx pri" data-yacc="sh" data-r="'+r.k+'" disabled>📤 Condividi link e file</button>':'')+(x.tel?'<button class="shx wa" data-yacc="wa" data-r="'+r.k+'" disabled>WhatsApp</button>':'')+'<button class="shx" data-yacc="ml" data-r="'+r.k+'" disabled>Email</button>'+(x.tg||(r.k==='mae'&&x.tel)?'<button class="shx tg" data-yacc="tg" data-r="'+r.k+'" disabled>Telegram</button>':'')+'<button class="shx" data-yacc="cp" data-r="'+r.k+'">Copia messaggio e link</button></div></div>'}).join('')+
+    '<div class="shb">'+(canShareFiles()?'<button class="shx pri" data-yacc="sh" data-r="'+r.k+'" disabled>📤 Condividi link e file</button>':'')+(x.tel?'<button class="shx wa" data-yacc="wa" data-r="'+r.k+'" disabled>WhatsApp</button>':'')+'<button class="shx" data-yacc="ml" data-r="'+r.k+'" disabled>Email</button><button class="shx" data-yacc="gm" data-r="'+r.k+'" disabled>Gmail</button>'+(x.tg||(r.k==='mae'&&x.tel)?'<button class="shx tg" data-yacc="tg" data-r="'+r.k+'" disabled>Telegram</button>':'')+'<button class="shx" data-yacc="cp" data-r="'+r.k+'">Copia messaggio e link</button></div></div>'}).join('')+
    '<div class="shb"><button class="shx" data-yacc="pdf" disabled>Scarica PDF</button><button class="shx" data-yacc="xl" disabled>Scarica Excel</button></div>'+
    '<p class="status" id="yacc_st" role="status"></p><div class="mrow"><button data-act="mclose">Chiudi</button></div>');
   document.querySelector('#modal .mbox').classList.add('shm');yAccPrep()}
@@ -6821,7 +6824,7 @@ async function yAccDo(k,rk){var g=yFind(YACX&&YACX.g);if(!g)return;var si=gid('y
   if(!F)return;
   if(k==='sh'){try{await navigator.share({files:F,title:sj,text:tx});st('yacc_st','Inviato.')}catch(e){if(!(e&&e.name==='AbortError'))st('yacc_st','Condivisione non riuscita: usa WhatsApp o Email.')}return}
   if(k==='wa'){var w=window.open('','_blank');try{await sndDl(F)}catch(e){}var u='https://wa.me/'+waPhone(r.x.tel)+'?text='+encodeURIComponent(tx);if(w)w.location.href=u;else location.href=u;st('yacc_st','PDF ed Excel scaricati e chat WhatsApp aperta con il link: allega i due file con 📎.');return}
-  if(k==='ml'){try{await sndDl(F)}catch(e){}location.href=mailHref(r.x.mail,sj,tx);st('yacc_st','PDF ed Excel scaricati ed email aperta con il link: allega i due file con 📎.');return}
+  if(k==='ml'||k==='gm'){if(k==='gm')window.open(gmailHref(r.x.mail,sj,tx),'_blank');else location.href=mailHref(r.x.mail,sj,tx);try{await sndDl(F)}catch(e){}st('yacc_st','Email aperta'+(k==='gm'?' in Gmail':'')+' con il link e PDF ed Excel scaricati: allega i due file con 📎. Se l’app di posta non si apre, usa «Gmail».');return}
   if(k==='tg'){var ok=await cp();try{await sndDl(F)}catch(e){}window.open(r.x.tg?'https://t.me/'+encodeURIComponent(String(r.x.tg).replace(/^@/,'')):'https://t.me/+'+waPhone(r.x.tel),'_blank');st('yacc_st',(ok?'Messaggio copiato: nella chat di Telegram tieni premuto e scegli «Incolla». ':'')+'Allega PDF ed Excel scaricati con 📎.')}}
 document.addEventListener('click',function(e){var b=e.target.closest('[data-yacc]');if(b){yAccDo(b.getAttribute('data-yacc'),b.getAttribute('data-r'));return}
   var a=e.target.closest('[data-act]'),k=a&&a.getAttribute('data-act');
