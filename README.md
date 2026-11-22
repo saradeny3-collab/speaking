@@ -231,7 +231,7 @@ In home il pulsante **Elenco atleti ▾** esporta tutti gli atleti in ordine di 
 I dati vengono dall’anamnesi («Contatti e dati personali»): i campi vuoti escono vuoti. È un file con dati personali: conservalo e invialo con cura.
 
 ## Stato degli atleti
-Nell’elenco ogni atleta ha un pallino senza lettere: **viola** per le donne, **nero** per gli uomini, vuoto con il bordo grigio se il sesso non è indicato nell’anamnesi (anche nei pulsanti degli atleti dell’editor e in stampa).
+Nell’elenco gli atleti non hanno pallini né iniziali: si legge subito il nome.
 
 Calcolato dalla scheda più recente di ogni atleta (data di cambio scheda, o 6 settimane dall'inizio se manca):
 - **Attivi**: cambio scheda non ancora raggiunto.
