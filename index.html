@@ -474,6 +474,7 @@ body.athm .side,body.athm .tabbar{display:none!important}body.athm main{width:10
 @media (max-width:640px){.ymr{grid-template-columns:1fr auto auto}.ymr span{grid-column:1/-1;grid-row:2}}
 @media print{.ylogo,.ylogs{filter:none}}
 .nchips{display:flex;flex-wrap:wrap;gap:6px}.nch{border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:99px;padding:7px 14px;font:inherit;font-size:14px;font-weight:600;cursor:pointer}.nch[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#fff}
+.nrc{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:6px 0}.nrc.ok{border-color:var(--acc,#4B0082)}.nrc span{font-size:13px}.nrc small{color:var(--muted,#555)}.nrc button{flex:none}.nporz{margin-top:12px}.ndisc{font-size:12.5px}
 .nsec{border-top:1px solid var(--line);padding-top:12px;margin-top:12px}.nsec:first-of-type{border-top:0;margin-top:0;padding-top:0}
 .nsh{display:flex;gap:8px;align-items:center;margin-bottom:6px}.nst{flex:1;min-width:0;font:inherit;font-weight:800;font-size:16px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text)}
 .nop{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:8px 0;background:var(--bg)}.noh{display:flex;gap:8px;align-items:center;margin-bottom:8px}.noh b{font-size:17px}.nott{flex:1;min-width:0}
@@ -4633,17 +4634,29 @@ GLOSS.push(['Sarcopenia','Perdita di massa e forza muscolare legata all’età (
  ['Chair Stand Test','Numero di volte in cui ci si alza e ci si siede da una sedia senza braccia in 30 secondi: forza degli arti inferiori (riferimento oltre 12–14 tra 60 e 70 anni).'],['Timed Up and Go (TUG)','Tempo per alzarsi dalla sedia, camminare 3 metri, girarsi e risedersi: sotto i 10 secondi il rischio di caduta è basso.'],
  ['Piano scapolare','Piano di movimento del braccio circa 30° in avanti rispetto al piano frontale: rispetta meglio la spalla nelle spinte e nelle alzate.']);
 var dispSel='hyrox';
+SPNAME.cucina='Cucina fit';
 var DLAB={hyrox:'Hyrox',judo:'Judo',judo12:'Judo 12 settimane',corsa:'Corsa',master:'Over 55'};
 function dispEx(id){return EXDB.filter(function(e){return (DZX[e.n]||[]).some(function(z){return z[0]===DLAB[id]})})}
+DISP.push({id:'cucina',noex:1,t:'Cucina fit e varietà alimentare: gusto, cucine dal mondo, composizione dei pasti e meal prep',f:'dispensa-cucina-fit-ricette.pdf («Dispensa pratica di cucina fit & varietà alimentare»)',
+ i:'Guida pratica per un’alimentazione varia ed equilibrata, basata sui 5 gruppi alimentari dell’ISS e sulle posizioni ufficiali dell’ISSN: porzioni di riferimento, composizione del piatto unico, ricette fit per tutta la giornata, cucine dal mondo e strategie di meal prep.',
+ g:'Nella <b>Sezione nutrizionale</b>, con la spunta «🍳 ricette fit» (attiva nei piani nuovi), «⚡ Genera lo schema» aggiunge a ogni pasto una sezione <b>«Ricette fit»</b> con le ricette di questa dispensa, senza ripeterle tra un pasto e l’altro, con le grammature adattate alle calorie del pasto e le esclusioni dell’atleta. In ogni pasto «🍳 Aggiungi una ricetta fit» le inserisce una alla volta. In stampa escono preparazione e spezie e, con la spunta, i consigli sul piatto bilanciato e sul meal prep.',
+ s:[
+ ['Inquadramento normativo (art. 348 c.p.)',function(){return '<p>La dispensa ha scopo didattico, informativo e promozionale di uno stile di vita attivo.</p><ul><li><b>Ruolo del Personal Trainer:</b> educazione alimentare, promozione di un’alimentazione varia ed equilibrata secondo i 5 gruppi alimentari ISS e le posizioni ISSN.</li><li><b>Limiti legali:</b> il PT non prescrive diete personalizzate né grammature fisse per i singoli pasti: è un atto riservato per legge a medici, biologi nutrizionisti e dietisti.</li></ul><div class="info">'+esc(NDISC)+'</div>'}],
+ ['Porzioni standard (linee guida ISS)',function(){return '<p>Porzioni di riferimento per evitare la monotonia e garantire un apporto costante di micronutrienti.</p>'+nPorzHtml()}],
+ ['Costruisci il tuo piatto fit','<p>La regola del <b>piatto unico bilanciato</b> combina 4 mattoncini per piatti gustosi, colorati e completi:</p><table class="stab"><thead><tr><th>Mattoncino</th><th>Quota del piatto</th><th>Esempi</th></tr></thead><tbody><tr><td><b>Carboidrati complessi</b></td><td>25–35%</td><td>Riso basmati, venere o rosso, pasta integrale, quinoa, farro, avena, patate novelle o americane</td></tr><tr><td><b>Proteine nobili</b></td><td>25–30%</td><td>Petto di pollo o tacchino, salmone, merluzzo, tonno al naturale, uova, tofu, tempeh, legumi</td></tr><tr><td><b>Verdure e fibre</b></td><td>35–50%</td><td>Zucchine, broccoli, spinaci, peperoni, pomodori, rucola, finocchi, carote: variare i colori per più antiossidanti</td></tr><tr><td><b>Grassi sani e condimenti</b></td><td>5–10%</td><td>Olio EVO a crudo, avocado, noci, mandorle, semi di chia o di lino</td></tr></tbody></table><p>Nell’app è la sezione «Crea il tuo piatto» di pranzo e cena.</p>'],
+ ['Cucine dal mondo in versione fit',function(){return '<table class="stab"><thead><tr><th>Piatto</th><th>Ingredienti</th><th>Vantaggi</th></tr></thead><tbody>'+NRIC.filter(function(r){return r.cu}).map(function(r){return '<tr><td style="white-space:normal;min-width:120px"><b>'+esc(r.t)+'</b><br>'+esc(r.cu)+'</td><td style="white-space:normal;min-width:220px">'+esc(r.it.map(function(a){return a[2]||nDn(NF[a[0]])}).join(', '))+'. '+esc(r.pr)+'</td><td style="white-space:normal;min-width:160px">'+esc(r.v)+'</td></tr>'}).join('')+'</tbody></table>'}],
+ ['Ricettario fit per tutta la giornata',function(){var G=[];NRIC.forEach(function(r){if(!r.cu&&G.indexOf(r.g)<0)G.push(r.g)});return G.map(function(g){return '<p><b>'+esc(g)+'</b></p><ul>'+NRIC.filter(function(r){return r.g===g&&!r.cu}).map(function(r){return '<li><b>'+esc(r.t)+':</b> '+esc(r.it.map(function(a){var F=NF[a[0]];return a[1]+(F&&F.u==='ml'?' ml ':' g ')+(a[2]||nDn(F))+(a[4]?' (oppure '+a[4][1]+(NF[a[4][0]].u==='ml'?' ml ':' g ')+(a[4][2]||nDn(NF[a[4][0]]))+')':'')}).join(', '))+'. '+esc(r.pr)+'</li>'}).join('')+'</ul>'}).join('')}],
+ ['Pre-sleep anabolico (posizione ufficiale ISSN)','<p><b>30–40 g di proteine a lenta digestione</b> (caseine, fiocchi di latte o yogurt greco 0%) circa 30 minuti prima di coricarsi stimolano la sintesi proteica muscolare notturna e sostengono il metabolismo a riposo del mattino, senza inibire la lipolisi notturna. Nell’app: pasto «Prima di dormire».</p>'],
+ ['Meal prep e spezie',function(){return '<ul>'+NPREP.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul>'}]]});
 function renderDisp(){
   var D=DISP.filter(function(d){return d.id===dispSel})[0]||DISP[0],ex=dispEx(D.id);
   document.getElementById('main').innerHTML='<div class="kick">Preparazione specifica</div><h2 class="atitle">Dispense</h2>'+
    '<div class="ufil" role="group" aria-label="Scegli la dispensa">'+DISP.map(function(d){return '<button type="button" data-disp="'+d.id+'" aria-pressed="'+(d.id===D.id)+'">'+esc(SPNAME[d.id])+'</button>'}).join('')+'</div>'+
    '<section class="asec"><h3>'+esc(D.t)+'</h3><p class="status" style="margin-top:0">Fonte: '+esc(D.f)+'</p><p>'+esc(D.i)+'</p>'+
    '<div class="info" style="margin:12px 0 0">'+(D.g||'Nel <b>generatore</b>, se nell’anamnesi il campo «Gare, competizioni o sport» contiene «'+(D.id==='hyrox'?'Hyrox':'judo')+'», c’è lo split <b>«'+esc(SPS[D.id])+'»</b>: sedute della dispensa, dosaggi e logica di lavoro della fase. La fase si calcola dalla <b>data della gara</b> (anamnesi) e si può cambiare a mano.')+'</div></section>'+
-   D.s.map(function(x){return '<section class="asec dsp"><h3>'+esc(x[0])+'</h3>'+x[1].replace(/<table/g,'<div class="xwrap"><table').replace(/<\/table>/g,'</table></div>')+'</section>'}).join('')+
-   '<section class="asec"><h3>Esercizi della dispensa in libreria <small>'+ex.length+'</small></h3><p class="status" style="margin-top:0">Tocca un esercizio per la guida completa e le indicazioni della dispensa.</p>'+
-   '<div class="lgw">'+ex.map(function(e){return '<details class="lg"><summary><span>'+esc(e.n)+'</span><i class="pt">'+esc(exType(e)||e.p)+'</i></summary><div class="lgb">'+legendBody(e)+'</div></details>'}).join('')+'</div></section>'+
+   D.s.map(function(x){var h=typeof x[1]==='function'?x[1]():x[1];return '<section class="asec dsp"><h3>'+esc(x[0])+'</h3>'+h.replace(/<table/g,'<div class="xwrap"><table').replace(/<\/table>/g,'</table></div>').replace(/<div class="xwrap"><div class="xwrap">/g,'<div class="xwrap">').replace(/<\/table><\/div><\/div>/g,'</table></div>')+'</section>'}).join('')+
+   (D.noex?'':'<section class="asec"><h3>Esercizi della dispensa in libreria <small>'+ex.length+'</small></h3><p class="status" style="margin-top:0">Tocca un esercizio per la guida completa e le indicazioni della dispensa.</p>'+
+   '<div class="lgw">'+ex.map(function(e){return '<details class="lg"><summary><span>'+esc(e.n)+'</span><i class="pt">'+esc(exType(e)||e.p)+'</i></summary><div class="lgb">'+legendBody(e)+'</div></details>'}).join('')+'</div></section>')+
    '<p class="status">Sintesi delle dispense caricate dal Personal Trainer. Dosaggi e indicazioni vanno sempre adattati all’atleta.</p>';
 }
 document.addEventListener('click',function(e){var b=e.target.closest('[data-disp]');if(!b||cur!=='disp')return;dispSel=b.getAttribute('data-disp');renderDisp();window.scrollTo(0,0)});
@@ -7209,13 +7222,27 @@ var NF={
  ver:{n:'Verdure',k:22,p:1.5,c:3.5,f:0.3,cat:'ve'},
  ruc:{n:'Rucola',k:28,p:2.6,c:3.9,f:0.3,cat:'ve'},
  latt:{n:'Lattuga',k:19,p:1.8,c:2.2,f:0.4,cat:'ve'},
- vcr:{n:'Sedano, carote, finocchi',d:'sedano/carote/finocchi',k:25,p:1,c:5,f:0.2,cat:'ve'}
+ vcr:{n:'Sedano, carote, finocchi',d:'sedano/carote/finocchi',k:25,p:1,c:5,f:0.2,cat:'ve'},
+ // dalla dispensa «Cucina fit e varietà alimentare» (ricettario)
+ pastai:{n:'Pasta integrale',k:340,p:13,c:64,f:2.5,cat:'ca',tg:'glu'},
+ soba:{n:'Soba (noodles di grano saraceno)',d:'soba',k:340,p:14,c:68,f:1,cat:'ca',tg:'glu'},
+ pita:{n:'Pita integrale',k:265,p:9.5,c:52,f:2,cat:'ca',tg:'glu'},
+ farro:{n:'Farro',k:335,p:15,c:67,f:2.5,cat:'ca',tg:'glu'},
+ risov:{n:'Riso venere o rosso',d:'riso venere',k:355,p:7.5,c:76,f:2.5,cat:'ca'},
+ cacao:{n:'Cacao amaro in polvere',d:'cacao amaro',k:355,p:20,c:11,f:22,cat:'ca'},
+ ricm:{n:'Ricotta vaccina magra',d:'ricotta magra',k:110,p:11,c:4,f:5,cat:'la',tg:'lat'},
+ merl:{n:'Merluzzo',d:'filetto di merluzzo',k:71,p:17,c:0,f:0.3,cat:'pr',tg:'pes'},
+ spada:{n:'Pesce spada',k:109,p:17,c:1,f:4.2,cat:'pr',tg:'pes'},
+ gamb:{n:'Gamberi',k:71,p:13.6,c:2.9,f:0.6,cat:'pr',tg:'pes'},
+ mand:{n:'Mandorle sgusciate',d:'mandorle',k:600,p:22,c:5,f:55,cat:'gr',tg:'noc'},
+ noci:{n:'Noci sgusciate',d:'noci',k:690,p:15,c:5,f:68,cat:'gr',tg:'noc',pz:{g:5,s:'noce sgusciata',p:'noci sgusciate'}}
 };
 var NFCAT={ca:'Carboidrati',pr:'Proteine',la:'Latte e derivati',gr:'Grassi e frutta secca',fr:'Frutta',ve:'Verdure'};
 // esclusioni (allergie, intolleranze, scelte alimentari) → tag degli alimenti
 var NEX=[['veg','Vegetariano',['car','pes']],['vgn','Vegano',['car','pes','lat','uov','mie']],['lat','Senza latticini',['lat']],['glu','Senza glutine',['glu']],['pes','Senza pesce',['pes']],['uov','Senza uova',['uov']],['noc','Senza frutta a guscio',['noc']]];
 var NSUB={latp:['bsoia'],latps:['bsoia'],yogi:['ysoia'],yogm:['ysoia'],yogg:['ysoia'],parm:['tofu'],spalm:['hum'],ric:['tofu'],fiocl:['tofu'],mozz:['tofu'],cer:['cersg'],fav:['avsg'],pane:['gall'],panei:['gall'],pana:['gall'],crack:['gall'],fbis:['gall'],bisc:['gall'],pasta:['pastasg'],cous:['quinoa'],gnoc:['pat'],
- uovo:['tofu'],albu:['tofu'],aff:['tofu'],bres:['tofu'],tac:['tofu'],crudo:['tofu'],tonno:['legc'],salaff:['tofu'],salm:['tofu'],pesce:['carneb','tofu'],carneb:['pesce','temp','tofu'],carner:['pesce','seit','legc'],fsec:['semi'],burar:['semi'],whey:['pveg'],cas:['pveg'],snkp:['gall'],miele:['marm'],seit:['tofu']};
+ uovo:['tofu'],albu:['tofu'],aff:['tofu'],bres:['tofu'],tac:['tofu'],crudo:['tofu'],tonno:['legc'],salaff:['tofu'],salm:['tofu'],pesce:['carneb','tofu'],carneb:['pesce','temp','tofu'],carner:['pesce','seit','legc'],fsec:['semi'],burar:['semi'],whey:['pveg'],cas:['pveg'],snkp:['gall'],miele:['marm'],seit:['tofu'],
+ pastai:['pastasg'],soba:['riso'],pita:['gall'],farro:['quinoa'],ricm:['tofu'],merl:['tofu'],spada:['tofu'],gamb:['tofu'],mand:['semi'],noci:['semi']};
 // fasi: d = variazione calorica sul TDEE; p/f/c = [min, max] g per kg di peso; pd/fd = proposta
 var NFASE={
  iper:{t:'Ipertrofia (crescita muscolare)',d:0.12,p:[1.6,2.2],pd:1.8,c:[4,7],f:[0.8,1.2],fd:1,fp:[20,30],tx:'Surplus moderato +10/15% del TDEE (circa +200–400 kcal): un eccesso maggiore non accelera la sintesi proteica, aumenta il grasso.'},
@@ -7240,6 +7267,46 @@ var NTPL={
  cen:function(){return [{ty:'op',t:'Cena veloce',op:[nO('',[nI('ruc',80),nI('parm',40,'parmigiano reggiano in scaglie'),nI('bres',80,'bresaola o fesa di tacchino')]),nO('',[nI('latt',80),nI('tonno',80),nI('mais',30),nI('oliv',30),nI('evo',5)]),nO('',[nI('gall',40),nI('salaff',180),nI('vcr',80)])]},nPiatto('Cena cucinata')]},
  not:function(){return [{ty:'op',t:'Prima di dormire (30–90 minuti prima)',op:[nO('',[nI('cas',35,'caseina (sciolta in acqua o latte)')]),nO('',[nI('yogg',170)]),nO('',[nI('fiocl',200)])]}]}
 };
+// ---- Ricettario fit (dispensa «Cucina fit e varietà alimentare», fase 23) ----
+// m = pasti per cui è adatta; it = alimenti (grammi della dispensa); pr = preparazione e spezie; v = vantaggi; cu = cucina
+var NRIC=[
+ {id:'pank',t:'Pancake proteici all’avena',g:'Colazioni',m:['col'],it:[['fav',40,'farina d’avena'],['albu',100,'albume d’uovo'],['miele',7,'',1],['frut',80,'frutti di bosco freschi',1]],pr:'Mescola farina d’avena e albume, cuoci i pancake in padella antiaderente; completa con miele e frutti di bosco.',v:'Carboidrati a lento rilascio e proteine dell’albume.'},
+ {id:'frul',t:'Frullato banana e cacao',g:'Colazioni',m:['col','pos'],it:[['latps',200,'latte parzialmente scremato',0,['bsoia',200,'bevanda vegetale']],['ban',120,'',1],['cacao',10,'',1],['whey',20,'proteine del siero (isolato)']],pr:'Frulla tutto con qualche cubetto di ghiaccio. Adatto anche dopo l’allenamento del mattino.',v:'Carboidrati e proteine rapidi per il recupero.'},
+ {id:'toast',t:'Toast dolce alla ricotta',g:'Colazioni',m:['col','mer'],it:[['fbis',20,'fette biscottate integrali',0,['panei',30,'pane integrale tostato']],['ricm',30],['marm',10,'marmellata senza zuccheri aggiunti',1]],pr:'Spalma la ricotta sulle fette e completa con la marmellata.',v:'Proteine del siero e calcio, pochi grassi.'},
+ {id:'ygb',t:'Yogurt greco bowl',g:'Spuntini e pre-allenamento',m:['spm','mer','col'],it:[['yogg',150,'yogurt greco 0% grassi'],['cer',10,'cereali integrali soffiati'],['mand',10]],pr:'Versa lo yogurt in una ciotola e aggiungi cereali soffiati e mandorle.',v:'Proteine e sazietà con pochi grassi.'},
+ {id:'snks',t:'Snack salato veloce',g:'Spuntini e pre-allenamento',m:['spm','mer'],it:[['crack',25,'crackers integrali'],['bres',40,'bresaola della Valtellina',0,['tac',40,'fesa di tacchino']]],pr:'Da portare con sé: pronto in un minuto.',v:'Proteine magre e carboidrati semplici da gestire fuori casa.'},
+ {id:'cent',t:'Centrifugato energizzante',g:'Spuntini e pre-allenamento',m:['spm','mer'],it:[['mela',150,'mela verde',1],['vcr',120,'carote',1],['noci',15]],pr:'Centrifuga mela, carote e un pezzetto di zenzero fresco; accompagna con le noci.',v:'Vitamine, antiossidanti e grassi buoni.'},
+ {id:'fajb',t:'Fajita bowl di pollo',cu:'Tex-Mex',g:'Cucine dal mondo in versione fit',m:['pra','cen'],it:[['carneb',120,'straccetti di petto di pollo (vapore o piastra)'],['riso',60,'riso basmati'],['legc',80,'fagioli neri stufati'],['ver',150,'peperoni rossi e gialli',1],['avoc',20,'',1]],pr:'Spezie: cumino e paprica dolce; coriandolo fresco a crudo.',v:'Fibre, ferro non-eme, proteine magre, molto saziante.'},
+ {id:'wok',t:'Wok di gamberi e soba',cu:'Asiatica',g:'Cucine dal mondo in versione fit',m:['pra','cen'],it:[['soba',70],['gamb',150,'gamberi saltati alla piastra'],['ver',150,'zucchine e carote a julienne, germogli di soia',1],['evo',5,'',1]],pr:'Salta tutto nel wok con zenzero e salsa di soia a basso contenuto di sodio.',v:'Basso indice glicemico, proteine marine, digeribile.'},
+ {id:'pita',t:'Pita proteica con hummus',cu:'Mediorientale',g:'Cucine dal mondo in versione fit',m:['pra','cen'],it:[['pita',70,'pita integrale tostata'],['carneb',100,'bocconcini di tacchino al vapore'],['hum',30,'hummus di ceci al limone e tahina',1],['ver',100,'insalata di cetrioli e menta',1]],pr:'Farcisci la pita tostata con tacchino, hummus e cetrioli alla menta.',v:'Cereali + legumi: profilo di aminoacidi completo; spezie digestive.'},
+ {id:'farf',t:'Farfalle alla crema di ricotta',cu:'Mediterranea',g:'Cucine dal mondo in versione fit',m:['pra','cen'],it:[['pastai',70,'farfalle di semola integrale'],['ric',30,'ricotta vaccina fresca'],['ver',150,'pomodorini e basilico fresco',1]],pr:'Stempera la ricotta con un cucchiaio di acqua di cottura e unisci pomodorini e basilico.',v:'Sieroproteine, calcio, licopene e carboidrati a lento rilascio. Povera di proteine: abbinala a un secondo se il pasto lo richiede.'},
+ {id:'tacl',t:'Bocconcini di tacchino al limone e bietole',g:'Pranzi e cene',m:['pra','cen'],it:[['carneb',100,'fesa di tacchino a cubetti'],['ver',200,'bietole all’agro',1],['panei',50,'pane di grano duro integrale'],['evo',10,'',1]],pr:'Rosola il tacchino e sfuma con succo di limone; bietole lessate all’agro.',v:'Piatto leggero, ricco di proteine magre.'},
+ {id:'merm',t:'Merluzzo alla mediterranea',g:'Pranzi e cene',m:['cen','pra'],it:[['merl',200],['riso',70,'riso basmati'],['ver',200,'zucchine grigliate e pomodorini',1],['evo',10,'',1]],pr:'Merluzzo in padella con pomodorini, capperi e origano; zucchine grigliate.',v:'Pesce magro, pochi grassi, alta digeribilità serale.'},
+ {id:'spad',t:'Pesce spada ai ferri e patate novelle',g:'Pranzi e cene',m:['cen','pra'],it:[['spada',180],['pat',200,'patate novelle al forno con rosmarino'],['ver',150,'',1],['evo',10,'',1]],pr:'Pesce spada ai ferri con emulsione di limone e prezzemolo.',v:'Proteine marine; carboidrati dai tuberi.'},
+ {id:'psl',t:'Pre-sleep anabolico',g:'Prima di dormire (ISSN)',m:['not'],it:[['fiocl',200,'fiocchi di latte',0,['yogg',250,'yogurt greco 0%']]],pr:'30 minuti prima di coricarsi: 30–40 g di proteine a lenta digestione (caseine, fiocchi di latte o yogurt greco 0%).',v:'Sostiene la sintesi proteica notturna senza inibire la lipolisi.'}
+];
+function nRic(id){return NRIC.filter(function(r){return r.id===id})[0]}
+function nRicItem(a){var x=nI(a[0],a[1],a[2]||'',a[3]);if(a[4])x.o=nI(a[4][0],a[4][1],a[4][2]||'');return x}
+function nRicOpt(r){var o=nO(r.t+(r.cu?' ('+r.cu+')':''),r.it.map(nRicItem));o.nt=r.pr;o.rid=r.id;return o}
+function nRicFor(k){return NRIC.filter(function(r){return r.m.indexOf(k)>-1}).sort(function(a,b){return a.m.indexOf(k)-b.m.indexOf(k)})}
+// sezione «Ricette fit» del pasto: fino a 3 ricette, evitando quelle già usate negli altri pasti
+function nRicSec(k,used,T){var L=nRicFor(k),n=k==='not'?1:/^(spm|mer|pos)$/.test(k)?2:3;
+  var pick=L.filter(function(r){return !used[r.id]}).concat(L.filter(function(r){return used[r.id]})).slice(0,n);if(!pick.length)return null;pick.forEach(function(r){used[r.id]=1});
+  var S={ty:'op',t:'Ricette fit',op:pick.map(nRicOpt)};S=nRicFix(nClean(S,T));return S.op.length?S:null}
+// dopo le esclusioni: segnala nel titolo e nella preparazione gli alimenti sostituiti
+function nRicFix(S){(S.op||[]).forEach(function(o){var r=o.rid&&nRic(o.rid);if(!r)return;var have={};o.it.forEach(function(i){have[i.f]=1});
+  var sw=[];r.it.forEach(function(a,i){if(!have[a[0]]&&o.it[i]&&NF[o.it[i].f]&&NF[a[0]])sw.push([nDn(NF[o.it[i].f]),a[2]||nDn(NF[a[0]])])});
+  if(sw.length){o.t=o.t+' · variante con '+sw.map(function(x){return x[0]}).join(' e ');o.nt=(o.nt||'')+' Variante: '+sw.map(function(x){return x[0]+' al posto di '+x[1]}).join('; ')+'.'}});return S}
+function nUsedRic(P,skip){var u={};P.pasti.forEach(function(m){if(m===skip)return;(m.sez||[]).forEach(function(S){(S.op||[]).forEach(function(o){if(o.rid)u[o.rid]=1})})});return u}
+var NPLATE='Piatto unico bilanciato: carboidrati complessi 25–35% del piatto, proteine 25–30%, verdure e fibre 35–50% (varia i colori), grassi sani e condimenti 5–10% (olio EVO a crudo, avocado, frutta secca, semi).';
+var NPREP=['<b>Cereali in batch:</b> a inizio settimana cuoci riso basmati, quinoa o farro, raffreddali e conservali in contenitori ermetici in frigo.','<b>Proteine pronte:</b> griglia petti di pollo o tacchino e sciacqua i legumi in scatola, così li hai pronti ed eviti il cibo spazzatura nei momenti di stanchezza.','<b>Meno sale, più gusto:</b> origano, rosmarino, timo, curcuma, paprica, aglio e cipolla esaltano la sapidità e riducono sodio e ritenzione idrica.'];
+var NPORZ=[['Cereali e tuberi','Pane','50 g','3–4'],['','Pasta secca o riso','50 g (100 g nei piatti unici)','1–2'],['','Prodotti da forno (fette, biscotti)','50 g','0–1'],['','Patate','200 g','0–1'],['','Pasta fresca all’uovo','120 g','1 (occasionale)'],
+ ['Frutta e ortaggi','Ortaggi','250 g (insalata a foglia 50 g)','2–4'],['','Frutta fresca di stagione','150 g','2–3'],
+ ['Latte e derivati','Latte parzialmente scremato','125 g (1 bicchiere)','2'],['','Yogurt magro','125 g (1 vasetto)','1–2'],['','Formaggi freschi (ricotta, fiocchi)','100 g','2–3 a settimana'],['','Formaggi stagionati (grana, parmigiano)','50 g','1–2 a settimana'],
+ ['Carne, pesce, uova, legumi','Carni fresche magre','100 g','1'],['','Carni conservate (bresaola, fesa)','50 g','1–2 a settimana'],['','Pesce fresco, molluschi','150 g','2–3 a settimana'],['','Uovo','50 g (1 uovo medio)','2–3 a settimana'],['','Legumi freschi o cotti','100 g','1'],['','Legumi secchi','30 g','1'],
+ ['Grassi da condimento','Olio extravergine d’oliva','10 g (1 cucchiaio)','3–4'],['','Burro o margarina','10 g','0–1']];
+function nPorzHtml(){return '<div class="xwrap"><table class="stab"><thead><tr><th>Gruppo</th><th>Alimento</th><th>Porzione</th><th>Porzioni al giorno</th></tr></thead><tbody>'+NPORZ.map(function(r){return '<tr><td>'+(r[0]?'<b>'+esc(r[0])+'</b>':'')+'</td><td>'+esc(r[1])+'</td><td>'+esc(r[2])+'</td><td>'+esc(r[3])+'</td></tr>'}).join('')+'</tbody></table></div>'}
+var NDISC='Le informazioni, i calcoli energetici, le stime dei macronutrienti e gli schemi alimentari di questa applicazione hanno una funzione esclusivamente educativa, informativa e di orientamento allo stile di vita sportivo. Non costituiscono in alcun modo una prescrizione dietetica, una diagnosi nutrizionale o una terapia medica. Il Personal Trainer non prescrive diete individuali. Per piani alimentari personalizzati, in presenza di patologie, intolleranze o specifiche esigenze fisiche, rivolgersi a un Medico Dietologo, a un Biologo Nutrizionista o a un Dietista abilitato.';
 var NU={uid:null,P:null,dirty:false,q:''};
 function nr5(x){return Math.round(x/5)*5}
 function nfmt(x,d){if(x===''||x==null||isNaN(x))return '—';var m=Math.pow(10,d||0);return String(Math.round(x*m)/m).replace('.',',')}
@@ -7285,16 +7352,16 @@ function nNewPlan(u,sid){
   var ob=(u.ob||[]).join(' ').toLowerCase(),fase=/ipertrofia/.test(ob)?'iper':/dimagr/.test(ob)?'def':/forza/.test(ob)?'forza':'mant';
   var sc=sid?SCH.filter(function(s){return String(s.id)===String(sid)})[0]:schedeOf(u.id)[0];
   return {id:newId('n'),nome:'Alimentazione '+String(u.n||'').toUpperCase(),data:todayIso(),sid:sc?sc.id:'',by:'',nt:'',ex:[],fase:fase,pal:'',kcal:'',pk:'',fk:'',kg:'',alt:'',eta:'',sx:'',
-    pasti:NMEALS.map(function(m){return {k:m[0],t:m[1],on:!!m[3],pct:m[2],ora:'',sez:[]}}),cf:{},prk:false,pri:true,ts:0}}
+    pasti:NMEALS.map(function(m){return {k:m[0],t:m[1],on:!!m[3],pct:m[2],ora:'',sez:[]}}),cf:{},prk:false,pri:true,rf:true,prc:true,ts:0}}
 // ---- generazione dello schema dai riferimenti ----
 function nExTags(P){var t={};(P.ex||[]).forEach(function(k){NEX.forEach(function(x){if(x[0]===k)x[2].forEach(function(g){t[g]=1})})});return t}
 function nBad(f,T){return !!(f&&NF[f]&&NF[f].tg&&T[NF[f].tg])}
 function nSwap(it,T){if(!nBad(it.f,T))return it;var s=(NSUB[it.f]||[]).filter(function(k){return !nBad(k,T)})[0];if(!s)return null;
   var a=NF[it.f],b=NF[s],x={f:s,g:it.g};if(b.pz&&!a.pz)x.g=b.pz.g;else if(a.k&&b.k&&!b.pz)x.g=nr5(it.g*a.k/b.k)||5;return x}
 function nClean(S,T){
-  var fix=function(L){return L.map(function(it){var x=nSwap(it,T);if(x&&it.o){var o=nSwap(it.o,T);if(o)x.o=o}return x}).filter(Boolean)};
+  var fix=function(L){return L.map(function(it){var x=nSwap(it,T);if(x&&it.o){var o=nSwap(it.o,T);if(o&&o.f!==x.f)x.o=o}return x}).filter(Boolean)};
   if(S.ty==='pi'){S.ca=fix(S.ca);var seen={},R=[];fix(S.pr).forEach(function(x){if(seen[x.f]!=null){if(x.l&&!R[seen[x.f]].l)R[seen[x.f]]=x;return}seen[x.f]=R.length;R.push(x)});S.pr=R;S.co=fix(S.co);return S}
-  S.op=S.op.map(function(o){var L=fix(o.it);return L.length===o.it.length||L.length>1?{t:o.t,it:L}:null}).filter(Boolean);return S}
+  S.op=S.op.map(function(o){var L=fix(o.it);return L.length===o.it.length||L.length>1?Object.assign({},o,{it:L}):null}).filter(Boolean);return S}
 function nRoundG(g,F,fx){if(F&&F.pz)return Math.max(fx?F.pz.g:F.pz.g,Math.round(g/F.pz.g)*F.pz.g);if(F&&F.u==='ml')return Math.max(10,Math.round(g/10)*10);if(F&&F.cat==='gr'&&F.f>90)return Math.max(5,nr5(g));return Math.max(5,nr5(g))}
 function nScaleOpt(o,tk,P){
   var fx=function(it){var F=nFood(it,P);return it.fx||(F&&F.cat==='ve')},fixK=0,varK=0;o.it.forEach(function(it){var m=nMac(it,P).k;if(fx(it))fixK+=m;else varK+=m});
@@ -7311,7 +7378,10 @@ function nScalePi(S,mt,P,D){
 function nGenerate(P,u){
   var T=nTarg(P,u),X=nExTags(P);
   P.pasti.forEach(function(m){if(!m.on){if(!m.sez||!m.sez.length)m.sez=[];return}var mt=T.meal[m.k],tp=NTPL[m.k];if(!tp)return;
-    m.sez=tp().map(function(S){S=nClean(S,X);if(!mt||!mt.k)return S;if(S.ty==='pi')return nScalePi(S,mt,P,T.D);S.op.forEach(function(o){nScaleOpt(o,mt.k,P)});return S}).filter(function(S){return S.ty==='pi'?S.ca.length&&S.pr.length:S.op.length})})}
+    m.sez=tp().map(function(S){S=nClean(S,X);if(!mt||!mt.k)return S;if(S.ty==='pi')return nScalePi(S,mt,P,T.D);S.op.forEach(function(o){nScaleOpt(o,mt.k,P)});return S}).filter(function(S){return S.ty==='pi'?S.ca.length&&S.pr.length:S.op.length})});
+  if(P.rf){var used={};P.pasti.forEach(function(m){if(m.on&&m.sez)nAddRicSec(m,P,T,X,used)})}}
+function nAddRicSec(m,P,T,X,used){var R=nRicSec(m.k,used,X);if(!R)return;var mt=T.meal[m.k];if(mt&&mt.k)R.op.forEach(function(o){nScaleOpt(o,mt.k,P)});
+  var i=m.sez.map(function(S){return S.ty}).indexOf('pi');if(i<0)m.sez.push(R);else m.sez.splice(i,0,R)}
 // ---- interfaccia ----
 function nGet(o,p){p=String(p).split('.');for(var i=0;i<p.length;i++){if(o==null)return undefined;o=o[p[i]]}return o}
 function nSet(o,p,v){p=String(p).split('.');for(var i=0;i<p.length-1;i++){if(o[p[i]]==null)o[p[i]]={};o=o[p[i]]}o[p[p.length-1]]=v}
@@ -7356,10 +7426,10 @@ function nSecHtml(S,mi,si,mt,X){var b='pasti.'+mi+'.sez.'+si,tk=mt?mt.k:0;
    '<div class="ngrp"><b>Aggiungi una fonte proteica</b> <button type="button" class="nlk" data-na="eqv" data-p="'+b+'.pr" data-m="p">⚖ Equivalenze dalla prima riga</button>'+S.pr.map(function(it,i){return nItRow(it,b+'.pr.'+i,X)}).join('')+'<button type="button" class="btn sm" data-na="itadd" data-p="'+b+'.pr">+ Proteina</button></div>'+
    '<div class="ngrp"><b>Condimento</b>'+S.co.map(function(it,i){return nItRow(it,b+'.co.'+i,X)}).join('')+(S.co.length?'':'<button type="button" class="btn sm" data-na="itadd" data-p="'+b+'.co">+ Condimento</button>')+
    '<div class="fg" style="margin-top:8px">'+nFl('Nota sul condimento',nInp(b+'.con',S.con))+nFl('A tuo gusto puoi arricchire il piatto con',nInp(b+'.ar',S.ar))+nFl('Verdure (g, per le calorie)',nInp(b+'.vg',S.vg,'number',' min="0" step="5"'))+'</div></div>'+
-   '<div id="nt_'+mi+'_'+si+'">'+nMacTxt(nPiSum(S,NU.P),tk)+'</div><p class="status" style="margin:2px 0 0">Calcolo con la prima fonte di carboidrati e la prima proteica, più condimento e verdure. «⚖ Equivalenze» porta le altre righe agli stessi grammi di carboidrati (o di proteine) della prima.</p></div>';
+   '<div id="nt_'+mi+'_'+si+'">'+nMacTxt(nPiSum(S,NU.P),tk)+'</div><p class="status" style="margin:2px 0 0">'+esc(NPLATE)+'<br>Calcolo con la prima fonte di carboidrati e la prima proteica, più condimento e verdure. «⚖ Equivalenze» porta le altre righe agli stessi grammi di carboidrati (o di proteine) della prima.</p></div>';
   return '<div class="nsec">'+head+S.op.map(function(o,oi){var p=b+'.op.'+oi;
     return '<div class="nop"><div class="noh"><b>'+String.fromCharCode(65+oi)+')</b><input class="nott" data-nb="'+p+'.t" value="'+esc(o.t)+'" placeholder="Titolo (es. Pancake) facoltativo" aria-label="Titolo dell’opzione"><span class="nbt"><button type="button" data-na="odel" data-p="'+p+'" aria-label="Togli opzione">×</button></span></div>'+
-     o.it.map(function(it,ii){return nItRow(it,p+'.it.'+ii,X)}).join('')+'<button type="button" class="btn sm" data-na="itadd" data-p="'+p+'.it">+ Alimento</button> <button type="button" class="nlk" data-na="oscale" data-p="'+p+'" data-mk="'+esc(mt?mt.k:'')+'">⚡ Adatta all’obiettivo del pasto</button>'+
+     o.it.map(function(it,ii){return nItRow(it,p+'.it.'+ii,X)}).join('')+(o.nt!=null||o.rid?nFl('Preparazione e spezie (in stampa)',nInp(p+'.nt',o.nt),'full nprep'):'')+'<button type="button" class="btn sm" data-na="itadd" data-p="'+p+'.it">+ Alimento</button> <button type="button" class="nlk" data-na="oscale" data-p="'+p+'" data-mk="'+esc(mt?mt.k:'')+'">⚡ Adatta all’obiettivo del pasto</button>'+
      '<div id="nt_'+mi+'_'+si+'_'+oi+'">'+nMacTxt(nSum(o.it,NU.P),tk)+'</div></div>'}).join('')+
    '<button type="button" class="btn sm" data-na="oadd" data-p="'+b+'.op">+ Opzione '+String.fromCharCode(65+S.op.length)+'</button></div>'}
 function nCalcHtml(P,u){var T=nTarg(P,u),F=T.F,D=T.D;
@@ -7401,14 +7471,16 @@ function nutEditor(){
     '<p class="status">I campi vuoti usano l’anamnesi e le proposte della fase. Attività automatica: '+esc(T.ap.tx)+'. I carboidrati sono quello che resta delle calorie.</p>'+
     '<div class="info" id="nfx">'+esc(T.F.tx)+'</div><div id="ncalc" style="margin-top:12px">'+nCalcHtml(P,u)+'</div></section>'+
    '<section class="asec"><h3>Ripartizione dei pasti</h3><div id="nmeals">'+nMealTab(P,u)+'</div>'+
-    '<div class="mrow" style="justify-content:flex-start"><button type="button" class="pri" data-na="gen">⚡ Genera lo schema dai riferimenti</button></div><p class="status">Ricrea tutti i pasti attivi (opzioni «veloci» e piatto «cucinato») con le grammature adatte alle calorie e alle proteine di ogni pasto, rispettando le esclusioni. Le modifiche fatte a mano ai pasti vengono sostituite.</p></section>'+
+    '<label class="nck"><input type="checkbox" data-nb="rf"'+(P.rf?' checked':'')+'> 🍳 Aggiungi a ogni pasto le <b>ricette fit</b> della dispensa (pancake all’avena, yogurt bowl, fajita bowl, wok di gamberi, merluzzo alla mediterranea…)</label>'+
+    '<div class="mrow" style="justify-content:flex-start"><button type="button" class="pri" data-na="gen">⚡ Genera lo schema dai riferimenti</button></div><p class="status">Ricrea tutti i pasti attivi (opzioni «veloci», ricette fit e piatto «cucinato») con le grammature adatte alle calorie e alle proteine di ogni pasto, rispettando le esclusioni. Le modifiche fatte a mano ai pasti vengono sostituite.</p>'+
+    '<details class="lg nporz"><summary><span>Porzioni standard ISS (grammature di riferimento)</span></summary><div class="lgb">'+nPorzHtml()+'</div></details></section>'+
    P.pasti.map(function(m,mi){if(!m.on)return '';var mt=T.meal[m.k];
      return '<section class="asec nml"><h3>'+esc(m.t)+(m.ora?' <small>ore '+esc(m.ora)+'</small>':'')+' <small>'+(mt?'obiettivo ≈ '+nfmt(mt.k)+' kcal · '+nfmt(mt.p)+' g di proteine':'')+'</small></h3>'+
       (m.sez||[]).map(function(S,si){return nSecHtml(S,mi,si,mt,X)}).join('')+
-      '<div class="mrow" style="justify-content:flex-start"><button type="button" data-na="sadd" data-p="pasti.'+mi+'" data-ty="op">+ Sezione con opzioni A, B, C</button><button type="button" data-na="sadd" data-p="pasti.'+mi+'" data-ty="pi">+ «Crea il tuo piatto»</button>'+(NTPL[m.k]?'<button type="button" data-na="mgen" data-p="pasti.'+mi+'">⚡ Rigenera questo pasto</button>':'')+'</div></section>'}).join('')+
+      '<div class="mrow" style="justify-content:flex-start"><button type="button" data-na="sadd" data-p="pasti.'+mi+'" data-ty="op">+ Sezione con opzioni A, B, C</button><button type="button" data-na="sadd" data-p="pasti.'+mi+'" data-ty="pi">+ «Crea il tuo piatto»</button><button type="button" data-na="ricpick" data-p="pasti.'+mi+'">🍳 Aggiungi una ricetta fit</button>'+(NTPL[m.k]?'<button type="button" data-na="mgen" data-p="pasti.'+mi+'">⚡ Rigenera questo pasto</button>':'')+'</div></section>'}).join('')+
    '<div id="ncust">'+nCustomHtml(P)+'</div>'+
-   '<section class="asec"><h3>Stampa e invio</h3><label class="nck"><input type="checkbox" data-nb="pri"'+(P.pri?' checked':'')+'> Aggiungi le indicazioni generali (acqua, proteine per pasto, tempi)</label><label class="nck"><input type="checkbox" data-nb="prk"'+(P.prk?' checked':'')+'> Mostra calorie e macronutrienti (fabbisogno e pasti)</label>'+
-    '<p class="status">Questa sezione dà indicazioni generali basate su linee guida (ISSN, ACSM, ISS). In Italia un piano alimentare personalizzato, soprattutto in presenza di patologie, spetta a medico, dietista o biologo nutrizionista: usa lo strumento per trascrivere e organizzare il loro piano o per indicazioni generali.</p></section>'+
+   '<section class="asec"><h3>Stampa e invio</h3><label class="nck"><input type="checkbox" data-nb="pri"'+(P.pri?' checked':'')+'> Aggiungi le indicazioni generali (acqua, proteine per pasto, tempi)</label><label class="nck"><input type="checkbox" data-nb="prc"'+(P.prc?' checked':'')+'> Aggiungi i consigli di cucina fit (piatto bilanciato, meal prep, spezie)</label><label class="nck"><input type="checkbox" data-nb="prk"'+(P.prk?' checked':'')+'> Mostra calorie e macronutrienti (fabbisogno e pasti)</label>'+
+    '<div class="info ndisc"><b>Disclaimer di compliance nutrizionale (art. 348 c.p.)</b><br>'+esc(NDISC)+'</div><p class="status">Il disclaimer esce sempre in fondo alla stampa e al PDF. Usa lo strumento per educazione alimentare e indicazioni generali (ISSN, ACSM, ISS) o per trascrivere e organizzare il piano del professionista.</p></section>'+
    '<div class="status" id="nustat"></div><div class="afoot edfoot" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;margin:16px 0">'+
     (nHas(P)?'<button type="button" class="btn" data-na="ndel" style="margin-right:auto">Elimina</button>':'')+
     '<button type="button" class="btn" data-na="nprint">Anteprima · Stampa</button><button type="button" class="btn" data-na="npdf">Scarica PDF</button><button type="button" class="btn blk" data-na="nshare">📤 Condividi PDF</button><button type="button" class="btn pri" data-na="nsave">Salva piano</button></div>';
@@ -7437,7 +7509,8 @@ document.addEventListener('change',function(e){var t=e.target;if(cur!=='nut'||!N
   if(/\.fn$/.test(p)){var c=gid('ncust');if(c)c.innerHTML=nCustomHtml(NU.P);return}
   if(t.getAttribute('data-nr')||p==='fase'||p==='pal'||p==='sx'){nutEditor();return}});
 function nTpl(k){return NTPL[k]?NTPL[k]():[]}
-function nMealGen(mm){var P=NU.P,u=find(NU.uid),T=nTarg(P,u),X=nExTags(P),mt=T.meal[mm.k];mm.sez=nTpl(mm.k).map(function(S){S=nClean(S,X);if(!mt)return S;if(S.ty==='pi')return nScalePi(S,mt,P,T.D);S.op.forEach(function(o){nScaleOpt(o,mt.k,P)});return S})}
+function nMealGen(mm){var P=NU.P,u=find(NU.uid),T=nTarg(P,u),X=nExTags(P),mt=T.meal[mm.k];mm.sez=nTpl(mm.k).map(function(S){S=nClean(S,X);if(!mt)return S;if(S.ty==='pi')return nScalePi(S,mt,P,T.D);S.op.forEach(function(o){nScaleOpt(o,mt.k,P)});return S});
+  if(P.rf)nAddRicSec(mm,P,T,X,nUsedRic(P,mm))}
 document.addEventListener('click',function(e){
   if(cur!=='nut')return;
   var r=e.target.closest('[data-nu]');if(r){NU.uid=r.getAttribute('data-nu');renderNut();window.scrollTo(0,0);return}
@@ -7461,6 +7534,8 @@ document.addEventListener('click',function(e){
   else if(k==='oscale'){var tk=+b.getAttribute('data-mk');if(tk)nScaleOpt(nGet(P,p),tk,P);else return}
   else if(k==='ex'){var kk=b.getAttribute('data-k'),L=P.ex=P.ex||[],ix=L.indexOf(kk);if(ix>-1)L.splice(ix,1);else L.push(kk)}
   else if(k==='mgen'){nMealGen(nGet(P,p))}
+  else if(k==='ricpick'){nRicPick(nGet(P,p),p);return}
+  else if(k==='ricadd'){closeModal();nRicAdd(nGet(P,p),b.getAttribute('data-r'),u)}
   else if(k==='gen'){var any=P.pasti.some(function(m){return m.on&&m.sez&&m.sez.length});
     if(any&&!b.getAttribute('data-ok')){modal('<h3>Rigenerare lo schema?</h3><p>Tutti i pasti attivi vengono ricreati dai riferimenti con le calorie attuali. Le modifiche fatte a mano ai pasti vanno perse.</p><div class="mrow"><button data-act="mclose">Annulla</button><button class="pri" data-na="gen" data-ok="1">Rigenera</button></div>');return}
     closeModal();nGenerate(P,u)}
@@ -7472,6 +7547,18 @@ document.addEventListener('click',function(e){
   else return;
   nDirty();nutEditor();
 });
+function nRicPick(m,p){var X=nExTags(NU.P),G=[];NRIC.forEach(function(r){if(G.indexOf(r.g)<0)G.push(r.g)});
+  var row=function(r){var bad=r.it.some(function(a){return nBad(a[0],X)&&!(NSUB[a[0]]||[]).some(function(s){return !nBad(s,X)})}),ok=r.m.indexOf(m.k)>-1;
+    return '<div class="nrc'+(ok?' ok':'')+'"><div><b>'+esc(r.t)+'</b>'+(r.cu?' <i class="dc">'+esc(r.cu)+'</i>':'')+(ok?' <i class="dc">adatta a '+esc(m.t.toLowerCase())+'</i>':'')+
+     '<br><span>'+esc(r.it.map(function(a){var F=NF[a[0]];return a[1]+(F&&F.u==='ml'?' ml':' g')+' '+(a[2]||nDn(F))}).join(' · '))+'</span><br><small>'+esc(r.pr)+' '+esc(r.v)+'</small>'+(bad?'<br><small><b>Non adatta alle esclusioni dell’atleta</b></small>':'')+'</div>'+
+     '<button type="button" class="btn sm'+(ok?' pri':'')+'" data-na="ricadd" data-p="'+p+'" data-r="'+r.id+'"'+(bad?' disabled':'')+'>+ Aggiungi</button></div>'};
+  modal('<h3>🍳 Ricette fit · '+esc(m.t)+'</h3><p class="status">Dalla dispensa «Cucina fit e varietà alimentare». La ricetta entra come opzione nella sezione «Ricette fit» del pasto, con le grammature adattate all’obiettivo del pasto; gli alimenti esclusi dalle preferenze vengono sostituiti.</p>'+
+   G.map(function(g){return '<p class="kick" style="margin:14px 0 6px">'+esc(g)+'</p>'+NRIC.filter(function(r){return r.g===g}).map(row).join('')}).join('')+'<div class="mrow"><button data-act="mclose">Chiudi</button></div>');
+  document.querySelector('#modal .mbox').classList.add('xl')}
+function nRicAdd(m,id,u){var r=nRic(id);if(!r||!m)return;var P=NU.P,T=nTarg(P,u),X=nExTags(P),S={ty:'op',t:'Ricette fit',op:[nRicOpt(r)]};S=nRicFix(nClean(S,X));if(!S.op.length)return;
+  var mt=T.meal[m.k];if(mt&&mt.k)nScaleOpt(S.op[0],mt.k,P);m.sez=m.sez||[];
+  var sec=m.sez.filter(function(x){return x.ty==='op'&&/^ricette fit/i.test(x.t||'')})[0];
+  if(sec)sec.op.push(S.op[0]);else{var i=m.sez.map(function(x){return x.ty}).indexOf('pi');if(i<0)m.sez.push(S);else m.sez.splice(i,0,S)}}
 async function nSave(){var P=NU.P,u=find(NU.uid);if(!P||!u)return;
   P.ts=Date.now();var o=Object.assign({},u),L=(u.nut||[]).filter(function(x){return x.id!==P.id});L.unshift(JSON.parse(JSON.stringify(P)));o.nut=L;
   try{await Store.put('utenti',o)}catch(e){st('nustat',saveErr());return}
@@ -7488,7 +7575,7 @@ function nSecSheet(S,P,mt){var L=[];
     if(S.ar)L.push('<i>a tuo gusto puoi arricchire il piatto con: '+esc(S.ar)+'</i>');
     if(P.prk)L.push('<small>≈ '+nfmt(nPiSum(S,P).k)+' kcal con la prima scelta</small>');return L.join('<br>')}
   L.push('<b>'+esc(String(S.t||'').toUpperCase())+':</b>');
-  S.op.forEach(function(o,i){var s=nSum(o.it,P);L.push(String.fromCharCode(65+i)+') '+(o.t?'<b>'+esc(o.t.toUpperCase())+'</b> ':'')+esc(o.it.map(function(it){return nItTxt(it,P)}).join(' + '))+(P.prk?' <small>(≈ '+nfmt(s.k)+' kcal · P '+nfmt(s.p)+' g)</small>':''))});
+  S.op.forEach(function(o,i){var s=nSum(o.it,P);L.push(String.fromCharCode(65+i)+') '+(o.t?'<b>'+esc(o.t.toUpperCase())+'</b> ':'')+esc(o.it.map(function(it){return nItTxt(it,P)}).join(' + '))+(o.nt?' <i>· '+esc(o.nt)+'</i>':'')+(P.prk?' <small>(≈ '+nfmt(s.k)+' kcal · P '+nfmt(s.p)+' g)</small>':''))});
   return L.join('<br>')}
 function nSheet(P,u){var T=nTarg(P,u),D=T.D;
   var rows=P.pasti.filter(function(m){return m.on&&m.sez&&m.sez.length}).map(function(m){var mt=T.meal[m.k];
@@ -7499,11 +7586,12 @@ function nSheet(P,u){var T=nTarg(P,u),D=T.D;
     '<li><b>Allenamento:</b> carboidrati nel pasto prima e dopo la seduta; evita pasti abbondanti nelle 2 ore precedenti.</li>'+
     '<li><b>Scelte:</b> in ogni pasto scegli una sola opzione (A, B o C) oppure una fonte di carboidrati e una proteica del piatto. Le grammature sono a crudo e al netto degli scarti, salvo diversa indicazione.</li>'+
     (P.pasti.some(function(m){return m.on&&m.k==='not'})?'<li><b>Prima di dormire:</b> 30–40 g di caseina 30–90 minuti prima del sonno sostengono la sintesi proteica notturna.</li>':'')+'</ul>':'';
+  if(P.prc)ind+='<h3>Cucina fit: consigli pratici</h3><ul><li><b>'+esc(NPLATE.split(':')[0])+':</b>'+esc(NPLATE.slice(NPLATE.indexOf(':')+1))+'</li>'+NPREP.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul>';
   var sum=P.prk&&T.kcal?'<p class="nsum"><b>Fabbisogno:</b> '+nfmt(T.kcal)+' kcal · proteine '+nfmt(T.p)+' g · carboidrati '+nfmt(T.c)+' g · grassi '+nfmt(T.f)+' g · '+esc(T.F.t)+'</p>':'';
   return '<div class="nush"><h1 class="ntit">'+esc(P.nome||'Alimentazione')+' ('+esc(nLong(P.data))+')</h1>'+sum+
    (rows?'<table class="stab nsht" data-cw="0.2,0.8"><tbody>'+rows+'</tbody></table>':'<p>Nessun pasto compilato.</p>')+
    (P.nt?'<p><b>Note:</b> '+esc(P.nt)+'</p>':'')+ind+
-   '<p class="status">'+(P.by?'Redatto da '+esc(P.by)+'. ':'')+'Indicazioni alimentari generali per '+esc(u.n+' '+u.c)+'. In presenza di patologie o necessità particolari segui le indicazioni del medico o del professionista della nutrizione.</p></div>'}
+   '<p class="status">'+(P.by?'Redatto da '+esc(P.by)+'. ':'')+'Indicazioni alimentari generali per '+esc(u.n+' '+u.c)+'.</p><p class="status ndisc"><b>Disclaimer:</b> '+esc(NDISC)+'</p></div>'}
 function nPreview(){var P=NU.P,u=find(NU.uid);if(!P||!u)return;
   modal(nSheet(P,u)+'<p class="status noprn">Premi «Stampa / Salva PDF» e, come stampante, scegli «Salva come PDF».</p><div class="mrow"><button data-act="mclose">Chiudi</button><button data-na="npdf">Scarica PDF</button><button class="pri" data-act="prn">Stampa / Salva PDF</button></div>');
   document.querySelector('#modal .mbox').classList.add('xl')}
