@@ -205,7 +205,10 @@ h2{font-weight:800}
 .shl{width:100%;font:12px/1.4 ui-monospace,Menlo,monospace;border:1px solid var(--line);border-radius:8px;padding:8px;resize:none;color:#333;background:#f7f7f7;word-break:break-all}
 body.athm .side,body.athm .tabbar{display:none!important}body.athm main{width:100%;padding-bottom:90px}
 .atv{max-width:640px;margin:0 auto;padding:16px 14px 24px;width:100%}.avh{background:#fff;border:1px solid var(--line);border-top:4px solid var(--brand);border-radius:14px;padding:14px 16px;margin-bottom:12px}
-.avh h2{margin:2px 0 4px;font-size:22px}.avd{margin:0;color:var(--muted);font-size:14px}.avwk{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}.avwk select{font:inherit;font-weight:700;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:#fff;color:#0b0b0b}.avwk span{color:var(--muted);font-size:14px}
+.avh h2{margin:2px 0 4px;font-size:22px}.avd{margin:0;color:var(--muted);font-size:14px}
+.avnet{margin:8px 0 0;font-size:13px;font-weight:600;color:var(--brand)}
+.sclog{margin-top:18px;border:2px solid var(--brand);border-radius:12px;padding:12px 14px;background:var(--surface)}.sclog h4{margin:0 0 6px}.sclog .lgh{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 0 8px}.sclog .lgh .status{flex:1;margin:0}
+.sclog details{border-top:1px solid var(--line);padding:6px 0}.sclog summary{cursor:pointer;font-weight:700;padding:4px 0}.sclog .xwrap{overflow-x:auto}.sclog table{width:100%;border-collapse:collapse;font-size:14px}.sclog th,.sclog td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}.sclog th{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}.avwk{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}.avwk select{font:inherit;font-weight:700;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:#fff;color:#0b0b0b}.avwk span{color:var(--muted);font-size:14px}
 .avdl{margin-top:10px;background:#fff4e0;border-left:4px solid #e0a000;padding:8px 12px;border-radius:8px;font-size:14px}
 .avtabs{display:flex;gap:6px;overflow-x:auto;padding:2px 0 10px;margin-bottom:4px;scrollbar-width:none}.avtabs button{flex:0 0 auto;font:inherit;font-weight:700;font-size:14px;padding:9px 14px;border-radius:99px;border:1px solid var(--line);background:#fff;color:#0b0b0b;cursor:pointer}.avtabs button[aria-selected="true"]{background:var(--brand);border-color:var(--brand);color:#fff}
 .avw{background:#fff;border:1px solid var(--line);border-radius:12px;margin:0 0 10px}.avw>summary{cursor:pointer;padding:12px 14px;font-weight:700}.avw ul{list-style:none;margin:0;padding:0 14px 8px}.avw li{border-top:1px solid #eee;padding:8px 0}.avw li summary{cursor:pointer;display:flex;flex-direction:column;gap:2px}.avw li summary span{font-size:13px;color:var(--muted)}.avw .prot{margin:0 14px 12px;white-space:pre-line;font-size:14px}
@@ -486,6 +489,7 @@ h2,h3,b,.cells b{color:#000!important}
 .sub,.status,.cells,.cells span,.uhead{color:#333!important}
 .urow,.trend{background:#fff!important;border:1px solid #888!important;break-inside:avoid}
 .dc{background:#fff!important;color:#000!important;border:1px solid #000}
+.sclog{display:none!important}
 .modal{position:static!important;background:none!important;padding:0!important;display:block!important}
 .mbox{background:#fff!important;color:#000!important;max-width:none!important;max-height:none!important;overflow:visible!important;padding:0!important}
 body:has(#modal) .stage{display:none!important}
@@ -682,10 +686,21 @@ var Cloud=(function(){
   // gruppi Yanagi condivisi (fase 19): una copia in shared/{id} letta e scritta dal PT (owner) e dagli utenti invitati (members, per email)
   function sref(id){return F.f.doc(fs,'shared',String(id))}
   function shDoc(o,ow,on,m){var c=JSON.parse(clean(o));delete c._sh;if(ow===user.uid&&typeof yShSnap==='function')c.snap=yShSnap(o);return {j:JSON.stringify(c),t:F.f.serverTimestamp(),owner:ow,oname:on||'',members:m,ts:+o.ts||Date.now(),by:String(user.email||'').toLowerCase()}}
+  // link per l'atleta (fase 21): link/{token} contiene solo la scheda per il telefono; link/{token}/r/log i carichi segnati dall'atleta.
+  // Il token è casuale e lungo: chi non ha il link non può leggere nulla, e l'elenco dei link è leggibile solo dal PT (regole di Firestore).
+  function lref(t){return F.f.doc(fs,'link',String(t))}
+  function logref(t){return F.f.doc(fs,'link',String(t),'r','log')}
+  function linkDoc(o){return {owner:user.uid,sid:String(o.id),on:!o.aoff,j:JSON.stringify(shareData(o,find(o.uid))),t:F.f.serverTimestamp(),ts:Date.now()}}
+  function linkPut(o){if(!user||!F||!o||!o.atok)return Promise.reject(new Error('nocloud'));return F.f.setDoc(lref(o.atok),linkDoc(o))}
+  async function linkLog(t){if(!user||!F)throw new Error('nocloud');var s=await F.f.getDoc(logref(t));if(!s.exists())return null;var x=s.data();return {l:JSON.parse(x.l||'{}'),ts:+x.ts||0}}
+  async function linkDrop(sid){if(!user||!F)return;
+    try{var s=await F.f.getDocs(F.f.query(F.f.collection(fs,'link'),F.f.where('owner','==',user.uid))),L=[];s.forEach(function(d){if(String((d.data()||{}).sid)===String(sid))L.push(d.id)});
+      for(var t of L){try{await F.f.deleteDoc(logref(t))}catch(e){}try{await F.f.deleteDoc(lref(t))}catch(e){}}}catch(e){}}
   function put(n,o){if(o==null||o.id==null)return;queue(n,o.id,'put');if(!user||!F)return;
     if(n==='gruppi'&&o._sh){track(F.f.setDoc(sref(o.id),shDoc(o,o._sh.o,o._sh.on,o._sh.m)),n,o.id);return}
     ids[n][String(o.id)]=1;
     track(F.f.setDoc(ref(n,o.id),{j:clean(o),t:F.f.serverTimestamp()}),n,o.id);
+    if(n==='schede'&&o.atok){try{linkPut(o).catch(function(e){showNotice('Link dell’atleta non aggiornato: '+errTxt(e))})}catch(e){}}
     if(n==='gruppi'&&typeof yShMembers==='function'){var m=yShMembers(o);if(m.length)track(F.f.setDoc(sref(o.id),shDoc(o,user.uid,user.email,m)),n,o.id)}}
   var shSt={err:'',n:0};
   async function pullShared(prev){prev=prev||[];var em=String(user.email||'').toLowerCase(),got=[],ok=true;shSt={err:'',n:0};
@@ -701,7 +716,7 @@ var Cloud=(function(){
       s2.forEach(function(d){var x=d.data();if(!x||!x.by||x.by===em)return;try{var D=JSON.parse(x.j),k=GR.findIndex(function(z){return String(z.id)===String(D.id)&&!z._sh});if(k<0)return;var L=GR[k],M=yMergeG(L,D,true);
         if(JSON.stringify(M)!==JSON.stringify(L)){M.ts=Math.max(+L.ts||0,+D.ts||0);GR[k]=M;ch.push(M)}}catch(e){}});
       for(var m of ch){try{await Store.lput('gruppi',m)}catch(e){}put('gruppi',m)}}catch(e){}}
-  function del(n,id){if(id==null)return;queue(n,id,'del');if(!user||!F)return;delete ids[n][String(id)];track(F.f.deleteDoc(ref(n,id)),n,id)}
+  function del(n,id){if(id==null)return;queue(n,id,'del');if(!user||!F)return;delete ids[n][String(id)];track(F.f.deleteDoc(ref(n,id)),n,id);if(n==='schede')linkDrop(id)}
   function load(){
     var b='https://www.gstatic.com/firebasejs/'+FB_VER+'/firebase-';
     var to=new Promise(function(_,rej){setTimeout(function(){rej(new Error('timeout'))},15000)});
@@ -760,7 +775,7 @@ var Cloud=(function(){
     if(/unauthorized-domain|requests-from-referer/.test(c))return 'Questo indirizzo non è tra i domini autorizzati di Firebase (Authentication → Settings → Domini autorizzati).';
     return 'Accesso non riuscito ('+(c||(e&&e.message)||'errore')+').'}
   return {
-    load:load,put:put,del:del,sync:sync,upload:upload,status:status,aerr:aerr,
+    load:load,put:put,del:del,sync:sync,linkPut:linkPut,linkLog:linkLog,upload:upload,status:status,aerr:aerr,
     user:function(){return user},pending:function(){return pend},localOnly:function(){return lo},
     onAuth:function(cb){F.u.onAuthStateChanged(auth,function(u){user=u||null;cb(user)})},
     signIn:function(e,p){return F.u.signInWithEmailAndPassword(auth,e,p)},
@@ -4904,12 +4919,37 @@ function schedaBody(sc,u){
   h+='<details class="glw"><summary>📖 Glossario dei termini tecnici</summary>'+glossHtml()+'</details>';
   return h;
 }
+// ---- carichi segnati dall'atleta con il link sempre aggiornato (link/{token}/r/log) ----
+// log: {settimana:{'<indice seduta>|<esercizio>':[{kg,rp,ok}]}}; ALOG tiene l'ultima lettura per scheda (serve anche all'Excel)
+var ALOG={};
+async function logFetch(sc){if(!sc||!sc.atok||!window.Cloud||!Cloud.user())return null;var r=await Cloud.linkLog(sc.atok);ALOG[sc.id]=r||{l:{},ts:0};return ALOG[sc.id]}
+function logNum(v){return String(v==null?'':v).replace('.',',')}
+function logSets(a,short){return (a||[]).filter(function(x){return x&&(x.kg||x.rp||x.ok)}).map(function(x){
+  return short?(x.kg?logNum(x.kg):'')+(x.kg&&x.rp?'×':'')+(x.rp?x.rp:'')+(!x.kg&&!x.rp?'✓':'')
+   :(x.kg?logNum(x.kg)+' kg':'')+(x.kg&&x.rp?' × ':'')+(x.rp?x.rp+' rip.':'')+(!x.kg&&!x.rp?'fatta':'')}).join(short?', ':' · ')}
+function logCell(sc,w,di,name){var L=ALOG[sc.id==='__ed'&&window.ED?ED.sid:sc.id];return L&&L.l&&L.l[w]?logSets(L.l[w][di+'|'+name],1):''}
+function logHtml(sc){var L=ALOG[sc.id],days=schedaDays(sc),W=Object.keys(L&&L.l||{}).filter(function(w){var o=L.l[w]||{};return Object.keys(o).some(function(k){return logSets(o[k])})}).map(Number).sort(function(a,b){return b-a}),dw=dlWeek(sc);
+  var h='<div class="lgh"><h4 style="margin:0">📈 Carichi segnati dall’atleta</h4><p class="status">'+(L&&L.ts?'Ultimo invio dell’atleta: '+fdate(new Date(L.ts).toISOString().slice(0,10))+' alle '+new Date(L.ts).toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'}):'')+'</p><button type="button" class="btn sm" data-act="sclogr" data-id="'+esc(sc.id)+'">↻ Aggiorna</button></div>';
+  if(sc.aoff)h+='<p class="status" style="margin:0 0 6px">Il link dell’atleta è disattivato.</p>';
+  if(!W.length)return h+'<p class="status" style="margin:0">L’atleta non ha ancora segnato carichi. Compaiono qui appena li segna dal telefono (con internet).</p>';
+  W.forEach(function(w,i){var o=L.l[w],ws=sc.data?addDays(sc.data,(w-1)*7):'',rows='';
+    var keys=Object.keys(o).filter(function(k){return logSets(o[k])}).sort(function(a,b){var x=+a.split('|')[0],y=+b.split('|')[0];if(x!==y)return x-y;var d=days[x],n=function(k){var nm=k.slice(k.indexOf('|')+1);return d?d.es.findIndex(function(e){return e.n===nm}):0};return n(a)-n(b)});
+    keys.forEach(function(k){var di=+k.split('|')[0],nm=k.slice(k.indexOf('|')+1),d=days[di];rows+='<tr><td>'+esc(d?(d.t||'Seduta '+(di+1)):'Seduta '+(di+1))+'</td><td><b>'+esc(nm)+'</b></td><td>'+esc(logSets(o[k]))+'</td></tr>'});
+    h+='<details'+(i===0?' open':'')+'><summary>Settimana '+w+(w===dw?' (scarico)':'')+(ws?' · dal '+fdate(ws).slice(0,5):'')+' · '+keys.length+(keys.length===1?' esercizio':' esercizi')+'</summary><div class="xwrap"><table><thead><tr><th>Seduta</th><th>Esercizio</th><th>Serie fatte</th></tr></thead><tbody>'+rows+'</tbody></table></div></details>'});
+  return h+'<p class="status" style="margin:6px 0 0">Gli stessi carichi escono nelle colonne «Sett.» dell’Excel e del CSV.</p>'}
+async function logShow(sc){var el=gid('sclog');if(!el)return;
+  if(!(window.Cloud&&Cloud.user())){el.innerHTML='<h4>📈 Carichi segnati dall’atleta</h4><p class="status" style="margin:0">Accedi al cloud per vedere i carichi che l’atleta segna dal link.</p>';return}
+  if(!ALOG[sc.id])el.innerHTML='<h4>📈 Carichi segnati dall’atleta</h4><p class="status" style="margin:0">Leggo i carichi dal cloud…</p>';else el.innerHTML=logHtml(sc);
+  try{await logFetch(sc);var e2=gid('sclog');if(e2)e2.innerHTML=logHtml(sc)}
+  catch(e){var e3=gid('sclog');if(e3)e3.innerHTML='<h4>📈 Carichi segnati dall’atleta</h4><p class="status" style="margin:0">Non riesco a leggere i carichi ('+esc(String((e&&e.code)||'errore').replace(/^firestore\//,''))+'). <button type="button" class="btn sm" data-act="sclogr" data-id="'+esc(sc.id)+'">Riprova</button></p>'}}
+document.addEventListener('click',function(e){var a=e.target.closest('[data-act="sclogr"]');if(a){var sc=findS(a.getAttribute('data-id'));if(sc)logShow(sc)}});
 function viewScheda(id){
   var sc=findS(id);if(!sc)return;var u=find(sc.uid);
-  var tmp=sc.id==='__ed';
-  modal('<h3>'+esc(sc.nome)+(tmp&&ED.dirty?' <i class="dc">anteprima non salvata</i>':'')+'</h3>'+schedaBody(sc,u)+'<div class="status" id="sdstat"></div><div class="mrow"><button data-act="mclose">Chiudi</button>'+(tmp?'':'<button data-act="edopen" data-id="'+esc(sc.id)+'">Modifica nell’editor</button>')+
+  var tmp=sc.id==='__ed',lg=!tmp&&sc.atok;
+  modal('<h3>'+esc(sc.nome)+(tmp&&ED.dirty?' <i class="dc">anteprima non salvata</i>':'')+'</h3>'+(lg?'<div class="sclog" id="sclog" style="margin:0 0 16px"></div>':'')+schedaBody(sc,u)+'<div class="status" id="sdstat"></div><div class="mrow"><button data-act="mclose">Chiudi</button>'+(tmp?'':'<button data-act="edopen" data-id="'+esc(sc.id)+'">Modifica nell’editor</button>')+
    '<button data-act="scsv" data-id="'+esc(sc.id)+'">CSV</button><button data-act="sdl" data-id="'+esc(sc.id)+'">Scarica HTML</button><button data-act="prn">Stampa / Esporta PDF</button><button data-act="sxl" data-id="'+esc(sc.id)+'">Esporta Excel (.xlsx)</button><button class="blk" data-act="send" data-id="'+esc(sc.id)+'">📤 Invia PDF ed Excel</button><button class="pri" data-act="share" data-id="'+esc(sc.id)+'">📲 Condividi con l’atleta</button></div>');
   document.querySelector('#modal .mbox').classList.add('xl');
+  if(lg)logShow(sc);
 }
 function schedaHtml(u,sc){
   return '<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(sc.nome)+'</title><style>@page{size:A4;margin:14mm}*{box-sizing:border-box}body{font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;max-width:1000px;margin:0 auto;padding:0 16px 32px;background:#f3f3f0;color:#0b0b0b}'+
@@ -5076,7 +5116,7 @@ function xlsxScheda(sc,u){
     d.es.forEach(function(e){
       var nm=(e.g?'SS '+String.fromCharCode(64+(+e.g))+' · ':'')+e.n,p=e.p||(EXI[ekey(e.n)]||{}).p||'';
       var row=[[dn,4],[nm,9],[p,4],[e.m||'',4],[e.s===''||e.s==null?'':+e.s,4],[e.r||'',4],[e.rpe||'',4],[tgK(e),4],[e.rec!==''&&e.rec!=null?e.rec+' s':'',4],[e.nt||'',4]];
-      for(i=0;i<wk;i++)row.push(['',6]);
+      for(i=0;i<wk;i++)row.push([logCell(sc,i+1,j,e.n),6]);
       add(row,Math.max(hgt(e.nt,56),hgt(nm,30),hgt(tgK(e),26),hgt(dn,16)));
     });
     add([]);
@@ -5098,11 +5138,12 @@ function csvScheda(sc,u){
   if(sc.deload)row(['Settimana di scarico','dal '+fdate(sc.deload)+' al '+fdate(addDays(sc.deload,6))]);if(sc.cambio)row(['Cambio scheda',fdate(sc.cambio)]);
   row(['Sedute a settimana',String(sc.freq||1)+(sc.split?' · '+sc.split:'')]);if(sc.luogo==='casa')row(['Dove si allena',homeTxt(sc.luogo,sc.heq)]);carList(sc.car).forEach(function(x){row(['Cardio',carTxt(x)])});row([]);
   var h=['Seduta','Esercizio','Pattern','Muscolo','Serie','Ripetizioni','RPE','Carico target (%1RM / RIR)','Recupero (s)','Note esecutive'];for(var i=0;i<wk;i++)h.push('Sett. '+(i+1)+(i+1===dw?' (scarico)':''));row(h);
-  days.forEach(function(d,j){d.es.forEach(function(e){var p=e.p||(EXI[ekey(e.n)]||{}).p||'',r=[d.t||'Seduta '+(j+1),(e.g?'SS '+String.fromCharCode(64+(+e.g))+' · ':'')+e.n,p,e.m||'',e.s,e.r,e.rpe||'',tgK(e),e.rec,e.nt||''];for(i=0;i<wk;i++)r.push('');row(r)})});
+  days.forEach(function(d,j){d.es.forEach(function(e){var p=e.p||(EXI[ekey(e.n)]||{}).p||'',r=[d.t||'Seduta '+(j+1),(e.g?'SS '+String.fromCharCode(64+(+e.g))+' · ':'')+e.n,p,e.m||'',e.s,e.r,e.rpe||'',tgK(e),e.rec,e.nt||''];for(i=0;i<wk;i++)r.push(logCell(sc,i+1,j,e.n));row(r)})});
   return new Blob(['﻿'+L.join('\r\n')],{type:'text/csv;charset=utf-8'});
 }
 async function expScheda(id,kind){
   var sc=findS(id);if(!sc)return;var u=find(sc.uid);
+  if(sc.atok&&window.Cloud&&Cloud.user()){try{await Promise.race([logFetch(sc),new Promise(function(r){setTimeout(r,6000)})])}catch(e){}}
   try{if(kind==='xlsx')await saveBlob(xlsxScheda(sc,u),fileBase(sc,u)+'.xlsx');else await saveBlob(csvScheda(sc,u),fileBase(sc,u)+'.csv');st('sdstat',kind==='xlsx'?'File Excel scaricato.':'File CSV scaricato.')}
   catch(e){st('sdstat','Esportazione non riuscita. Riprova.')}
 }
@@ -5182,6 +5223,7 @@ async function edSave(asNew){
   var old=ED.sid?findS(ED.sid):null;
   if(asNew&&old&&o.nome===old.nome)o.nome+=' (copia)';
   o.id=(!asNew&&old)?old.id:newId('s');
+  if(!asNew&&old&&old.atok){o.atok=old.atok;if(old.aoff)o.aoff=true}
   try{await Store.put('schede',o)}catch(e){st('edstat',saveErr());return}
   var k=SCH.findIndex(function(x){return String(x.id)===String(o.id)});if(k>-1)SCH[k]=o;else SCH.unshift(o);
   var day=ED.day;edLoad(ED.uid,o.id);ED.day=Math.min(day,ED.sc.days.length-1);renderEd();renderNav();
@@ -5538,11 +5580,11 @@ async function unpackLink(t){
   try{u8=unb64u(body)}catch(e){throw new Error('trunc')}
   if(k==='y'||k==='z')u8=inflateZ(u8);else if(k!=='x'&&k!=='j')throw new Error('fmt');
   if(c!==null&&crc32(u8).toString(36)!==c)throw new Error('trunc');
-  var o=JSON.parse(new TextDecoder().decode(u8));
-  // note esecutive standard: nel link c'è solo 1, il testo si ricava dalla libreria
-  (o.D||[]).forEach(function(d){(d[1]||[]).forEach(function(e){if(e[6]===1){var x=EXI[ekey(e[0])];e[6]=x?exNote(x):''}})});
-  return o;
+  return avFix(JSON.parse(new TextDecoder().decode(u8)));
 }
+// note esecutive standard: nel link c'è solo 1, il testo si ricava dalla libreria
+function avFix(o){(o&&o.D||[]).forEach(function(d){(d[1]||[]).forEach(function(e){if(e[6]===1){var x=EXI[ekey(e[0])];e[6]=x?exNote(x):''}})});return o}
+function newTok(){var a=new Uint8Array(18);crypto.getRandomValues(a);return b64u(a)}
 function shareData(sc,u){
   var r=function(v){return v==null?'':v},wl=function(L){return wuClean(L||[]).map(function(x){return [x.n,x.d||'',x.t]})};
   return {v:1,id:String(sc.id==='__ed'?(ED.sid||'nuova'):sc.id),a:u?u.n:'',n:sc.nome||'Scheda',d:sc.data||'',dl:sc.deload||'',c:sc.cambio||'',t:todayIso(),
@@ -5559,7 +5601,7 @@ function siteBase(){
 var SITEOK={};
 async function checkSite(base){
   if(SITEOK[base]!=null)return SITEOK[base];
-  try{var r=await fetch(base+(base.indexOf('?')>-1?'&':'?')+'v='+Date.now(),{cache:'no-store'});var t=r.ok?await r.text():'';SITEOK[base]=r.ok?(t.indexOf('function athleteMode')>-1?'ok':(/S\.peaking|speaking/i.test(t)?'old':'other')):'missing'}
+  try{var r=await fetch(base+(base.indexOf('?')>-1?'&':'?')+'v='+Date.now(),{cache:'no-store'});var t=r.ok?await r.text():'';SITEOK[base]=r.ok?(t.indexOf('function athleteLive')>-1?'ok':(/S\.peaking|speaking/i.test(t)?'old':'other')):'missing'}
   catch(e){SITEOK[base]='unknown'}
   return SITEOK[base];
 }
@@ -5572,14 +5614,26 @@ function waPhone(t){var d=String(t||'').replace(/[^\d+]/g,'');if(!d)return '';
   if(d.charAt(0)==='+')d=d.slice(1);else if(d.slice(0,2)==='00')d=d.slice(2);else if(/^3\d{8,9}$/.test(d))d='39'+d;
   d=d.replace(/\D/g,'');return /^\d{8,15}$/.test(d)?d:''}
 var SHL=null;
+// Con l'accesso al cloud il link è «sempre aggiornato» (#a=<token>): apre solo questa scheda, letta da link/{token},
+// e i carichi che l'atleta segna arrivano al PT. Senza cloud resta il link «fotografia» (#s=, scheda compressa nell'indirizzo).
 async function shareScheda(id){
   var sc=findS(id);if(!sc)return;var u=find(sc.uid);
   if(!flatEs(schedaDays(sc)).length){st('sdstat','La scheda non ha esercizi da condividere.');return}
-  try{SHL={id:id,sc:sc,u:u,tok:await packLink(shareData(sc,u)),dirty:id==='__ed'&&ED.dirty}}catch(e){st('sdstat','Non riesco a creare il link in questo browser.');return}
+  var base=id==='__ed'?(ED.sid?findS(ED.sid):null):sc,live=null,why='';
+  if(!base)why='new';
+  else if(!(window.Cloud&&Cloud.user()))why='local';
+  else{var had=!!base.atok;if(!had)base.atok=newTok();
+    try{await Cloud.linkPut(base);live=base;if(!had){try{await Store.put('schede',base)}catch(e){}}}
+    catch(e){if(!had)delete base.atok;why=String((e&&e.code)||'').indexOf('permission')>-1?'rules':'net'}}
+  try{SHL={id:id,sc:live||sc,u:u,live:!!live,why:why,tok:live?live.atok:await packLink(shareData(sc,u)),dirty:id==='__ed'&&ED.dirty}}catch(e){st('sdstat','Non riesco a creare il link in questo browser.');return}
   shareModal();
 }
-function shareLink(){var b=siteBase();return b?b+'#s='+SHL.tok:''}
-function shareMsg(withLink){var u=SHL.u;return 'Ciao'+(u&&u.n?' '+u.n:'')+', ecco la tua scheda «'+SHL.sc.nome+'». Aprila dal telefono: tocca un esercizio per vedere come si esegue e segna le serie fatte.'+(withLink?'\n'+shareLink():'')}
+function shareLink(){var b=siteBase();return b?b+(SHL.live?'#a=':'#s=')+SHL.tok:''}
+async function shareOnOff(off){if(!SHL||!SHL.live)return;var sc=SHL.sc;st('shst','Aggiorno il link…');
+  if(off)sc.aoff=true;else delete sc.aoff;
+  try{await Cloud.linkPut(sc);try{await Store.lput('schede',sc)}catch(e){}Cloud.put('schede',sc);shareModal();st('shst',off?'Link disattivato: l’atleta non può più aprire la scheda.':'Link riattivato.')}
+  catch(e){if(off)delete sc.aoff;else sc.aoff=true;st('shst','Non riesco ad aggiornare il link: controlla la connessione e riprova.')}}
+function shareMsg(withLink){var u=SHL.u;return 'Ciao'+(u&&u.n?' '+u.n:'')+', ecco la tua scheda «'+SHL.sc.nome+'». Aprila dal telefono: tocca un esercizio per vedere come si esegue e '+(SHL.live?'segna kg e ripetizioni di ogni serie: arrivano direttamente a me.':'segna le serie fatte.')+(withLink?'\n'+shareLink():'')}
 function shareModal(){
   var link=shareLink(),u=SHL.u,ph=waPhone(u&&u.t),back='<button data-act="shback">← Torna alla scheda</button>';
   if(!link){
@@ -5589,7 +5643,13 @@ function shareModal(){
     document.querySelector('#modal .mbox').classList.add('shm');return}
   modal('<h3>Condividi con l’atleta</h3>'+
    '<p class="sub" style="margin:0">Link alla versione interattiva di «'+esc(SHL.sc.nome)+'»'+(u?' per <b>'+esc(u.n+' '+u.c)+'</b>':'')+': si apre sul telefono senza installare nulla.</p>'+
-   (SHL.dirty?'<div class="warn" style="margin:0">Nel link ci sono anche le modifiche non ancora salvate dell’editor.</div>':'')+
+   (SHL.live&&SHL.sc.aoff?'<div class="warn" style="margin:0"><b>Link disattivato:</b> l’atleta non può aprire la scheda. <button type="button" class="mini" data-act="shon">Riattiva link</button></div>':'')+
+   (SHL.live&&SHL.dirty?'<div class="warn" style="margin:0">Il link apre la scheda <b>salvata</b>: salva le modifiche dell’editor perché l’atleta le veda.</div>':'')+
+   (!SHL.live&&SHL.dirty?'<div class="warn" style="margin:0">Nel link ci sono anche le modifiche non ancora salvate dell’editor.</div>':'')+
+   (SHL.why==='rules'?'<div class="warn" style="margin:0"><b>Il cloud ha rifiutato il link sempre aggiornato:</b> vanno pubblicate le nuove regole di Firestore (blocco <code>link</code>, vedi README). Intanto questo è il link «fotografia»: i carichi restano sul telefono dell’atleta.</div>':'')+
+   (SHL.why==='net'?'<div class="warn" style="margin:0">Cloud non raggiungibile: questo è il link «fotografia» e i carichi restano sul telefono dell’atleta. Con internet riapri questa finestra per il link sempre aggiornato.</div>':'')+
+   (SHL.why==='local'?'<div class="warn" style="margin:0">Senza accesso al cloud il link è una «fotografia» e i carichi restano sul telefono dell’atleta. Accedi con la tua email per il link sempre aggiornato.</div>':'')+
+   (SHL.why==='new'?'<div class="warn" style="margin:0">Scheda non ancora salvata: questo è un link «fotografia». Salvala e condividila di nuovo per avere il link sempre aggiornato, con i carichi dell’atleta che arrivano qui.</div>':'')+
    '<div class="shb">'+
     '<a class="shx wa" href="https://wa.me/'+ph+'?text='+encodeURIComponent(shareMsg(1))+'" target="_blank" rel="noopener">WhatsApp'+(ph?' a '+esc(u.n):'')+'</a>'+
     '<a class="shx tg" href="https://t.me/share/url?url='+encodeURIComponent(link)+'&text='+encodeURIComponent(shareMsg(0))+'" target="_blank" rel="noopener">Telegram</a>'+
@@ -5599,7 +5659,9 @@ function shareModal(){
    '</div>'+
    '<textarea id="shlink" class="shl" readonly rows="2" aria-label="Link della scheda">'+esc(link)+'</textarea>'+
    (!ph&&u?'<p class="status" style="margin:0">Con il telefono dell’atleta nell’anamnesi, WhatsApp apre direttamente la sua chat.</p>':'')+
-   '<div class="info" style="margin:0">Il link contiene solo la scheda (esercizi, serie, note e date): niente anamnesi, infortuni o test. Chi lo riceve può leggerla, quindi mandalo solo all’atleta. Il link è una fotografia della scheda di oggi: se la modifichi, manda un link nuovo. Serie e kg che l’atleta segna restano sul suo telefono.</div>'+
+   (SHL.live?'<div class="info" style="margin:0"><b>Link personale e sempre aggiornato.</b> Apre solo questa scheda: niente menu, niente altri atleti o schede, niente anamnesi, infortuni o test. Quando salvi modifiche, l’atleta le vede alla prossima apertura senza nuovo link. I kg e le ripetizioni che segna arrivano qui, nella scheda («Carichi segnati dall’atleta») e nell’Excel. Chi ha il link può aprire la scheda: mandalo solo all’atleta, e se serve disattivalo.</div>'+
+     (SHL.sc.aoff?'':'<p class="status" style="margin:0"><button type="button" class="mini" data-act="shoff">Disattiva link</button> l’atleta non potrà più aprire la scheda (puoi riattivarlo).</p>')
+    :'<div class="info" style="margin:0">Il link contiene solo la scheda (esercizi, serie, note e date): niente anamnesi, infortuni o test. Chi lo riceve può leggerla, quindi mandalo solo all’atleta. Il link è una fotografia della scheda di oggi: se la modifichi, manda un link nuovo. Serie e kg che l’atleta segna restano sul suo telefono.</div>')+
    '<div id="shchk" class="status" style="margin:0">Controllo il sito pubblicato…</div>'+
    (siteHere()?'':'<p class="status" style="margin:0">Indirizzo del sito: '+esc(siteBase())+' · <button type="button" class="mini" data-act="shedit">Cambia</button></p>')+
    '<div class="status" id="shst" role="status"></div><div class="mrow">'+back+'<button data-act="mclose">Chiudi</button></div>');
@@ -5616,6 +5678,8 @@ document.addEventListener('click',function(e){
   var a=e.target.closest('[data-act]');if(!a)return;var k=a.getAttribute('data-act');
   if(k==='share')shareScheda(a.getAttribute('data-id'));
   else if(k==='shback'&&SHL)viewScheda(SHL.id);
+  else if(k==='shoff'&&SHL)shareOnOff(true);
+  else if(k==='shon'&&SHL)shareOnOff(false);
   else if(k==='shcopy'&&SHL)copyText(shareLink(),'shst');
   else if(k==='shnat'&&SHL)navigator.share({title:SHL.sc.nome,text:shareMsg(0),url:shareLink()}).catch(function(){});
   else if(k==='shsite'){var v=(gid('shsite').value||'').trim();
@@ -5628,8 +5692,51 @@ document.addEventListener('click',function(e){
 
 // ---- Modalità atleta: scheda interattiva sul telefono ----
 var AV=null,AVS={day:0,wk:1},AVL={},AVT=null,AVAC=null;
-function avKey(){return 'spk_at_'+(AV.id||'')+'_'+(AV.d||'')}
-function avSave(){try{localStorage.setItem(avKey(),JSON.stringify({s:AVS,l:AVL}))}catch(e){}}
+function avKey(){return AV.tok?'spk_at_a'+AV.tok:'spk_at_'+(AV.id||'')+'_'+(AV.d||'')}
+function avSave(){try{localStorage.setItem(avKey(),JSON.stringify({s:AVS,l:AVL}))}catch(e){}if(AV.live)avQueue()}
+// ---- link sempre aggiornato (#a=<token>): la scheda arriva da link/{token}, i carichi vanno in link/{token}/r/log ----
+// Si caricano solo Firebase app e Firestore, senza accesso: le regole permettono di leggere quel documento a chi ha il token,
+// non di elencare gli altri link. Nella pagina dell'atleta non c'è nient'altro dell'app.
+var AVC=null,AVLP='',AVQ=null,AVNT='';
+function avPend(v){try{if(v)localStorage.setItem('spk_alp_'+AV.tok,'1');else localStorage.removeItem('spk_alp_'+AV.tok)}catch(e){}}
+function avNet(t){AVNT=t;var e=gid('avnet');if(e)e.textContent=t}
+function avQueue(){if(!AV||!AV.live)return;var js=JSON.stringify(AVL);if(js===AVLP)return;avPend(1);clearTimeout(AVQ);AVQ=setTimeout(avPush,1200)}
+function avPush(){clearTimeout(AVQ);if(!AV||!AV.live)return;var js=JSON.stringify(AVL);if(js===AVLP)return;
+  if(!AVC){avNet('Senza connessione: i carichi restano su questo telefono e arrivano al tuo PT quando riapri il link con internet.');return}
+  avNet('Invio dei carichi al tuo PT…');
+  AVC.f.setDoc(AVC.f.doc(AVC.fs,'link',AV.tok,'r','log'),{l:js,t:AVC.f.serverTimestamp(),ts:Date.now()}).then(function(){
+    AVLP=js;if(JSON.stringify(AVL)===js)avPend(0);avNet('✓ Carichi inviati al tuo PT alle '+new Date().toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'})+'.');if(JSON.stringify(AVL)!==js)avQueue()},
+   function(e){avNet('⚠ Carichi non inviati ('+String((e&&e.code)||'errore').replace(/^firestore\//,'')+'): restano su questo telefono, riprovo tra poco.');AVQ=setTimeout(avPush,20000)})}
+function avMerge(r,l){var o=JSON.parse(JSON.stringify(r||{})),has=function(a){return Array.isArray(a)&&a.some(function(x){return x&&(x.kg||x.rp||x.ok)})};
+  Object.keys(l||{}).forEach(function(w){o[w]=o[w]||{};Object.keys(l[w]||{}).forEach(function(k){if(has(l[w][k])||!o[w][k])o[w][k]=l[w][k]})});return o}
+function avFail(t){gid('main').innerHTML='<div class="atv"><div class="warn">'+t+'</div></div>'}
+async function athleteLive(tok){
+  var ck='spk_al_'+tok,cache=null,remote=null,off=false,x=null;try{cache=localStorage.getItem(ck)}catch(e){}
+  if(tok.length<16)return avFail('<b>Link non valido.</b> Chiedi al tuo Personal Trainer di mandarlo di nuovo (meglio con «Copia link» e incolla nella chat).');
+  var to=function(ms){return new Promise(function(_,r){setTimeout(function(){r(new Error('timeout'))},ms)})};
+  try{
+    var b='https://www.gstatic.com/firebasejs/'+FB_VER+'/firebase-',mm=await Promise.race([Promise.all([import(b+'app.js'),import(b+'firestore.js')]),to(15000)]);
+    var app=mm[0].initializeApp(FB_CFG,'atleta'),fs=mm[1].getFirestore(app);AVC={f:mm[1],fs:fs};
+    var d=await Promise.race([mm[1].getDoc(mm[1].doc(fs,'link',tok)),to(15000)]);
+    if(!d.exists()){try{localStorage.removeItem(ck)}catch(e){}return avFail('<b>Questa scheda non è più disponibile.</b> Chiedi al tuo Personal Trainer il link della scheda nuova.')}
+    x=d.data();if(x.on===false)return avFail('<b>Il tuo Personal Trainer ha disattivato questo link.</b> Se ti serve la scheda, chiediglielo di nuovo.');
+    try{var r=await mm[1].getDoc(mm[1].doc(fs,'link',tok,'r','log'));if(r.exists())remote=JSON.parse(r.data().l||'{}')}catch(e){}
+    try{localStorage.setItem(ck,x.j)}catch(e){}
+  }catch(e){var c=String((e&&e.code)||(e&&e.message)||e).replace(/^firestore\//,'');
+    if(c==='permission-denied')return avFail('<b>Il link non è ancora attivo.</b> Avvisa il tuo Personal Trainer (deve aggiornare le impostazioni del cloud).<p class="status" style="font-size:12px;margin:8px 0 0">Dettaglio per il PT: permission-denied sul documento link.</p>');
+    if(!cache)return avFail('<b>Non riesco a scaricare la scheda.</b> Controlla la connessione a internet e riapri il link.<p class="status" style="font-size:12px;margin:8px 0 0">Dettaglio per il PT: '+esc(c)+'</p>');
+    AVC=null;off=true}
+  try{AV=avFix(JSON.parse(x?x.j:cache))}catch(e){return avFail('<b>Non riesco ad aprire questa scheda.</b> Chiedi al tuo Personal Trainer di mandare un link nuovo.')}
+  AV.tok=tok;AV.live=true;document.title=AV.n+' · S.peaking';
+  var sv=null;try{sv=JSON.parse(localStorage.getItem(avKey())||'null')}catch(e){}
+  AVL=avMerge(remote,sv&&sv.l);AVLP=remote?JSON.stringify(remote):'';AVS={day:sv&&sv.s?Math.min(sv.s.day||0,Math.max(0,AV.D.length-1)):0,wk:avNowWk()};
+  AVNT=off?'Senza connessione: vedi l’ultima versione scaricata della scheda. I carichi che segni arrivano al tuo PT quando riapri il link con internet.':'';
+  avRender();
+  var pend=false;try{pend=!!localStorage.getItem('spk_alp_'+tok)}catch(e){}
+  if(!off&&(pend||JSON.stringify(AVL)!==AVLP))avPush();
+}
+window.addEventListener('online',function(){if(AV&&AV.live&&AVC)avPush()});
+document.addEventListener('visibilitychange',function(){if(document.hidden&&AV&&AV.live&&AVC&&JSON.stringify(AVL)!==AVLP)avPush()});
 function avWeeks(){var w=AV.c&&AV.d?Math.round((Date.parse(AV.c)-Date.parse(AV.d))/6048e5):6;return Math.max(1,Math.min(12,w||6))}
 function avDlw(){return AV.dl&&AV.d?Math.floor((Date.parse(AV.dl)-Date.parse(AV.d))/6048e5)+1:0}
 function avNowWk(){if(!AV.d)return 1;var w=Math.floor(ago(AV.d)/7)+1;return Math.max(1,Math.min(avWeeks(),w))}
@@ -5637,6 +5744,7 @@ function avNum(s){var m=String(s||'').match(/\d+/g);return m?Math.min(10,Math.ma
 async function athleteMode(){
   document.body.classList.add('athm');
   var m=gid('main');m.innerHTML='<div class="atv"><p class="status">Apro la scheda…</p></div>';
+  if(/^#a=/.test(location.hash))return athleteLive(decodeURIComponent(location.hash.slice(3)).replace(/[^A-Za-z0-9_\-]/g,''));
   try{AV=await unpackLink(location.hash.slice(3));if(!AV||!Array.isArray(AV.D))throw new Error('fmt')}
   catch(e){var em=e&&e.message||String(e);
     m.innerHTML='<div class="atv"><div class="warn">'+(em==='trunc'?'<b>Il link è arrivato tagliato</b>: manca una parte della scheda. Chiedi al tuo Personal Trainer di mandarlo di nuovo (meglio con «Copia link» e incolla nella chat).':'<b>Non riesco ad aprire questa scheda.</b> Chiedi al tuo Personal Trainer di mandare un link nuovo.')+
@@ -5659,6 +5767,7 @@ function avRender(){
   var h='<div class="atv"><div class="avh"><div class="kick">'+(AV.a?'Ciao '+esc(AV.a)+' · ':'')+'la tua scheda</div><h2>'+esc(AV.n)+'</h2>'+
    '<p class="avd">'+(AV.d?'Inizio '+fdate(AV.d):'')+(AV.c?' · cambio scheda '+fdate(AV.c):'')+'</p>'+
    '<div class="avwk"><select id="avwk" aria-label="Settimana">'+wopt+'</select>'+(ws?'<span>dal '+fdate(ws).slice(0,5)+' al '+fdate(addDays(ws,6)).slice(0,5)+'</span>':'')+'</div>'+
+   (AV.live?'<p class="avnet" id="avnet" role="status">'+esc(AVNT||'I kg e le ripetizioni che segni arrivano in automatico al tuo PT.')+'</p>':'')+
    (wk===dw?'<div class="avdl">Settimana di scarico: stessi esercizi, circa metà delle serie e carichi più leggeri (RPE 6–7).</div>':'')+'</div>'+
    (D.length>1?'<div class="avtabs" role="tablist">'+D.map(function(x,j){return '<button role="tab" data-avd="'+j+'" aria-selected="'+(j===di)+'">'+esc(x[0]||'Seduta '+(j+1))+'</button>'}).join('')+'</div>':'')+
    avWuList(AV.W,AV.wt,'🔥 Riscaldamento');
@@ -5678,7 +5787,7 @@ function avRender(){
   h+=avWuList(AV.C,AV.ct,'🧘 Defaticamento')+(AV.K&&AV.K.length?'<div class="avc"><div class="avn">❤️ Cardio della settimana</div>'+AV.K.map(function(t){return '<p class="avnt">'+esc(t)+'</p>'}).join('')+'</div>':'')+
    '<div class="avact"><button class="btn pri" data-act="avsend">Invia i risultati al PT</button><button class="btn" data-act="avcopy">Copia i risultati</button></div><p class="status" id="avst" role="status"></p>'+
    '<details class="glw"><summary>📖 Glossario dei termini tecnici</summary>'+glossHtml()+'</details>'+
-   '<p class="avft">Scheda preparata dal tuo Personal Trainer il '+fdate(AV.t)+'. Serie e kg che segni restano solo su questo telefono. Per ritrovarla: aggiungi la pagina alla schermata Home (iPhone: Condividi → Aggiungi alla schermata Home; Android: ⋮ → Aggiungi a schermata Home). Apri il link in Safari o Chrome, non dentro WhatsApp o Telegram, così i dati non si perdono.</p></div>'+
+   '<p class="avft">Scheda preparata dal tuo Personal Trainer il '+fdate(AV.t)+'. '+(AV.live?'Serie e kg che segni arrivano al tuo PT (serve internet) e restano anche su questo telefono. Questo link apre solo la tua scheda: non condividerlo.':'Serie e kg che segni restano solo su questo telefono.')+' Per ritrovarla: aggiungi la pagina alla schermata Home (iPhone: Condividi → Aggiungi alla schermata Home; Android: ⋮ → Aggiungi a schermata Home). Apri il link in Safari o Chrome, non dentro WhatsApp o Telegram, così i dati non si perdono.</p></div>'+
    '<div class="avt" id="avt" hidden><span>Recupero</span><b>0:00</b><button data-act="avt15">+15 s</button><button data-act="avtx">Stop</button></div>';
   gid('main').innerHTML=h;
 }
@@ -5716,7 +5825,7 @@ document.addEventListener('click',function(e){
   else if(k==='avsend'){var txt=avResults();if(navigator.share)navigator.share({title:AV.n,text:txt}).catch(function(){});else window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank')}
   else if(k==='avcopy'){var tx=avResults();(navigator.clipboard?navigator.clipboard.writeText(tx):Promise.reject()).then(function(){st('avst','Risultati copiati: incollali nella chat con il tuo PT.')},function(){st('avst',tx)})}
 });
-window.addEventListener('hashchange',function(){if(/^#s=/.test(location.hash)||AV)location.reload()});
+window.addEventListener('hashchange',function(){if(/^#[sa]=/.test(location.hash)||AV)location.reload()});
 
 // ---- YANAGI ACADEMY: allenamenti di gruppo e squadra (judo) ----
 // Gruppi salvati nella raccolta «gruppi» (IndexedDB, cloud e backup). Il calendario si calcola da giorni, orari, inizio, fine e calendario gare;
@@ -6874,7 +6983,7 @@ function yShBanner(){var u=window.Cloud&&Cloud.user();if(!u)return '';var S=Clou
 function autoView(){setView(window.innerWidth>=768?'tablet':'mobile')}
 autoView();
 window.addEventListener('resize',autoView);
-if(/^#s=/.test(location.hash))athleteMode();
+if(/^#[sa]=/.test(location.hash))athleteMode();
 else boot();
 // ---- Avvio con accesso (Firebase) ----
 // a caricamento finito ridisegno solo le pagine di elenco, per non cancellare un modulo che si sta compilando

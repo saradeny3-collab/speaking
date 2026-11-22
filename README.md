@@ -209,20 +209,21 @@ Alla fine del generatore **«Salva e invia PDF · Excel»**, nella scheda salvat
 ## Esportazione della scheda
 Dalla scheda salvata o dall'editor:
 - **Stampa / Esporta PDF**: apre la stampa del browser; scegli «Salva come PDF» per un documento A4 senza menu, con legenda (e glossario, se aperto) su due colonne. Non escono sedute a settimana, split e logica di lavoro.
-- **Esporta Excel (.xlsx)**: foglio «Scheda» con intestazione atleta (atleta, obiettivi, gara, date; senza livello, nome scheda, sedute a settimana e logica di lavoro) e colonne Seduta, Esercizio, Pattern, Muscolo, Serie, Ripetizioni, RPE, Carico target, Recupero, Note, più «Sett. 1…N» (scarico segnato) per annotare i carichi settimana per settimana; fogli «Legenda esercizi» e «Glossario».
+- **Esporta Excel (.xlsx)**: foglio «Scheda» con intestazione atleta (atleta, obiettivi, gara, date; senza livello, nome scheda, sedute a settimana e logica di lavoro) e colonne Seduta, Esercizio, Pattern, Muscolo, Serie, Ripetizioni, RPE, Carico target, Recupero, Note, più «Sett. 1…N» (scarico segnato) per annotare i carichi settimana per settimana (già compilate con i carichi che l’atleta ha segnato dal link); fogli «Legenda esercizi» e «Glossario».
 - **CSV** (separatore «;» per Excel in italiano) e **Scarica HTML**.
 - **📲 Condividi con l’atleta**: link alla versione interattiva per smartphone (vedi sotto).
 
-## Condivisione con l’atleta (link per smartphone)
-Dalla scheda salvata (o dall’anteprima dell’editor) il pulsante **📲 Condividi con l’atleta** crea un link alla versione interattiva della scheda:
-- **WhatsApp** (apre direttamente la chat dell’atleta, se il telefono è nell’anamnesi), **Telegram**, **Altre app…** (menu di condivisione del telefono), **Copia link**, **Anteprima**.
-- L’atleta apre il link in Safari o Chrome, senza installare nulla: sedute a schede, settimana corrente (con la settimana di scarico segnalata), riscaldamento e defaticamento, per ogni esercizio serie, ripetizioni, RPE, carico target, recupero e note, e la tendina «Come si esegue».
-- Per ogni serie segna **kg** e **ripetizioni** e tocca **✓**: parte il **timer di recupero** (vibrazione e suono alla fine, +15 s, Stop; in superserie parte dopo l’ultimo esercizio). I dati restano sul suo telefono, settimana per settimana.
-- **Invia i risultati al PT** manda il riepilogo della seduta (es. «Panca piana: 60 kg × 8, 60 kg × 7») su WhatsApp, Telegram o un’altra app.
-- Il link contiene solo la scheda: niente anamnesi, PAR-Q, infortuni, test o logica di lavoro. La scheda sta dopo il «#» dell’indirizzo, quindi non arriva a GitHub né ad altri server; chi ha il link però può leggerla, quindi va mandato solo all’atleta.
-- Il link è una **fotografia** della scheda: se la modifichi, manda un link nuovo. In futuro, con Firebase, potrà diventare un link sempre aggiornato.
-- Prima dell’invio la finestra controlla che il sito pubblicato sia aggiornato. Se all’atleta compare «link tagliato», rimandalo con «Copia link» incollato nella chat.
-- Se apri l’app dal file sul computer e non dal sito, la prima volta ti chiede l’indirizzo del sito pubblicato (es. `https://tuonome.github.io/speaking/`).
+## Condivisione con l’atleta (link per smartphone) (aggiornato)
+Dalla scheda salvata (o dall’editor) il pulsante **📲 Condividi con l’atleta** crea il **link personale** dell’atleta:
+- **WhatsApp** apre direttamente la chat dell’atleta (se il telefono è nell’anamnesi) con il messaggio e il link; poi ci sono **Telegram**, **Altre app…**, **Copia link** e **Anteprima**.
+- **Solo la sua scheda**: l’atleta apre il link in Safari o Chrome, senza password e senza installare nulla, e vede solo quella scheda: niente menu, niente altri atleti o schede, niente anamnesi, PAR-Q, infortuni, test o logica di lavoro. Il link (`#a=<codice>`) contiene un codice casuale di 24 caratteri: senza il link non si legge nulla, e dal link non si arriva ad altro (lo garantiscono le regole di Firestore qui sotto).
+- **Carica i carichi usati**: per ogni serie segna **kg** e **ripetizioni** e tocca **✓** (parte il timer di recupero). I dati arrivano da soli al PT (riga «✓ Carichi inviati al tuo PT») e restano anche sul telefono; senza internet partono alla riapertura del link. Se l’atleta cambia telefono, ritrova i carichi già segnati.
+- **Il PT li vede** nella scheda salvata, in alto: riquadro **«📈 Carichi segnati dall’atleta»** settimana per settimana (seduta, esercizio, serie fatte, ora dell’ultimo invio, «↻ Aggiorna»). Gli stessi carichi escono nelle colonne **«Sett. 1…N»** dell’Excel e del CSV.
+- **Sempre aggiornato**: è un link per scheda. Se modifichi e salvi la scheda (anche dall’editor), l’atleta vede la versione nuova alla prossima apertura, senza mandare un nuovo link. «Salva come nuova» crea una scheda con un link diverso.
+- **Disattiva link** (nella finestra di condivisione) blocca l’accesso; **Riattiva link** lo riapre. Eliminando la scheda il link viene cancellato.
+- **Invia i risultati al PT** resta per mandare anche il riepilogo della seduta su WhatsApp.
+- Serve l’accesso al cloud. Senza accesso, con una scheda mai salvata o se le regole di Firestore non sono aggiornate, la finestra lo dice e dà il link «fotografia» di prima (`#s=`): scheda nell’indirizzo e carichi solo sul telefono dell’atleta.
+- Prima dell’invio la finestra controlla che il sito pubblicato sia aggiornato. Se apri l’app dal file sul computer, la prima volta chiede l’indirizzo del sito pubblicato (es. `https://tuonome.github.io/speaking/`).
 
 ## Elenco atleti (PDF, Excel, CSV)
 In home il pulsante **Elenco atleti ▾** esporta tutti gli atleti in ordine di cognome, con la data di aggiornamento:
@@ -252,8 +253,8 @@ Calcolato dalla scheda più recente di ogni atleta (data di cambio scheda, o 6 s
 - **Esci** (menu Backup): «Esci» tiene la copia sul dispositivo; «Esci e cancella da questo dispositivo» è per un computer o telefono non tuo.
 - Se Firebase non è raggiungibile (niente internet, oppure sito aperto dal file sul computer) puoi continuare con i dati salvati sul dispositivo: le modifiche vengono inviate al cloud al prossimo accesso.
 - Le **foto dei documenti** restano solo sul dispositivo in cui le hai caricate.
-- Il link per l’atleta (`#s=…`) non chiede l’accesso e non legge il cloud.
-- Regole di Firestore da tenere pubblicate (**aggiornate in fase 19**: senza il blocco `shared` i gruppi non si condividono). Firebase → Firestore Database → Regole → incolla → Pubblica:
+- Il link per l’atleta (`#a=…`) non chiede l’accesso: legge dal cloud solo `link/<codice>` (la sua scheda) e scrive solo i suoi carichi in `link/<codice>/r/log`. Non può elencare gli altri link né leggere `users`. Il vecchio link «fotografia» (`#s=…`) non usa il cloud.
+- Regole di Firestore da tenere pubblicate (**aggiornate in fase 21**: senza il blocco `link` il link dell’atleta resta «fotografia» e i carichi non arrivano; senza il blocco `shared` i gruppi non si condividono). Firebase → Firestore Database → Regole → incolla → Pubblica:
 ```
 rules_version = '2';
 service cloud.firestore {
@@ -270,6 +271,22 @@ service cloud.firestore {
             && request.resource.data.owner == resource.data.owner
             && request.resource.data.members == resource.data.members));
       allow delete: if request.auth != null && resource.data.owner == request.auth.uid;
+    }
+    match /link/{tok} {
+      allow get: if true;
+      allow list: if request.auth != null && resource.data.owner == request.auth.uid;
+      allow create: if request.auth != null && request.resource.data.owner == request.auth.uid;
+      allow update: if request.auth != null && resource.data.owner == request.auth.uid
+        && request.resource.data.owner == request.auth.uid;
+      allow delete: if request.auth != null && resource.data.owner == request.auth.uid;
+      match /r/{doc} {
+        allow get: if true;
+        allow create, update: if get(/databases/$(database)/documents/link/$(tok)).data.on == true
+          && request.resource.data.keys().hasOnly(['l', 't', 'ts'])
+          && request.resource.data.l is string && request.resource.data.l.size() < 300000;
+        allow delete: if request.auth != null
+          && get(/databases/$(database)/documents/link/$(tok)).data.owner == request.auth.uid;
+      }
     }
   }
 }
