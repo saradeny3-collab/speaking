@@ -473,6 +473,25 @@ body.athm .side,body.athm .tabbar{display:none!important}body.athm main{width:10
 .ymat .ymd{display:none}.ymat.miss{border-color:#b42318;background:#fff4f2}.ymat.miss .ymd{display:inline-block}
 @media (max-width:640px){.ymr{grid-template-columns:1fr auto auto}.ymr span{grid-column:1/-1;grid-row:2}}
 @media print{.ylogo,.ylogs{filter:none}}
+.nchips{display:flex;flex-wrap:wrap;gap:6px}.nch{border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:99px;padding:7px 14px;font:inherit;font-size:14px;font-weight:600;cursor:pointer}.nch[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#fff}
+.nsec{border-top:1px solid var(--line);padding-top:12px;margin-top:12px}.nsec:first-of-type{border-top:0;margin-top:0;padding-top:0}
+.nsh{display:flex;gap:8px;align-items:center;margin-bottom:6px}.nst{flex:1;min-width:0;font:inherit;font-weight:800;font-size:16px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text)}
+.nop{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:8px 0;background:var(--bg)}.noh{display:flex;gap:8px;align-items:center;margin-bottom:8px}.noh b{font-size:17px}.nott{flex:1;min-width:0}
+.ngrp{margin:10px 0}.ngrp>b{display:inline-block;margin-bottom:6px}
+.nit{display:grid;grid-template-columns:minmax(0,2fr) 118px minmax(0,1.6fr) auto;gap:6px;align-items:center;margin-bottom:8px}
+.nit input,.nott,.nsm{width:100%;min-width:0;font:inherit;font-size:15px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--text)}
+.nsm{width:84px}.nmt input[type=time].nsm{width:110px}.nmt input[type=checkbox]{width:20px;height:20px;accent-color:var(--brand);color-scheme:light}
+.ngq{display:flex;align-items:center;gap:4px}.ngq i{font-style:normal;font-size:13px;color:var(--muted);width:20px}
+.nbt{display:flex;gap:4px}.nbt button,.nor>button{border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:8px;padding:6px 10px;font:inherit;font-size:13px;cursor:pointer}
+.nor{grid-column:1/-1;display:grid;grid-template-columns:auto minmax(0,2fr) 118px auto;gap:6px;align-items:center;padding-left:12px;border-left:3px solid var(--brand)}.nor>b{font-size:13px}
+.npv{grid-column:1/-1;font-size:13px;color:var(--muted);margin-top:-2px}.nbad input.nfn{border-color:#d62828}.nbad .npv{color:#9b1c1c}
+.nlk{background:none;border:none;color:var(--brand);font:inherit;font-size:13px;font-weight:700;cursor:pointer;padding:4px 6px}
+.nmac{display:inline-block;font-size:13px;font-weight:600;margin-top:8px;padding:3px 10px;border-radius:99px;background:#eee;color:#333}.nmac.ok{background:#e3f4e8;color:#14622f}.nmac.lo{background:#fff4d6;color:#7a5200}.nmac.hi{background:#fde8e8;color:#9b1c1c}
+.nck{display:flex;gap:8px;align-items:center;margin:6px 0;font-size:15px}.nck input{width:18px;height:18px;accent-color:var(--brand);color-scheme:light}
+.ncf{margin:10px 0}.ncf>b{display:block;margin-bottom:6px}
+.nush .ntit{font-size:20px;text-align:center;border:2px solid #000;background:#ddd;color:#000;padding:6px;margin:0 0 12px}.nsht td{vertical-align:top;line-height:1.55;color:var(--text)}.nsht td:first-child{width:20%;white-space:normal}.nsum{font-size:14px}
+@media (max-width:640px){.nit{grid-template-columns:minmax(0,1fr) 110px auto}.nit .nlb{grid-column:1/-1;order:5}.nit .npv{order:6}.nor{grid-template-columns:minmax(0,1fr) 104px auto}.nor>b{grid-column:1/-1}.nsht td:first-child{width:26%}}
+@media print{.nush .ntit{-webkit-print-color-adjust:exact;print-color-adjust:exact}.nsht td{font-size:9.5pt;padding:5px 7px!important}.nsht tr{break-inside:avoid}}
 @page{size:A4;margin:15mm}
 @page elenco{size:A4 landscape;margin:10mm}
 .elt td,.elt th{font-size:13px;white-space:nowrap}.elt td:last-child,.elt td:nth-child(8),.elt td:nth-child(10){white-space:normal;min-width:120px}
@@ -531,7 +550,8 @@ var I = {
   plan:'<svg viewBox="0 0 24 24"><path d="M2 9v6M5 6v12M19 6v12M22 9v6M5 12h14"/></svg>',
   edit:'<svg viewBox="0 0 24 24"><path d="M3 5h11M3 10h7M3 15h5M14.5 19.5l-3 .8.8-3 7.4-7.4a1.6 1.6 0 012.2 2.2z"/></svg>',
   book:'<svg viewBox="0 0 24 24"><path d="M4 4.5h6a2 2 0 012 2V20a1.5 1.5 0 00-1.5-1.5H4zM20 4.5h-6a2 2 0 00-2 2V20a1.5 1.5 0 011.5-1.5H20z"/></svg>',
-  yan:'<svg viewBox="0 0 24 24"><path d="M3 10.5h18M9.5 10.5L6.5 20M14.5 10.5l3 9.5M9.5 7l2.5 3.5L14.5 7"/></svg>'
+  yan:'<svg viewBox="0 0 24 24"><path d="M3 10.5h18M9.5 10.5L6.5 20M14.5 10.5l3 9.5M9.5 7l2.5 3.5L14.5 7"/></svg>',
+  nut:'<svg viewBox="0 0 24 24"><path d="M12 7.5c-1.6-1.3-4.2-1.4-5.8.3C4 10.1 4.6 15 7.2 18.2c1.3 1.6 2.8 2.3 4.8 1.4 2 .9 3.5.2 4.8-1.4 2.6-3.2 3.2-8.1 1-10.4-1.6-1.7-4.2-1.6-5.8-.3zM12 7.5c0-2 .8-3.6 2.6-4.5"/></svg>'
 };
 var cur = 'home', uf = 'all';
 var BRAND='<div class="brand"><div class="bl"><svg viewBox="0 0 32 32" aria-hidden="true"><polyline points="2,18 8,18 11.5,6 16.5,27 20,14 22.5,18 26,18"/></svg><span class="wm" aria-label="S.peaking"><b>S.</b>peaking</span></div><div class="tag">Anamnesi · Valutazione funzionale · Preparazione atletica</div></div>';
@@ -566,9 +586,9 @@ function ustat(u){
 }
 function counts(){var c={all:U.length,scad:0,ck:0,att:0};U.forEach(function(u){var s=ustat(u);if(s.scad)c.scad++;if(s.ck)c.ck++;if(s.att)c.att++});return c}
 function renderNav(){
-  var items = [{id:'home',t:'Home',i:I.home},{id:'schede',t:'Schede',i:I.plan},{id:'ed',t:'Editor',i:I.edit},{id:'disp',t:'Dispense',i:I.book},{id:'yan',t:'Yanagi',i:I.yan}], c=counts();
+  var items = [{id:'home',t:'Home',i:I.home},{id:'schede',t:'Schede',i:I.plan},{id:'nut',t:'Nutrizione',i:I.nut},{id:'ed',t:'Editor',i:I.edit},{id:'disp',t:'Dispense',i:I.book},{id:'yan',t:'Yanagi',i:I.yan}], c=counts();
   document.getElementById('tabbar').innerHTML = items.map(function(x){return '<button class="tab" data-go="'+x.id+'"'+(x.id===cur||((cur==='anam'||cur==='test')&&x.id==='home')||(cur==='gen'&&x.id==='schede')?' aria-current="true"':'')+'>'+x.i+'<span>'+x.t+'</span></button>'}).join('');
-  document.getElementById('side').innerHTML = '<div class="sbrand">'+BRAND+'</div>'+items.filter(function(x){return !(x.id==='yan'&&typeof YLOGO==='string'&&YLOGO)}).map(function(x){var f=x.id==='schede'?'Schede allenamento':x.id==='ed'?'Editor schede':x.id==='disp'?'Dispense':x.id==='yan'?'Yanagi Academy':'Atleti';return '<button data-go="'+x.id+'"'+((x.id===cur&&!(cur==='home'&&uf!=='all'))||((cur==='anam'||cur==='test')&&x.id==='home')||(cur==='gen'&&x.id==='schede')?' aria-current="true"':'')+'>'+x.i+'<span>'+f+'</span>'+(x.id==='home'?'<b class="n">'+c.all+'</b>':'')+'</button>'}).join('')+
+  document.getElementById('side').innerHTML = '<div class="sbrand">'+BRAND+'</div>'+items.filter(function(x){return !(x.id==='yan'&&typeof YLOGO==='string'&&YLOGO)}).map(function(x){var f=x.id==='schede'?'Schede allenamento':x.id==='nut'?'Sezione nutrizionale':x.id==='ed'?'Editor schede':x.id==='disp'?'Dispense':x.id==='yan'?'Yanagi Academy':'Atleti';return '<button data-go="'+x.id+'"'+((x.id===cur&&!(cur==='home'&&uf!=='all'))||((cur==='anam'||cur==='test')&&x.id==='home')||(cur==='gen'&&x.id==='schede')?' aria-current="true"':'')+'>'+x.i+'<span>'+f+'</span>'+(x.id==='home'?'<b class="n">'+c.all+'</b>':'')+'</button>'}).join('')+
    '<div class="slab">Stato atleti</div>'+FILT.slice(1).map(function(f){return '<button data-uf="'+f.id+'"'+(cur==='home'&&uf===f.id?' aria-current="true"':'')+'><i class="sd '+f.id+'"></i><span>'+f.t+'</span><b class="n">'+c[f.id]+'</b></button>'}).join('')+
     (typeof YLOGO==='string'&&YLOGO?'<button class="sylogo" data-go="yan" title="Apri Yanagi Academy"'+(cur==='yan'?' aria-current="true"':'')+'><img src="'+YLOGO+'" alt="Stemma Yanagi Academy"><span>Yanagi Academy</span></button>':'');
 }
@@ -580,11 +600,12 @@ function render(){
   else if (cur === 'ed') renderEd();
   else if (cur === 'disp') renderDisp();
   else if (cur === 'yan') renderYan();
+  else if (cur === 'nut') renderNut();
   else { document.getElementById('main').innerHTML = ''; renderSchede(); }
   renderNav();
 }
 document.addEventListener('click', function(e){
-  var b = e.target.closest('[data-go]'); if (b) { var g=b.getAttribute('data-go'); guardGen(function(){ cur = g; if(cur==='home')uf='all'; if(cur==='ed'&&ED.uid)edLoad(ED.uid,ED.sid); render(); window.scrollTo(0,0); }); return }
+  var b = e.target.closest('[data-go]'); if (b) { var g=b.getAttribute('data-go'); guardGen(function(){ cur = g; if(cur==='home')uf='all'; if(typeof NU==='object'){NU.P=null;NU.dirty=false;if(g==='nut')NU.uid=null} if(cur==='ed'&&ED.uid)edLoad(ED.uid,ED.sid); render(); window.scrollTo(0,0); }); return }
   var f = e.target.closest('[data-uf]'); if (f) { var v=f.getAttribute('data-uf'); guardGen(function(){ uf = v; cur = 'home'; render(); }); }
 });
 // Menu a tendina del Backup: si chiude cliccando fuori o con Esc
@@ -1458,7 +1479,7 @@ function openUser(id){
   var dlh=dl.length?'<div class="'+(ds.length?'warn':'info')+'" style="margin-top:10px"><b>Scadenze</b>'+(ds.length?' (avviso '+AVV+' giorni prima)':'')+'<br>'+dl.map(function(x){return esc(x.t)+': <b>'+fdate(x.d)+'</b> ('+leftTxt(x.left)+')'}).join('<br>')+'</div>':'';
   modal('<h3>'+esc(u.n+' '+u.c)+'</h3><div><span class="pqb '+ps+'">'+PQT[ps]+'</span></div>'+dlh+'<dl class="det">'+rows.map(function(r){return '<dt>'+r[0]+'</dt><dd>'+esc(r[1]||'—')+'</dd>'}).join('')+'</dl>'+
    (docs?'<div class="idbox"><b>Documento d’identità</b><div class="idrow">'+docs+'</div><div class="status" id="dstat"></div></div>':'')+
-   '<div class="mrow"><button data-act="mclose">Chiudi</button><button data-act="ckin" data-id="'+esc(u.id)+'">Check-in fatto oggi</button><button data-act="anam" data-id="'+esc(u.id)+'">Anamnesi</button><button data-act="test" data-id="'+esc(u.id)+'">Test funzionali</button><button data-act="edopen" data-uid="'+esc(u.id)+'">Editor scheda</button><button class="pri" data-act="gosch" data-id="'+esc(u.id)+'">Schede allenamento</button></div>');
+   '<div class="mrow"><button data-act="mclose">Chiudi</button><button data-act="ckin" data-id="'+esc(u.id)+'">Check-in fatto oggi</button><button data-act="anam" data-id="'+esc(u.id)+'">Anamnesi</button><button data-act="test" data-id="'+esc(u.id)+'">Test funzionali</button><button data-act="edopen" data-uid="'+esc(u.id)+'">Editor scheda</button><button data-act="nutopen" data-id="'+esc(u.id)+'">Sezione nutrizionale</button><button class="pri" data-act="gosch" data-id="'+esc(u.id)+'">Schede allenamento</button></div>');
 }
 async function doCheckin(id){
   var u=find(id);if(!u)return;u.ck=todayIso();
@@ -4471,10 +4492,10 @@ function keyDates(start,c){var cam=addDays(start,42),del=addDays(start,21),why='
     else why='Lo stop per infortunio finisce il '+fdate(c.injEnd)+', dopo il cambio scheda: anche nella scheda successiva gli esercizi della zona restano esclusi.'}
   return {del:del,cam:cam,why:why}}
 function genDirty(){return cur==='gen'&&!!gid('days')&&gDirty}
-function anyDirty(){return genDirty()||(cur==='ed'&&!!ED.sc&&ED.dirty)||(cur==='yan'&&YDIRTY)}
+function anyDirty(){return genDirty()||(cur==='ed'&&!!ED.sc&&ED.dirty)||(cur==='yan'&&YDIRTY)||(cur==='nut'&&!!NU.P&&NU.dirty)}
 function guardGen(fn){
   if(!anyDirty()){fn();return}
-  leaveFn=fn;modal('<h3>Uscire senza salvare?</h3><p>'+(cur==='yan'?'Le modifiche al gruppo o alla seduta non sono ancora salvate e andranno perse.':cur==='ed'?'Le modifiche alla scheda non sono ancora salvate e andranno perse.':'La scheda che stai compilando non è ancora salvata e andrà persa.')+'</p><div class="mrow"><button data-act="mclose">Resta</button><button class="danger" data-act="leaveok">Esci senza salvare</button></div>');
+  leaveFn=fn;modal('<h3>Uscire senza salvare?</h3><p>'+(cur==='nut'?'Il piano alimentare non è ancora salvato: le modifiche andranno perse.':cur==='yan'?'Le modifiche al gruppo o alla seduta non sono ancora salvate e andranno perse.':cur==='ed'?'Le modifiche alla scheda non sono ancora salvate e andranno perse.':'La scheda che stai compilando non è ancora salvata e andrà persa.')+'</p><div class="mrow"><button data-act="mclose">Resta</button><button class="danger" data-act="leaveok">Esci senza salvare</button></div>');
 }
 // ---- Legenda e guida all’esecuzione ----
 function legendBody(e){
@@ -4947,7 +4968,7 @@ document.addEventListener('click',function(e){var a=e.target.closest('[data-act=
 function viewScheda(id){
   var sc=findS(id);if(!sc)return;var u=find(sc.uid);
   var tmp=sc.id==='__ed',lg=!tmp&&sc.atok;
-  modal('<h3>'+esc(sc.nome)+(tmp&&ED.dirty?' <i class="dc">anteprima non salvata</i>':'')+'</h3>'+(lg?'<div class="sclog" id="sclog" style="margin:0 0 16px"></div>':'')+schedaBody(sc,u)+'<div class="status" id="sdstat"></div><div class="mrow"><button data-act="mclose">Chiudi</button>'+(tmp?'':'<button data-act="edopen" data-id="'+esc(sc.id)+'">Modifica nell’editor</button>')+
+  modal('<h3>'+esc(sc.nome)+(tmp&&ED.dirty?' <i class="dc">anteprima non salvata</i>':'')+'</h3>'+(lg?'<div class="sclog" id="sclog" style="margin:0 0 16px"></div>':'')+schedaBody(sc,u)+'<div class="status" id="sdstat"></div><div class="mrow"><button data-act="mclose">Chiudi</button>'+(tmp?'':'<button data-act="edopen" data-id="'+esc(sc.id)+'">Modifica nell’editor</button><button data-act="nutsc" data-id="'+esc(sc.id)+'">🥗 Piano alimentare</button>')+
    '<button data-act="scsv" data-id="'+esc(sc.id)+'">CSV</button><button data-act="sdl" data-id="'+esc(sc.id)+'">Scarica HTML</button><button data-act="prn">Stampa / Esporta PDF</button><button data-act="sxl" data-id="'+esc(sc.id)+'">Esporta Excel (.xlsx)</button><button class="blk" data-act="send" data-id="'+esc(sc.id)+'">📤 Invia PDF ed Excel</button><button class="pri" data-act="share" data-id="'+esc(sc.id)+'">📲 Condividi con l’atleta</button></div>');
   document.querySelector('#modal .mbox').classList.add('xl');
   if(lg)logShow(sc);
@@ -6794,7 +6815,7 @@ var WR=[278,278,355,556,556,889,667,191,333,333,389,584,278,333,278,278,556,556,
    if(hasC(el,['yshh','top'])){var im=el.querySelector('img'),ik=im&&o.imgs&&o.imgs.get(im.getAttribute('src'));d.bar(hasC(el,['yshh'])?[].map.call(el.querySelectorAll('b,span'),function(x,i){return {t:(i?'  ·  ':'')+x.textContent.trim(),b:!i}}):trim(runs(el,o,{b:1})),{img:ik,h:ik?34:24,size:ik?11:12,before:d.cur.length?4:0});return}
    if(tg==='TABLE'){var R=[];[].forEach.call(el.querySelectorAll('tr'),function(tr){var cells=[].filter.call(tr.children,function(c){return c.tagName==='TD'||c.tagName==='TH'});if(!cells.length)return;
        R.push({h:tr.parentNode.tagName==='THEAD'||cells.every(function(c){return c.tagName==='TH'}),cls:tr.className||'',c:cells.map(function(c){return {r:trim(runs(c,o,c.tagName==='TH'?{b:1}:{})),cs:+c.getAttribute('colspan')||1}})})});
-     d.table(R,{size:ctx.tsize||7.5,cw:hasC(el,['ysht'])?[0.13,0.27,0.22,0.38]:null,before:2});return}
+     d.table(R,{size:ctx.tsize||7.5,cw:el.getAttribute('data-cw')?el.getAttribute('data-cw').split(',').map(Number):hasC(el,['ysht'])?[0.13,0.27,0.22,0.38]:null,before:2});return}
    if(tg==='HR'){d.need(8);d.line(d.m,d.y-4,d.W-d.m,d.y-4,GRY,0.5);d.y-=8;return}
    if(tg==='UL'||tg==='OL'){var k=0;[].forEach.call(el.children,function(li){if(li.tagName!=='LI'||skip(li,o))return;k++;d.para(trim(runs(li,o)),{size:size,bul:tg==='OL'?k+'.':'•',ind:6,after:1})});d.y-=2;return}
    if(tg==='DL'){var dt=null;[].forEach.call(el.children,function(c){if(c.tagName==='DT')dt=trim(runs(c,o,{b:1}));else if(c.tagName==='DD'){d.para((dt?dt.concat([{t:': ',b:1}]):[]).concat(trim(runs(c,o))),{size:size,after:1});dt=null}});return}
@@ -7113,6 +7134,392 @@ document.addEventListener('visibilitychange',function(){
 });
 window.addEventListener('online',function(){var e=gid('cloudst');if(e)e.textContent=Cloud.status()});
 window.addEventListener('offline',function(){var e=gid('cloudst');if(e)e.textContent=Cloud.status()});
+// ==== Sezione nutrizionale (fase 22) ====
+// Piani alimentari salvati nel cliente (u.nut = [piano]); facoltativi, collegabili a una scheda (sid).
+// Riferimenti: ISSN, ACSM (fabbisogni per fase, proteine per pasto, leucina, caseina), NATA/ACSM/ISS (acqua), ISS (ripartizione dei pasti e porzioni).
+// Valori per 100 g (o 100 ml): k kcal, p proteine, c carboidrati, f grassi. Indicativi (tabelle CREA ed etichette tipiche).
+var NF={
+ pane:{n:'Pane',k:275,p:8.5,c:55,f:1.5,cat:'ca',tg:'glu'},
+ panei:{n:'Pane integrale',k:245,p:9,c:45,f:2.5,cat:'ca',tg:'glu'},
+ pana:{n:'Pane arabo o azzimo',k:285,p:9,c:58,f:1.2,cat:'ca',tg:'glu'},
+ gall:{n:'Gallette di riso',k:385,p:8,c:81,f:2.8,cat:'ca',pz:{g:8,s:'galletta di riso',p:'gallette di riso'}},
+ crack:{n:'Crackers integrali',k:420,p:10,c:68,f:11,cat:'ca',tg:'glu'},
+ fbis:{n:'Fette biscottate',k:410,p:11,c:75,f:6,cat:'ca',tg:'glu'},
+ bisc:{n:'Biscotti secchi',k:430,p:7,c:75,f:10,cat:'ca',tg:'glu'},
+ cer:{n:'Cereali da colazione',k:375,p:8,c:80,f:2.5,cat:'ca',tg:'glu'},
+ cersg:{n:'Cereali senza glutine (riso, mais)',k:380,p:7,c:84,f:1,cat:'ca'},
+ fav:{n:'Fiocchi o farina d’avena',k:375,p:13,c:60,f:7.5,cat:'ca',tg:'glu'},
+ avsg:{n:'Fiocchi d’avena senza glutine',k:375,p:13,c:60,f:7.5,cat:'ca'},
+ riso:{n:'Riso basmati',k:352,p:8,c:78,f:0.6,cat:'ca'},
+ pasta:{n:'Pasta di semola',k:355,p:12.5,c:72,f:1.5,cat:'ca',tg:'glu'},
+ pastasg:{n:'Pasta senza glutine',k:355,p:7,c:78,f:1.5,cat:'ca'},
+ cous:{n:'Cous cous',k:360,p:12.5,c:73,f:1.5,cat:'ca',tg:'glu'},
+ quinoa:{n:'Quinoa',k:370,p:14,c:64,f:6,cat:'ca'},
+ gnoc:{n:'Gnocchi di patate',k:160,p:4,c:33,f:0.5,cat:'ca',tg:'glu'},
+ pat:{n:'Patate',k:80,p:2,c:17.5,f:0.1,cat:'ca'},
+ legs:{n:'Legumi secchi',k:330,p:22,c:50,f:2,cat:'pr'},
+ legc:{n:'Legumi cotti o al naturale',k:100,p:7,c:15,f:0.6,cat:'pr'},
+ mais:{n:'Mais in scatola',k:90,p:3,c:17,f:1.2,cat:'ca'},
+ marm:{n:'Marmellata',k:220,p:0.4,c:55,f:0,cat:'ca'},
+ miele:{n:'Miele',k:304,p:0.3,c:80,f:0,cat:'ca',tg:'mie'},
+ latp:{n:'Latte proteico',k:62,p:6,c:5,f:1.5,u:'ml',cat:'la',tg:'lat'},
+ latps:{n:'Latte parzialmente scremato',k:46,p:3.4,c:5,f:1.6,u:'ml',cat:'la',tg:'lat'},
+ bsoia:{n:'Bevanda di soia',k:33,p:3.3,c:0.7,f:1.8,u:'ml',cat:'la'},
+ yogi:{n:'Yogurt intero',k:66,p:3.8,c:4.3,f:3.9,cat:'la',tg:'lat',pz:{g:125,s:'yogurt intero',p:'yogurt interi'}},
+ yogm:{n:'Yogurt magro',k:40,p:4,c:5,f:0.5,cat:'la',tg:'lat'},
+ yogg:{n:'Yogurt greco 0%',k:57,p:10,c:4,f:0,cat:'la',tg:'lat'},
+ ysoia:{n:'Yogurt di soia',k:50,p:4,c:2,f:2.3,cat:'la'},
+ spalm:{n:'Formaggio spalmabile light',k:140,p:11,c:4,f:9,cat:'la',tg:'lat'},
+ ric:{n:'Ricotta',k:146,p:9,c:3.5,f:11,cat:'la',tg:'lat'},
+ fiocl:{n:'Fiocchi di latte',k:98,p:11,c:3.4,f:4.3,cat:'la',tg:'lat'},
+ parm:{n:'Parmigiano Reggiano',d:'parmigiano reggiano',k:392,p:33,c:0,f:28,cat:'la',tg:'lat'},
+ mozz:{n:'Mozzarella',k:253,p:18.7,c:0.7,f:19.5,cat:'la',tg:'lat'},
+ uovo:{n:'Uovo',k:128,p:12.4,c:0,f:8.7,cat:'pr',tg:'uov',pz:{g:50,s:'uovo',p:'uova'}},
+ albu:{n:'Albume',k:43,p:10.7,c:0.7,f:0,u:'ml',cat:'pr',tg:'uov'},
+ carneb:{n:'Carne bianca (pollo, tacchino)',d:'carne bianca',k:110,p:23,c:0,f:1.5,cat:'pr',tg:'car'},
+ carner:{n:'Carne rossa magra',k:120,p:21.5,c:0,f:3.5,cat:'pr',tg:'car'},
+ pesce:{n:'Pesce, molluschi, crostacei',d:'pesce/molluschi/crostacei/frutti di mare',k:85,p:18,c:0.5,f:1,cat:'pr',tg:'pes'},
+ salm:{n:'Salmone fresco',k:185,p:20,c:0,f:12,cat:'pr',tg:'pes'},
+ salaff:{n:'Salmone affumicato',k:147,p:25.4,c:0,f:4.5,cat:'pr',tg:'pes'},
+ tonno:{n:'Tonno al naturale',k:103,p:24,c:0,f:1,cat:'pr',tg:'pes'},
+ bres:{n:'Bresaola',k:151,p:32,c:0,f:2.6,cat:'pr',tg:'car'},
+ tac:{n:'Fesa di tacchino',k:100,p:19,c:1,f:2,cat:'pr',tg:'car'},
+ aff:{n:'Affettato magro',k:115,p:20,c:1,f:3.5,cat:'pr',tg:'car'},
+ crudo:{n:'Prosciutto crudo sgrassato',k:145,p:28,c:0,f:3.5,cat:'pr',tg:'car'},
+ tofu:{n:'Tofu',k:120,p:13,c:2,f:7,cat:'pr'},
+ temp:{n:'Tempeh',k:190,p:19,c:9,f:11,cat:'pr'},
+ seit:{n:'Seitan',k:120,p:22,c:4,f:2,cat:'pr',tg:'glu'},
+ hum:{n:'Hummus',k:170,p:8,c:14,f:9,cat:'pr'},
+ whey:{n:'Proteine del siero (whey)',d:'proteine whey',k:380,p:78,c:8,f:6,cat:'pr',tg:'lat'},
+ cas:{n:'Caseina micellare',k:360,p:80,c:5,f:2,cat:'pr',tg:'lat'},
+ pveg:{n:'Proteine vegetali in polvere',k:380,p:75,c:6,f:7,cat:'pr'},
+ snkp:{n:'Crackers o snack proteici (es. Razione K)',d:'crackers proteici (es. Razione K)',k:400,p:30,c:45,f:10,cat:'pr',tg:'glu'},
+ evo:{n:'Olio extravergine d’oliva',d:'olio EVO',k:899,p:0,c:0,f:99.9,cat:'gr'},
+ cocco:{n:'Olio di cocco',k:899,p:0,c:0,f:99.9,cat:'gr'},
+ fsec:{n:'Frutta secca mista',d:'frutta secca',k:600,p:18,c:12,f:52,cat:'gr',tg:'noc'},
+ semi:{n:'Semi misti (zucca, girasole)',d:'semi misti',k:570,p:25,c:12,f:47,cat:'gr'},
+ burar:{n:'Burro di arachidi',k:590,p:25,c:15,f:50,cat:'gr',tg:'noc'},
+ avoc:{n:'Avocado',k:160,p:2,c:2,f:15,cat:'gr'},
+ oliv:{n:'Olive',k:145,p:1,c:1,f:15,cat:'gr'},
+ ciocc:{n:'Cioccolato fondente 70%',k:580,p:8,c:33,f:42,cat:'gr'},
+ frut:{n:'Frutta fresca',k:50,p:0.6,c:11.5,f:0.2,cat:'fr',pz:{g:150,s:'frutto',p:'frutti'}},
+ ban:{n:'Banana',k:65,p:1.2,c:15.4,f:0.3,cat:'fr',pz:{g:120,s:'banana',p:'banane'}},
+ mela:{n:'Mela',k:45,p:0.3,c:11,f:0.1,cat:'fr',pz:{g:150,s:'mela',p:'mele'}},
+ spre:{n:'Spremuta d’arancia',k:33,p:0.5,c:8,f:0,u:'ml',cat:'fr'},
+ ver:{n:'Verdure',k:22,p:1.5,c:3.5,f:0.3,cat:'ve'},
+ ruc:{n:'Rucola',k:28,p:2.6,c:3.9,f:0.3,cat:'ve'},
+ latt:{n:'Lattuga',k:19,p:1.8,c:2.2,f:0.4,cat:'ve'},
+ vcr:{n:'Sedano, carote, finocchi',d:'sedano/carote/finocchi',k:25,p:1,c:5,f:0.2,cat:'ve'}
+};
+var NFCAT={ca:'Carboidrati',pr:'Proteine',la:'Latte e derivati',gr:'Grassi e frutta secca',fr:'Frutta',ve:'Verdure'};
+// esclusioni (allergie, intolleranze, scelte alimentari) → tag degli alimenti
+var NEX=[['veg','Vegetariano',['car','pes']],['vgn','Vegano',['car','pes','lat','uov','mie']],['lat','Senza latticini',['lat']],['glu','Senza glutine',['glu']],['pes','Senza pesce',['pes']],['uov','Senza uova',['uov']],['noc','Senza frutta a guscio',['noc']]];
+var NSUB={latp:['bsoia'],latps:['bsoia'],yogi:['ysoia'],yogm:['ysoia'],yogg:['ysoia'],parm:['tofu'],spalm:['hum'],ric:['tofu'],fiocl:['tofu'],mozz:['tofu'],cer:['cersg'],fav:['avsg'],pane:['gall'],panei:['gall'],pana:['gall'],crack:['gall'],fbis:['gall'],bisc:['gall'],pasta:['pastasg'],cous:['quinoa'],gnoc:['pat'],
+ uovo:['tofu'],albu:['tofu'],aff:['tofu'],bres:['tofu'],tac:['tofu'],crudo:['tofu'],tonno:['legc'],salaff:['tofu'],salm:['tofu'],pesce:['carneb','tofu'],carneb:['pesce','temp','tofu'],carner:['pesce','seit','legc'],fsec:['semi'],burar:['semi'],whey:['pveg'],cas:['pveg'],snkp:['gall'],miele:['marm'],seit:['tofu']};
+// fasi: d = variazione calorica sul TDEE; p/f/c = [min, max] g per kg di peso; pd/fd = proposta
+var NFASE={
+ iper:{t:'Ipertrofia (crescita muscolare)',d:0.12,p:[1.6,2.2],pd:1.8,c:[4,7],f:[0.8,1.2],fd:1,fp:[20,30],tx:'Surplus moderato +10/15% del TDEE (circa +200–400 kcal): un eccesso maggiore non accelera la sintesi proteica, aumenta il grasso.'},
+ def:{t:'Definizione (riduzione della massa grassa)',d:-0.2,p:[2,2.4],pd:2.2,c:[3,5],f:[0.5,0.8],fd:0.7,fp:[15,30],tx:'Deficit controllato −15/25% del TDEE per perdere 0,5–1% del peso a settimana. Proteine alte per proteggere la massa magra e la sazietà; carboidrati attorno all’allenamento; grassi mai sotto il 15–20% delle calorie.'},
+ forza:{t:'Forza massima',d:0,p:[1.6,2],pd:1.8,c:[3.5,5.5],f:[0.8,1.2],fd:1,fp:[20,35],tx:'Isocalorico (100% del TDEE) o lieve surplus (+5%): carboidrati per saturare il glicogeno nelle sedute ad alta intensità neurale (≥80% 1RM).'},
+ mant:{t:'Mantenimento',d:0,p:[1.6,2],pd:1.8,c:[3.5,5.5],f:[0.8,1.2],fd:1,fp:[20,35],tx:'Isocalorico (100% del TDEE), stessa ripartizione della fase di forza.'}
+};
+var NPAL=[[1.2,'Sedentario (nessun allenamento)'],[1.375,'Leggero (1–2 allenamenti a settimana)'],[1.55,'Moderato (3–5 allenamenti a settimana)'],[1.725,'Alto (6–7 allenamenti a settimana)'],[1.9,'Molto alto (2 al giorno o lavoro fisico)']];
+// pasti: ripartizione ISS (colazione 20, spuntino 5, pranzo 25, merenda/pre 10, intra/post 5, cena 30)
+var NMEALS=[['col','Colazione',20,1],['spm','Spuntino di metà mattina',5,1],['pra','Pranzo',25,1],['mer','Merenda / pre-allenamento',10,1],['pos','Post-allenamento',5,0],['cen','Cena',30,1],['not','Prima di dormire',8,0]];
+function nI(f,g,l,fx,o){var x={f:f,g:g};if(l)x.l=l;if(fx)x.fx=1;if(o)x.o=o;return x}
+function nO(t,it){return {t:t||'',it:it}}
+function nPiatto(t){return {ty:'pi',t:t,ca:[nI('riso',60),nI('pasta',60),nI('cous',60),nI('gnoc',120),nI('pat',240,'patate lesse')],
+ pr:[nI('pesce',180),nI('carneb',180),nI('carner',180),nI('tofu',180,'tofu/tofu affumicato/tempeh/seitan + 1 uovo intero sodo')],co:[nI('evo',10)],con:'rigorosamente a crudo',ar:'aromi, spezie, verdure (max 70 g)',vg:70}}
+var NTPL={
+ col:function(){return [{ty:'op',t:'Colazione veloce',op:[nO('',[nI('latp',250),nI('cer',60),nI('uovo',50,'uovo sodo',1,nI('fsec',25))]),nO('',[nI('yogi',125,'',1),nI('fsec',30),nI('gall',40)])]},
+   {ty:'op',t:'Colazione cucinata',op:[nO('Pancake',[nI('fav',60,'farina di avena istantanea'),nI('albu',150),nI('uovo',50,'',1),nI('cocco',5)]),nO('',[nI('pane',60,'pane bruschettato'),nI('albu',150,'albume (frittata)'),nI('uovo',50,'uovo (frittata)',1),nI('evo',5)])]}]},
+ spm:function(){return [{ty:'op',t:'Spuntino',op:[nO('',[nI('frut',150,'',1)]),nO('',[nI('yogm',125)]),nO('',[nI('fsec',15)])]}]},
+ pra:function(){return [{ty:'op',t:'Pranzo veloce',op:[nO('',[nI('pane',60,'pane arabo/azzimo/bruschettato/gallette'),nI('aff',80),nI('frut',150,'',1)]),nO('',[nI('pane',60,'pane arabo/azzimo/bruschettato/gallette'),nI('spalm',100,'formaggio spalmabile'),nI('frut',150,'',1)]),nO('',[nI('snkp',50),nI('avoc',50),nI('frut',150,'',1)])]},nPiatto('Pranzo cucinato')]},
+ mer:function(){return [{ty:'op',t:'Merenda pre-allenamento',op:[nO('',[nI('yogm',150),nI('cer',15,'cereali integrali'),nI('ban',120,'',1)]),nO('',[nI('crack',30),nI('frut',150,'',1)]),nO('',[nI('yogm',150),nI('bisc',30)])]}]},
+ pos:function(){return [{ty:'op',t:'Dopo l’allenamento',op:[nO('',[nI('whey',30),nI('ban',120,'',1)]),nO('',[nI('latps',250),nI('cer',30)])]}]},
+ cen:function(){return [{ty:'op',t:'Cena veloce',op:[nO('',[nI('ruc',80),nI('parm',40,'parmigiano reggiano in scaglie'),nI('bres',80,'bresaola o fesa di tacchino')]),nO('',[nI('latt',80),nI('tonno',80),nI('mais',30),nI('oliv',30),nI('evo',5)]),nO('',[nI('gall',40),nI('salaff',180),nI('vcr',80)])]},nPiatto('Cena cucinata')]},
+ not:function(){return [{ty:'op',t:'Prima di dormire (30–90 minuti prima)',op:[nO('',[nI('cas',35,'caseina (sciolta in acqua o latte)')]),nO('',[nI('yogg',170)]),nO('',[nI('fiocl',200)])]}]}
+};
+var NU={uid:null,P:null,dirty:false,q:''};
+function nr5(x){return Math.round(x/5)*5}
+function nfmt(x,d){if(x===''||x==null||isNaN(x))return '—';var m=Math.pow(10,d||0);return String(Math.round(x*m)/m).replace('.',',')}
+function nFood(it,P){if(!it)return null;if(it.f&&NF[it.f])return NF[it.f];var k=String(it.n||'').trim().toLowerCase();if(!k)return null;var c=P&&P.cf&&P.cf[k];return c&&+c.k>=0&&c.k!==''?c:null}
+function nDn(F){return F.d||(F.n.charAt(0).toLowerCase()+F.n.slice(1))}
+var NFN=null;function nByName(s){if(!NFN){NFN={};Object.keys(NF).forEach(function(k){NFN[NF[k].n.toLowerCase()]=k;if(NF[k].d)NFN[NF[k].d.toLowerCase()]=k})}return NFN[String(s||'').trim().toLowerCase()]||''}
+function nUnit(it,P){var F=nFood(it,P);return F&&F.u==='ml'?'ml':'g'}
+function nItTxt(it,P){if(!it)return '';var F=nFood(it,P),name=it.l||(F?nDn(F):it.n)||'…',g=+it.g,t;
+  if(!(g>0))t=name;
+  else if(F&&F.pz&&g>=F.pz.g/2-0.5&&Math.abs(g/F.pz.g*2-Math.round(g/F.pz.g*2))<0.06){var c=Math.round(g/F.pz.g*2)/2;t=nfmt(c,1)+' '+(it.l||(c<=1?F.pz.s:F.pz.p))}
+  else t=nfmt(g)+' '+(F&&F.u==='ml'?'ml':'g')+' di '+name;
+  if(it.o)t='('+t+' oppure '+nItTxt(it.o,P)+')';return t}
+function nMac(it,P){var F=nFood(it,P),g=+it.g||0;if(!F)return {k:0,p:0,c:0,f:0,u:it&&(it.f||it.n)?1:0};var r=g/100;return {k:(+F.k||0)*r,p:(+F.p||0)*r,c:(+F.c||0)*r,f:(+F.f||0)*r,u:0}}
+function nSum(L,P){var s={k:0,p:0,c:0,f:0,u:0};(L||[]).forEach(function(it){var m=nMac(it,P);s.k+=m.k;s.p+=m.p;s.c+=m.c;s.f+=m.f;s.u+=m.u});return s}
+function nPiSum(S,P){var s=nSum([S.ca&&S.ca[0],S.pr&&S.pr[0]].filter(Boolean).concat(S.co||[]),P);var v=(+S.vg||0)/100;s.k+=22*v;s.p+=1.5*v;s.c+=3.5*v;s.f+=0.3*v;return s}
+function nSecSum(S,P){return S.ty==='pi'?nPiSum(S,P):S.op&&S.op[0]?nSum(S.op[0].it,P):{k:0,p:0,c:0,f:0,u:0}}
+// ---- calcolo del fabbisogno ----
+function nSched(P,u){var L=schedeOf(u.id);return (P.sid&&L.filter(function(s){return String(s.id)===String(P.sid)})[0])||null}
+function nAutoPal(P,u){var sc=nSched(P,u)||schedeOf(u.id)[0],f=sc?(+sc.freq||(sc.days||[]).length||0):0,sp=(+u.sfreq||0)*(+u.ssess||1),cd=0;try{cd=carSum(u.card).days||0}catch(e){}
+  var t=f+sp+cd,v=t<=0?1.2:t<=2?1.375:t<=5?1.55:t<=7?1.725:1.9;
+  return {v:v,t:t,tx:'≈ '+t+' sedute a settimana ('+[f?f+' in palestra'+(sc?' da «'+(sc.nome||'scheda')+'»':''):'',sp?sp+' di sport extra':'',cd?cd+' di cardio':''].filter(Boolean).join(', ')+(t?'':'nessuna registrata')+')'}}
+function nData(P,u){var g=function(a,b){return a!==''&&a!=null?a:b};return {kg:+g(P.kg,u.peso)||0,alt:+g(P.alt,u.alt)||0,eta:+g(P.eta,ageOf(u))||0,sx:g(P.sx,u.sx)||''}}
+function nTarg(P,u){
+  var D=nData(P,u),F=NFASE[P.fase]||NFASE.mant,ap=nAutoPal(P,u),pal=+P.pal||ap.v,o={D:D,F:F,ap:ap,pal:pal,w:[]};
+  o.bmr=D.kg&&D.alt&&D.eta&&D.sx?10*D.kg+6.25*D.alt-5*D.eta+(D.sx==='Donna'?-161:5):0;
+  o.tdee=o.bmr*pal;o.auto=o.tdee?Math.round(o.tdee*(1+F.d)/50)*50:0;
+  o.kcal=+P.kcal||o.auto;
+  var pk=+P.pk||F.pd,fk=+P.fk||F.fd;o.pk=pk;o.fk=fk;
+  o.p=D.kg*pk;o.f=D.kg*fk;o.c=o.kcal?Math.max(0,(o.kcal-4*o.p-9*o.f)/4):0;o.ck=D.kg?o.c/D.kg:0;
+  if(o.kcal){o.pp=4*o.p/o.kcal*100;o.fp=9*o.f/o.kcal*100;o.cp=4*o.c/o.kcal*100}
+  o.acq=[D.kg*30,D.kg*35];
+  if(!D.kg)o.w.push('Manca il peso: completalo nell’anamnesi o qui sotto.');
+  if(!o.bmr&&D.kg)o.w.push('Per il metabolismo basale servono peso, altezza, età e sesso.');
+  if(o.kcal&&o.bmr&&o.kcal<o.bmr)o.w.push('Le calorie scelte ('+nfmt(o.kcal)+' kcal) sono sotto il metabolismo basale ('+nfmt(o.bmr)+' kcal): da evitare senza un professionista della nutrizione.');
+  if(pk<F.p[0]||pk>F.p[1])o.w.push('Proteine a '+nfmt(pk,1)+' g/kg: per questa fase il riferimento è '+nfmt(F.p[0],1)+'–'+nfmt(F.p[1],1)+' g/kg.');
+  if(fk<F.f[0]||fk>F.f[1])o.w.push('Grassi a '+nfmt(fk,1)+' g/kg: per questa fase il riferimento è '+nfmt(F.f[0],1)+'–'+nfmt(F.f[1],1)+' g/kg.');
+  if(o.kcal&&o.fp<F.fp[0])o.w.push('I grassi sono il '+nfmt(o.fp)+'% delle calorie: restare almeno al '+F.fp[0]+'% (vitamine liposolubili, ormoni).');
+  if(o.kcal&&D.kg&&(o.ck<F.c[0]||o.ck>F.c[1]))o.w.push('Carboidrati a '+nfmt(o.ck,1)+' g/kg (quello che resta delle calorie): riferimento '+nfmt(F.c[0],1)+'–'+nfmt(F.c[1],1)+' g/kg. Regola calorie, proteine o grassi.');
+  var on=(P.pasti||[]).filter(function(m){return m.on}),tot=on.reduce(function(a,m){return a+(+m.pct||0)},0)||1;
+  o.meal={};on.forEach(function(m){var q=(+m.pct||0)/tot;o.meal[m.k]={q:q,k:o.kcal*q,p:o.p*q}});o.npasti=on.length;
+  return o}
+function nNewPlan(u,sid){
+  var ob=(u.ob||[]).join(' ').toLowerCase(),fase=/ipertrofia/.test(ob)?'iper':/dimagr/.test(ob)?'def':/forza/.test(ob)?'forza':'mant';
+  var sc=sid?SCH.filter(function(s){return String(s.id)===String(sid)})[0]:schedeOf(u.id)[0];
+  return {id:newId('n'),nome:'Alimentazione '+String(u.n||'').toUpperCase(),data:todayIso(),sid:sc?sc.id:'',by:'',nt:'',ex:[],fase:fase,pal:'',kcal:'',pk:'',fk:'',kg:'',alt:'',eta:'',sx:'',
+    pasti:NMEALS.map(function(m){return {k:m[0],t:m[1],on:!!m[3],pct:m[2],ora:'',sez:[]}}),cf:{},prk:false,pri:true,ts:0}}
+// ---- generazione dello schema dai riferimenti ----
+function nExTags(P){var t={};(P.ex||[]).forEach(function(k){NEX.forEach(function(x){if(x[0]===k)x[2].forEach(function(g){t[g]=1})})});return t}
+function nBad(f,T){return !!(f&&NF[f]&&NF[f].tg&&T[NF[f].tg])}
+function nSwap(it,T){if(!nBad(it.f,T))return it;var s=(NSUB[it.f]||[]).filter(function(k){return !nBad(k,T)})[0];if(!s)return null;
+  var a=NF[it.f],b=NF[s],x={f:s,g:it.g};if(b.pz&&!a.pz)x.g=b.pz.g;else if(a.k&&b.k&&!b.pz)x.g=nr5(it.g*a.k/b.k)||5;return x}
+function nClean(S,T){
+  var fix=function(L){return L.map(function(it){var x=nSwap(it,T);if(x&&it.o){var o=nSwap(it.o,T);if(o)x.o=o}return x}).filter(Boolean)};
+  if(S.ty==='pi'){S.ca=fix(S.ca);var seen={},R=[];fix(S.pr).forEach(function(x){if(seen[x.f]!=null){if(x.l&&!R[seen[x.f]].l)R[seen[x.f]]=x;return}seen[x.f]=R.length;R.push(x)});S.pr=R;S.co=fix(S.co);return S}
+  S.op=S.op.map(function(o){var L=fix(o.it);return L.length===o.it.length||L.length>1?{t:o.t,it:L}:null}).filter(Boolean);return S}
+function nRoundG(g,F,fx){if(F&&F.pz)return Math.max(fx?F.pz.g:F.pz.g,Math.round(g/F.pz.g)*F.pz.g);if(F&&F.u==='ml')return Math.max(10,Math.round(g/10)*10);if(F&&F.cat==='gr'&&F.f>90)return Math.max(5,nr5(g));return Math.max(5,nr5(g))}
+function nScaleOpt(o,tk,P){
+  var fx=function(it){var F=nFood(it,P);return it.fx||(F&&F.cat==='ve')},fixK=0,varK=0;o.it.forEach(function(it){var m=nMac(it,P).k;if(fx(it))fixK+=m;else varK+=m});
+  if(!varK||!tk)return o;var s=Math.min(1.8,Math.max(0.5,(tk-fixK)/varK));
+  o.it.forEach(function(it){if(fx(it))return;var F=nFood(it,P);it.g=nRoundG(it.g*s,F);if(it.o){var F2=nFood(it.o,P);it.o.g=nRoundG(it.o.g*s,F2)}});return o}
+function nEqv(L,mac,P){if(!L||!L.length)return;var r=nMac(L[0],P)[mac];if(!r)return;L.slice(1).forEach(function(it){var F=nFood(it,P);if(!F||!F[mac])return;it.g=nRoundG(r/(F[mac]/100),F)})}
+function nScalePi(S,mt,P,D){
+  var co=nSum(S.co,P).k,vg=(+S.vg||0)*0.22;
+  if(mt.k<450&&S.co[0]&&S.co[0].f==='evo')S.co[0].g=5,co=45;
+  var Fp=nFood(S.pr[0],P),Fc=nFood(S.ca[0],P);if(!Fp||!Fc)return S;
+  var pt=Math.max(mt.p,D.kg*0.3,20),gp=Math.min(250,Math.max(80,nr5(pt/(Fp.p/100))));S.pr[0].g=gp;
+  var rest=mt.k-co-vg-nMac(S.pr[0],P).k,gc=Math.max(Fc.pz?Fc.pz.g:30,nRoundG(rest/(Fc.k/100),Fc));S.ca[0].g=gc;
+  nEqv(S.ca,'c',P);nEqv(S.pr,'p',P);return S}
+function nGenerate(P,u){
+  var T=nTarg(P,u),X=nExTags(P);
+  P.pasti.forEach(function(m){if(!m.on){if(!m.sez||!m.sez.length)m.sez=[];return}var mt=T.meal[m.k],tp=NTPL[m.k];if(!tp)return;
+    m.sez=tp().map(function(S){S=nClean(S,X);if(!mt||!mt.k)return S;if(S.ty==='pi')return nScalePi(S,mt,P,T.D);S.op.forEach(function(o){nScaleOpt(o,mt.k,P)});return S}).filter(function(S){return S.ty==='pi'?S.ca.length&&S.pr.length:S.op.length})})}
+// ---- interfaccia ----
+function nGet(o,p){p=String(p).split('.');for(var i=0;i<p.length;i++){if(o==null)return undefined;o=o[p[i]]}return o}
+function nSet(o,p,v){p=String(p).split('.');for(var i=0;i<p.length-1;i++){if(o[p[i]]==null)o[p[i]]={};o=o[p[i]]}o[p[p.length-1]]=v}
+function nPlans(u){return (u&&Array.isArray(u.nut)?u.nut:[]).slice().sort(function(a,b){return String(b.data||'').localeCompare(String(a.data||''))||(b.ts||0)-(a.ts||0)})}
+function renderNut(){
+  var m=document.getElementById('main');
+  if(NU.P){nutEditor();return}
+  if(NU.uid&&!find(NU.uid))NU.uid=null;
+  if(!NU.uid){
+    m.innerHTML='<div class="kick">Facoltativa · da collegare alla scheda di allenamento</div><h2 class="atitle">Sezione nutrizionale</h2>'+
+     '<p class="sub" style="margin-top:-8px">Schemi alimentari con colazione, pranzo e cena «veloci» o «cucinati», calcolati dal fabbisogno dell’atleta (peso, altezza, età, sesso e allenamenti). Scegli l’atleta.</p>'+
+     '<input class="search" id="nusearch" type="search" placeholder="Cerca atleta…" value="'+esc(NU.q)+'"><div id="nulist"></div>';
+    nutList();return}
+  var u=find(NU.uid),L=nPlans(u),S=schedeOf(u.id);
+  m.innerHTML='<button class="back" data-na="nback">← Atleti</button><div class="uh"><div><div class="kick">Sezione nutrizionale</div><h2>'+esc(u.n+' '+u.c)+'</h2><p class="sub">'+L.length+(L.length===1?' piano alimentare':' piani alimentari')+'</p></div>'+
+   '<div class="uact"><button class="ab pri" data-na="nnew" aria-label="Nuovo piano alimentare"><span class="i">+</span><span class="t">Nuovo piano</span></button></div></div>'+
+   (S.length?'':'<div class="info" style="margin:0 0 12px">'+esc(u.n)+' non ha ancora una scheda di allenamento. Puoi creare il piano lo stesso; il livello di attività si calcola dagli sport extra e dal cardio dell’anamnesi. Per collegarlo a una scheda, creala prima da «Schede allenamento».</div>')+
+   (L.length?L.map(function(P){var sc=nSched(P,u),T=nTarg(P,u);
+     return '<div class="urow" data-np="'+esc(P.id)+'" style="cursor:pointer"><div class="cells two"><b>'+esc(P.nome||'Piano alimentare')+(P===L[0]?' <i class="dc">attuale</i>':'')+'</b><span>Del '+fdate(P.data)+' · '+esc((NFASE[P.fase]||NFASE.mant).t)+(T.kcal?' · '+nfmt(T.kcal)+' kcal':'')+' · '+(sc?'collegato a «'+esc(sc.nome||'scheda')+'»':'non collegato a una scheda')+'</span></div></div>'}).join(''):'<div class="empty">Nessun piano alimentare. Creane uno con «+ Nuovo piano».</div>');
+}
+function nutList(){var q=NU.q.toLowerCase().trim(),L=U.filter(function(u){return !q||(u.n+' '+u.c).toLowerCase().indexOf(q)>-1}).sort(function(a,b){return (a.c+a.n).localeCompare(b.c+b.n)}),box=gid('nulist');if(!box)return;
+  box.innerHTML=L.length?L.map(function(u){var P=nPlans(u),S=schedeOf(u.id);
+    return '<div class="urow" data-nu="'+esc(u.id)+'" style="cursor:pointer"><div class="cells two"><b>'+esc(u.n+' '+u.c)+'</b><span>'+(P.length?P.length+(P.length===1?' piano':' piani')+' · ultimo del '+fdate(P[0].data):'Nessun piano alimentare')+' · '+(S.length?S.length+(S.length===1?' scheda':' schede'):'nessuna scheda')+'</span></div></div>'}).join(''):'<div class="empty">Nessun atleta. Aggiungili dalla Home con «+ Nuovo Cliente».</div>'}
+function nOpen(uid,pid,sid){var u=find(uid);if(!u)return;NU.uid=uid;var P=pid?(u.nut||[]).filter(function(x){return x.id===pid})[0]:null;
+  if(P)NU.P=JSON.parse(JSON.stringify(P));else{NU.P=nNewPlan(u,sid);nGenerate(NU.P,u)}NU.dirty=!P;cur='nut';closeModal();render();window.scrollTo(0,0)}
+function nInp(path,val,type,extra,cls){return '<input data-nb="'+path+'"'+(type?' type="'+type+'"':'')+' value="'+esc(val==null?'':val)+'"'+(extra||'')+(cls?' class="'+cls+'"':'')+'>'}
+function nFl(label,inner,cls){return '<label class="fl'+(cls?' '+cls:'')+'">'+label+inner+'</label>'}
+function nSel(path,opts,val,extra){return '<select data-nb="'+path+'"'+(extra||'')+'>'+opts.map(function(o){return '<option value="'+esc(o[0])+'"'+(String(o[0])===String(val)?' selected':'')+'>'+esc(o[1])+'</option>'}).join('')+'</select>'}
+function nMacTxt(s,tk){var d=tk?(s.k-tk)/tk:0,c=!tk?'':Math.abs(d)<=0.15?'ok':d<0?'lo':'hi';
+  return '<span class="nmac '+c+'">≈ '+nfmt(s.k)+' kcal · P '+nfmt(s.p)+' g · C '+nfmt(s.c)+' g · G '+nfmt(s.f)+' g'+(tk?' · obiettivo pasto '+nfmt(tk)+' kcal':'')+(s.u?' · '+s.u+' alimento senza valori':'')+'</span>'}
+function nItRow(it,path,X){var F=nFood(it,NU.P),bad=it.f&&nBad(it.f,X);
+  var one=function(x,p,alt){var F1=nFood(x,NU.P);return '<input list="nu_fl" class="nfn" data-nb="'+p+'.fn" value="'+esc(x.f&&NF[x.f]?NF[x.f].n:(x.n||''))+'" placeholder="'+(alt?'oppure…':'Alimento')+'" aria-label="Alimento">'+
+    '<span class="ngq"><input type="number" min="0" step="any" inputmode="decimal" data-nb="'+p+'.g" value="'+esc(x.g==null?'':x.g)+'" aria-label="Quantità"><i>'+(F1&&F1.u==='ml'?'ml':'g')+'</i></span>'};
+  return '<div class="nit'+(bad?' nbad':'')+'">'+one(it,path)+nInp(path+'.l',it.l,'',' placeholder="come scriverlo in stampa (facoltativo)" aria-label="Testo in stampa"','nlb')+
+   '<span class="nbt">'+(it.o?'':'<button type="button" data-na="oradd" data-p="'+path+'" title="Aggiungi un’alternativa «oppure»">oppure</button>')+'<button type="button" data-na="itdel" data-p="'+path+'" aria-label="Togli alimento">×</button></span>'+
+   (it.o?'<div class="nor"><b>oppure</b>'+one(it.o,path+'.o',1)+'<button type="button" data-na="ordel" data-p="'+path+'" aria-label="Togli l’alternativa">×</button></div>':'')+
+   '<div class="npv">'+esc(nItTxt(it,NU.P))+(F?'':it.f||it.n?' · <b>senza valori nutrizionali</b> (aggiungili in fondo)':'')+(bad?' · <b>escluso dalle preferenze dell’atleta</b>':'')+'</div></div>'}
+function nSecHtml(S,mi,si,mt,X){var b='pasti.'+mi+'.sez.'+si,tk=mt?mt.k:0;
+  var head='<div class="nsh"><input class="nst" data-nb="'+b+'.t" value="'+esc(S.t)+'" aria-label="Titolo della sezione"><span class="nbt"><button type="button" data-na="sup" data-p="'+b+'" title="Sposta su" aria-label="Sposta su">↑</button><button type="button" data-na="sdel" data-p="'+b+'" aria-label="Togli sezione">×</button></span></div>';
+  if(S.ty==='pi')return '<div class="nsec">'+head+'<p class="kick" style="margin:6px 0">Crea il tuo piatto</p>'+
+   '<div class="ngrp"><b>Scegli una fonte di carboidrati</b> <button type="button" class="nlk" data-na="eqv" data-p="'+b+'.ca" data-m="c">⚖ Equivalenze dalla prima riga</button>'+S.ca.map(function(it,i){return nItRow(it,b+'.ca.'+i,X)}).join('')+'<button type="button" class="btn sm" data-na="itadd" data-p="'+b+'.ca">+ Carboidrato</button></div>'+
+   '<div class="ngrp"><b>Aggiungi una fonte proteica</b> <button type="button" class="nlk" data-na="eqv" data-p="'+b+'.pr" data-m="p">⚖ Equivalenze dalla prima riga</button>'+S.pr.map(function(it,i){return nItRow(it,b+'.pr.'+i,X)}).join('')+'<button type="button" class="btn sm" data-na="itadd" data-p="'+b+'.pr">+ Proteina</button></div>'+
+   '<div class="ngrp"><b>Condimento</b>'+S.co.map(function(it,i){return nItRow(it,b+'.co.'+i,X)}).join('')+(S.co.length?'':'<button type="button" class="btn sm" data-na="itadd" data-p="'+b+'.co">+ Condimento</button>')+
+   '<div class="fg" style="margin-top:8px">'+nFl('Nota sul condimento',nInp(b+'.con',S.con))+nFl('A tuo gusto puoi arricchire il piatto con',nInp(b+'.ar',S.ar))+nFl('Verdure (g, per le calorie)',nInp(b+'.vg',S.vg,'number',' min="0" step="5"'))+'</div></div>'+
+   '<div id="nt_'+mi+'_'+si+'">'+nMacTxt(nPiSum(S,NU.P),tk)+'</div><p class="status" style="margin:2px 0 0">Calcolo con la prima fonte di carboidrati e la prima proteica, più condimento e verdure. «⚖ Equivalenze» porta le altre righe agli stessi grammi di carboidrati (o di proteine) della prima.</p></div>';
+  return '<div class="nsec">'+head+S.op.map(function(o,oi){var p=b+'.op.'+oi;
+    return '<div class="nop"><div class="noh"><b>'+String.fromCharCode(65+oi)+')</b><input class="nott" data-nb="'+p+'.t" value="'+esc(o.t)+'" placeholder="Titolo (es. Pancake) facoltativo" aria-label="Titolo dell’opzione"><span class="nbt"><button type="button" data-na="odel" data-p="'+p+'" aria-label="Togli opzione">×</button></span></div>'+
+     o.it.map(function(it,ii){return nItRow(it,p+'.it.'+ii,X)}).join('')+'<button type="button" class="btn sm" data-na="itadd" data-p="'+p+'.it">+ Alimento</button> <button type="button" class="nlk" data-na="oscale" data-p="'+p+'" data-mk="'+esc(mt?mt.k:'')+'">⚡ Adatta all’obiettivo del pasto</button>'+
+     '<div id="nt_'+mi+'_'+si+'_'+oi+'">'+nMacTxt(nSum(o.it,NU.P),tk)+'</div></div>'}).join('')+
+   '<button type="button" class="btn sm" data-na="oadd" data-p="'+b+'.op">+ Opzione '+String.fromCharCode(65+S.op.length)+'</button></div>'}
+function nCalcHtml(P,u){var T=nTarg(P,u),F=T.F,D=T.D;
+  return (T.w.length?'<div class="warn" style="margin:0 0 12px">'+T.w.map(esc).join('<br>')+'</div>':'')+
+   '<div class="xwrap"><table class="stab"><thead><tr><th></th><th>g al giorno</th><th>g/kg</th><th>kcal</th><th>% kcal</th><th>Riferimento fase</th></tr></thead><tbody>'+
+   '<tr><td><b>Proteine</b></td><td>'+nfmt(T.p)+'</td><td>'+nfmt(T.pk,1)+'</td><td>'+nfmt(T.p*4)+'</td><td>'+nfmt(T.pp)+'%</td><td>'+nfmt(F.p[0],1)+'–'+nfmt(F.p[1],1)+' g/kg</td></tr>'+
+   '<tr><td><b>Carboidrati</b></td><td>'+nfmt(T.c)+'</td><td>'+nfmt(T.ck,1)+'</td><td>'+nfmt(T.c*4)+'</td><td>'+nfmt(T.cp)+'%</td><td>'+nfmt(F.c[0],1)+'–'+nfmt(F.c[1],1)+' g/kg</td></tr>'+
+   '<tr><td><b>Grassi</b></td><td>'+nfmt(T.f)+'</td><td>'+nfmt(T.fk,1)+'</td><td>'+nfmt(T.f*9)+'</td><td>'+nfmt(T.fp)+'%</td><td>'+nfmt(F.f[0],1)+'–'+nfmt(F.f[1],1)+' g/kg · min '+F.fp[0]+'% kcal</td></tr>'+
+   '<tr><td><b>Totale</b></td><td></td><td></td><td><b>'+nfmt(T.kcal)+'</b></td><td></td><td>'+(T.tdee?'TDEE '+nfmt(T.tdee)+' kcal '+(F.d?(F.d>0?'+':'−')+Math.abs(F.d*100)+'%':'(100%)'):'')+'</td></tr></tbody></table></div>'+
+   '<p class="status">Metabolismo basale (Mifflin-St Jeor): <b>'+(T.bmr?nfmt(T.bmr)+' kcal':'—')+'</b> · livello di attività ×'+nfmt(T.pal,3)+' · TDEE <b>'+(T.tdee?nfmt(T.tdee)+' kcal':'—')+'</b> · proposta per la fase <b>'+(T.auto?nfmt(T.auto)+' kcal':'—')+'</b>.<br>'+
+   'Acqua: <b>'+(D.kg?nfmt(T.acq[0]/1000,1)+'–'+nfmt(T.acq[1]/1000,1)+' litri</b> al giorno (30–35 ml/kg)':'—</b>')+(T.kcal?' · con 1 ml per kcal ≈ '+nfmt(T.kcal/1000,1)+' litri':'')+'.<br>'+
+   'Proteine per pasto: '+(D.kg?nfmt(D.kg*0.25)+'–'+nfmt(D.kg*0.4)+' g (0,25–0,40 g/kg, ':'20–40 g (')+'1,5–3 g di leucina) ogni 3–4 ore.</p>'}
+function nMealTab(P,u){var T=nTarg(P,u);
+  return '<div class="xwrap"><table class="stab nmt"><thead><tr><th>Pasto</th><th>Attivo</th><th>% kcal</th><th>Ora (facoltativa)</th><th>kcal</th><th>Proteine</th></tr></thead><tbody>'+P.pasti.map(function(m,i){var mt=T.meal[m.k];
+   return '<tr><td><b>'+esc(m.t)+'</b></td><td><input type="checkbox" data-nb="pasti.'+i+'.on" data-nr="1"'+(m.on?' checked':'')+' aria-label="Pasto attivo"></td><td><input type="number" class="nsm" min="0" max="60" step="1" data-nb="pasti.'+i+'.pct" value="'+esc(m.pct)+'"'+(m.on?'':' disabled')+' aria-label="Percentuale"></td><td><input type="time" class="nsm" data-nb="pasti.'+i+'.ora" value="'+esc(m.ora)+'" aria-label="Ora"></td><td>'+(mt?nfmt(mt.k):'—')+'</td><td>'+(mt?nfmt(mt.p)+' g':'—')+'</td></tr>'}).join('')+'</tbody></table></div>'+
+   '<p class="status">Ripartizione ISS per chi si allena durante la giornata: colazione 20%, spuntino 5%, pranzo 25%, merenda o pre-allenamento 10%, intra/post-allenamento 5%, cena 30%. Le percentuali dei pasti attivi vengono riportate al 100%. «Prima di dormire»: 30–40 g di caseina 30–90 minuti prima del sonno sostengono la sintesi proteica notturna.</p>'}
+function nCustomHtml(P){var miss={};P.pasti.forEach(function(m){(m.sez||[]).forEach(function(S){var L=S.ty==='pi'?S.ca.concat(S.pr,S.co):[].concat.apply([],S.op.map(function(o){return o.it}));L.forEach(function(it){[it,it.o].forEach(function(x){if(x&&!x.f&&x.n)miss[x.n.trim().toLowerCase()]=x.n.trim()})})})});
+  var K=Object.keys(miss);if(!K.length)return '';
+  return '<section class="asec"><h3>Alimenti aggiunti da te <small>valori per 100 g o 100 ml, dall’etichetta</small></h3>'+K.map(function(k){var c=(P.cf&&P.cf[k])||{};var pk=function(f,l){return nFl(l,'<input type="number" min="0" step="any" inputmode="decimal" data-nc="'+esc(k)+'" data-f="'+f+'" value="'+esc(c[f]==null?'':c[f])+'">')};
+   return '<div class="ncf"><b>'+esc(miss[k])+'</b><div class="fg">'+pk('k','kcal')+pk('p','Proteine g')+pk('c','Carboidrati g')+pk('f','Grassi g')+'</div></div>'}).join('')+'</section>'}
+function nutEditor(){
+  var P=NU.P,u=find(NU.uid);if(!u){NU.P=null;renderNut();return}
+  var S=schedeOf(u.id),T=nTarg(P,u),X=nExTags(P),D=nData(P,u),y=window.scrollY;
+  var foods=Object.keys(NF).map(function(k){return '<option value="'+esc(NF[k].n)+'">'}).join('')+Object.keys(P.cf||{}).map(function(k){return '<option value="'+esc(k)+'">'}).join('');
+  gid('main').innerHTML='<datalist id="nu_fl">'+foods+'</datalist><div class="ahead"><button class="back" data-na="nclose">← Piani di '+esc(u.n)+'</button><div><div class="kick">Sezione nutrizionale</div><h2 style="margin:0">'+esc(u.n+' '+u.c)+'</h2></div></div>'+
+   '<h2 class="atitle">Piano alimentare</h2>'+
+   '<section class="asec"><h3>Impostazione</h3><div class="fg">'+nFl('Titolo in stampa',nInp('nome',P.nome),'full')+nFl('Data',nInp('data',P.data,'date'))+
+    nFl('Scheda di allenamento collegata',nSel('sid',[['','Nessuna (piano autonomo)']].concat(S.map(function(s){return [s.id,(s.nome||'Scheda')+' · inizio '+fdate(s.data)]})),P.sid,' data-nr="1"'))+
+    nFl('Redatto o validato da',nInp('by',P.by,'',' placeholder="es. dott.ssa …, biologa nutrizionista"'))+'</div>'+
+    '<p class="kick" style="margin:16px 0 6px">Preferenze e esclusioni</p><div class="nchips">'+NEX.map(function(x){var on=(P.ex||[]).indexOf(x[0])>-1;return '<button type="button" class="nch" data-na="ex" data-k="'+x[0]+'" aria-pressed="'+on+'">'+esc(x[1])+'</button>'}).join('')+'</div>'+
+    '<div class="fg" style="margin-top:12px">'+nFl('Allergie, intolleranze, gusti e note per l’atleta','<textarea data-nb="nt" rows="3">'+esc(P.nt||'')+'</textarea>','full')+'</div></section>'+
+   '<section class="asec"><h3>Fabbisogno energetico e macronutrienti</h3><div class="fg">'+
+    nFl('Peso (kg)'+(u.peso?' · anamnesi '+nfmt(u.peso,1):''),nInp('kg',P.kg,'number',' min="0" step="any" placeholder="'+esc(u.peso||'')+'"'))+nFl('Altezza (cm)',nInp('alt',P.alt,'number',' min="0" step="any" placeholder="'+esc(u.alt||'')+'"'))+
+    nFl('Età (anni)',nInp('eta',P.eta,'number',' min="0" step="1" placeholder="'+esc(ageOf(u))+'"'))+nFl('Sesso biologico',nSel('sx',[['',u.sx?'Dall’anamnesi: '+u.sx:'—'],['Uomo','Uomo'],['Donna','Donna']],P.sx))+
+    nFl('Fase',nSel('fase',Object.keys(NFASE).map(function(k){return [k,NFASE[k].t]}),P.fase,' data-nr="1"'))+
+    nFl('Livello di attività',nSel('pal',[['','Automatico: ×'+nfmt(T.ap.v,3)]].concat(NPAL.map(function(x){return [x[0],'×'+nfmt(x[0],3)+' · '+x[1]]})),P.pal))+
+    nFl('Calorie al giorno',nInp('kcal',P.kcal,'number',' min="0" step="50" placeholder="'+(T.auto?'auto '+T.auto:'')+'"'))+
+    nFl('Proteine (g/kg)',nInp('pk',P.pk,'number',' min="0" step="0.1" placeholder="'+nfmt(T.F.pd,1)+'"'))+nFl('Grassi (g/kg)',nInp('fk',P.fk,'number',' min="0" step="0.1" placeholder="'+nfmt(T.F.fd,1)+'"'))+'</div>'+
+    '<p class="status">I campi vuoti usano l’anamnesi e le proposte della fase. Attività automatica: '+esc(T.ap.tx)+'. I carboidrati sono quello che resta delle calorie.</p>'+
+    '<div class="info" id="nfx">'+esc(T.F.tx)+'</div><div id="ncalc" style="margin-top:12px">'+nCalcHtml(P,u)+'</div></section>'+
+   '<section class="asec"><h3>Ripartizione dei pasti</h3><div id="nmeals">'+nMealTab(P,u)+'</div>'+
+    '<div class="mrow" style="justify-content:flex-start"><button type="button" class="pri" data-na="gen">⚡ Genera lo schema dai riferimenti</button></div><p class="status">Ricrea tutti i pasti attivi (opzioni «veloci» e piatto «cucinato») con le grammature adatte alle calorie e alle proteine di ogni pasto, rispettando le esclusioni. Le modifiche fatte a mano ai pasti vengono sostituite.</p></section>'+
+   P.pasti.map(function(m,mi){if(!m.on)return '';var mt=T.meal[m.k];
+     return '<section class="asec nml"><h3>'+esc(m.t)+(m.ora?' <small>ore '+esc(m.ora)+'</small>':'')+' <small>'+(mt?'obiettivo ≈ '+nfmt(mt.k)+' kcal · '+nfmt(mt.p)+' g di proteine':'')+'</small></h3>'+
+      (m.sez||[]).map(function(S,si){return nSecHtml(S,mi,si,mt,X)}).join('')+
+      '<div class="mrow" style="justify-content:flex-start"><button type="button" data-na="sadd" data-p="pasti.'+mi+'" data-ty="op">+ Sezione con opzioni A, B, C</button><button type="button" data-na="sadd" data-p="pasti.'+mi+'" data-ty="pi">+ «Crea il tuo piatto»</button>'+(NTPL[m.k]?'<button type="button" data-na="mgen" data-p="pasti.'+mi+'">⚡ Rigenera questo pasto</button>':'')+'</div></section>'}).join('')+
+   '<div id="ncust">'+nCustomHtml(P)+'</div>'+
+   '<section class="asec"><h3>Stampa e invio</h3><label class="nck"><input type="checkbox" data-nb="pri"'+(P.pri?' checked':'')+'> Aggiungi le indicazioni generali (acqua, proteine per pasto, tempi)</label><label class="nck"><input type="checkbox" data-nb="prk"'+(P.prk?' checked':'')+'> Mostra calorie e macronutrienti (fabbisogno e pasti)</label>'+
+    '<p class="status">Questa sezione dà indicazioni generali basate su linee guida (ISSN, ACSM, ISS). In Italia un piano alimentare personalizzato, soprattutto in presenza di patologie, spetta a medico, dietista o biologo nutrizionista: usa lo strumento per trascrivere e organizzare il loro piano o per indicazioni generali.</p></section>'+
+   '<div class="status" id="nustat"></div><div class="afoot edfoot" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;margin:16px 0">'+
+    (nHas(P)?'<button type="button" class="btn" data-na="ndel" style="margin-right:auto">Elimina</button>':'')+
+    '<button type="button" class="btn" data-na="nprint">Anteprima · Stampa</button><button type="button" class="btn" data-na="npdf">Scarica PDF</button><button type="button" class="btn blk" data-na="nshare">📤 Condividi PDF</button><button type="button" class="btn pri" data-na="nsave">Salva piano</button></div>';
+  if(y)window.scrollTo(0,y);
+}
+function nHas(P){var u=find(NU.uid);return !!(u&&(u.nut||[]).some(function(x){return x.id===P.id}))}
+function nRefresh(){var P=NU.P,u=find(NU.uid);if(!P||!u)return;var T=nTarg(P,u);
+  var c=gid('ncalc');if(c)c.innerHTML=nCalcHtml(P,u);
+  var mm=gid('nmeals');if(mm){var a=document.activeElement,ap=a&&a.getAttribute&&a.getAttribute('data-nb');if(!ap||!/^pasti\.\d+\.(pct|ora)$/.test(ap))mm.innerHTML=nMealTab(P,u);else{[].forEach.call(mm.querySelectorAll('tbody tr'),function(tr,i){var m=P.pasti[i],mt=T.meal[m.k],td=tr.children;td[4].textContent=mt?nfmt(mt.k):'—';td[5].textContent=mt?nfmt(mt.p)+' g':'—'})}}
+  P.pasti.forEach(function(m,mi){if(!m.on)return;var mt=T.meal[m.k],tk=mt?mt.k:0;(m.sez||[]).forEach(function(S,si){if(S.ty==='pi'){var e=gid('nt_'+mi+'_'+si);if(e)e.innerHTML=nMacTxt(nPiSum(S,P),tk)}else S.op.forEach(function(o,oi){var e=gid('nt_'+mi+'_'+si+'_'+oi);if(e)e.innerHTML=nMacTxt(nSum(o.it,P),tk)})})})}
+function nDirty(){NU.dirty=true}
+document.addEventListener('input',function(e){
+  var t=e.target;if(cur!=='nut')return;
+  if(t.id==='nusearch'){NU.q=t.value;nutList();return}
+  if(!NU.P)return;
+  var nc=t.getAttribute('data-nc');if(nc!=null){NU.P.cf=NU.P.cf||{};NU.P.cf[nc]=NU.P.cf[nc]||{n:nc};NU.P.cf[nc][t.getAttribute('data-f')]=num(t.value);nDirty();nRefresh();return}
+  var p=t.getAttribute('data-nb');if(!p)return;
+  if(/\.fn$/.test(p)){var it=nGet(NU.P,p.slice(0,-3)),k=nByName(t.value);if(it){if(k){it.f=k;delete it.n}else{it.f='';it.n=t.value}}nDirty();var row=t.closest('.nit'),pv=row&&row.querySelector('.npv');if(pv&&it)pv.textContent=nItTxt(it,NU.P);var q=t.nextElementSibling;if(q&&q.classList.contains('ngq')&&it)q.querySelector('i').textContent=nUnit(it,NU.P);nRefresh();return}
+  var v=t.type==='checkbox'?t.checked:t.type==='number'?num(t.value):t.value;
+  nSet(NU.P,p,v);nDirty();
+  var mo=/^pasti\.(\d+)\.on$/.exec(p);if(mo&&v){var M=NU.P.pasti[+mo[1]];if(!M.pct)M.pct=8;if(!M.sez||!M.sez.length)nMealGen(M)}
+  var r=t.closest('.nit');if(r&&r.querySelector('.npv')){var ip=p.replace(/\.(g|l)$/,'').replace(/\.o$/,'');var it2=nGet(NU.P,ip);if(it2)r.querySelector('.npv').textContent=nItTxt(it2,NU.P)}
+  if(t.getAttribute('data-nr'))nutEditor();else nRefresh();
+});
+document.addEventListener('change',function(e){var t=e.target;if(cur!=='nut'||!NU.P)return;var p=t.getAttribute('data-nb');if(!p)return;
+  if(/\.fn$/.test(p)){var c=gid('ncust');if(c)c.innerHTML=nCustomHtml(NU.P);return}
+  if(t.getAttribute('data-nr')||p==='fase'||p==='pal'||p==='sx'){nutEditor();return}});
+function nTpl(k){return NTPL[k]?NTPL[k]():[]}
+function nMealGen(mm){var P=NU.P,u=find(NU.uid),T=nTarg(P,u),X=nExTags(P),mt=T.meal[mm.k];mm.sez=nTpl(mm.k).map(function(S){S=nClean(S,X);if(!mt)return S;if(S.ty==='pi')return nScalePi(S,mt,P,T.D);S.op.forEach(function(o){nScaleOpt(o,mt.k,P)});return S})}
+document.addEventListener('click',function(e){
+  if(cur!=='nut')return;
+  var r=e.target.closest('[data-nu]');if(r){NU.uid=r.getAttribute('data-nu');renderNut();window.scrollTo(0,0);return}
+  var q=e.target.closest('[data-np]');if(q){nOpen(NU.uid,q.getAttribute('data-np'));return}
+  var b=e.target.closest('[data-na]');if(!b)return;var k=b.getAttribute('data-na'),p=b.getAttribute('data-p'),P=NU.P,u=find(NU.uid);
+  if(k==='nback'){NU.uid=null;renderNut();window.scrollTo(0,0);return}
+  if(k==='nnew'){nOpen(NU.uid,null);return}
+  if(k==='nclose'){guardGen(function(){NU.P=null;NU.dirty=false;renderNut();window.scrollTo(0,0)});return}
+  if(!P||!u)return;
+  var arr=function(path){var i=path.lastIndexOf('.');return {a:nGet(P,path.slice(0,i)),i:+path.slice(i+1)}};
+  if(k==='itadd'){nGet(P,p).push({f:'',n:'',g:''})}
+  else if(k==='itdel'){var x=arr(p);x.a.splice(x.i,1)}
+  else if(k==='oradd'){nGet(P,p).o={f:'',n:'',g:''}}
+  else if(k==='ordel'){delete nGet(P,p).o}
+  else if(k==='oadd'){nGet(P,p).push(nO('',[{f:'',n:'',g:''}]))}
+  else if(k==='odel'){var y=arr(p);y.a.splice(y.i,1)}
+  else if(k==='sdel'){var z=arr(p);z.a.splice(z.i,1)}
+  else if(k==='sup'){var w=arr(p);if(w.i>0){var t=w.a[w.i];w.a[w.i]=w.a[w.i-1];w.a[w.i-1]=t}}
+  else if(k==='sadd'){var m=nGet(P,p);m.sez=m.sez||[];m.sez.push(b.getAttribute('data-ty')==='pi'?nPiatto(m.t+' cucinato'):{ty:'op',t:m.t,op:[nO('',[{f:'',n:'',g:''}])]})}
+  else if(k==='eqv'){nEqv(nGet(P,p),b.getAttribute('data-m'),P)}
+  else if(k==='oscale'){var tk=+b.getAttribute('data-mk');if(tk)nScaleOpt(nGet(P,p),tk,P);else return}
+  else if(k==='ex'){var kk=b.getAttribute('data-k'),L=P.ex=P.ex||[],ix=L.indexOf(kk);if(ix>-1)L.splice(ix,1);else L.push(kk)}
+  else if(k==='mgen'){nMealGen(nGet(P,p))}
+  else if(k==='gen'){var any=P.pasti.some(function(m){return m.on&&m.sez&&m.sez.length});
+    if(any&&!b.getAttribute('data-ok')){modal('<h3>Rigenerare lo schema?</h3><p>Tutti i pasti attivi vengono ricreati dai riferimenti con le calorie attuali. Le modifiche fatte a mano ai pasti vanno perse.</p><div class="mrow"><button data-act="mclose">Annulla</button><button class="pri" data-na="gen" data-ok="1">Rigenera</button></div>');return}
+    closeModal();nGenerate(P,u)}
+  else if(k==='nsave'){nSave();return}
+  else if(k==='ndel'){modal('<h3>Eliminare il piano?</h3><p>«'+esc(P.nome)+'» di '+esc(u.n+' '+u.c)+' viene eliminato.</p><div class="mrow"><button data-act="mclose">Annulla</button><button class="danger" data-na="ndelok">Elimina</button></div>');return}
+  else if(k==='ndelok'){nDel();return}
+  else if(k==='nprint'){nPreview();return}
+  else if(k==='npdf'||k==='nshare'){nPdf(k==='nshare',b);return}
+  else return;
+  nDirty();nutEditor();
+});
+async function nSave(){var P=NU.P,u=find(NU.uid);if(!P||!u)return;
+  P.ts=Date.now();var o=Object.assign({},u),L=(u.nut||[]).filter(function(x){return x.id!==P.id});L.unshift(JSON.parse(JSON.stringify(P)));o.nut=L;
+  try{await Store.put('utenti',o)}catch(e){st('nustat',saveErr());return}
+  var i=U.findIndex(function(x){return String(x.id)===String(o.id)});if(i>-1)U[i]=o;NU.dirty=false;nutEditor();st('nustat','Piano alimentare salvato nel profilo di '+u.n+' '+u.c+'.')}
+async function nDel(){var P=NU.P,u=find(NU.uid);closeModal();if(!P||!u)return;var o=Object.assign({},u);o.nut=(u.nut||[]).filter(function(x){return x.id!==P.id});
+  try{await Store.put('utenti',o)}catch(e){st('nustat',saveErr());return}
+  var i=U.findIndex(function(x){return String(x.id)===String(o.id)});if(i>-1)U[i]=o;NU.P=null;NU.dirty=false;renderNut();window.scrollTo(0,0)}
+// ---- foglio per la stampa e il PDF (come lo schema del nutrizionista) ----
+function nLong(iso){if(!iso)return '';var M=['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'],p=iso.split('-');return p.length===3?(+p[2])+' '+M[+p[1]-1]+' '+p[0]:iso}
+function nSecSheet(S,P,mt){var L=[];
+  if(S.ty==='pi'){L.push('<b>'+esc(String(S.t||'').toUpperCase())+' · CREA IL TUO PIATTO:</b>','<i>scegli una fonte di carboidrati:</i>');S.ca.forEach(function(it){L.push(esc(nItTxt(it,P)))});
+    L.push('<b>aggiungi una fonte proteica:</b>');S.pr.forEach(function(it){L.push(esc(nItTxt(it,P)))});
+    if(S.co.length)L.push('<i><b>condisci il piatto con: '+esc(S.co.map(function(it){return nItTxt(it,P)}).join(' + '))+(S.con?' ('+esc(S.con)+')':'')+'</b></i>');
+    if(S.ar)L.push('<i>a tuo gusto puoi arricchire il piatto con: '+esc(S.ar)+'</i>');
+    if(P.prk)L.push('<small>≈ '+nfmt(nPiSum(S,P).k)+' kcal con la prima scelta</small>');return L.join('<br>')}
+  L.push('<b>'+esc(String(S.t||'').toUpperCase())+':</b>');
+  S.op.forEach(function(o,i){var s=nSum(o.it,P);L.push(String.fromCharCode(65+i)+') '+(o.t?'<b>'+esc(o.t.toUpperCase())+'</b> ':'')+esc(o.it.map(function(it){return nItTxt(it,P)}).join(' + '))+(P.prk?' <small>(≈ '+nfmt(s.k)+' kcal · P '+nfmt(s.p)+' g)</small>':''))});
+  return L.join('<br>')}
+function nSheet(P,u){var T=nTarg(P,u),D=T.D;
+  var rows=P.pasti.filter(function(m){return m.on&&m.sez&&m.sez.length}).map(function(m){var mt=T.meal[m.k];
+    return '<tr><td><b>'+esc(m.t.toUpperCase())+'</b>'+(m.ora?'<br>ore '+esc(m.ora):'')+(P.prk&&mt?'<br><small>≈ '+nfmt(mt.k)+' kcal</small>':'')+'</td><td>'+m.sez.map(function(S){return nSecSheet(S,P,mt)}).join('<br><br>')+'</td></tr>'}).join('');
+  var ind=P.pri?'<h3>Indicazioni generali</h3><ul>'+
+    (D.kg?'<li><b>Acqua:</b> '+nfmt(T.acq[0]/1000,1)+'–'+nfmt(T.acq[1]/1000,1)+' litri al giorno, distribuiti nella giornata. Dopo l’allenamento bevi 1,25–1,5 litri per ogni kg di peso perso con il sudore: una perdita oltre il 2% del peso riduce forza, resistenza e coordinazione.</li>':'<li><b>Acqua:</b> 30–35 ml per kg di peso al giorno.</li>')+
+    '<li><b>Proteine:</b> distribuiscile in porzioni simili ogni 3–4 ore'+(D.kg?' ('+nfmt(D.kg*0.25)+'–'+nfmt(D.kg*0.4)+' g per pasto)':' (20–40 g per pasto)')+', da fonti di alto valore biologico.</li>'+
+    '<li><b>Allenamento:</b> carboidrati nel pasto prima e dopo la seduta; evita pasti abbondanti nelle 2 ore precedenti.</li>'+
+    '<li><b>Scelte:</b> in ogni pasto scegli una sola opzione (A, B o C) oppure una fonte di carboidrati e una proteica del piatto. Le grammature sono a crudo e al netto degli scarti, salvo diversa indicazione.</li>'+
+    (P.pasti.some(function(m){return m.on&&m.k==='not'})?'<li><b>Prima di dormire:</b> 30–40 g di caseina 30–90 minuti prima del sonno sostengono la sintesi proteica notturna.</li>':'')+'</ul>':'';
+  var sum=P.prk&&T.kcal?'<p class="nsum"><b>Fabbisogno:</b> '+nfmt(T.kcal)+' kcal · proteine '+nfmt(T.p)+' g · carboidrati '+nfmt(T.c)+' g · grassi '+nfmt(T.f)+' g · '+esc(T.F.t)+'</p>':'';
+  return '<div class="nush"><h1 class="ntit">'+esc(P.nome||'Alimentazione')+' ('+esc(nLong(P.data))+')</h1>'+sum+
+   (rows?'<table class="stab nsht" data-cw="0.2,0.8"><tbody>'+rows+'</tbody></table>':'<p>Nessun pasto compilato.</p>')+
+   (P.nt?'<p><b>Note:</b> '+esc(P.nt)+'</p>':'')+ind+
+   '<p class="status">'+(P.by?'Redatto da '+esc(P.by)+'. ':'')+'Indicazioni alimentari generali per '+esc(u.n+' '+u.c)+'. In presenza di patologie o necessità particolari segui le indicazioni del medico o del professionista della nutrizione.</p></div>'}
+function nPreview(){var P=NU.P,u=find(NU.uid);if(!P||!u)return;
+  modal(nSheet(P,u)+'<p class="status noprn">Premi «Stampa / Salva PDF» e, come stampante, scegli «Salva come PDF».</p><div class="mrow"><button data-act="mclose">Chiudi</button><button data-na="npdf">Scarica PDF</button><button class="pri" data-act="prn">Stampa / Salva PDF</button></div>');
+  document.querySelector('#modal .mbox').classList.add('xl')}
+async function nPdf(share,btn){var P=NU.P,u=find(NU.uid);if(!P||!u)return;
+  var name=('Alimentazione_'+u.n+'_'+u.c+'_'+(P.data||todayIso())).replace(/[^\w\-]+/g,'_')+'.pdf';
+  try{if(btn)btn.disabled=true;
+    var blob=await PDFW.fromHtml(nSheet(P,u),{title:(P.nome||'Alimentazione')+' · '+u.n+' '+u.c,brand:u.n+' '+u.c,size:9.5,tsize:9}),f=new File([blob],name,{type:'application/pdf'});
+    if(share&&navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:P.nome,text:'Ciao '+u.n+', ecco il tuo piano alimentare ('+fdate(P.data)+').'});st('nustat','PDF condiviso.')}
+    else{await saveBlob(blob,name);st('nustat',share?'Questo browser non condivide file: il PDF è stato scaricato, allegalo al messaggio.':'PDF scaricato.')}
+  }catch(e){if(!(e&&e.name==='AbortError'))st('nustat','PDF non creato: '+(e&&e.message||'errore'))}finally{if(btn)btn.disabled=false}}
+
+// apertura dal dettaglio atleta e dalla scheda salvata
+document.addEventListener('click',function(e){var a=e.target.closest('[data-act="nutopen"],[data-act="nutsc"]');if(!a)return;
+  if(a.getAttribute('data-act')==='nutopen'){closeModal();NU.uid=a.getAttribute('data-id');NU.P=null;NU.dirty=false;cur='nut';render();window.scrollTo(0,0);return}
+  var sc=findS(a.getAttribute('data-id'));if(!sc)return;var u=find(sc.uid);if(!u)return;var P=nPlans(u).filter(function(x){return String(x.sid)===String(sc.id)})[0];
+  nOpen(u.id,P?P.id:null,sc.id)});
 </script>
 </body>
 </html>
