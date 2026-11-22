@@ -207,6 +207,7 @@ body.athm .side,body.athm .tabbar{display:none!important}body.athm main{width:10
 .atv{max-width:640px;margin:0 auto;padding:16px 14px 24px;width:100%}.avh{background:#fff;border:1px solid var(--line);border-top:4px solid var(--brand);border-radius:14px;padding:14px 16px;margin-bottom:12px}
 .avh h2{margin:2px 0 4px;font-size:22px}.avd{margin:0;color:var(--muted);font-size:14px}
 .avnet{margin:8px 0 0;font-size:13px;font-weight:600;color:var(--brand)}
+.avfl{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 0}.avfl .btn{flex:1;min-width:140px}
 .sclog{margin-top:18px;border:2px solid var(--brand);border-radius:12px;padding:12px 14px;background:var(--surface)}.sclog h4{margin:0 0 6px}.sclog .lgh{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 0 8px}.sclog .lgh .status{flex:1;margin:0}
 .sclog details{border-top:1px solid var(--line);padding:6px 0}.sclog summary{cursor:pointer;font-weight:700;padding:4px 0}.sclog .xwrap{overflow-x:auto}.sclog table{width:100%;border-collapse:collapse;font-size:14px}.sclog th,.sclog td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}.sclog th{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}.avwk{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}.avwk select{font:inherit;font-weight:700;padding:8px 10px;border-radius:8px;border:1px solid var(--line);background:#fff;color:#0b0b0b}.avwk span{color:var(--muted);font-size:14px}
 .avdl{margin-top:10px;background:#fff4e0;border-left:4px solid #e0a000;padding:8px 12px;border-radius:8px;font-size:14px}
@@ -690,7 +691,7 @@ var Cloud=(function(){
   // Il token è casuale e lungo: chi non ha il link non può leggere nulla, e l'elenco dei link è leggibile solo dal PT (regole di Firestore).
   function lref(t){return F.f.doc(fs,'link',String(t))}
   function logref(t){return F.f.doc(fs,'link',String(t),'r','log')}
-  function linkDoc(o){return {owner:user.uid,sid:String(o.id),on:!o.aoff,j:JSON.stringify(shareData(o,find(o.uid))),t:F.f.serverTimestamp(),ts:Date.now()}}
+  function linkDoc(o){var u=find(o.uid);return {owner:user.uid,sid:String(o.id),on:!o.aoff,j:JSON.stringify(shareData(o,u)),p:JSON.stringify(pubData(o,u)),t:F.f.serverTimestamp(),ts:Date.now()}}
   function linkPut(o){if(!user||!F||!o||!o.atok)return Promise.reject(new Error('nocloud'));return F.f.setDoc(lref(o.atok),linkDoc(o))}
   async function linkLog(t){if(!user||!F)throw new Error('nocloud');var s=await F.f.getDoc(logref(t));if(!s.exists())return null;var x=s.data();return {l:JSON.parse(x.l||'{}'),ts:+x.ts||0}}
   async function linkDrop(sid){if(!user||!F)return;
@@ -5616,24 +5617,32 @@ function waPhone(t){var d=String(t||'').replace(/[^\d+]/g,'');if(!d)return '';
 var SHL=null;
 // Con l'accesso al cloud il link è «sempre aggiornato» (#a=<token>): apre solo questa scheda, letta da link/{token},
 // e i carichi che l'atleta segna arrivano al PT. Senza cloud resta il link «fotografia» (#s=, scheda compressa nell'indirizzo).
-async function shareScheda(id){
-  var sc=findS(id);if(!sc)return;var u=find(sc.uid);
-  if(!flatEs(schedaDays(sc)).length){st('sdstat','La scheda non ha esercizi da condividere.');return}
+// copia della scheda per l’atleta, per creare PDF ed Excel sul suo telefono: senza logica di lavoro né dati dell’anamnesi (solo nome, età e FC a riposo per le zone cardio)
+function pubData(sc,u){var o={};['id','nome','data','deload','cambio','freq','split','days','es','wuL','cdL','wu','cd','car','luogo','heq','v'].forEach(function(k){if(sc[k]!=null)o[k]=sc[k]});
+  return {s:o,u:u?{n:u.n||'',c:u.c||'',eta:ageOf(u),fcr:u.fcr||'',ob:u.ob||[],gara:u.gara||''}:null}}
+async function linkFor(id){
+  var sc=findS(id);if(!sc)return null;var u=find(sc.uid);
   var base=id==='__ed'?(ED.sid?findS(ED.sid):null):sc,live=null,why='';
   if(!base)why='new';
   else if(!(window.Cloud&&Cloud.user()))why='local';
   else{var had=!!base.atok;if(!had)base.atok=newTok();
     try{await Cloud.linkPut(base);live=base;if(!had){try{await Store.put('schede',base)}catch(e){}}}
     catch(e){if(!had)delete base.atok;why=String((e&&e.code)||'').indexOf('permission')>-1?'rules':'net'}}
-  try{SHL={id:id,sc:live||sc,u:u,live:!!live,why:why,tok:live?live.atok:await packLink(shareData(sc,u)),dirty:id==='__ed'&&ED.dirty}}catch(e){st('sdstat','Non riesco a creare il link in questo browser.');return}
+  return {id:id,sc:live||sc,u:u,live:!!live,why:why,tok:live?live.atok:await packLink(shareData(sc,u)),dirty:id==='__ed'&&ED.dirty};
+}
+function linkUrl(L){var b=siteBase();return L&&b?b+(L.live?'#a=':'#s=')+L.tok:''}
+async function shareScheda(id){
+  var sc=findS(id);if(!sc)return;
+  if(!flatEs(schedaDays(sc)).length){st('sdstat','La scheda non ha esercizi da condividere.');return}
+  try{SHL=await linkFor(id)}catch(e){st('sdstat','Non riesco a creare il link in questo browser.');return}
   shareModal();
 }
-function shareLink(){var b=siteBase();return b?b+(SHL.live?'#a=':'#s=')+SHL.tok:''}
+function shareLink(){return linkUrl(SHL)}
 async function shareOnOff(off){if(!SHL||!SHL.live)return;var sc=SHL.sc;st('shst','Aggiorno il link…');
   if(off)sc.aoff=true;else delete sc.aoff;
   try{await Cloud.linkPut(sc);try{await Store.lput('schede',sc)}catch(e){}Cloud.put('schede',sc);shareModal();st('shst',off?'Link disattivato: l’atleta non può più aprire la scheda.':'Link riattivato.')}
   catch(e){if(off)delete sc.aoff;else sc.aoff=true;st('shst','Non riesco ad aggiornare il link: controlla la connessione e riprova.')}}
-function shareMsg(withLink){var u=SHL.u;return 'Ciao'+(u&&u.n?' '+u.n:'')+', ecco la tua scheda «'+SHL.sc.nome+'». Aprila dal telefono: tocca un esercizio per vedere come si esegue e '+(SHL.live?'segna kg e ripetizioni di ogni serie: arrivano direttamente a me.':'segna le serie fatte.')+(withLink?'\n'+shareLink():'')}
+function shareMsg(withLink){var u=SHL.u;return 'Ciao'+(u&&u.n?' '+u.n:'')+', ecco la tua scheda «'+SHL.sc.nome+'». Aprila dal telefono: tocca un esercizio per vedere come si esegue e '+(SHL.live?'segna kg e ripetizioni di ogni serie: arrivano direttamente a me. Dal link puoi scaricare anche il PDF e il file Excel.':'segna le serie fatte.')+(withLink?'\n'+shareLink():'')}
 function shareModal(){
   var link=shareLink(),u=SHL.u,ph=waPhone(u&&u.t),back='<button data-act="shback">← Torna alla scheda</button>';
   if(!link){
@@ -5709,6 +5718,12 @@ function avPush(){clearTimeout(AVQ);if(!AV||!AV.live)return;var js=JSON.stringif
    function(e){avNet('⚠ Carichi non inviati ('+String((e&&e.code)||'errore').replace(/^firestore\//,'')+'): restano su questo telefono, riprovo tra poco.');AVQ=setTimeout(avPush,20000)})}
 function avMerge(r,l){var o=JSON.parse(JSON.stringify(r||{})),has=function(a){return Array.isArray(a)&&a.some(function(x){return x&&(x.kg||x.rp||x.ok)})};
   Object.keys(l||{}).forEach(function(w){o[w]=o[w]||{};Object.keys(l[w]||{}).forEach(function(k){if(has(l[w][k])||!o[w][k])o[w][k]=l[w][k]})});return o}
+// PDF ed Excel creati sul telefono dell’atleta dalla copia della scheda (link/{token}.p): gli stessi file che il PT manderebbe; l’Excel ha i carichi segnati
+async function avFile(pdf){if(!AV||!AV.P)return;var b=gid('avfst');if(b)b.textContent=pdf?'Preparo il PDF…':'Preparo il file Excel…';
+  try{var sc=JSON.parse(JSON.stringify(AV.P.s)),u=AV.P.u;sc.id=sc.id||'avp';ALOG[sc.id]={l:AVL,ts:0};
+    var nm=fileBase(sc,u),f=pdf?new File([await PDFW.fromHtml('<h1>'+esc(sc.nome)+'</h1>'+schedaBody(sc,u),{title:(sc.nome||'Scheda')+(u?' · '+u.n+' '+u.c:''),brand:u?u.n+' '+u.c:'Scheda di allenamento'})],nm+'.pdf',{type:'application/pdf'}):new File([xlsxScheda(sc,u)],nm+'.xlsx',{type:XLT});
+    await saveBlob(f,f.name);if(b)b.textContent=(pdf?'PDF':'File Excel')+' scaricato: '+f.name+(pdf?'':' (con i carichi che hai segnato).')}
+  catch(e){if(b)b.textContent='Non riesco a creare il file su questo telefono ('+((e&&e.message)||'errore')+'). Prova da Safari o Chrome.'}}
 function avFail(t){gid('main').innerHTML='<div class="atv"><div class="warn">'+t+'</div></div>'}
 async function athleteLive(tok){
   var ck='spk_al_'+tok,cache=null,remote=null,off=false,x=null;try{cache=localStorage.getItem(ck)}catch(e){}
@@ -5721,12 +5736,13 @@ async function athleteLive(tok){
     if(!d.exists()){try{localStorage.removeItem(ck)}catch(e){}return avFail('<b>Questa scheda non è più disponibile.</b> Chiedi al tuo Personal Trainer il link della scheda nuova.')}
     x=d.data();if(x.on===false)return avFail('<b>Il tuo Personal Trainer ha disattivato questo link.</b> Se ti serve la scheda, chiediglielo di nuovo.');
     try{var r=await mm[1].getDoc(mm[1].doc(fs,'link',tok,'r','log'));if(r.exists())remote=JSON.parse(r.data().l||'{}')}catch(e){}
-    try{localStorage.setItem(ck,x.j)}catch(e){}
+    try{localStorage.setItem(ck,JSON.stringify({j:x.j,p:x.p||''}))}catch(e){}
   }catch(e){var c=String((e&&e.code)||(e&&e.message)||e).replace(/^firestore\//,'');
     if(c==='permission-denied')return avFail('<b>Il link non è ancora attivo.</b> Avvisa il tuo Personal Trainer (deve aggiornare le impostazioni del cloud).<p class="status" style="font-size:12px;margin:8px 0 0">Dettaglio per il PT: permission-denied sul documento link.</p>');
     if(!cache)return avFail('<b>Non riesco a scaricare la scheda.</b> Controlla la connessione a internet e riapri il link.<p class="status" style="font-size:12px;margin:8px 0 0">Dettaglio per il PT: '+esc(c)+'</p>');
     AVC=null;off=true}
-  try{AV=avFix(JSON.parse(x?x.j:cache))}catch(e){return avFail('<b>Non riesco ad aprire questa scheda.</b> Chiedi al tuo Personal Trainer di mandare un link nuovo.')}
+  var cj=null;if(!x&&cache){try{cj=JSON.parse(cache)}catch(e){}if(!(cj&&cj.j))cj={j:cache,p:''}}
+  try{AV=avFix(JSON.parse(x?x.j:cj.j));try{var pp=x?x.p:cj.p;AV.P=pp?JSON.parse(pp):null}catch(e){AV.P=null}}catch(e){return avFail('<b>Non riesco ad aprire questa scheda.</b> Chiedi al tuo Personal Trainer di mandare un link nuovo.')}
   AV.tok=tok;AV.live=true;document.title=AV.n+' · S.peaking';
   var sv=null;try{sv=JSON.parse(localStorage.getItem(avKey())||'null')}catch(e){}
   AVL=avMerge(remote,sv&&sv.l);AVLP=remote?JSON.stringify(remote):'';AVS={day:sv&&sv.s?Math.min(sv.s.day||0,Math.max(0,AV.D.length-1)):0,wk:avNowWk()};
@@ -5767,6 +5783,7 @@ function avRender(){
   var h='<div class="atv"><div class="avh"><div class="kick">'+(AV.a?'Ciao '+esc(AV.a)+' · ':'')+'la tua scheda</div><h2>'+esc(AV.n)+'</h2>'+
    '<p class="avd">'+(AV.d?'Inizio '+fdate(AV.d):'')+(AV.c?' · cambio scheda '+fdate(AV.c):'')+'</p>'+
    '<div class="avwk"><select id="avwk" aria-label="Settimana">'+wopt+'</select>'+(ws?'<span>dal '+fdate(ws).slice(0,5)+' al '+fdate(addDays(ws,6)).slice(0,5)+'</span>':'')+'</div>'+
+   (AV.P?'<div class="avfl"><button type="button" class="btn sm" data-act="avpdf">📄 Scarica il PDF</button><button type="button" class="btn sm" data-act="avxls">📊 Scarica l’Excel</button></div><p class="status" id="avfst" role="status" style="margin:6px 0 0;font-size:13px"></p>':'')+
    (AV.live?'<p class="avnet" id="avnet" role="status">'+esc(AVNT||'I kg e le ripetizioni che segni arrivano in automatico al tuo PT.')+'</p>':'')+
    (wk===dw?'<div class="avdl">Settimana di scarico: stessi esercizi, circa metà delle serie e carichi più leggeri (RPE 6–7).</div>':'')+'</div>'+
    (D.length>1?'<div class="avtabs" role="tablist">'+D.map(function(x,j){return '<button role="tab" data-avd="'+j+'" aria-selected="'+(j===di)+'">'+esc(x[0]||'Seduta '+(j+1))+'</button>'}).join('')+'</div>':'')+
@@ -5820,6 +5837,7 @@ document.addEventListener('click',function(e){
       var ss=c.querySelector('.avss');if(rc>0&&!ss)avTimer(rc)}
     return}
   var a=t.closest('[data-act]');if(!a)return;var k=a.getAttribute('data-act');
+  if(k==='avpdf'||k==='avxls'){avFile(k==='avpdf');return}
   if(k==='avt15'&&AVT){AVT.end=Math.max(AVT.end,Date.now())+15000;clearInterval(AVT.iv);avTimer(Math.ceil((AVT.end-Date.now())/1000))}
   else if(k==='avtx'){clearInterval(AVT&&AVT.iv);gid('avt').hidden=true}
   else if(k==='avsend'){var txt=avResults();if(navigator.share)navigator.share({title:AV.n,text:txt}).catch(function(){});else window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank')}
@@ -6838,27 +6856,44 @@ var SNDX=null;
 async function schedaFiles(sc,u,gloss){var nm=fileBase(sc,u);
   var pdf=await PDFW.fromHtml('<h1>'+esc(sc.nome)+'</h1>'+schedaBody(sc,u),{title:(sc.nome||'Scheda')+(u?' · '+u.n+' '+u.c:''),brand:u?u.n+' '+u.c:'Scheda di allenamento',gloss:gloss});
   return [new File([pdf],nm+'.pdf',{type:'application/pdf'}),new File([xlsxScheda(sc,u)],nm+'.xlsx',{type:XLT})]}
-function sndMsg(){var sc=SNDX&&SNDX.sc,u=SNDX&&SNDX.u;if(!sc)return '';return 'Ciao'+(u&&u.n?' '+u.n:'')+', ti invio la scheda di allenamento «'+sc.nome+'» (inizio '+fdate(sc.data)+(sc.cambio?', cambio scheda il '+fdate(sc.cambio):'')+').\nIn allegato il PDF da consultare e il file Excel per segnare carichi e ripetizioni settimana per settimana.'}
+// il messaggio contiene sempre il link della scheda; con il link sempre aggiornato PDF ed Excel l’atleta li scarica dal link (WhatsApp non accetta allegati da un sito)
+function sndLive(){return !!(SNDX&&SNDX.lk&&SNDX.lk.live&&!SNDX.lk.sc.aoff)}
+function sndMsg(files){var sc=SNDX&&SNDX.sc,u=SNDX&&SNDX.u;if(!sc)return '';var url=SNDX.lk?linkUrl(SNDX.lk):'';
+  return 'Ciao'+(u&&u.n?' '+u.n:'')+', ecco la tua scheda di allenamento «'+sc.nome+'» (inizio '+fdate(sc.data)+(sc.cambio?', cambio scheda il '+fdate(sc.cambio):'')+').'+
+   (url?'\n\n👉 Aprila da qui: '+url:'')+
+   (url&&sndLive()?'\n\nDal link scarichi anche il PDF e il file Excel, e per ogni serie segni kg e ripetizioni: arrivano direttamente a me.':'')+
+   (files?'\n\nIn allegato trovi anche il PDF e il file Excel.':(url&&!sndLive()?'\n\nTi mando anche il PDF da consultare e il file Excel per segnare i carichi.':''))}
 function sndPrep(){if(!SNDX)return;var gl=gid('snd_gl'),k=++SNDX.k;SNDX.files=null;sndBtns(false);st('snd_st','Preparo il PDF e il file Excel…');
   SNDX.p=schedaFiles(SNDX.sc,SNDX.u,gl&&gl.checked).then(function(f){if(!SNDX||SNDX.k!==k)return;SNDX.files=f;sndBtns(true);st('snd_st','PDF ('+Math.max(1,Math.round(f[0].size/1024))+' KB) ed Excel pronti. '+SNDHELP)},function(e){if(SNDX&&SNDX.k===k)st('snd_st','Non riesco a preparare il PDF in questo browser ('+((e&&e.message)||'errore')+'): usa «Stampa / Esporta PDF».')})}
 var SNDHELP='Sul telefono «Condividi i file» li manda direttamente in WhatsApp, Mail o un’altra app (scegli tu il contatto). WhatsApp ed email non permettono a un sito di allegare i file da soli: con «WhatsApp al numero» ed «Email» i due file si scaricano e si apre la chat o l’email già indirizzata, poi li alleghi con 📎.';
+function sndLinkInfo(){var e=gid('snd_lk');if(!e||!SNDX)return;var L=SNDX.lk;
+  if(!L){e.className='status';e.textContent='Preparo il link della scheda…';return}
+  if(sndLive()){e.className='info';e.innerHTML='<b>Il messaggio contiene il link della scheda.</b> Dal link l’atleta apre solo la sua scheda e scarica il PDF e il file Excel (sempre aggiornati, l’Excel con i carichi che ha segnato): non serve allegarli. Con «WhatsApp al numero» ed «Email» si apre la chat o l’email con il messaggio già scritto: basta premere Invia.';return}
+  e.className='warn';e.innerHTML=(L.live&&L.sc.aoff?'Il link dell’atleta è <b>disattivato</b>: riattivalo da «📲 Condividi con l’atleta». ':'')+(linkUrl(L)?'Nel messaggio c’è il link «fotografia» della scheda, ma i file vanno allegati a mano: ':'Manca l’indirizzo del sito pubblicato, quindi il messaggio non ha il link: ')+(L.why==='rules'?'pubblica le nuove regole di Firestore per il link sempre aggiornato con PDF ed Excel. ':L.why==='local'?'accedi al cloud per il link sempre aggiornato con PDF ed Excel. ':L.why==='new'?'salva la scheda per il link sempre aggiornato con PDF ed Excel. ':'')}
 function sndBtns(on){[].forEach.call(document.querySelectorAll('#modal [data-snd]'),function(b){b.disabled=!on})}
-function sendModal(id){var sc=findS(id);if(!sc)return;var u=find(sc.uid);SNDX={id:id,sc:sc,u:u,k:0};
+function sendModal(id){var sc=findS(id);if(!sc)return;var u=find(sc.uid);var X=SNDX={id:id,sc:sc,u:u,k:0,lk:null};
+  X.lp=linkFor(id).then(function(L){X.lk=L;sndLinkInfo();return L},function(){X.lk={live:false,tok:'',why:'net',sc:sc};sndLinkInfo()});
   modal('<h3>Invia PDF ed Excel</h3><p class="sub" style="margin:0 0 10px">'+esc(sc.nome)+(u?' · '+esc(u.n+' '+u.c):'')+(id==='__ed'&&ED.dirty?' · <b>con le modifiche non ancora salvate</b>':'')+'</p>'+
    '<div class="fg">'+fld('snd_tel','WhatsApp: numero di telefono',u&&u.t||'','tel',' placeholder="es. 333 1234567" autocomplete="off"')+fld('snd_mail','Email',u&&u.e||'','email',' placeholder="nome@esempio.it" autocomplete="off"')+'</div>'+
+   '<div id="snd_lk" class="status" style="margin:0 0 10px">Preparo il link della scheda…</div>'+
    '<label class="ychk"><input type="checkbox" id="snd_gl"> Aggiungi il glossario dei termini tecnici al PDF</label>'+
    '<div class="shb">'+(canShareFiles()?'<button class="shx pri" data-snd data-act="sndsh" disabled>📤 Condividi i file</button>':'')+'<button class="shx wa" data-snd data-act="sndwa" disabled>WhatsApp al numero</button><button class="shx" data-snd data-act="sndml" disabled>Email (app di posta)</button><button class="shx" data-snd data-act="sndgm" disabled>Gmail</button><button class="shx" data-snd data-act="sndpdf" disabled>Scarica PDF</button><button class="shx" data-snd data-act="sndxl" disabled>Scarica Excel</button></div>'+
    '<p class="status" id="snd_st" role="status"></p><div class="mrow"><button data-act="sndback">← Torna alla scheda</button><button data-act="mclose">Chiudi</button></div>');
   document.querySelector('#modal .mbox').classList.add('shm');sndPrep()}
 async function sndDl(files){for(var i=0;i<files.length;i++){await saveBlob(files[i],files[i].name);if(i<files.length-1)await new Promise(function(r){setTimeout(r,400)})}}
-async function sndDo(k){if(!SNDX||!SNDX.files)return;var F=SNDX.files,tel=(gid('snd_tel').value||'').trim(),ml=(gid('snd_mail').value||'').trim(),tx=sndMsg(),sj='Scheda di allenamento · '+SNDX.sc.nome;
+async function sndDo(k){if(!SNDX||!SNDX.files)return;var w0=(k==='sndwa'&&waPhone((gid('snd_tel').value||'').trim()))||(k==='sndgm'&&/@/.test(gid('snd_mail').value||''))?window.open('','_blank'):null;
+  if(!SNDX.lk&&k!=='sndpdf'&&k!=='sndxl'){st('snd_st','Preparo il link…');try{await SNDX.lp}catch(e){}}
+  var F=SNDX.files,tel=(gid('snd_tel').value||'').trim(),ml=(gid('snd_mail').value||'').trim(),live=sndLive(),tx=sndMsg(false),sj='Scheda di allenamento · '+SNDX.sc.nome;
   if(k==='sndpdf'||k==='sndxl'){try{await saveBlob(F[k==='sndpdf'?0:1],F[k==='sndpdf'?0:1].name);st('snd_st','File scaricato: '+F[k==='sndpdf'?0:1].name+'.')}catch(e){st('snd_st','Download non riuscito.')}return}
-  if(k==='sndsh'){try{await navigator.share({files:F,title:sj,text:tx});st('snd_st','File inviati.')}catch(e){if(!(e&&e.name==='AbortError'))st('snd_st','Condivisione non riuscita: usa «Scarica PDF» e «Scarica Excel».')}return}
+  if(k==='sndsh'){try{await navigator.share({files:F,title:sj,text:sndMsg(true)});st('snd_st','File inviati.')}catch(e){if(!(e&&e.name==='AbortError'))st('snd_st','Condivisione non riuscita: usa «Scarica PDF» e «Scarica Excel».')}return}
   if(k==='sndwa'){var p=waPhone(tel);if(!p){st('snd_st','Scrivi il numero di telefono per WhatsApp.');gid('snd_tel').focus();return}
-    var w=window.open('','_blank');try{await sndDl(F)}catch(e){}var url='https://wa.me/'+p+'?text='+encodeURIComponent(tx+'\n(PDF ed Excel allegati)');if(w)w.location.href=url;else location.href=url;
+    var w=w0,url='https://wa.me/'+p+'?text='+encodeURIComponent(tx);
+    if(live){if(w)w.location.href=url;else location.href=url;st('snd_st','Chat WhatsApp di '+tel+' aperta con il messaggio e il link: premi Invia. PDF ed Excel l’atleta li scarica dal link.');return}
+    try{await sndDl(F)}catch(e){}if(w)w.location.href=url;else location.href=url;
     st('snd_st','PDF ed Excel scaricati. Nella chat WhatsApp di '+tel+' tocca 📎 → Documento e allega i due file ('+F[0].name+', '+F[1].name+').');return}
   if(k==='sndml'||k==='sndgm'){if(!/@/.test(ml)){st('snd_st','Scrivi l’indirizzo email.');gid('snd_mail').focus();return}
-    var bd=tx+'\n\nAllegati: '+F[0].name+', '+F[1].name;if(k==='sndgm')window.open(gmailHref(ml,sj,bd),'_blank');else location.href=mailHref(ml,sj,bd);
+    var bd=live?tx:tx+'\n\nAllegati: '+F[0].name+', '+F[1].name;if(k==='sndgm'){if(w0)w0.location.href=gmailHref(ml,sj,bd);else window.open(gmailHref(ml,sj,bd),'_blank')}else location.href=mailHref(ml,sj,bd);
+    if(live){st('snd_st','Email a '+ml+' aperta con il messaggio e il link: premi Invia. PDF ed Excel l’atleta li scarica dal link.');return}
     try{await sndDl(F)}catch(e){}
     st('snd_st','Email a '+ml+' aperta'+(k==='sndgm'?' in Gmail':'')+' e PDF ed Excel scaricati: allega i due file con 📎 prima di inviare. Se l’app di posta non si apre, usa «Gmail» o, sul telefono, «Condividi i file».')}}
 document.addEventListener('click',function(e){var a=e.target.closest('[data-act]');if(!a)return;var k=a.getAttribute('data-act');

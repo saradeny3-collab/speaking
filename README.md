@@ -200,11 +200,13 @@ I 191 di base comprendono gli esercizi originali, il **repertorio del corso Pers
 ## Legenda e glossario
 La legenda mostra solo i **nomi degli esercizi come pulsanti**: un clic apre la tendina con la spiegazione completa («Apri tutte» per aprirle insieme; in stampa e PDF escono tutte aperte). Per ogni esercizio: tipo e attrezzatura, scopo funzionale, muscoli target primari e secondari, postura e assetto iniziale, fase eccentrica e concentrica, respirazione, sicurezza. In fondo alla scheda c'è il pulsante **📖 Glossario dei termini tecnici** (1RM, RIR, RPE, superserie, MEV/MRV, deload, Valsalva, DOMS…): resta chiuso e si apre solo con un clic. In stampa e PDF esce solo se l'hai aperto.
 
-## Invio di PDF ed Excel (nuovo)
-Alla fine del generatore **«Salva e invia PDF · Excel»**, nella scheda salvata **«📤 Invia PDF ed Excel»**, nell’editor **«📤 Invia PDF · Excel»** (anche con le modifiche non salvate).
-- Il **PDF** è un file vero, creato nel browser (A4, testo selezionabile, intestazione e numeri di pagina), con tutto il contenuto della stampa; il glossario solo se spunti la casella. L’**Excel** è quello di sempre.
-- Numero di telefono ed email sono quelli dell’anamnesi (modificabili). Pulsanti: **Condividi i file** (sul telefono: WhatsApp, Mail o altra app con i due file allegati), **WhatsApp al numero**, **Email**, **Scarica PDF**, **Scarica Excel**.
-- WhatsApp ed email non permettono a un sito di allegare file da soli: con «WhatsApp al numero» ed «Email» i due file si scaricano e si apre la chat o l’email già indirizzata con il messaggio; poi si allegano con 📎.
+## Invio di PDF ed Excel (aggiornato)
+Alla fine del generatore **«Salva e invia PDF · Excel»**, nella scheda salvata **«📤 Invia PDF ed Excel»**, nell’editor **«📤 Invia PDF · Excel»**.
+- **Il messaggio contiene sempre il link della scheda** («👉 Aprila da qui: …»), con WhatsApp al numero, Email, Gmail e Condividi i file.
+- **PDF ed Excel arrivano con il link**: nella pagina della sua scheda l’atleta ha **«📄 Scarica il PDF»** e **«📊 Scarica l’Excel»**. I file si creano sul suo telefono, sono sempre quelli della versione salvata più recente e l’Excel ha già i carichi che ha segnato. Con «WhatsApp al numero» ed «Email» si apre la chat o l’email con il messaggio già scritto: basta premere Invia, senza allegare nulla.
+- WhatsApp ed email non permettono a un sito di allegare file a un messaggio. Per questo i file stanno nel link. Se vuoi comunque mandarli come allegati: sul telefono **«Condividi i file»** (WhatsApp, Mail…), oppure **Scarica PDF** e **Scarica Excel**.
+- Senza il link sempre aggiornato (niente accesso al cloud, scheda non salvata, regole di Firestore vecchie) la finestra lo dice: il messaggio ha il link «fotografia» e i file si scaricano per allegarli con 📎.
+- Il **PDF** è creato nel browser (A4, testo selezionabile, intestazione e numeri di pagina); il glossario solo se spunti la casella. Numero di telefono ed email vengono dall’anamnesi (modificabili).
 
 ## Esportazione della scheda
 Dalla scheda salvata o dall'editor:
