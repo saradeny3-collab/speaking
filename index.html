@@ -293,7 +293,8 @@ body.athm .side,body.athm .tabbar{display:none!important}body.athm main{width:10
 .gls{display:grid;gap:8px 22px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));margin:0;font-size:14px}.gls dt{font-weight:800}.gls dd{margin:0 0 4px;color:var(--muted)}
 .achips{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 10px;margin:0 0 14px;-webkit-overflow-scrolling:touch}
 .achip{display:flex;align-items:center;gap:9px;flex-shrink:0;border:1.5px solid var(--line);background:var(--surface);color:var(--text);border-radius:99px;padding:5px 16px 5px 5px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;text-align:left}
-.achip .av{width:32px;height:32px;font-size:12px}.achip small{display:block;font-weight:500;font-size:12px;color:var(--muted)}
+.achip .av{width:32px;height:32px;font-size:12px}
+.av.f{background:#4B0082}.av.m{background:#000}.av.nd{background:#fff;border:2px solid #9a9a9a}.achip small{display:block;font-weight:500;font-size:12px;color:var(--muted)}
 .achip[aria-pressed="true"]{border-color:var(--brand);background:var(--brand-soft);box-shadow:inset 0 0 0 1px var(--brand)}
 .edtop{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px}.edtop .sp{flex:1}.edtop .fl{min-width:240px}
 .edset summary,.edfold summary{cursor:pointer;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}.edset summary .status,.edfold summary .status{margin:0}
@@ -486,7 +487,7 @@ main,.stage.tablet main{padding:0!important}
 h2,h3,b,.cells b{color:#000!important}
 .sub,.status,.cells,.cells span,.uhead{color:#333!important}
 .urow,.trend{background:#fff!important;border:1px solid #888!important;break-inside:avoid}
-.av{background:#fff!important;color:#000!important;border:1px solid #000}
+.av{-webkit-print-color-adjust:exact;print-color-adjust:exact;border:1px solid #000}.av.f{background:#4B0082!important}.av.m{background:#000!important}.av.nd{background:#fff!important}
 .dc{background:#fff!important;color:#000!important;border:1px solid #000}
 .modal{position:static!important;background:none!important;padding:0!important;display:block!important}
 .mbox{background:#fff!important;color:#000!important;max-width:none!important;max-height:none!important;overflow:visible!important;padding:0!important}
@@ -845,7 +846,7 @@ function listUtenti(){
      '<div class="info" style="margin-top:0">I clienti restano nel browser in cui li hai inseriti e non passano da soli da un dispositivo all’altro (né tra due browser dello stesso telefono). Se li hai già inseriti sul PC: lì <b>Backup → Esporta backup (JSON)</b>, manda il file al telefono, poi qui <b>Backup → Importa backup</b>.'+(isPT()?'<div style="margin-top:10px"><button type="button" class="btn sm pri" data-act="imp">Importa backup</button></div>':'')+'</div>'));
   h += L.map(function(u){
     return '<div class="urow'+(sel[u.id]?' sel':'')+'" data-row="'+esc(u.id)+'">'+(dm?'<input type="checkbox"'+(sel[u.id]?' checked':'')+' aria-label="Seleziona">':'')+
-    '<div class="av">'+esc((u.n[0]||'')+(u.c[0]||'')).toUpperCase()+'</div><div class="cells"><div class="unm"><b>'+esc(u.n+' '+u.c)+'</b>'+(hasDoc(u)?'<i class="dc">documento</i>':'')+'<div class="ubd">'+badges(u)+'</div></div>'+
+    '<div class="av '+avSx(u)+'" title="'+esc(u.sx||'Sesso non indicato')+'" aria-label="'+esc(u.sx||'Sesso non indicato')+'"></div><div class="cells"><div class="unm"><b>'+esc(u.n+' '+u.c)+'</b>'+(hasDoc(u)?'<i class="dc">documento</i>':'')+'<div class="ubd">'+badges(u)+'</div></div>'+
     '<span data-l="Età">'+(ageOf(u)!==''?ageOf(u)+' anni':'—')+'</span><span data-l="Obiettivi">'+esc(u.ob&&u.ob.length?u.ob.join(', '):'—')+'</span><span data-l="Livello">'+esc(u.liv?u.liv.split(' ')[0]:'—')+'</span><span data-l="Telefono">'+esc(u.t||'—')+'</span><span data-l="Email">'+esc(u.e||'—')+'</span></div></div>';
   }).join('');
   document.getElementById('ulist').innerHTML = h;
@@ -1511,11 +1512,12 @@ function renderSchede(){
    '<div class="trend"><h3>Andamento esercizi</h3><input class="search" id="esearch" type="search" placeholder="Cerca un esercizio…" value="'+esc(eq)+'" style="margin-bottom:8px"><div class="chips" id="echips"></div><div id="echart"></div></div>';
   listSchede();drawTrend();
 }
+function avSx(u){return u&&u.sx==='Donna'?'f':u&&u.sx==='Uomo'?'m':'nd'}
 function listSU(){
   var q=sq.toLowerCase().trim(),L=U.filter(function(u){return !q||(u.n+' '+u.c).toLowerCase().indexOf(q)>-1}).sort(function(a,b){return (a.c+a.n).localeCompare(b.c+b.n)});
   document.getElementById('sucount').textContent=L.length+(L.length===1?' cliente':' clienti');
   document.getElementById('sulist').innerHTML=L.length?L.map(function(u){var sc=schedeOf(u.id);
-    return '<div class="urow" data-su="'+esc(u.id)+'" style="cursor:pointer"><div class="av">'+esc((u.n[0]||'')+(u.c[0]||'')).toUpperCase()+'</div><div class="cells two"><b>'+esc(u.n+' '+u.c)+'</b><span>'+(sc.length?sc.length+(sc.length===1?' scheda':' schede')+' · ultima del '+fdate(sc[0].data):'Nessuna scheda')+'</span></div></div>'}).join(''):'<div class="empty">Nessun cliente. Aggiungili dalla Home con «+ Nuovo Cliente».</div>';
+    return '<div class="urow" data-su="'+esc(u.id)+'" style="cursor:pointer"><div class="av '+avSx(u)+'" title="'+esc(u.sx||'Sesso non indicato')+'" aria-label="'+esc(u.sx||'Sesso non indicato')+'"></div><div class="cells two"><b>'+esc(u.n+' '+u.c)+'</b><span>'+(sc.length?sc.length+(sc.length===1?' scheda':' schede')+' · ultima del '+fdate(sc[0].data):'Nessuna scheda')+'</span></div></div>'}).join(''):'<div class="empty">Nessun cliente. Aggiungili dalla Home con «+ Nuovo Cliente».</div>';
 }
 function listSchede(){
   if(!find(suid)||!document.getElementById('slist'))return;
@@ -5200,7 +5202,7 @@ function edFill(tr,x){[].forEach.call(tr.querySelectorAll('[data-f]'),function(e
 function edChips(){var b=gid('edchips');if(!b)return;var q=ED.q.toLowerCase().trim();
   var L=U.filter(function(u){return !q||(u.n+' '+u.c).toLowerCase().indexOf(q)>-1}).sort(function(a,b){return (a.c+a.n).localeCompare(b.c+b.n)});
   b.innerHTML=L.length?L.map(function(u){var n=schedeOf(u.id).length;
-    return '<button type="button" class="achip" data-eda="'+esc(u.id)+'" aria-pressed="'+(String(u.id)===String(ED.uid))+'"><span class="av">'+esc(((u.n[0]||'')+(u.c[0]||'')).toUpperCase())+'</span><span>'+esc(u.n+' '+u.c)+'<small>'+(n?n+(n===1?' scheda':' schede'):'nessuna scheda')+'</small></span></button>'}).join(''):'<span class="status">Nessun atleta trovato.</span>';
+    return '<button type="button" class="achip" data-eda="'+esc(u.id)+'" aria-pressed="'+(String(u.id)===String(ED.uid))+'"><span class="av '+avSx(u)+'" title="'+esc(u.sx||'Sesso non indicato')+'" aria-label="'+esc(u.sx||'Sesso non indicato')+'"></span><span>'+esc(u.n+' '+u.c)+'<small>'+(n?n+(n===1?' scheda':' schede'):'nessuna scheda')+'</small></span></button>'}).join(''):'<span class="status">Nessun atleta trovato.</span>';
 }
 function edF(k,l,v,t){return '<label class="fl">'+l+'<input data-sf="'+k+'" type="'+(t||'text')+'" value="'+esc(v||'')+'"></label>'}
 function edA(k,l,v,act){return '<div class="fl full"><span>'+l+(act?' <button type="button" class="mini" data-act="'+act+'">Scrivi in automatico</button>':'')+'</span><textarea data-sf="'+k+'" aria-label="'+esc(l)+'">'+esc(v||'')+'</textarea></div>'}

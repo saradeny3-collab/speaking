@@ -231,6 +231,8 @@ In home il pulsante **Elenco atleti ▾** esporta tutti gli atleti in ordine di 
 I dati vengono dall’anamnesi («Contatti e dati personali»): i campi vuoti escono vuoti. È un file con dati personali: conservalo e invialo con cura.
 
 ## Stato degli atleti
+Nell’elenco ogni atleta ha un pallino senza lettere: **viola** per le donne, **nero** per gli uomini, vuoto con il bordo grigio se il sesso non è indicato nell’anamnesi (anche nei pulsanti degli atleti dell’editor e in stampa).
+
 Calcolato dalla scheda più recente di ogni atleta (data di cambio scheda, o 6 settimane dall'inizio se manca):
 - **Attivi**: cambio scheda non ancora raggiunto.
 - **In scadenza**: cambio scheda, fine dello stop medico per infortunio o scadenza del certificato medico entro **10 giorni** o già superati. In home il riquadro «⚠ Scadenze entro 10 giorni» le elenca dalla più vicina (un clic sul nome apre l’atleta); ogni atleta ha l’etichetta precisa («Scheda tra 9 gg», «Stop infortunio tra 5 gg», «Certificato scaduto»…) e il dettaglio atleta mostra tutte le date.
