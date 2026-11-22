@@ -475,7 +475,7 @@ body.athm .side,body.athm .tabbar{display:none!important}body.athm main{width:10
 @media print{.ylogo,.ylogs{filter:none}}
 .nchips{display:flex;flex-wrap:wrap;gap:6px}.nch{border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:99px;padding:7px 14px;font:inherit;font-size:14px;font-weight:600;cursor:pointer}.nch[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#fff}
 .nrc{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:6px 0}.nrc.ok{border-color:var(--acc,#4B0082)}.nrc span{font-size:13px}.nrc small{color:var(--muted,#555)}.nrc button{flex:none}.nporz{margin-top:12px}.ndisc{font-size:12.5px}
-.nsec{border-top:1px solid var(--line);padding-top:12px;margin-top:12px}.nsec:first-of-type{border-top:0;margin-top:0;padding-top:0}
+.nsec{border-top:1px solid var(--line);padding-top:12px;margin-top:12px}.nwtabs{margin:12px 0 4px}.nwsel{display:flex;gap:8px;align-items:center;margin:0 0 8px}.nwsel select{flex:1;min-width:0;font:15px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text)}.nwt{width:100%;margin:0 0 6px}.avnm ul{margin:4px 0 6px;padding-left:20px}body.athm main{min-width:0;max-width:100vw}.avnut{min-width:0}.avnut .nsht{table-layout:fixed;width:100%}.avnut .nsht td{overflow-wrap:anywhere;white-space:normal!important}.avnut .lgb{columns:auto!important}.avnut .nush .ntit{font-size:17px}.avnm li{margin:2px 0}.nsec:first-of-type{border-top:0;margin-top:0;padding-top:0}
 .nsh{display:flex;gap:8px;align-items:center;margin-bottom:6px}.nst{flex:1;min-width:0;font:inherit;font-weight:800;font-size:16px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text)}
 .nop{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:8px 0;background:var(--bg)}.noh{display:flex;gap:8px;align-items:center;margin-bottom:8px}.noh b{font-size:17px}.nott{flex:1;min-width:0}
 .ngrp{margin:10px 0}.ngrp>b{display:inline-block;margin-bottom:6px}
@@ -716,6 +716,8 @@ var Cloud=(function(){
   function linkDoc(o){var u=find(o.uid);return {owner:user.uid,sid:String(o.id),on:!o.aoff,j:JSON.stringify(shareData(o,u)),p:JSON.stringify(pubData(o,u)),t:F.f.serverTimestamp(),ts:Date.now()}}
   function linkPut(o){if(!user||!F||!o||!o.atok)return Promise.reject(new Error('nocloud'));return F.f.setDoc(lref(o.atok),linkDoc(o))}
   async function linkLog(t){if(!user||!F)throw new Error('nocloud');var s=await F.f.getDoc(logref(t));if(!s.exists())return null;var x=s.data();return {l:JSON.parse(x.l||'{}'),ts:+x.ts||0}}
+  function linkSet(t,o){if(!user||!F)return Promise.reject(new Error('nocloud'));return F.f.setDoc(lref(t),Object.assign({},o,{owner:user.uid,t:F.f.serverTimestamp(),ts:Date.now()}))}
+  function linkRm(t){if(!user||!F||!t)return Promise.resolve();return F.f.deleteDoc(lref(t)).catch(function(){})}
   async function linkDrop(sid){if(!user||!F)return;
     try{var s=await F.f.getDocs(F.f.query(F.f.collection(fs,'link'),F.f.where('owner','==',user.uid))),L=[];s.forEach(function(d){if(String((d.data()||{}).sid)===String(sid))L.push(d.id)});
       for(var t of L){try{await F.f.deleteDoc(logref(t))}catch(e){}try{await F.f.deleteDoc(lref(t))}catch(e){}}}catch(e){}}
@@ -798,7 +800,7 @@ var Cloud=(function(){
     if(/unauthorized-domain|requests-from-referer/.test(c))return 'Questo indirizzo non è tra i domini autorizzati di Firebase (Authentication → Settings → Domini autorizzati).';
     return 'Accesso non riuscito ('+(c||(e&&e.message)||'errore')+').'}
   return {
-    load:load,put:put,del:del,sync:sync,linkPut:linkPut,linkLog:linkLog,upload:upload,status:status,aerr:aerr,
+    load:load,put:put,del:del,sync:sync,linkPut:linkPut,linkSet:linkSet,linkRm:linkRm,linkLog:linkLog,upload:upload,status:status,aerr:aerr,
     user:function(){return user},pending:function(){return pend},localOnly:function(){return lo},
     onAuth:function(cb){F.u.onAuthStateChanged(auth,function(u){user=u||null;cb(user)})},
     signIn:function(e,p){return F.u.signInWithEmailAndPassword(auth,e,p)},
@@ -5634,11 +5636,11 @@ function siteBase(){
 }
 // controlla che all'indirizzo del link ci sia la versione con la vista atleta (GitHub Pages permette la lettura da altri siti)
 var SITEOK={};
-async function checkSite(base){
-  if(SITEOK[base]!=null)return SITEOK[base];
-  try{var r=await fetch(base+(base.indexOf('?')>-1?'&':'?')+'v='+Date.now(),{cache:'no-store'});var t=r.ok?await r.text():'';SITEOK[base]=r.ok?(t.indexOf('function athleteLive')>-1?'ok':(/S\.peaking|speaking/i.test(t)?'old':'other')):'missing'}
-  catch(e){SITEOK[base]='unknown'}
-  return SITEOK[base];
+async function checkSite(base,mk){mk=mk||'function athleteLive';var ck=base+'|'+mk;
+  if(SITEOK[ck]!=null)return SITEOK[ck];
+  try{var r=await fetch(base+(base.indexOf('?')>-1?'&':'?')+'v='+Date.now(),{cache:'no-store'});var t=r.ok?await r.text():'';SITEOK[ck]=r.ok?(t.indexOf(mk)>-1?'ok':(/S\.peaking|speaking/i.test(t)?'old':'other')):'missing'}
+  catch(e){SITEOK[ck]='unknown'}
+  return SITEOK[ck];
 }
 function siteMsg(k){return {
   old:'<b>Attenzione:</b> il sito pubblicato ha ancora la versione vecchia, senza la vista per l’atleta: chi apre il link vede la schermata del PT vuota. Carica questo index.html su GitHub (sostituisci il file nella root), aspetta 1–2 minuti e riapri questa finestra.',
@@ -5768,7 +5770,8 @@ async function athleteLive(tok){
     var app=mm[0].initializeApp(FB_CFG,'atleta'),fs=mm[1].getFirestore(app);AVC={f:mm[1],fs:fs};
     var d=await Promise.race([mm[1].getDoc(mm[1].doc(fs,'link',tok)),to(15000)]);
     if(!d.exists()){try{localStorage.removeItem(ck)}catch(e){}return avFail('<b>Questa scheda non è più disponibile.</b> Chiedi al tuo Personal Trainer il link della scheda nuova.')}
-    x=d.data();if(x.on===false)return avFail('<b>Il tuo Personal Trainer ha disattivato questo link.</b> Se ti serve la scheda, chiediglielo di nuovo.');
+    x=d.data();if(x.on===false)return avFail('<b>Il tuo Personal Trainer ha disattivato questo link.</b> Se ti serve '+(x.ty==='nut'?'il piano alimentare':'la scheda')+', chiediglielo di nuovo.');
+    if(x.ty==='nut'){try{localStorage.setItem(ck,JSON.stringify({j:x.j,ty:'nut'}))}catch(e){}return avNut(x.j,tok,false)}
     try{var r=await mm[1].getDoc(mm[1].doc(fs,'link',tok,'r','log'));if(r.exists())remote=JSON.parse(r.data().l||'{}')}catch(e){}
     try{localStorage.setItem(ck,JSON.stringify({j:x.j,p:x.p||''}))}catch(e){}
   }catch(e){var c=String((e&&e.code)||(e&&e.message)||e).replace(/^firestore\//,'');
@@ -5776,6 +5779,7 @@ async function athleteLive(tok){
     if(!cache)return avFail('<b>Non riesco a scaricare la scheda.</b> Controlla la connessione a internet e riapri il link.<p class="status" style="font-size:12px;margin:8px 0 0">Dettaglio per il PT: '+esc(c)+'</p>');
     AVC=null;off=true}
   var cj=null;if(!x&&cache){try{cj=JSON.parse(cache)}catch(e){}if(!(cj&&cj.j))cj={j:cache,p:''}}
+  if(cj&&cj.ty==='nut')return avNut(cj.j,tok,true);
   try{AV=avFix(JSON.parse(x?x.j:cj.j));try{var pp=x?x.p:cj.p;AV.P=pp?JSON.parse(pp):null}catch(e){AV.P=null}}catch(e){return avFail('<b>Non riesco ad aprire questa scheda.</b> Chiedi al tuo Personal Trainer di mandare un link nuovo.')}
   AV.tok=tok;AV.live=true;document.title=AV.n+' · S.peaking';
   var sv=null;try{sv=JSON.parse(localStorage.getItem(avKey())||'null')}catch(e){}
@@ -7352,7 +7356,7 @@ function nNewPlan(u,sid){
   var ob=(u.ob||[]).join(' ').toLowerCase(),fase=/ipertrofia/.test(ob)?'iper':/dimagr/.test(ob)?'def':/forza/.test(ob)?'forza':'mant';
   var sc=sid?SCH.filter(function(s){return String(s.id)===String(sid)})[0]:schedeOf(u.id)[0];
   return {id:newId('n'),nome:'Alimentazione '+String(u.n||'').toUpperCase(),data:todayIso(),sid:sc?sc.id:'',by:'',nt:'',ex:[],fase:fase,pal:'',kcal:'',pk:'',fk:'',kg:'',alt:'',eta:'',sx:'',
-    pasti:NMEALS.map(function(m){return {k:m[0],t:m[1],on:!!m[3],pct:m[2],ora:'',sez:[]}}),cf:{},prk:false,pri:true,rf:true,prc:true,ts:0}}
+    pasti:NMEALS.map(function(m){return {k:m[0],t:m[1],on:!!m[3],pct:m[2],ora:'',sez:[]}}),cf:{},prk:false,pri:true,rf:true,prc:true,wk:{on:true,only:false,d:null},ts:0}}
 // ---- generazione dello schema dai riferimenti ----
 function nExTags(P){var t={};(P.ex||[]).forEach(function(k){NEX.forEach(function(x){if(x[0]===k)x[2].forEach(function(g){t[g]=1})})});return t}
 function nBad(f,T){return !!(f&&NF[f]&&NF[f].tg&&T[NF[f].tg])}
@@ -7379,7 +7383,8 @@ function nGenerate(P,u){
   var T=nTarg(P,u),X=nExTags(P);
   P.pasti.forEach(function(m){if(!m.on){if(!m.sez||!m.sez.length)m.sez=[];return}var mt=T.meal[m.k],tp=NTPL[m.k];if(!tp)return;
     m.sez=tp().map(function(S){S=nClean(S,X);if(!mt||!mt.k)return S;if(S.ty==='pi')return nScalePi(S,mt,P,T.D);S.op.forEach(function(o){nScaleOpt(o,mt.k,P)});return S}).filter(function(S){return S.ty==='pi'?S.ca.length&&S.pr.length:S.op.length})});
-  if(P.rf){var used={};P.pasti.forEach(function(m){if(m.on&&m.sez)nAddRicSec(m,P,T,X,used)})}}
+  if(P.rf){var used={};P.pasti.forEach(function(m){if(m.on&&m.sez)nAddRicSec(m,P,T,X,used)})}
+  if(P.wk&&P.wk.on!==false)nWeekGen(P,u)}
 function nAddRicSec(m,P,T,X,used){var R=nRicSec(m.k,used,X);if(!R)return;var mt=T.meal[m.k];if(mt&&mt.k)R.op.forEach(function(o){nScaleOpt(o,mt.k,P)});
   var i=m.sez.map(function(S){return S.ty}).indexOf('pi');if(i<0)m.sez.push(R);else m.sez.splice(i,0,R)}
 // ---- interfaccia ----
@@ -7478,20 +7483,23 @@ function nutEditor(){
      return '<section class="asec nml"><h3>'+esc(m.t)+(m.ora?' <small>ore '+esc(m.ora)+'</small>':'')+' <small>'+(mt?'obiettivo ≈ '+nfmt(mt.k)+' kcal · '+nfmt(mt.p)+' g di proteine':'')+'</small></h3>'+
       (m.sez||[]).map(function(S,si){return nSecHtml(S,mi,si,mt,X)}).join('')+
       '<div class="mrow" style="justify-content:flex-start"><button type="button" data-na="sadd" data-p="pasti.'+mi+'" data-ty="op">+ Sezione con opzioni A, B, C</button><button type="button" data-na="sadd" data-p="pasti.'+mi+'" data-ty="pi">+ «Crea il tuo piatto»</button><button type="button" data-na="ricpick" data-p="pasti.'+mi+'">🍳 Aggiungi una ricetta fit</button>'+(NTPL[m.k]?'<button type="button" data-na="mgen" data-p="pasti.'+mi+'">⚡ Rigenera questo pasto</button>':'')+'</div></section>'}).join('')+
+   nWeekHtml(P,u,T,X)+
    '<div id="ncust">'+nCustomHtml(P)+'</div>'+
    '<section class="asec"><h3>Stampa e invio</h3><label class="nck"><input type="checkbox" data-nb="pri"'+(P.pri?' checked':'')+'> Aggiungi le indicazioni generali (acqua, proteine per pasto, tempi)</label><label class="nck"><input type="checkbox" data-nb="prc"'+(P.prc?' checked':'')+'> Aggiungi i consigli di cucina fit (piatto bilanciato, meal prep, spezie)</label><label class="nck"><input type="checkbox" data-nb="prk"'+(P.prk?' checked':'')+'> Mostra calorie e macronutrienti (fabbisogno e pasti)</label>'+
     '<div class="info ndisc"><b>Disclaimer di compliance nutrizionale (art. 348 c.p.)</b><br>'+esc(NDISC)+'</div><p class="status">Il disclaimer esce sempre in fondo alla stampa e al PDF. Usa lo strumento per educazione alimentare e indicazioni generali (ISSN, ACSM, ISS) o per trascrivere e organizzare il piano del professionista.</p></section>'+
    '<div class="status" id="nustat"></div><div class="afoot edfoot" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;margin:16px 0">'+
     (nHas(P)?'<button type="button" class="btn" data-na="ndel" style="margin-right:auto">Elimina</button>':'')+
-    '<button type="button" class="btn" data-na="nprint">Anteprima · Stampa</button><button type="button" class="btn" data-na="npdf">Scarica PDF</button><button type="button" class="btn blk" data-na="nshare">📤 Condividi PDF</button><button type="button" class="btn pri" data-na="nsave">Salva piano</button></div>';
+    '<button type="button" class="btn" data-na="nprint">Anteprima · Stampa</button><button type="button" class="btn" data-na="npdf">Scarica PDF</button><button type="button" class="btn blk" data-na="nsend">📤 '+(nHas(P)&&!NU.dirty?'Invia all’atleta':'Salva e invia all’atleta')+'</button><button type="button" class="btn pri" data-na="nsave">Salva piano</button></div>';
   if(y)window.scrollTo(0,y);
 }
 function nHas(P){var u=find(NU.uid);return !!(u&&(u.nut||[]).some(function(x){return x.id===P.id}))}
 function nRefresh(){var P=NU.P,u=find(NU.uid);if(!P||!u)return;var T=nTarg(P,u);
   var c=gid('ncalc');if(c)c.innerHTML=nCalcHtml(P,u);
   var mm=gid('nmeals');if(mm){var a=document.activeElement,ap=a&&a.getAttribute&&a.getAttribute('data-nb');if(!ap||!/^pasti\.\d+\.(pct|ora)$/.test(ap))mm.innerHTML=nMealTab(P,u);else{[].forEach.call(mm.querySelectorAll('tbody tr'),function(tr,i){var m=P.pasti[i],mt=T.meal[m.k],td=tr.children;td[4].textContent=mt?nfmt(mt.k):'—';td[5].textContent=mt?nfmt(mt.p)+' g':'—'})}}
-  P.pasti.forEach(function(m,mi){if(!m.on)return;var mt=T.meal[m.k],tk=mt?mt.k:0;(m.sez||[]).forEach(function(S,si){if(S.ty==='pi'){var e=gid('nt_'+mi+'_'+si);if(e)e.innerHTML=nMacTxt(nPiSum(S,P),tk)}else S.op.forEach(function(o,oi){var e=gid('nt_'+mi+'_'+si+'_'+oi);if(e)e.innerHTML=nMacTxt(nSum(o.it,P),tk)})})})}
+  P.pasti.forEach(function(m,mi){if(!m.on)return;var mt=T.meal[m.k],tk=mt?mt.k:0;(m.sez||[]).forEach(function(S,si){if(S.ty==='pi'){var e=gid('nt_'+mi+'_'+si);if(e)e.innerHTML=nMacTxt(nPiSum(S,P),tk)}else S.op.forEach(function(o,oi){var e=gid('nt_'+mi+'_'+si+'_'+oi);if(e)e.innerHTML=nMacTxt(nSum(o.it,P),tk)})})});
+  nWkRefresh(P,u,T)}
 function nDirty(){NU.dirty=true}
+function nWkRefresh(P,u,T){if(!P.wk||!P.wk.d||!P.wk.d[NU.wd])return;var D=P.wk.d[NU.wd];P.pasti.forEach(function(m){var c=D.m[m.k],e=gid('nw_'+m.k);if(c&&e){var mt=T.meal[m.k];e.innerHTML=nMacTxt(nSum(c.it,P),mt?mt.k:0)}});var s=gid('nwsum');if(s)s.innerHTML=nWkSumHtml(P,u)}
 document.addEventListener('input',function(e){
   var t=e.target;if(cur!=='nut')return;
   if(t.id==='nusearch'){NU.q=t.value;nutList();return}
@@ -7505,7 +7513,9 @@ document.addEventListener('input',function(e){
   var r=t.closest('.nit');if(r&&r.querySelector('.npv')){var ip=p.replace(/\.(g|l)$/,'').replace(/\.o$/,'');var it2=nGet(NU.P,ip);if(it2)r.querySelector('.npv').textContent=nItTxt(it2,NU.P)}
   if(t.getAttribute('data-nr'))nutEditor();else nRefresh();
 });
-document.addEventListener('change',function(e){var t=e.target;if(cur!=='nut'||!NU.P)return;var p=t.getAttribute('data-nb');if(!p)return;
+document.addEventListener('change',function(e){var t=e.target;if(cur!=='nut'||!NU.P)return;
+  var ws=t.getAttribute('data-nws');if(ws!=null){if(!t.value)return;var q=ws.split('|');nWkSet(NU.P,find(NU.uid),+q[0],q[1],t.value);nDirty();nutEditor();return}
+  var p=t.getAttribute('data-nb');if(!p)return;
   if(/\.fn$/.test(p)){var c=gid('ncust');if(c)c.innerHTML=nCustomHtml(NU.P);return}
   if(t.getAttribute('data-nr')||p==='fase'||p==='pal'||p==='sx'){nutEditor();return}});
 function nTpl(k){return NTPL[k]?NTPL[k]():[]}
@@ -7537,9 +7547,16 @@ document.addEventListener('click',function(e){
   else if(k==='ricpick'){nRicPick(nGet(P,p),p);return}
   else if(k==='ricadd'){closeModal();nRicAdd(nGet(P,p),b.getAttribute('data-r'),u)}
   else if(k==='gen'){var any=P.pasti.some(function(m){return m.on&&m.sez&&m.sez.length});
-    if(any&&!b.getAttribute('data-ok')){modal('<h3>Rigenerare lo schema?</h3><p>Tutti i pasti attivi vengono ricreati dai riferimenti con le calorie attuali. Le modifiche fatte a mano ai pasti vanno perse.</p><div class="mrow"><button data-act="mclose">Annulla</button><button class="pri" data-na="gen" data-ok="1">Rigenera</button></div>');return}
+    if(any&&!b.getAttribute('data-ok')){modal('<h3>Rigenerare lo schema?</h3><p>Tutti i pasti attivi vengono ricreati dai riferimenti con le calorie attuali'+(P.wk&&P.wk.on!==false?', e con loro il menu settimanale':'')+'. Le modifiche fatte a mano ai pasti vanno perse.</p><div class="mrow"><button data-act="mclose">Annulla</button><button class="pri" data-na="gen" data-ok="1">Rigenera</button></div>');return}
     closeModal();nGenerate(P,u)}
   else if(k==='nsave'){nSave();return}
+  else if(k==='nsend'){nSendStart();return}
+  else if(/^nsx_(wa|ml|gm|sh|pdf|cp)$/.test(k)){nSxDo(k);return}
+  else if(k==='nsx_off'||k==='nsx_on'){nSxOnOff(k==='nsx_off');return}
+  else if(k==='wday'){NU.wd=+b.getAttribute('data-d');nutEditor();var w=gid('nwk');if(w)w.scrollIntoView({block:'start'});return}
+  else if(k==='walt'){nWkAlt(P,u,+b.getAttribute('data-d'),b.getAttribute('data-k'))}
+  else if(k==='wgen'){var hw=P.wk&&P.wk.d&&P.wk.d.length;if(hw&&!b.getAttribute('data-ok')){modal('<h3>Rigenerare il menu settimanale?</h3><p>I 7 giorni vengono ricomposti dalle opzioni attuali dei pasti. Le modifiche fatte a mano ai giorni vanno perse.</p><div class="mrow"><button data-act="mclose">Annulla</button><button class="pri" data-na="wgen" data-ok="1">Rigenera</button></div>');return}
+    closeModal();P.wk=P.wk||{};P.wk.on=true;nWeekGen(P,u)}
   else if(k==='ndel'){modal('<h3>Eliminare il piano?</h3><p>«'+esc(P.nome)+'» di '+esc(u.n+' '+u.c)+' viene eliminato.</p><div class="mrow"><button data-act="mclose">Annulla</button><button class="danger" data-na="ndelok">Elimina</button></div>');return}
   else if(k==='ndelok'){nDel();return}
   else if(k==='nprint'){nPreview();return}
@@ -7559,11 +7576,11 @@ function nRicAdd(m,id,u){var r=nRic(id);if(!r||!m)return;var P=NU.P,T=nTarg(P,u)
   var mt=T.meal[m.k];if(mt&&mt.k)nScaleOpt(S.op[0],mt.k,P);m.sez=m.sez||[];
   var sec=m.sez.filter(function(x){return x.ty==='op'&&/^ricette fit/i.test(x.t||'')})[0];
   if(sec)sec.op.push(S.op[0]);else{var i=m.sez.map(function(x){return x.ty}).indexOf('pi');if(i<0)m.sez.push(S);else m.sez.splice(i,0,S)}}
-async function nSave(){var P=NU.P,u=find(NU.uid);if(!P||!u)return;
-  P.ts=Date.now();var o=Object.assign({},u),L=(u.nut||[]).filter(function(x){return x.id!==P.id});L.unshift(JSON.parse(JSON.stringify(P)));o.nut=L;
-  try{await Store.put('utenti',o)}catch(e){st('nustat',saveErr());return}
-  var i=U.findIndex(function(x){return String(x.id)===String(o.id)});if(i>-1)U[i]=o;NU.dirty=false;nutEditor();st('nustat','Piano alimentare salvato nel profilo di '+u.n+' '+u.c+'.')}
-async function nDel(){var P=NU.P,u=find(NU.uid);closeModal();if(!P||!u)return;var o=Object.assign({},u);o.nut=(u.nut||[]).filter(function(x){return x.id!==P.id});
+async function nSave(quiet){var P=NU.P,u=find(NU.uid);if(!P||!u)return false;
+  try{await nPersist(P)}catch(e){st('nustat',saveErr());return false}
+  var lk='';if(P.atok&&window.Cloud&&Cloud.user()){lk=' Il link dell’atleta è aggiornato.';try{Cloud.linkSet(P.atok,nLinkDoc(P,u)).catch(function(e){showNotice('Link del piano alimentare non aggiornato: '+((e&&e.code)||(e&&e.message)||'errore'))})}catch(e){}}
+  nutEditor();var s=gid('nustat');if(s&&!quiet)s.innerHTML=esc('Piano alimentare salvato nel profilo di '+u.n+' '+u.c+'.'+lk)+' <button type="button" class="btn sm blk" data-na="nsend">📤 Invia all’atleta (WhatsApp · email)</button>';return true}
+async function nDel(){var P=NU.P,u=find(NU.uid);closeModal();if(!P||!u)return;if(P.atok&&window.Cloud&&Cloud.user())Cloud.linkRm(P.atok);var o=Object.assign({},u);o.nut=(u.nut||[]).filter(function(x){return x.id!==P.id});
   try{await Store.put('utenti',o)}catch(e){st('nustat',saveErr());return}
   var i=U.findIndex(function(x){return String(x.id)===String(o.id)});if(i>-1)U[i]=o;NU.P=null;NU.dirty=false;renderNut();window.scrollTo(0,0)}
 // ---- foglio per la stampa e il PDF (come lo schema del nutrizionista) ----
@@ -7584,12 +7601,14 @@ function nSheet(P,u){var T=nTarg(P,u),D=T.D;
     (D.kg?'<li><b>Acqua:</b> '+nfmt(T.acq[0]/1000,1)+'–'+nfmt(T.acq[1]/1000,1)+' litri al giorno, distribuiti nella giornata. Dopo l’allenamento bevi 1,25–1,5 litri per ogni kg di peso perso con il sudore: una perdita oltre il 2% del peso riduce forza, resistenza e coordinazione.</li>':'<li><b>Acqua:</b> 30–35 ml per kg di peso al giorno.</li>')+
     '<li><b>Proteine:</b> distribuiscile in porzioni simili ogni 3–4 ore'+(D.kg?' ('+nfmt(D.kg*0.25)+'–'+nfmt(D.kg*0.4)+' g per pasto)':' (20–40 g per pasto)')+', da fonti di alto valore biologico.</li>'+
     '<li><b>Allenamento:</b> carboidrati nel pasto prima e dopo la seduta; evita pasti abbondanti nelle 2 ore precedenti.</li>'+
-    '<li><b>Scelte:</b> in ogni pasto scegli una sola opzione (A, B o C) oppure una fonte di carboidrati e una proteica del piatto. Le grammature sono a crudo e al netto degli scarti, salvo diversa indicazione.</li>'+
+    (wk?'<li><b>Menu settimanale:</b> segui il pasto del giorno. Se un giorno non puoi, scambialo con lo stesso pasto di un altro giorno'+(only?'':' o con una delle opzioni A, B, C')+'.</li>':'')+
+    '<li><b>Scelte:</b> '+(only?'':'in ogni pasto scegli una sola opzione (A, B o C) oppure una fonte di carboidrati e una proteica del piatto. ')+'Le grammature sono a crudo e al netto degli scarti, salvo diversa indicazione.</li>'+
     (P.pasti.some(function(m){return m.on&&m.k==='not'})?'<li><b>Prima di dormire:</b> 30–40 g di caseina 30–90 minuti prima del sonno sostengono la sintesi proteica notturna.</li>':'')+'</ul>':'';
   if(P.prc)ind+='<h3>Cucina fit: consigli pratici</h3><ul><li><b>'+esc(NPLATE.split(':')[0])+':</b>'+esc(NPLATE.slice(NPLATE.indexOf(':')+1))+'</li>'+NPREP.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul>';
   var sum=P.prk&&T.kcal?'<p class="nsum"><b>Fabbisogno:</b> '+nfmt(T.kcal)+' kcal · proteine '+nfmt(T.p)+' g · carboidrati '+nfmt(T.c)+' g · grassi '+nfmt(T.f)+' g · '+esc(T.F.t)+'</p>':'';
+  var wk=nWkHas(P)?nWeekSheet(P,u):'',only=wk&&P.wk.only;
   return '<div class="nush"><h1 class="ntit">'+esc(P.nome||'Alimentazione')+' ('+esc(nLong(P.data))+')</h1>'+sum+
-   (rows?'<table class="stab nsht" data-cw="0.2,0.8"><tbody>'+rows+'</tbody></table>':'<p>Nessun pasto compilato.</p>')+
+   (only?'':rows?'<table class="stab nsht" data-cw="0.2,0.8"><tbody>'+rows+'</tbody></table>':'<p>Nessun pasto compilato.</p>')+wk+
    (P.nt?'<p><b>Note:</b> '+esc(P.nt)+'</p>':'')+ind+
    '<p class="status">'+(P.by?'Redatto da '+esc(P.by)+'. ':'')+'Indicazioni alimentari generali per '+esc(u.n+' '+u.c)+'.</p><p class="status ndisc"><b>Disclaimer:</b> '+esc(NDISC)+'</p></div>'}
 function nPreview(){var P=NU.P,u=find(NU.uid);if(!P||!u)return;
@@ -7602,6 +7621,191 @@ async function nPdf(share,btn){var P=NU.P,u=find(NU.uid);if(!P||!u)return;
     if(share&&navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:P.nome,text:'Ciao '+u.n+', ecco il tuo piano alimentare ('+fdate(P.data)+').'});st('nustat','PDF condiviso.')}
     else{await saveBlob(blob,name);st('nustat',share?'Questo browser non condivide file: il PDF è stato scaricato, allegalo al messaggio.':'PDF scaricato.')}
   }catch(e){if(!(e&&e.name==='AbortError'))st('nustat','PDF non creato: '+(e&&e.message||'errore'))}finally{if(btn)btn.disabled=false}}
+
+// ---- Menu settimanale (fase 24): 7 giorni, un pasto preciso per ogni giorno, scelto con regole di varietà ----
+// Il «serbatoio» di ogni pasto sono le sue opzioni (veloci A/B/C, ricette fit, varianti «oppure») e, per «Crea il tuo piatto»,
+// tutte le combinazioni carboidrato × proteina (più legumi, uova e salmone a pranzo e cena, se non esclusi).
+var NDAY=['Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato','Domenica'];
+var NPG={carneb:'bianca',tac:'bianca',carner:'rossa',bres:'salumi',aff:'salumi',crudo:'salumi',pesce:'pesce',salm:'pesce',salaff:'pesce',tonno:'pesce',merl:'pesce',spada:'pesce',gamb:'pesce',
+ uovo:'uova',albu:'uova',legc:'legumi',legs:'legumi',hum:'legumi',tofu:'veg',temp:'veg',seit:'veg',parm:'formaggi',mozz:'formaggi',ric:'formaggi',ricm:'formaggi',fiocl:'formaggi',spalm:'formaggi'};
+var NPGT={pesce:'Pesce',legumi:'Legumi',bianca:'Carne bianca',rossa:'Carne rossa',salumi:'Salumi',uova:'Uova',veg:'Tofu, tempeh, seitan',formaggi:'Formaggi'};
+var NSHORT={pesce:'pesce',carneb:'pollo o tacchino',carner:'carne rossa magra',tofu:'tofu o tempeh',legc:'legumi',uovo:'uova',salm:'salmone',riso:'riso basmati',pasta:'pasta',cous:'cous cous',gnoc:'gnocchi',pat:'patate'};
+function nCl(x){return JSON.parse(JSON.stringify(x))}
+function nCap(s){s=String(s||'');return s.charAt(0).toUpperCase()+s.slice(1)}
+function nShort(it){if(NSHORT[it.f])return NSHORT[it.f];if(it.l&&it.l.length<=30)return it.l;var F=it.f&&NF[it.f];return F?nDn(F):(it.n||'')}
+function nPgOf(L,P){var b='',bp=0;(L||[]).forEach(function(it){var g=NPG[it.f];if(!g)return;var p=nMac(it,P).p;if(p>bp){bp=p;b=g}});return b}
+function nCbOf(L){for(var i=0;i<(L||[]).length;i++){var F=L[i].f&&NF[L[i].f];if(F&&F.cat==='ca'&&+L[i].g>0)return L[i].f}return ''}
+function nPool(m,P,X){var R=[];
+  (m.sez||[]).forEach(function(S,si){
+    if(S.ty==='pi'){if(!S.ca||!S.pr||!S.ca.length||!S.pr.length)return;
+      var pr=S.pr.slice(),tp=nMac(S.pr[0],P).p||25;
+      if(/^(pra|cen)$/.test(m.k))['legc','uovo','salm'].forEach(function(f){if(nBad(f,X)||pr.some(function(i){return i.f===f}))return;
+        if(f==='legc')pr.push(nI('legc',Math.min(300,Math.max(150,nr5(tp/0.07))),'legumi cotti (ceci, lenticchie, fagioli)'));
+        else if(f==='uovo')pr.push({f:'uovo',g:100,_al:nBad('albu',X)?0:Math.min(200,Math.max(0,nr5((tp-12.4)/0.107)))});
+        else pr.push(nI('salm',Math.max(100,nr5(tp/0.2))))});
+      S.ca.forEach(function(ca,ci){if(!ca.f&&!ca.n)return;pr.forEach(function(p,pi){if(!p.f&&!p.n)return;
+        var it=[nCl(ca)];delete it[0].o;
+        if(p._al!=null){it.push(nI('uovo',100,'uova'));if(p._al)it.push(nI('albu',p._al,'albume'))}else{var q=nCl(p);delete q.o;it.push(q)}
+        (S.co||[]).forEach(function(c){if(c.f||c.n){var z=nCl(c);delete z.o;it.push(z)}});
+        if(+S.vg)it.push(nI('ver',Math.max(100,+S.vg),'verdure di stagione',1));
+        R.push({id:'p'+si+'_'+ci+'_'+pi,ty:'pi',t:nCap(nShort(ca))+' con '+nShort(p),it:it,lb:(S.t||'Piatto')})})});return}
+    (S.op||[]).forEach(function(o,oi){if(!o.it||!o.it.length)return;var hasO=o.it.some(function(i){return i.o});
+      [0].concat(hasO?[1]:[]).forEach(function(v){
+        var it=o.it.map(function(i){var x=nCl(v&&i.o?i.o:i);delete x.o;return x}).filter(function(i){return i.f||i.n});if(!it.length)return;
+        R.push({id:'o'+si+'_'+oi+'_'+v,ty:o.rid?'ri':'op',t:o.t||'',it:it,nt:o.nt||'',rid:o.rid||'',lb:(S.t||'Opzione')+' '+String.fromCharCode(65+oi)+(v?' (variante)':'')})})})});
+  R.forEach(function(c){c.pg=nPgOf(c.it,P);c.cb=nCbOf(c.it)});return R}
+function nCandTxt(c,P){var s=c.t||c.it.slice(0,3).map(function(i){var F=nFood(i,P);return i.l||(F?nDn(F):i.n)}).join(' + ');return s.length>70?s.slice(0,68)+'…':s}
+function nWkCtx(){return {use:{},ty:{},prev:{},cnt:{}}}
+function nMain(k){return k==='pra'||k==='cen'}
+// costo di una scelta: ripetizioni (stesso pasto, stesso tipo), stesso alimento del giorno prima o dello stesso giorno, frequenze settimanali
+function nCost(c,ci,k,d,mi,C,today){var s=0,u=C.use[k]||{},t=C.ty[k]||{};
+  s+=(u[c.id]||0)*10+(t[c.ty]||0)*1.2;
+  var pv=C.prev[k];if(pv){if(pv.id===c.id)s+=20;if(c.pg&&pv.pg===c.pg)s+=3;if(c.cb&&pv.cb===c.cb)s+=1}
+  if(nMain(k)&&c.pg){var n=C.cnt[c.pg]||0;if(today.pg[c.pg])s+=6;
+    if(c.pg==='pesce')s+=n<2?-3:n<3?-1:6;else if(c.pg==='legumi')s+=n<2?-3:n<3?0:3;else if(c.pg==='uova')s+=n>=3?6:0;
+    else if(c.pg==='salumi'||c.pg==='rossa')s+=n>=2?8:n>=1?1:0;else if(c.pg==='formaggi')s+=n>=2?4:0}
+  if(nMain(k)&&c.t){if(today.t[c.t])s+=8;if(C.yd){if(C.yd.t[c.t])s+=5;if(c.pg&&C.yd.pg[c.pg])s+=3}}
+  if(c.cb&&today.cb[c.cb])s+=2;if(c.ty==='ri')s-=0.5;
+  return s+((ci*7+d*5+mi*3)%97)*0.001}
+function nWkPut(C,k,c,today){C.use[k]=C.use[k]||{};C.use[k][c.id]=(C.use[k][c.id]||0)+1;C.ty[k]=C.ty[k]||{};C.ty[k][c.ty]=(C.ty[k][c.ty]||0)+1;C.prev[k]=c;
+  if(nMain(k)){if(c.pg){C.cnt[c.pg]=(C.cnt[c.pg]||0)+1;today.pg[c.pg]=1}if(c.t)today.t[c.t]=1}if(c.cb)today.cb[c.cb]=1}
+function nCell(c,mt,P){var x={src:c.id,t:c.t,it:nCl(c.it)};if(c.nt)x.nt=c.nt;if(c.rid)x.rid=c.rid;if(mt&&mt.k)nScaleOpt(x,mt.k,P);return x}
+function nCellInfo(x,P){return {id:x.src||'',ty:x.rid?'ri':/^p/.test(x.src||'')?'pi':'op',pg:nPgOf(x.it,P),cb:nCbOf(x.it)}}
+function nWeekGen(P,u){var T=nTarg(P,u),X=nExTags(P),pools={},C=nWkCtx();P.wk=P.wk||{on:true};P.wk.d=[];NU.wskip={};
+  P.pasti.forEach(function(m){if(m.on)pools[m.k]=nPool(m,P,X)});
+  for(var d=0;d<7;d++){var today={pg:{},cb:{},t:{}},day={m:{}};
+    P.pasti.forEach(function(m,mi){var L=pools[m.k];if(!m.on||!L||!L.length)return;var best=null,bs=1e9;
+      L.forEach(function(c,ci){var s=nCost(c,ci,m.k,d,mi,C,today);if(s<bs){bs=s;best=c}});
+      nWkPut(C,m.k,best,today);day.m[m.k]=nCell(best,T.meal[m.k],P)});
+    C.yd=today;P.wk.d.push(day)}}
+// «⇄ Altra»: la scelta migliore per quel giorno e pasto tenendo conto del resto della settimana; a ogni tocco ne propone una diversa
+function nWkAlt(P,u,d,k){var m=P.pasti.filter(function(x){return x.k===k})[0];if(!m||!P.wk||!P.wk.d)return;var X=nExTags(P),L=nPool(m,P,X);if(!L.length)return;
+  var C=nWkCtx(),today={pg:{},cb:{},t:{}},T=nTarg(P,u),cur=P.wk.d[d].m[k],key=d+'|'+k;NU.wskip=NU.wskip||{};var sk=NU.wskip[key]=NU.wskip[key]||{};if(cur&&cur.src)sk[cur.src]=1;
+  P.wk.d.forEach(function(D,di){Object.keys(D.m).forEach(function(kk){if(kk!==k)return;if(di===d)return;var I=nCellInfo(D.m[kk],P);C.use[k]=C.use[k]||{};C.use[k][I.id]=(C.use[k][I.id]||0)+1;C.ty[k]=C.ty[k]||{};C.ty[k][I.ty]=(C.ty[k][I.ty]||0)+1});
+    Object.keys(D.m).forEach(function(kk){if(!nMain(kk)||(di===d&&kk===k))return;var g=nPgOf(D.m[kk].it,P);if(g)C.cnt[g]=(C.cnt[g]||0)+1})});
+  Object.keys(P.wk.d[d].m).forEach(function(kk){if(kk===k)return;var I=nCellInfo(P.wk.d[d].m[kk],P);if(nMain(kk)){if(I.pg)today.pg[I.pg]=1;if(P.wk.d[d].m[kk].t)today.t[P.wk.d[d].m[kk].t]=1}if(I.cb)today.cb[I.cb]=1});
+  if(d>0){var Y=P.wk.d[d-1].m;C.yd={t:{},pg:{}};Object.keys(Y).forEach(function(kk){if(!nMain(kk))return;if(Y[kk].t)C.yd.t[Y[kk].t]=1;var g=nPgOf(Y[kk].it,P);if(g)C.yd.pg[g]=1})}
+  if(d>0&&P.wk.d[d-1].m[k])C.prev[k]=nCellInfo(P.wk.d[d-1].m[k],P);
+  var free=L.filter(function(c){return !sk[c.id]});if(!free.length){NU.wskip[key]={};if(cur&&cur.src)NU.wskip[key][cur.src]=1;free=L.filter(function(c){return !cur||c.id!==cur.src});if(!free.length)free=L}
+  var mi=P.pasti.indexOf(m),best=null,bs=1e9;free.forEach(function(c){var s=nCost(c,L.indexOf(c),k,d,mi,C,today);if(s<bs){bs=s;best=c}});
+  P.wk.d[d].m[k]=nCell(best,T.meal[k],P)}
+function nWkSet(P,u,d,k,id){var m=P.pasti.filter(function(x){return x.k===k})[0];if(!m||!P.wk||!P.wk.d)return;var c=nPool(m,P,nExTags(P)).filter(function(x){return x.id===id})[0];if(!c)return;P.wk.d[d].m[k]=nCell(c,nTarg(P,u).meal[k],P)}
+function nWkDayK(D,P){var s=0;Object.keys(D.m||{}).forEach(function(k){if(P.pasti.some(function(m){return m.k===k&&m.on}))s+=nSum(D.m[k].it,P).k});return s}
+function nWkSumHtml(P,u){var W=P.wk,T=nTarg(P,u),cnt={},ri=0;
+  W.d.forEach(function(D){Object.keys(D.m).forEach(function(k){var c=D.m[k];if(!P.pasti.some(function(m){return m.k===k&&m.on}))return;if(c.rid)ri++;if(nMain(k)){var g=nPgOf(c.it,P);if(g)cnt[g]=(cnt[g]||0)+1}})});
+  var ok={pesce:function(n){return n>=2&&n<=3},legumi:function(n){return n>=2},rossa:function(n){return n<=2},salumi:function(n){return n<=2},uova:function(n){return n<=3}};
+  var ch=Object.keys(NPGT).filter(function(g){return cnt[g]||g==='pesce'||g==='legumi'}).map(function(g){var n=cnt[g]||0,c=ok[g]?(ok[g](n)?'ok':'lo'):'';return '<span class="nmac '+c+'">'+esc(NPGT[g])+' '+n+'</span>'}).join(' ');
+  var kc=W.d.map(function(D,i){var k=nWkDayK(D,P),dv=T.kcal?(k-T.kcal)/T.kcal:0;return '<span class="nmac '+(T.kcal?(Math.abs(dv)<=0.1?'ok':dv<0?'lo':'hi'):'')+'">'+NDAY[i].slice(0,3)+' '+nfmt(k)+'</span>'}).join(' ');
+  return '<p class="status" style="margin:8px 0 4px"><b>Pranzi e cene della settimana</b> (fonte proteica principale):</p><div>'+ch+(ri?' <span class="nmac">Ricette fit '+ri+'</span>':'')+'</div>'+
+   '<p class="status" style="margin:8px 0 4px"><b>Calorie di ogni giorno</b>'+(T.kcal?' (obiettivo '+nfmt(T.kcal)+' kcal, verde entro ±10%)':'')+':</p><div>'+kc+'</div>'+
+   '<p class="status">Varietà: pesce 2–3 volte, legumi almeno 2, carne rossa e salumi al massimo 2, uova al massimo 3 tra pranzi e cene; mai lo stesso piatto nello stesso pasto due giorni di fila, né la stessa fonte proteica a pranzo e a cena. Riferimenti indicativi, da validare con il professionista della nutrizione.</p>'}
+function nWeekHtml(P,u,T,X){var W=P.wk,has=!!(W&&W.d&&W.d.length===7);if(NU.wd==null)NU.wd=(new Date().getDay()+6)%7;var d=NU.wd;
+  var h='<section class="asec" id="nwk"><h3>Menu settimanale <small>7 giorni, un pasto preciso per ogni giorno</small></h3>'+
+   '<p class="status" style="margin-top:-4px">Dalle opzioni dei pasti qui sopra (veloci, ricette fit, «oppure» e tutte le combinazioni di «Crea il tuo piatto») l’app compone una settimana variegata con le grammature di ogni pasto. Ogni giorno si cambia dall’elenco, con «⇄ Altra» o modificando gli alimenti.</p>'+
+   '<label class="nck"><input type="checkbox" data-nb="wk.on"'+(W&&W.on?' checked':'')+'> Includi il menu settimanale in stampa, PDF e link dell’atleta</label>'+
+   '<label class="nck"><input type="checkbox" data-nb="wk.only"'+(W&&W.only?' checked':'')+'> In stampa solo il menu settimanale (senza l’elenco delle opzioni A, B, C dei pasti)</label>'+
+   '<div class="mrow" style="justify-content:flex-start"><button type="button" class="pri" data-na="wgen">⚡ '+(has?'Rigenera':'Crea')+' il menu settimanale</button></div>';
+  if(!has)return h+'<p class="status">Prima compila i pasti (anche con «⚡ Genera lo schema dai riferimenti»), poi crea il menu.</p></section>';
+  h+='<div id="nwsum">'+nWkSumHtml(P,u)+'</div><div class="nchips nwtabs" role="tablist">'+NDAY.map(function(n,i){return '<button type="button" class="nch" data-na="wday" data-d="'+i+'" aria-pressed="'+(i===d)+'">'+n+'</button>'}).join('')+'</div>';
+  var D=W.d[d];
+  h+=P.pasti.map(function(m){if(!m.on)return '';var mt=T.meal[m.k],c=D.m[m.k],L=nPool(m,P,X),b='wk.d.'+d+'.m.'+m.k,inL=c&&L.some(function(x){return x.id===c.src});
+    return '<div class="nsec nwc"><div class="nsh"><b>'+esc(m.t)+'</b>'+(m.ora?' <small>ore '+esc(m.ora)+'</small>':'')+(mt?' <small>obiettivo ≈ '+nfmt(mt.k)+' kcal</small>':'')+'</div>'+
+     '<div class="nwsel"><select data-nws="'+d+'|'+m.k+'" aria-label="Scegli il pasto di '+esc(NDAY[d])+'">'+(c&&inL?'':'<option value="" selected>'+(c?'Scelta modificata a mano':'— scegli —')+'</option>')+
+      L.map(function(x){return '<option value="'+x.id+'"'+(inL&&c.src===x.id?' selected':'')+'>'+esc(x.lb+' · '+nCandTxt(x,P))+'</option>'}).join('')+'</select>'+
+      '<button type="button" class="btn sm" data-na="walt" data-d="'+d+'" data-k="'+m.k+'">⇄ Altra</button></div>'+
+     (c?'<input class="nott nwt" data-nb="'+b+'.t" value="'+esc(c.t||'')+'" placeholder="Nome del piatto (facoltativo)" aria-label="Nome del piatto">'+c.it.map(function(it,i){return nItRow(it,b+'.it.'+i,X)}).join('')+
+       (c.nt||c.rid?nFl('Preparazione e spezie',nInp(b+'.nt',c.nt),'full nprep'):'')+
+       '<button type="button" class="btn sm" data-na="itadd" data-p="'+b+'.it">+ Alimento</button> <button type="button" class="nlk" data-na="oscale" data-p="'+b+'" data-mk="'+esc(mt?mt.k:'')+'">⚡ Adatta all’obiettivo del pasto</button>'+
+       '<div id="nw_'+m.k+'">'+nMacTxt(nSum(c.it,P),mt?mt.k:0)+'</div>':'<p class="status">Nessun pasto per questo giorno: sceglilo dall’elenco o premi «⇄ Altra».</p>')+'</div>'}).join('');
+  return h+'</section>'}
+function nWeekSheet(P,u){var W=P.wk;if(!W||!W.on||!W.d||W.d.length!==7)return '';var on=P.pasti.filter(function(m){return m.on});
+  return '<h3>Menu settimanale</h3><table class="stab nsht nwks" data-cw="0.16,0.84"><tbody>'+W.d.map(function(D,di){
+    return '<tr><td><b>'+NDAY[di].toUpperCase()+'</b>'+(P.prk?'<br><small>≈ '+nfmt(nWkDayK(D,P))+' kcal</small>':'')+'</td><td>'+on.map(function(m){var c=D.m[m.k];if(!c||!c.it||!c.it.length)return '';
+      return '<b>'+esc(m.t)+(m.ora?' (ore '+esc(m.ora)+')':'')+':</b> '+(c.t?'<i>'+esc(c.t)+'</i> · ':'')+esc(c.it.map(function(it){return nItTxt(it,P)}).join(' + '))+(W.only&&c.nt?' <i>· '+esc(c.nt)+'</i>':'')+(P.prk?' <small>(≈ '+nfmt(nSum(c.it,P).k)+' kcal)</small>':'')}).filter(Boolean).join('<br>')+'</td></tr>'}).join('')+'</tbody></table>'}
+function nWkHas(P){return !!(P.wk&&P.wk.on&&P.wk.d&&P.wk.d.length===7)}
+
+// ---- Invio del piano all'atleta (fase 24): link personale sempre aggiornato, WhatsApp ed email ----
+// Con il cloud il piano va in link/{token} (stesse regole di Firestore della scheda): l'atleta apre solo il suo piano, senza accesso,
+// vede il menu del giorno e scarica il PDF. Senza cloud il PDF si scarica e si allega alla chat o all'email.
+function nPub(P,u){var T=nTarg(P,u),Q=nCl(P);Q.kg=T.D.kg||'';Q.alt=T.D.alt||'';Q.eta=T.D.eta||'';Q.sx=T.D.sx||'';Q.pal=T.pal;Q.kcal=T.kcal||'';
+  delete Q.atok;delete Q.aoff;delete Q.sid;return {P:Q,u:{id:'avn',n:u.n||'',c:u.c||''}}}
+function nLinkDoc(P,u){return {ty:'nut',sid:'nut:'+P.id,on:!P.aoff,j:JSON.stringify(nPub(P,u))}}
+async function nPersist(P){var u=find(NU.uid);if(!u)throw new Error('atleta');P.ts=Date.now();var o=Object.assign({},u),L=(u.nut||[]).filter(function(x){return x.id!==P.id});L.unshift(nCl(P));o.nut=L;
+  await Store.put('utenti',o);var i=U.findIndex(function(x){return String(x.id)===String(o.id)});if(i>-1)U[i]=o;NU.dirty=false;return o}
+async function nLinkFor(P,u){if(!nHas(P))return {live:false,why:'new'};if(!(window.Cloud&&Cloud.user()))return {live:false,why:'local'};
+  var had=!!P.atok;if(!had)P.atok=newTok();
+  try{await Cloud.linkSet(P.atok,nLinkDoc(P,u));if(!had){try{await nPersist(P)}catch(e){}}return {live:true,tok:P.atok}}
+  catch(e){if(!had)delete P.atok;return {live:false,why:String((e&&e.code)||'').indexOf('permission')>-1?'rules':'net'}}}
+function nLinkUrl(L){var b=siteBase();return L&&L.live&&b?b+'#a='+L.tok:''}
+var NSX=null;
+function nSxLive(){return !!(NSX&&NSX.lk&&NSX.lk.live&&!NSX.P.aoff&&nLinkUrl(NSX.lk))}
+function nSxMsg(files){var P=NSX.P,u=NSX.u,url=nSxLive()?nLinkUrl(NSX.lk):'';
+  return 'Ciao'+(u.n?' '+u.n:'')+', ecco il tuo piano alimentare «'+(P.nome||'Piano alimentare')+'» (dal '+fdate(P.data)+')'+(nWkHas(P)?', con il menu della settimana':'')+'.'+
+   (url?'\n\n👉 Aprilo da qui: '+url+'\n\nDal link vedi il menu di ogni giorno e scarichi il PDF. Se aggiorno il piano, dal link trovi sempre la versione nuova.':'')+
+   (files||!url?'\n\nIn allegato trovi il PDF.':'')}
+function nSxBtns(on){[].forEach.call(document.querySelectorAll('#modal [data-nsx]'),function(b){b.disabled=!on})}
+function nSxInfo(){var e=gid('nsnd_lk');if(!e||!NSX)return;var L=NSX.lk,P=NSX.P;
+  if(!L){e.className='status';e.textContent='Preparo il link del piano…';return}
+  if(L.live&&!siteBase()){e.className='warn';e.innerHTML='Manca l’indirizzo del sito pubblicato: aprilo da «📲 Condividi con l’atleta» di una scheda e scrivi l’indirizzo (es. https://tuonome.github.io/speaking/). Intanto il PDF si allega a mano.';return}
+  if(L.live&&P.aoff){e.className='warn';e.innerHTML='<b>Il link del piano è disattivato:</b> l’atleta non può aprirlo e il messaggio non lo contiene. <button type="button" class="mini" data-na="nsx_on">Riattiva link</button>';return}
+  if(L.live){e.className='info';e.innerHTML='<b>Il messaggio contiene il link personale del piano.</b> Dal link l’atleta apre solo il suo piano alimentare (niente menu dell’app, schede, anamnesi o altri atleti), vede il menu del giorno e scarica il PDF. Quando salvi modifiche le vede alla prossima apertura, senza un nuovo link. Con «WhatsApp al numero» ed «Email» si apre la chat o l’email con il messaggio già scritto: basta premere Invia.<br><button type="button" class="mini" data-na="nsx_off">Disattiva link</button> se il link finisce in mani sbagliate.';
+    var base=siteBase();checkSite(base,'function avNut').then(function(k){var c=gid('nsnd_chk');if(!c||!NSX)return;if(k==='ok'){c.className='status';c.textContent='✓ Sito pubblicato aggiornato: il link funziona.';return}c.className=k==='unknown'?'status':'warn';c.innerHTML=siteMsg(k)});return}
+  e.className='warn';e.innerHTML='Senza link: il PDF si scarica e lo alleghi con 📎 nella chat o nell’email. '+(L.why==='rules'?'Per il link sempre aggiornato vanno pubblicate le regole di Firestore con il blocco <code>link</code> (README).':L.why==='local'?'Accedi al cloud con la tua email per mandare il link sempre aggiornato.':L.why==='net'?'Cloud non raggiungibile: riprova con internet per il link sempre aggiornato.':'Salva il piano per il link sempre aggiornato.')}
+function nSendModal(){var P=NU.P,u=find(NU.uid);if(!P||!u)return;var X=NSX={P:P,u:u,lk:null,file:null,k:(NSX?NSX.k:0)+1};
+  modal('<h3>Invia il piano alimentare</h3><p class="sub" style="margin:0 0 10px">'+esc(P.nome||'Piano alimentare')+' · '+esc(u.n+' '+u.c)+(nWkHas(P)?' · con il menu settimanale':'')+'</p>'+
+   '<div class="fg">'+fld('nsnd_tel','WhatsApp: numero di telefono',u.t||'','tel',' placeholder="es. 333 1234567" autocomplete="off"')+fld('nsnd_mail','Email',u.e||'','email',' placeholder="nome@esempio.it" autocomplete="off"')+'</div>'+
+   '<div id="nsnd_lk" class="status" style="margin:0 0 6px">Preparo il link del piano…</div><div id="nsnd_chk" class="status" style="margin:0 0 10px"></div>'+
+   '<div class="shb"><button class="shx wa" data-nsx data-na="nsx_wa" disabled>WhatsApp al numero</button><button class="shx" data-nsx data-na="nsx_ml" disabled>Email (app di posta)</button><button class="shx" data-nsx data-na="nsx_gm" disabled>Gmail</button>'+
+    (canShareFiles()?'<button class="shx" data-nsx data-na="nsx_sh" disabled>📤 Condividi il PDF</button>':'')+'<button class="shx" data-nsx data-na="nsx_pdf" disabled>Scarica PDF</button><button class="shx" data-nsx data-na="nsx_cp" disabled>Copia messaggio</button></div>'+
+   '<p class="status" id="nsnd_st" role="status"></p><div class="mrow"><button data-act="mclose">Chiudi</button></div>');
+  document.querySelector('#modal .mbox').classList.add('shm');
+  var k=X.k,name=('Alimentazione_'+u.n+'_'+u.c+'_'+(P.data||todayIso())).replace(/[^\w\-]+/g,'_')+'.pdf';
+  X.lp=nLinkFor(P,u).then(function(L){X.lk=L;nSxInfo();return L},function(){X.lk={live:false,why:'net'};nSxInfo()});
+  st('nsnd_st','Preparo il PDF…');
+  X.fp=PDFW.fromHtml(nSheet(P,u),{title:(P.nome||'Alimentazione')+' · '+u.n+' '+u.c,brand:u.n+' '+u.c,size:9.5,tsize:9}).then(function(b){if(NSX!==X||X.k!==k)return;X.file=new File([b],name,{type:'application/pdf'});nSxBtns(true);
+    st('nsnd_st','PDF pronto ('+Math.max(1,Math.round(b.size/1024))+' KB). WhatsApp ed email non permettono a un sito di allegare file: con il link l’atleta scarica il PDF da lì; senza link il PDF si scarica e lo alleghi con 📎. Sul telefono «Condividi il PDF» lo manda direttamente nell’app scelta.')},
+   function(e){if(NSX===X){nSxBtns(true);st('nsnd_st','Non riesco a preparare il PDF in questo browser ('+((e&&e.message)||'errore')+'): usa «Anteprima · Stampa».')}})}
+async function nSxDo(k){var X=NSX;if(!X)return;var tel=(gid('nsnd_tel').value||'').trim(),ml=(gid('nsnd_mail').value||'').trim(),P=X.P,u=X.u,sj='Piano alimentare · '+(P.nome||'');
+  var w0=(k==='nsx_wa'&&waPhone(tel))||(k==='nsx_gm'&&/@/.test(ml))?window.open('','_blank'):null;
+  if(!X.lk&&k!=='nsx_pdf'){st('nsnd_st','Preparo il link…');try{await X.lp}catch(e){}}
+  var live=nSxLive(),tx=nSxMsg(false),F=X.file;
+  var go=function(w,url){if(w)w.location.href=url;else location.href=url};
+  if(k==='nsx_pdf'){if(!F)return;try{await saveBlob(F,F.name);st('nsnd_st','PDF scaricato: '+F.name+'.')}catch(e){st('nsnd_st','Download non riuscito.')}return}
+  if(k==='nsx_cp'){try{await navigator.clipboard.writeText(tx);st('nsnd_st','Messaggio copiato'+(live?' con il link':'')+': incollalo nella chat con l’atleta.')}catch(e){st('nsnd_st','Non riesco a copiare: seleziona il testo dal messaggio aperto.')}return}
+  if(k==='nsx_sh'){if(!F)return;try{await navigator.share({files:[F],title:sj,text:nSxMsg(true)});st('nsnd_st','PDF inviato.')}catch(e){if(!(e&&e.name==='AbortError'))st('nsnd_st','Condivisione non riuscita: usa «Scarica PDF».')}return}
+  if(k==='nsx_wa'){var p=waPhone(tel);if(!p){st('nsnd_st','Scrivi il numero di telefono per WhatsApp.');gid('nsnd_tel').focus();return}
+    var url='https://wa.me/'+p+'?text='+encodeURIComponent(tx);
+    if(live){go(w0,url);st('nsnd_st','Chat WhatsApp di '+tel+' aperta con il messaggio e il link: premi Invia. Il PDF l’atleta lo scarica dal link.');return}
+    try{if(F)await saveBlob(F,F.name)}catch(e){}go(w0,url);st('nsnd_st','PDF scaricato. Nella chat WhatsApp di '+tel+' tocca 📎 → Documento e allega '+(F?F.name:'il PDF')+'.');return}
+  if(k==='nsx_ml'||k==='nsx_gm'){if(!/@/.test(ml)){st('nsnd_st','Scrivi l’indirizzo email.');gid('nsnd_mail').focus();return}
+    var bd=live?tx:tx+(F?'\n\nAllegato: '+F.name:'');if(k==='nsx_gm'){if(w0)w0.location.href=gmailHref(ml,sj,bd);else window.open(gmailHref(ml,sj,bd),'_blank')}else location.href=mailHref(ml,sj,bd);
+    if(live){st('nsnd_st','Email a '+ml+' aperta con il messaggio e il link: premi Invia.');return}
+    try{if(F)await saveBlob(F,F.name)}catch(e){}st('nsnd_st','Email a '+ml+' aperta'+(k==='nsx_gm'?' in Gmail':'')+' e PDF scaricato: allegalo con 📎 prima di inviare.')}}
+async function nSxOnOff(off){var X=NSX;if(!X||!X.lk||!X.lk.live)return;var P=X.P,u=X.u;st('nsnd_st','Aggiorno il link…');if(off)P.aoff=true;else delete P.aoff;
+  try{await Cloud.linkSet(P.atok,nLinkDoc(P,u));await nPersist(P);nSxInfo();st('nsnd_st',off?'Link disattivato: l’atleta non può più aprire il piano.':'Link riattivato.')}
+  catch(e){if(off)delete P.aoff;else P.aoff=true;st('nsnd_st','Non riesco ad aggiornare il link: controlla la connessione e riprova.')}}
+async function nSendStart(){if(!NU.P)return;if(!nHas(NU.P)||NU.dirty){if(!(await nSave(true)))return}nSendModal()}
+
+// ---- Vista dell'atleta: solo il suo piano alimentare (link #a=<token> con ty 'nut') ----
+var AVN=null;
+function avNut(j,tok,off){var D;try{D=JSON.parse(j)}catch(e){return avFail('<b>Non riesco ad aprire questo piano.</b> Chiedi al tuo Personal Trainer di mandare un link nuovo.')}
+  if(!D||!D.P)return avFail('<b>Non riesco ad aprire questo piano.</b> Chiedi al tuo Personal Trainer di mandare un link nuovo.');
+  AVN={P:D.P,u:D.u||{id:'avn',n:'',c:''},tok:tok,off:off,d:(new Date().getDay()+6)%7};document.title=(AVN.P.nome||'Piano alimentare')+' · S.peaking';avNutRender()}
+function avNutRender(){var P=AVN.P,u=AVN.u,W=P.wk,has=nWkHas(P),td=(new Date().getDay()+6)%7,on=P.pasti.filter(function(m){return m.on});
+  var day='';if(has){var D=W.d[AVN.d];
+    day='<section class="asec"><h3>Menu della settimana</h3><div class="nchips nwtabs">'+NDAY.map(function(n,i){return '<button type="button" class="nch" data-act="avnday" data-d="'+i+'" aria-pressed="'+(i===AVN.d)+'">'+n.slice(0,3)+(i===td?' · oggi':'')+'</button>'}).join('')+'</div>'+
+     '<h3 style="margin:12px 0 4px">'+NDAY[AVN.d]+(AVN.d===td?' · oggi':'')+'</h3>'+on.map(function(m){var c=D.m[m.k];if(!c||!c.it||!c.it.length)return '';
+       return '<div class="nsec avnm"><b>'+esc(m.t)+'</b>'+(m.ora?' <small>ore '+esc(m.ora)+'</small>':'')+(c.t?'<div><i>'+esc(c.t)+'</i></div>':'')+'<ul>'+c.it.map(function(it){return '<li>'+esc(nItTxt(it,P))+'</li>'}).join('')+'</ul>'+(c.nt?'<p class="status" style="margin:0">'+esc(c.nt)+'</p>':'')+'</div>'}).join('')+'</section>'}
+  gid('main').innerHTML='<div class="atv avnut"><div class="avh"><div class="kick">Piano alimentare</div><h2 style="margin:2px 0">'+esc(P.nome||'Piano alimentare')+'</h2><p class="sub" style="margin:0">'+esc((u.n+' '+u.c).trim())+' · dal '+fdate(P.data)+'</p></div>'+
+   (AVN.off?'<div class="warn">Senza connessione: vedi l’ultima versione scaricata del piano.</div>':'')+
+   '<div class="shb"><button class="shx pri" data-act="avnpdf">📄 Scarica il PDF</button>'+(canShareFiles()?'<button class="shx" data-act="avnsh">📤 Condividi il PDF</button>':'')+'</div><p class="status" id="avfst"></p>'+
+   day+(has?'<details class="lg"><summary><span>Piano completo (opzioni e indicazioni, come nel PDF)</span></summary><div class="lgb">'+nSheet(P,u)+'</div></details>':nSheet(P,u))+'</div>'}
+async function avNutFile(share){if(!AVN)return;var P=AVN.P,u=AVN.u,b=gid('avfst');if(b)b.textContent='Preparo il PDF…';
+  try{var name=('Alimentazione_'+u.n+'_'+u.c+'_'+(P.data||'')).replace(/[^\w\-]+/g,'_')+'.pdf',blob=await PDFW.fromHtml(nSheet(P,u),{title:(P.nome||'Alimentazione')+' · '+u.n+' '+u.c,brand:(u.n+' '+u.c).trim()||'Piano alimentare',size:9.5,tsize:9}),f=new File([blob],name,{type:'application/pdf'});
+    if(share&&navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:P.nome});if(b)b.textContent=''}else{await saveBlob(blob,name);if(b)b.textContent='PDF scaricato: '+name+'.'}}
+  catch(e){if(b)b.textContent=e&&e.name==='AbortError'?'':'Non riesco a creare il PDF su questo telefono ('+((e&&e.message)||'errore')+'). Prova da Safari o Chrome.'}}
+document.addEventListener('click',function(e){if(!AVN)return;var a=e.target.closest('[data-act]');if(!a)return;var k=a.getAttribute('data-act');
+  if(k==='avnday'){AVN.d=+a.getAttribute('data-d');avNutRender()}else if(k==='avnpdf')avNutFile(false);else if(k==='avnsh')avNutFile(true)});
 
 // apertura dal dettaglio atleta e dalla scheda salvata
 document.addEventListener('click',function(e){var a=e.target.closest('[data-act="nutopen"],[data-act="nutsc"]');if(!a)return;

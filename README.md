@@ -202,6 +202,14 @@ Voce **Sezione nutrizionale** nel menu, sotto «Schede allenamento» (su smartph
   - Le grammature si adattano alle calorie del pasto. Con le esclusioni gli alimenti vengono sostituiti e il titolo dice la variante (es. «Merluzzo alla mediterranea · variante con tofu»).
   - Ogni ricetta ha il campo «Preparazione e spezie», che esce in stampa e nel PDF.
   - 12 alimenti nuovi: pasta integrale, soba, pita integrale, farro, riso venere, cacao amaro, ricotta magra, merluzzo, pesce spada, gamberi, mandorle, noci.
+- **Menu settimanale** (nuovo): 7 giorni con un pasto preciso per ogni giorno, composto dalle opzioni dei pasti (veloci, ricette fit, alternative «oppure» e tutte le combinazioni di «Crea il tuo piatto», più legumi, uova e salmone a pranzo e cena se non esclusi), con le grammature di ogni pasto.
+  - Varietà: mai lo stesso piatto nello stesso pasto due giorni di fila né a pranzo e cena; tra pranzi e cene pesce 2–3 volte, legumi almeno 2, carne rossa e salumi al massimo 2, uova al massimo 3 (riferimenti indicativi). Riepilogo con i conteggi e le calorie di ogni giorno (verde entro ±10%).
+  - Giorni a schede (Lunedì… Domenica): ogni pasto si cambia dall’elenco, con «⇄ Altra» (a ogni tocco una proposta diversa) o modificando alimenti e grammature. «⚡ Genera lo schema» rifà anche il menu; «Rigenera il menu settimanale» rifà solo i 7 giorni.
+  - In stampa e PDF la tabella «Menu settimanale»; spunta «In stampa solo il menu settimanale» per togliere le opzioni A, B, C.
+- **Invio all’atleta** (nuovo): dopo il salvataggio «📤 Invia all’atleta (WhatsApp · email)» (anche «Salva e invia» nella barra in fondo). WhatsApp al numero dell’anamnesi, Email, Gmail, Condividi il PDF (telefono), Scarica PDF, Copia messaggio.
+  - Con l’accesso al cloud il messaggio contiene il **link personale del piano** (`#a=<codice>`, documento `link/<codice>` con `ty: 'nut'`): l’atleta apre solo il suo piano, senza password, vede il menu del giorno (giorni a schede, «oggi» evidenziato), il piano completo e scarica il PDF. È sempre aggiornato: salvando il piano l’atleta vede la versione nuova. «Disattiva link» / «Riattiva link»; eliminando il piano il link viene cancellato.
+  - Senza cloud il PDF si scarica e si allega con 📎 alla chat o all’email già aperte.
+  - Le regole di Firestore non cambiano (blocco `link` della fase 21).
 - **Piatto bilanciato e porzioni**: in «Crea il tuo piatto» la regola del piatto unico (carboidrati 25–35%, proteine 25–30%, verdure 35–50%, grassi 5–10%); tendina «Porzioni standard ISS». Spunta di stampa «consigli di cucina fit» (piatto bilanciato, cereali in batch, proteine pronte, spezie al posto del sale).
 - **Disclaimer di compliance (art. 348 c.p.)**: il testo completo della specifica è nell’editor ed esce sempre in fondo alla stampa e al PDF.
 - **Dispense**: nuova scheda «Cucina fit» con inquadramento normativo, porzioni ISS, piatto fit, cucine dal mondo, ricettario, pre-sleep e meal prep.
