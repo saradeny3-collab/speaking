@@ -6093,12 +6093,15 @@ function yItRow(x,act){var w=act?yItWarn(x[0],act):'';return '<div class="yit"><
 function yRanHtml(rd){var o=function(v,L){return L.map(function(x){return '<option value="'+x[0]+'"'+(String(v)===String(x[0])?' selected':'')+'>'+esc(x[1])+'</option>'}).join('')};
   return '<div class="yrd"><div class="fg">'+
    '<label class="fl">Modalità<select class="yr_md">'+o(rd.md,Object.keys(YRM).map(function(k){return [k,YRM[k]]}))+'</select></label>'+
-   '<label class="fl">Round<input type="number" class="yr_n" min="1" max="40" inputmode="numeric" value="'+esc(rd.n)+'"></label>'+
+   (rd.free?'<label class="fl">Durata totale<select class="yr_tmd">'+o(rd.tmd||'n',[['n','calcolata dai round'],['t','scrivo i minuti (max 3 ore)']])+'</select></label>'+
+     '<label class="fl yr_tmw"'+(rd.tmd==='t'?'':' hidden')+'>Minuti totali (1–180)<input type="number" class="yr_tm" min="1" max="180" step="1" inputmode="numeric" value="'+esc(rd.tm||30)+'"></label>':'')+
+   '<label class="fl">Round'+(rd.free&&rd.tmd==='t'?' (calcolati)':'')+'<input type="number" class="yr_n" min="1" max="'+(rd.free?400:40)+'" inputmode="numeric" value="'+esc(rd.n)+'"'+(rd.free&&rd.tmd==='t'?' readonly':'')+'></label>'+
    '<label class="fl">Durata del round<select class="yr_w">'+o(rd.w,[[30,'30 s'],[45,'45 s'],[60,'1 min'],[90,'1 min 30 s'],[120,'2 min'],[150,'2 min 30 s'],[180,'3 min'],[240,'4 min'],[300,'5 min']].concat([30,45,60,90,120,150,180,240,300].indexOf(+rd.w)<0?[[rd.w,ySec(rd.w)]]:[]))+'</select></label>'+
    '<label class="fl">Recupero<select class="yr_r">'+o(rd.r,[[0,'nessuno'],[15,'15 s'],[30,'30 s'],[45,'45 s'],[60,'1 min'],[90,'1 min 30 s'],[120,'2 min']].concat([0,15,30,45,60,90,120].indexOf(+rd.r)<0?[[rd.r,ySec(rd.r)]]:[]))+'</select></label>'+
    '<label class="fl">Cambio coppia<select class="yr_cc">'+o(rd.cc,[[0,'mai'],[1,'a ogni round'],[2,'ogni 2 round'],[3,'ogni 3 round']])+'</select></label></div>'+
    '<label class="ychk" style="margin-top:10px"><input type="checkbox" class="yr_gs"'+(rd.gs?' checked':'')+'> Dopo l’ultimo round: golden score (1 min)</label>'+
-   '<p class="yrs">'+esc(YRMN[rd.md]||'')+' Durata totale: <b>'+yRdTot(rd)+' min</b>.</p>'+
+   '<p class="yrs">'+esc(YRMN[rd.md]||'')+' Durata totale: <b>'+yRdTotTxt(rd)+'</b>.</p>'+
+   '<label class="ychk" style="margin:0 0 10px"><input type="checkbox" class="yr_wh"'+(yWhOn()?' checked':'')+'> 📣 Fischio forte a inizio e fine di ogni round e di ogni recupero</label>'+
    (rd.md==='nws'?'<ol class="yrp">'+YNWS.map(function(s){return '<li>'+esc(s)+'</li>'}).join('')+'</ol><p class="sub" style="margin:0 0 8px">Le situazioni ruotano un round dopo l’altro e compaiono sul timer.</p>':'')+
    '<button type="button" class="btn pri" data-act="yrgo">▶ Avvia timer randori</button></div>'}
 function yStRow(x,j){return '<li class="ystn" draggable="true" data-a="'+esc(x.a||'')+'"><span class="yhd" aria-hidden="true" title="Trascina per spostare">⠿</span><span class="ysi">'+(j+1)+'</span><span class="yic" title="'+esc(yAttN(x.a)||'Stazione libera')+'">'+yAttI(x.a)+'</span>'+
@@ -6133,7 +6136,15 @@ function ySesHtml(g,d){
    (lg.length?'<section class="asec"><h3>Come si esegue <small>esercizi della libreria</small></h3><div class="lgw">'+lg.map(function(e){return '<details class="lg"><summary><span>'+esc(e.n)+'</span><i class="pt">'+esc(exType(e)||e.p)+'</i></summary><div class="lgb">'+legendBody(e)+'</div></details>'}).join('')+'</div></section>':'')+
    '<p class="status">Seduta proposta in automatico da fase, focus del giorno, durata e attrezzi: contenuti, dosaggi e minuti sono indicativi e vanno adattati dal tecnico al gruppo. Con «Salva seduta» le modifiche valgono solo per questa data.</p>'+
    '<datalist id="yexl">'+EXDB.map(function(e){return '<option value="'+esc(e.n)+'">'}).join('')+'</datalist>'}
-function yRdRead(s){var w=s.querySelector('.yrd');if(!w)return null;return {md:w.querySelector('.yr_md').value,n:Math.max(1,+w.querySelector('.yr_n').value||1),w:+w.querySelector('.yr_w').value||60,r:+w.querySelector('.yr_r').value||0,cc:+w.querySelector('.yr_cc').value||0,gs:w.querySelector('.yr_gs').checked?1:0}}
+function yRdRead(s){var w=s.querySelector('.yrd');if(!w)return null;var rd={md:w.querySelector('.yr_md').value,n:Math.max(1,+w.querySelector('.yr_n').value||1),w:+w.querySelector('.yr_w').value||60,r:+w.querySelector('.yr_r').value||0,cc:+w.querySelector('.yr_cc').value||0,gs:w.querySelector('.yr_gs').checked?1:0};
+  var tq=w.querySelector('.yr_tmd');if(tq){rd.free=1;rd.tmd=tq.value;rd.tm=Math.min(180,Math.max(1,Math.round(+w.querySelector('.yr_tm').value||30)));if(rd.tmd==='t')rd.n=yRdFit(rd)}
+  return rd}
+// round che stanno nei minuti totali (round + recuperi tra un round e l’altro, golden score compreso)
+function yRdFit(rd){var av=rd.tm*60-(rd.gs?60:0);return Math.max(1,Math.floor((av+rd.r)/(rd.w+rd.r)))}
+function yRdSec(rd){return rd.n*rd.w+Math.max(0,rd.n-1)*rd.r+(rd.gs?60:0)}
+function yRdTotTxt(rd){var s=yRdSec(rd);if(rd.free&&rd.tmd==='t'){var lf=rd.tm*60-s;return rd.n+' round · '+ySec(s)+' su '+rd.tm+' min'+(lf>0?' (avanzano '+ySec(lf)+')':lf<0?' (supera di '+ySec(-lf)+': aumenta i minuti)':'')}return yRdTot(rd)+' min'+(rd.free?' ('+ySec(s)+')':'')}
+function yRdUpd(w,blur){var rd=yRdRead(w.parentElement);if(!rd)return;var n=w.querySelector('.yr_n'),tm=w.querySelector('.yr_tm');if(blur&&tm&&+tm.value!==rd.tm)tm.value=rd.tm;if(rd.free){var t=rd.tmd==='t';w.querySelector('.yr_tmw').hidden=!t;n.readOnly=t;if(t)n.value=rd.n;n.parentElement.firstChild.textContent=t?'Round (calcolati)':'Round'}
+  var b=w.querySelector('.yrs b');if(b)b.textContent=yRdTotTxt(rd)}
 function yPerRead(s){var w=s.querySelector('.yperw');if(!w)return null;return {ps:{g:Math.max(1,+w.querySelector('.yp_g').value||1),w:Math.max(5,+w.querySelector('.yp_w').value||45),r:Math.max(0,+w.querySelector('.yp_r').value||0)},
   st:[].map.call(w.querySelectorAll('.ystn'),function(r){return {a:r.getAttribute('data-a')||'',n:r.querySelector('.ys_n').value.trim(),d:r.querySelector('.ys_d').value.trim()}})}}
 function yReadSes(){return [].map.call(document.querySelectorAll('#yblks .ypart'),function(s){var k=s.getAttribute('data-pk'),o={k:k,t:s.querySelector('.yp_t').value.trim()||YPT[k]||'Blocco',min:+s.querySelector('.yp_min').value||0,nt:s.querySelector('.yp_nt').value.trim(),
@@ -6163,6 +6174,20 @@ function yExList(){var q=YXQ.toLowerCase().trim(),h='',n=0;
 var YTM=null,YAC=null;
 function yAud(){try{YAC=YAC||new (window.AudioContext||window.webkitAudioContext)();if(YAC.state==='suspended')YAC.resume()}catch(e){}return YAC}
 function yTone(f,d,w,v){var a=yAud();if(!a)return;try{var t=a.currentTime+(w||0),o=a.createOscillator(),gn=a.createGain();o.type='square';o.frequency.value=f;gn.gain.setValueAtTime(0.0001,t);gn.gain.exponentialRampToValueAtTime(v||0.3,t+0.01);gn.gain.exponentialRampToValueAtTime(0.0001,t+d);o.connect(gn);gn.connect(a.destination);o.start(t);o.stop(t+d+0.05)}catch(e){}}
+// fischio da arbitro: tono acuto (~3 kHz) con trillo del pisello, soffio e compressore per il massimo volume
+var YWB=null;function yWhOn(){try{return localStorage.getItem('spk_whistle')!=='0'}catch(e){return true}}
+function yWhSet(v){try{localStorage.setItem('spk_whistle',v?'1':'0')}catch(e){}}
+function yWhBus(a){if(YWB&&YWB.a===a)return YWB.n;var c=a.createDynamicsCompressor();c.threshold.value=-10;c.knee.value=0;c.ratio.value=12;c.attack.value=0.002;c.release.value=0.1;
+  var g=a.createGain();g.gain.value=1.3;c.connect(g);g.connect(a.destination);YWB={a:a,n:c};return c}
+function yWhistle(d,w){var a=yAud();if(!a)return;try{var t=a.currentTime+(w||0),bus=yWhBus(a),env=a.createGain();env.connect(bus);
+  env.gain.setValueAtTime(0.0001,t);env.gain.exponentialRampToValueAtTime(1,t+0.02);env.gain.setValueAtTime(1,t+d-0.05);env.gain.exponentialRampToValueAtTime(0.0001,t+d);
+  var lfo=a.createOscillator(),lg=a.createGain();lfo.frequency.value=30;lg.gain.value=220;lfo.connect(lg);
+  [[3150,'sine',0.75],[3150*2,'sine',0.12],[3150,'square',0.06]].forEach(function(x){var o=a.createOscillator(),og=a.createGain();o.type=x[1];o.frequency.value=x[0];lg.connect(o.frequency);og.gain.value=x[2];o.connect(og);og.connect(env);o.start(t);o.stop(t+d+0.05)});
+  var nb=a.createBuffer(1,Math.ceil(a.sampleRate*(d+0.05)),a.sampleRate),ch=nb.getChannelData(0);for(var i=0;i<ch.length;i++)ch[i]=Math.random()*2-1;
+  var ns=a.createBufferSource(),bp=a.createBiquadFilter(),ng=a.createGain();ns.buffer=nb;bp.type='bandpass';bp.frequency.value=3150;bp.Q.value=3;ng.gain.value=0.25;ns.connect(bp);bp.connect(ng);ng.connect(env);ns.start(t);ns.stop(t+d+0.05);
+  lfo.start(t);lfo.stop(t+d+0.05)}catch(e){}}
+// segnali: inizio round = 1 fischio lungo; fine round / inizio recupero = 2 fischi brevi; fine allenamento = 3 fischi (l’ultimo lungo)
+function yWhCue(k){if(!yWhOn())return false;if(k==='w')yWhistle(1.1);else if(k==='r'){yWhistle(0.3);yWhistle(0.3,0.45)}else if(k==='end'){yWhistle(0.35);yWhistle(0.35,0.5);yWhistle(1.3,1.0)}return true}
 function ySay(s){try{if(!window.speechSynthesis||!s)return;var u=new SpeechSynthesisUtterance(s);u.lang='it-IT';speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
 function yRdList(rd){var L=[{k:'p',s:10,t:'Pronti',x:'In posizione e saluto (rei) al compagno'}];
   for(var i=1;i<=rd.n;i++){var last=i===rd.n,cc=!!(rd.cc&&i%rd.cc===0);
@@ -6189,12 +6214,13 @@ function yTmDraw(ms){var T=YTM;if(!T)return;var x=yTmCur()||{},s=Math.max(0,Math
   var nx=T.L[T.i+1];gid('ytn').textContent=T.done?'':nx?'Poi: '+nx.t+' ('+ySec(nx.s)+')':'Ultimo intervallo';
   gid('ytpl').textContent=T.done?'↺ Ricomincia':T.pz?(T.st?'▶ Riprendi':'▶ Avvia'):'⏸ Pausa';
   var tot=T.L.reduce(function(a,y){return a+y.s},0),dn=T.L.slice(0,T.i).reduce(function(a,y){return a+y.s},0)+(x.s||0)-s;gid('ytpr').style.width=(T.done?100:Math.min(100,dn/tot*100))+'%'}
-function yCue(x){if(x.k==='w'){yTone(880,0.7);ySay(x.say||'Hajime')}else if(x.k==='r'){yTone(660,0.18);yTone(660,0.18,0.28);if(x.cc&&!x.say){yTone(523,0.25,0.7);yTone(784,0.45,1.0)}ySay(x.say||(x.cc?'Matte. Cambio coppia':'Matte'))}
+function ySayL(s,ms){if(ms)setTimeout(function(){if(YTM)ySay(s)},ms);else ySay(s)}
+function yCue(x){var wh=x.k!=='p'&&yWhCue(x.k);if(x.k==='w'){if(!wh)yTone(880,0.7);ySayL(x.say||'Hajime',wh?1200:0)}else if(x.k==='r'){if(!wh){yTone(660,0.18);yTone(660,0.18,0.28)}if(x.cc&&!x.say){yTone(523,0.25,wh?1.0:0.7);yTone(784,0.45,wh?1.3:1.0)}ySayL(x.say||(x.cc?'Matte. Cambio coppia':'Matte'),wh?(x.cc?1900:1000):0)}
   try{navigator.vibrate&&navigator.vibrate(x.k==='w'?400:[150,100,150])}catch(e){}}
 function yTmTick(){var T=YTM;if(!T||T.pz||T.done)return;var left=T.end-Date.now(),s=Math.ceil(left/1000);
   if(s!==T.last){T.last=s;if(s>=1&&s<=3)yTone(s===1?520:440,0.12)}
   if(left<=0)yTmNext();else yTmDraw(left)}
-function yTmNext(){var T=YTM;T.i++;if(T.i>=T.L.length){T.done=true;T.i=T.L.length-1;yTone(660,0.25);yTone(660,0.25,0.35);yTone(990,0.7,0.7);ySay('Sore made');yTmDraw(0);return}
+function yTmNext(){var T=YTM;T.i++;if(T.i>=T.L.length){T.done=true;T.i=T.L.length-1;if(yWhCue('end'))setTimeout(function(){ySay('Sore made')},2400);else{yTone(660,0.25);yTone(660,0.25,0.35);yTone(990,0.7,0.7);ySay('Sore made')}yTmDraw(0);return}
   var x=yTmCur();T.end=Date.now()+x.s*1000;T.last=-1;yCue(x);yTmDraw(x.s*1000)}
 function yTmClose(){if(!YTM)return;clearInterval(YTM.iv);try{YTM.wl&&YTM.wl.release()}catch(e){}try{window.speechSynthesis&&speechSynthesis.cancel()}catch(e){}YTM=null;var e=gid('ytm');if(e)e.remove()}
 document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-tm]');if(!b||!YTM)return;var k=b.getAttribute('data-tm'),T=YTM;
@@ -6205,7 +6231,8 @@ document.addEventListener('click',function(e){var b=e.target.closest&&e.target.c
   if(k==='skip'&&!T.done){if(!T.st){T.st=true}T.pz=false;yTmNext();return}
   if(k==='plus'&&!T.done){if(T.pz)T.rem+=15000;else T.end+=15000;yTmDraw(T.pz?T.rem:T.end-Date.now())}});
 document.addEventListener('keydown',function(e){if(YTM&&e.key==='Escape')yTmClose()});
-function yFreeTimer(){modal('<h3>⏱ Timer randori</h3><div id="yfree">'+yRanHtml({md:'tws',n:6,w:180,r:60,cc:1,gs:0})+'</div><div class="mrow"><button data-act="mclose">Chiudi</button></div>')}
+document.addEventListener('input',function(e){var t=e.target;if(t.closest&&t.closest('#yfree .yrd')&&(t.classList.contains('yr_tm')||t.classList.contains('yr_n')))yRdUpd(t.closest('.yrd'))});
+function yFreeTimer(){modal('<h3>⏱ Timer randori</h3><div id="yfree">'+yRanHtml({md:'tws',n:6,w:180,r:60,cc:1,gs:0,free:1,tmd:'n',tm:30})+'</div><p class="sub" style="margin:4px 0 0">Su iPhone togli il silenzioso e alza il volume: con l’interruttore del silenzioso il browser non suona.</p><div class="mrow"><button data-act="mclose">Chiudi</button></div>')}
 // ---- percorsi: trascina e rilascia ----
 var YDRG=null;
 function yStAdd(list,a,before){var A=YATT.filter(function(x){return x[0]===a})[0],n=A?A[3][list.children.length%A[3].length]:'',tmp=document.createElement('ol');tmp.innerHTML=yStRow({a:a,n:n,d:''},0);var li=tmp.firstElementChild;
@@ -6505,7 +6532,7 @@ document.addEventListener('click',function(e){
   else if(k==='ybadd'&&g){var L=gid('yblks'),nb=yNewBlk(gid('ybk').value,g);L.insertAdjacentHTML('beforeend',yBlkHtml(nb,L.children.length,g,yInjAct(g)));YDIRTY=YSBD=true;yMinChk();L.lastElementChild.scrollIntoView({block:'center'})}
   else if(k==='ysup'||k==='ysdn'){var li=a.closest('.ystn'),o3=k==='ysup'?li.previousElementSibling:li.nextElementSibling;if(o3){if(k==='ysup')li.parentNode.insertBefore(li,o3);else li.parentNode.insertBefore(o3,li)}YDIRTY=YSBD=true;yMinChk()}
   else if(k==='ysdel'){a.closest('.ystn').remove();YDIRTY=YSBD=true;yMinChk()}
-  else if(k==='yrgo'){var rd=yRdRead(a.closest('.yrd').parentElement);yAud();closeModal();yTimer('Randori · '+YRM[rd.md],yRdList(rd))}
+  else if(k==='yrgo'){var rd=yRdRead(a.closest('.yrd').parentElement);yAud();closeModal();yTimer('Randori · '+YRM[rd.md]+(rd.free&&rd.tmd==='t'?' · '+rd.tm+' min':''),yRdList(rd))}
   else if(k==='ypgo'){var pr=yPerRead(sec);if(!pr.st.length){st('ymt','Aggiungi almeno una stazione al percorso.');return}yAud();yTimer('Percorso funzionale',yPerList(pr))}
   else if(k==='yssave'&&g&&YD)ySaveSes(g,YD);
   else if(k==='ysreset'&&g&&YD)ySaveSes(g,YD,true);
@@ -6540,8 +6567,10 @@ document.addEventListener('change',function(e){if(AV||cur!=='yan')return;var t=e
   if(t.classList.contains('y_on'))t.closest('.ydr').classList.toggle('on',t.checked);
   if(t.id==='y_mon'){var f=gid('ymaef');if(f)f.hidden=!t.checked}
   if(t.classList.contains('y_att'))yMatCnt();
-  if(t.classList.contains('yr_md')){var w=t.closest('.yrd'),p=w.parentElement,rd=yRdRead(p),d={kak:[60,30],nws:[120,60],tws:[180,60],mix:[180,60],stu:[120,60]}[rd.md]||[180,60];rd.w=d[0];rd.r=d[1];
+  if(t.classList.contains('yr_md')){var w=t.closest('.yrd'),p=w.parentElement,rd=yRdRead(p),d={kak:[60,30],nws:[120,60],tws:[180,60],mix:[180,60],stu:[120,60]}[rd.md]||[180,60];rd.w=d[0];rd.r=d[1];if(rd.free&&rd.tmd==='t')rd.n=yRdFit(rd);
     var tmp=document.createElement('div');tmp.innerHTML=yRanHtml(rd);w.replaceWith(tmp.firstElementChild)}
+  else if(t.closest&&t.closest('.yrd')&&t.closest('#yfree'))yRdUpd(t.closest('.yrd'),1);
+  if(t.classList.contains('yr_wh'))yWhSet(t.checked);
   if(t.closest('#yset,#yses,#yatlw')){YDIRTY=true;if(t.closest('#yses')){YSBD=true;yMinChk()}}});
 
 // ---- PDF vero (fase 19): creato nel browser, testo selezionabile, font standard Helvetica (WinAnsi), A4 ----
