@@ -31,10 +31,32 @@ Nel generatore (Impostazione) e nell’editor (Impostazioni della scheda): **«D
 ## Infortuni e traumi
 Nell’anamnesi, «+ Aggiungi infortunio o trauma»: zona (cervicale, spalla, gomito, polso/mano, lombare, anca/inguine, ginocchio, caviglia/piede), lato, stato e **«Fermo fino al»** (tasto 📅 calendario, oppure +1/+2/+4/+6 settimane da oggi): la data la chiedi al cliente.
 - **Acuto** e **In recupero**: la zona resta ferma. Tutti gli esercizi che la caricano sono esclusi e non entrano nella scheda, compresi rinforzo e mobilità della zona; il cliente allena il resto del corpo.
+- **Fastidio**: vedi «Filtro di auto-sostituzione» sopra.
 - **Pregresso**: tutti ammessi; quelli ad alto carico sono segnalati «cautela». Solo qui vengono favoriti rinforzo e mobilità della zona (es. lombare → dead bug, bird dog, hip thrust; spalla → face pull, elevazioni prone).
 - **Scadenza**: la data «fermo fino al» è la scadenza per cambiare la scheda. Il generatore propone il cambio scheda in quella data (se arriva prima delle 6 settimane); l’editor la segnala con «Usa come cambio scheda»; l’atleta passa «In scadenza» 10 giorni prima e, a data superata, compare «Verifica infortunio». Gli esercizi restano esclusi finché non cambi lo stato in «Pregresso».
 - **Blocco**: un esercizio escluso scritto a mano compare con l’etichetta rossa «escluso per infortunio»; al salvataggio la scheda non si salva finché non lo togli («Togli e salva»). In libreria il pulsante diventa «Escluso».
 Le regole valgono per selezione automatica, libreria, blocchi, proposte del prossimo esercizio, «Varia», riscaldamento ed editor. Per i clienti già salvati, gli infortuni scritti nelle note vengono riconosciuti e proposti alla prossima apertura dell’anamnesi.
+
+## Filtro di auto-sostituzione per fastidi e infortuni (nuovo)
+Il filtro si attiva quando un fastidio arriva dall'anamnesi o dall'atleta durante la seduta.
+- **Stato «Fastidio (dolore lieve, si allena)»** negli infortuni dell'anamnesi, tra «In recupero» e «Pregresso». Esclude gli esercizi ad alto carico per la zona. Con lombare o cervicale esclude anche **tutti i carichi assiali**: squat e stacchi con bilanciere, rematore con bilanciere, spinte sopra la testa, hack squat e multipower, trasporti e swing. Gli altri esercizi della zona restano con «cautela».
+- **Varianti sicure vincolate**: al posto degli esercizi esclusi l'app propone macchine, cavi o esercizi con appoggio. Le varianti rispettano livello, PAR-Q, test, attrezzi di casa e infortuni. Esempi: squat → leg press, stacco → hip thrust, military → landmine press, rematore con bilanciere → low row, farmer walk → Pallof press.
+- **Dove agisce**:
+  - selezione automatica: con un fastidio, a parità di scelta vince la variante guidata;
+  - programmi delle dispense: se l'alternativa della dispensa non va, si usa la variante sicura e la logica di lavoro scrive il motivo («carico assiale con fastidio»);
+  - salvataggio: «🛡 Sostituisci con varianti sicure» accanto a «Togli e salva»;
+  - editor: pulsante nell'avviso in alto;
+  - scheda salvata: avviso «🛡 N esercizi non sono compatibili…», che apre l'editor con le sostituzioni già fatte.
+
+  Serie, ripetizioni, RPE e recupero restano se l'esercizio nuovo è dello stesso tipo. Il riepilogo elenca ogni sostituzione e il motivo.
+- **Segnalazione dall'atleta** (link della scheda): su ogni esercizio c'è «🩹 Fastidio o dolore in questo esercizio?», in alto «🩹 Segnala un fastidio o un dolore». Si indicano zona, lato, intensità da 1 a 10, quando e una nota.
+  - Sul telefono gli esercizi che caricano la zona mostrano subito la **variante sicura** con la guida all'esecuzione, oppure «saltalo» se non ce n'è una con i suoi attrezzi. Con intensità 7 o più la zona è considerata ferma e compare l'invito a rivolgersi al medico. «È passato» chiude la segnalazione.
+  - La segnalazione arriva al PT (`link/<codice>/r/fb`, stesse regole di Firestore della fase 21). Con il link «fotografia» resta sul telefono ed entra in «Invia i risultati al PT».
+- **Lato PT**:
+  - in home il riquadro «🩹 Fastidi segnalati dagli atleti»;
+  - nella scheda salvata l'elenco delle segnalazioni con «🛡 Aggiungi all'anamnesi e sostituisci»: la zona va nell'anamnesi come fastidio (acuto se 7 o più) e si apre l'editor con le varianti già inserite, da controllare e salvare;
+  - «Segna come gestito» chiude la segnalazione senza modifiche.
+- Glossario: carico assiale, variante vincolata.
 
 ## Test funzionali
 Dal dettaglio atleta («Test funzionali») o dai passi in alto (1. Anamnesi · 2. Test · 3. Scheda). Ogni test ha la guida espandibile «cos'è, a cosa serve, come eseguirlo».

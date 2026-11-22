@@ -225,6 +225,14 @@ body.athm .side,body.athm .tabbar{display:none!important}body.athm main{width:10
 .avt{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:30;display:flex;gap:10px;align-items:center;background:#0b0b0b;color:#fff;border-radius:99px;padding:8px 10px 8px 18px;box-shadow:0 6px 24px rgba(0,0,0,.35);max-width:calc(100% - 20px)}
 .avt b{font-size:22px;font-variant-numeric:tabular-nums;min-width:56px}.avt button{white-space:nowrap;font:inherit;font-weight:700;border:0;border-radius:99px;padding:8px 12px;background:#2a2a2a;color:#fff;cursor:pointer}.avt.end{background:#2e9b55}.avt[hidden]{display:none}
 @media print{.avt,.avact,.avtabs{display:none!important}}
+.avfb{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:10px 0 0;background:#fff}.avfb.on{border-color:#f0b4b4;border-left:4px solid #d62828;background:#fff6f6}.avfbh{font-weight:800;color:#9b1c1c;margin-bottom:4px}.avfb ul{margin:0 0 6px;padding-left:18px}.avfb li{margin:4px 0}.avfb li .btn{margin-left:6px;padding:3px 10px;font-size:12px}.avfb p{margin:4px 0 8px;font-size:13.5px}
+.avsafe{border:1px solid #b9a3e0;border-left:4px solid #4B0082;background:#f5f0fb;border-radius:10px;padding:8px 10px;margin:8px 0;font-size:14px}.avsafe .avg{margin-top:6px}.avcaut{border-left:4px solid #c2410c;background:#fdebd0;color:#5a2d00;border-radius:8px;padding:6px 10px;margin:8px 0;font-size:13.5px}
+.avfbx{display:block;margin:8px 0 0;background:none;border:0;padding:4px 0;color:#9b1c1c;font:inherit;font-size:13px;font-weight:600;text-decoration:underline;cursor:pointer}
+.avfi{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.avfi button{min-width:40px;padding:8px 0;border:1px solid var(--line);border-radius:8px;background:#fff;color:#111;font:inherit;font-weight:700;cursor:pointer}.avfi button.md{border-color:#e0a36a}.avfi button.hi{border-color:#d62828}.avfi button[aria-pressed="true"]{background:#4B0082;color:#fff;border-color:#4B0082}
+.fbx{border:1px solid #f0b4b4;border-left:4px solid #d62828;background:#fff6f6;border-radius:10px;padding:10px 12px;margin:0 0 12px}.fbx ul{list-style:none;margin:0;padding:0}.fbx li{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;justify-content:space-between;padding:8px 0;border-top:1px solid #f3d0d0;font-size:14px}.fbx li:first-child{border-top:0}.fbx li.dn{opacity:.65}.fbx li.hi b{color:#9b1c1c}.fbb{display:flex;gap:6px;flex-wrap:wrap}
+.dues.fbd{border-color:#e3c3a0;border-left-color:#c2410c;background:#fff8f0}.dues.fbd h3{color:#7a3300}
+.sfl{padding-left:18px}.sfl li{margin:6px 0}.sfw{font-style:normal;font-size:12px;color:#14622f;background:#e3f4e8;border-radius:6px;padding:1px 7px}
+@media print{.avfb,.avfbx,.fbx{display:none!important}}
 .dues{border:1px solid #f0b4b4;border-left:4px solid #d62828;background:#fff6f6;border-radius:10px;padding:12px 14px;margin:0 0 14px}.dues h3{margin:0 0 8px;font-size:15px;color:#9b1c1c}
 .dues ul{list-style:none;margin:0;padding:0}.dues li{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;padding:8px 0;border-top:1px solid #f3d0d0;cursor:pointer;font-size:14px;color:#222}.dues li:first-child{border-top:0}
 .dues li b{min-width:150px}.dues li span{flex:1 1 200px}.dues li .dd2{flex:0 0 auto;font-weight:600;color:#9b5a00}.dues li.near .dd2{color:#c2410c}.dues li.late .dd2{color:#d62828}
@@ -715,12 +723,13 @@ var Cloud=(function(){
   function logref(t){return F.f.doc(fs,'link',String(t),'r','log')}
   function linkDoc(o){var u=find(o.uid);return {owner:user.uid,sid:String(o.id),on:!o.aoff,j:JSON.stringify(shareData(o,u)),p:JSON.stringify(pubData(o,u)),t:F.f.serverTimestamp(),ts:Date.now()}}
   function linkPut(o){if(!user||!F||!o||!o.atok)return Promise.reject(new Error('nocloud'));return F.f.setDoc(lref(o.atok),linkDoc(o))}
+  async function linkFb(t){if(!user||!F)throw new Error('nocloud');var s=await F.f.getDoc(F.f.doc(fs,'link',String(t),'r','fb'));if(!s.exists())return null;var x=s.data();return {l:JSON.parse(x.l||'[]'),ts:+x.ts||0}}
   async function linkLog(t){if(!user||!F)throw new Error('nocloud');var s=await F.f.getDoc(logref(t));if(!s.exists())return null;var x=s.data();return {l:JSON.parse(x.l||'{}'),ts:+x.ts||0}}
   function linkSet(t,o){if(!user||!F)return Promise.reject(new Error('nocloud'));return F.f.setDoc(lref(t),Object.assign({},o,{owner:user.uid,t:F.f.serverTimestamp(),ts:Date.now()}))}
   function linkRm(t){if(!user||!F||!t)return Promise.resolve();return F.f.deleteDoc(lref(t)).catch(function(){})}
   async function linkDrop(sid){if(!user||!F)return;
     try{var s=await F.f.getDocs(F.f.query(F.f.collection(fs,'link'),F.f.where('owner','==',user.uid))),L=[];s.forEach(function(d){if(String((d.data()||{}).sid)===String(sid))L.push(d.id)});
-      for(var t of L){try{await F.f.deleteDoc(logref(t))}catch(e){}try{await F.f.deleteDoc(lref(t))}catch(e){}}}catch(e){}}
+      for(var t of L){try{await F.f.deleteDoc(logref(t))}catch(e){}try{await F.f.deleteDoc(F.f.doc(fs,'link',String(t),'r','fb'))}catch(e){}try{await F.f.deleteDoc(lref(t))}catch(e){}}}catch(e){}}
   function put(n,o){if(o==null||o.id==null)return;queue(n,o.id,'put');if(!user||!F)return;
     if(n==='gruppi'&&o._sh){track(F.f.setDoc(sref(o.id),shDoc(o,o._sh.o,o._sh.on,o._sh.m)),n,o.id);return}
     ids[n][String(o.id)]=1;
@@ -800,7 +809,7 @@ var Cloud=(function(){
     if(/unauthorized-domain|requests-from-referer/.test(c))return 'Questo indirizzo non è tra i domini autorizzati di Firebase (Authentication → Settings → Domini autorizzati).';
     return 'Accesso non riuscito ('+(c||(e&&e.message)||'errore')+').'}
   return {
-    load:load,put:put,del:del,sync:sync,linkPut:linkPut,linkSet:linkSet,linkRm:linkRm,linkLog:linkLog,upload:upload,status:status,aerr:aerr,
+    load:load,put:put,del:del,sync:sync,linkPut:linkPut,linkSet:linkSet,linkRm:linkRm,linkLog:linkLog,linkFb:linkFb,upload:upload,status:status,aerr:aerr,
     user:function(){return user},pending:function(){return pend},localOnly:function(){return lo},
     onAuth:function(cb){F.u.onAuthStateChanged(auth,function(u){user=u||null;cb(user)})},
     signIn:function(e,p){return F.u.signInWithEmailAndPassword(auth,e,p)},
@@ -894,10 +903,14 @@ function renderDues(){
   var box=document.getElementById('dues');if(!box)return;
   var L=[];U.forEach(function(u){dueSoon(u).forEach(function(x){L.push({u:u,x:x})});if(u.cert==='Scaduto'&&!u.certd)L.push({u:u,x:{k:'cert',d:'',left:-1,t:'Certificato medico segnato come scaduto'}})});
   L.sort(function(a,b){return a.x.left-b.x.left});
-  box.innerHTML=L.length?'<div class="dues" role="region" aria-label="Scadenze"><h3>⚠ Scadenze entro '+AVV+' giorni ('+L.length+')</h3><ul>'+L.map(function(r){
+  if(window.Cloud&&Cloud.user()&&Date.now()-FBT>120000)setTimeout(fbScan,0);
+  var F=fbDue(),fh=F.length?'<div class="dues fbd" role="region" aria-label="Fastidi segnalati"><h3>🩹 Fastidi segnalati dagli atleti ('+F.length+')</h3><ul>'+F.map(function(r){
+    return '<li class="'+(+r.x.i>=7?'late':'near')+'" data-act="fbopen" data-id="'+esc(r.s.id)+'"><b>'+esc(r.u.n+' '+r.u.c)+'</b><span>'+esc(fbLbl(r.x))+' · '+esc(String(r.x.i))+'/10'+(r.x.ex?' · '+esc(r.x.ex):'')+'</span><span class="dd2">'+esc(fdate(r.x.dd))+'</span></li>'}).join('')+
+   '</ul><p>Tocca un nome per aprire la scheda: da lì aggiungi il fastidio all’anamnesi e il filtro sostituisce gli esercizi con varianti sicure.</p></div>':'';
+  box.innerHTML=fh+(L.length?'<div class="dues" role="region" aria-label="Scadenze"><h3>⚠ Scadenze entro '+AVV+' giorni ('+L.length+')</h3><ul>'+L.map(function(r){
     var x=r.x,late=x.left<0;
     return '<li class="'+(late?'late':x.left<=3?'near':'')+'" data-row="'+esc(r.u.id)+'"><b>'+esc(r.u.n+' '+r.u.c)+'</b><span>'+esc(x.t)+'</span><span class="dd2">'+(x.d?fdate(x.d)+' · ':'')+(x.d?leftTxt(x.left):'da aggiornare')+'</span></li>'}).join('')+
-   '</ul><p>'+(L.some(function(r){return r.x.k==='inj'})?'Fine stop medico: prima di far tornare a caricare la zona serve il via libera del medico o del fisioterapista; poi aggiorna l’anamnesi e prepara la nuova scheda. ':'')+'Tocca un nome per aprire l’atleta.</p></div>':'';
+   '</ul><p>'+(L.some(function(r){return r.x.k==='inj'})?'Fine stop medico: prima di far tornare a caricare la zona serve il via libera del medico o del fisioterapista; poi aggiorna l’anamnesi e prepara la nuova scheda. ':'')+'Tocca un nome per aprire l’atleta.</p></div>':'');
 }
 function modal(html){var m=document.getElementById('modal');if(!m){m=document.createElement('div');m.id='modal';m.className='modal';document.body.appendChild(m)}m.innerHTML='<div class="mbox">'+html+'</div>'}
 function closeModal(){var m=document.getElementById('modal');if(m)m.remove()}
@@ -934,7 +947,7 @@ var PQT={ok:'PAR-Q idoneo',warn:'PAR-Q: serve il parere del medico',na:'PAR-Q da
 // pregresso = ammessi, «cautela» su quelli ad alto carico. La data «fermo fino al» è la scadenza per cambiare la scheda.
 var INJZ=[['cerv','Cervicale'],['spalla','Spalla'],['gomito','Gomito'],['polso','Polso / mano'],['lomb','Lombare / schiena'],['anca','Anca / inguine'],['ginoc','Ginocchio'],['cavig','Caviglia / piede']];
 var INJN={};INJZ.forEach(function(z){INJN[z[0]]=z[1]});
-var INJS=[['acuto','Acuto / doloroso ora'],['recupero','In recupero'],['pregresso','Pregresso (risolto)']],INJRK={acuto:3,recupero:2,pregresso:1};
+var INJS=[['acuto','Acuto / doloroso ora'],['recupero','In recupero'],['fastidio','Fastidio (dolore lieve, si allena)'],['pregresso','Pregresso (risolto)']],INJRK={acuto:3,recupero:2,fastidio:1.5,pregresso:1};
 var INJL=[['','—'],['dx','Destro'],['sx','Sinistro'],['bil','Entrambi']];
 // b: esercizi di rinforzo o alternativi favoriti nella selezione · t: regola mostrata al PT · mob: mobilità mirata (solo se non acuto)
 var INJR={
@@ -949,7 +962,7 @@ var INJR={
 };
 var injGuess=false;
 function injOpts(list,v){return list.map(function(o){return '<option value="'+o[0]+'"'+(o[0]===(v||'')?' selected':'')+'>'+esc(o[1])+'</option>'}).join('')}
-function injRow(x){x=x||{};var off=(x.st||'recupero')==='pregresso';return '<div class="injr"><label class="fl">Zona<select class="inj_z"><option value="">— Seleziona —</option>'+injOpts(INJZ,x.z)+'</select></label>'+
+function injRow(x){x=x||{};var off=!injStop({st:x.st||'recupero'});return '<div class="injr"><label class="fl">Zona<select class="inj_z"><option value="">— Seleziona —</option>'+injOpts(INJZ,x.z)+'</select></label>'+
   '<label class="fl">Lato<select class="inj_l">'+injOpts(INJL,x.lato)+'</select></label>'+
   '<label class="fl">Stato<select class="inj_s">'+injOpts(INJS,x.st||'recupero')+'</select></label>'+
   '<div class="fl inj_fw'+(off?' off':'')+'"><span>Fermo fino al (chiedilo al cliente)</span><div class="injd"><input class="inj_f" type="date" aria-label="Fino a quando deve stare fermo per questa zona" value="'+esc(x.fino||'')+'"'+(off?' disabled':'')+'>'+
@@ -957,8 +970,8 @@ function injRow(x){x=x||{};var off=(x.st||'recupero')==='pregresso';return '<div
    '<div class="injq">'+[1,2,4,6].map(function(w){return '<button type="button" data-act="injplus" data-w="'+w+'" title="Da oggi">+'+w+' sett.</button>'}).join('')+'</div></div>'+
   '<label class="fl">Note (diagnosi, data, indicazioni)<input class="inj_n" value="'+esc(x.nt||'')+'" placeholder="Es. tendinopatia sovraspinato, ottobre 2026"></label>'+
   '<button type="button" class="xr" data-act="injrm" aria-label="Rimuovi infortunio" title="Rimuovi">×</button></div>'}
-function readInj(){return [].map.call(document.querySelectorAll('#injl .injr'),function(r){var st=r.querySelector('.inj_s').value||'recupero';return {z:r.querySelector('.inj_z').value,lato:r.querySelector('.inj_l').value,st:st,fino:st==='pregresso'?'':r.querySelector('.inj_f').value,nt:r.querySelector('.inj_n').value.trim()}}).filter(function(x){return INJN[x.z]})}
-function injLabel(x,noDate){var l={dx:' dx',sx:' sx',bil:' (entrambi i lati)'}[x.lato]||'';return INJN[x.z]+l+' — '+({acuto:'acuto',recupero:'in recupero',pregresso:'pregresso'}[x.st]||'')+(!noDate&&x.fino&&x.st!=='pregresso'?', fermo fino al '+fdate(x.fino):'')}
+function readInj(){return [].map.call(document.querySelectorAll('#injl .injr'),function(r){var st=r.querySelector('.inj_s').value||'recupero';return {z:r.querySelector('.inj_z').value,lato:r.querySelector('.inj_l').value,st:st,fino:!injStop({st:st})?'':r.querySelector('.inj_f').value,nt:r.querySelector('.inj_n').value.trim()}}).filter(function(x){return INJN[x.z]})}
+function injLabel(x,noDate){var l={dx:' dx',sx:' sx',bil:' (entrambi i lati)'}[x.lato]||'';return INJN[x.z]+l+' — '+({acuto:'acuto',recupero:'in recupero',fastidio:'fastidio',pregresso:'pregresso'}[x.st]||'')+(!noDate&&x.fino&&injStop(x)?', fermo fino al '+fdate(x.fino):'')}
 // zona ferma = infortunio acuto o in recupero · injEnd = prima data di fine stop indicata
 function injStop(x){return x.st==='acuto'||x.st==='recupero'}
 function injEnd(u){var d='';injList(u).forEach(function(x){if(injStop(x)&&x.fino&&(!d||x.fino<d))d=x.fino});return d}
@@ -969,7 +982,7 @@ function injFromText(t){
   var o={};
   String(t||'').toLowerCase().split(/[,;\n.]+/).forEach(function(ch){
     if(!ch.trim()||/nessun|mai avuto|non ha|niente/.test(ch))return;
-    var st=/pregress|vecchi|anni fa|in passato|operat|intervent|esiti|risolt|guarit/.test(ch)?'pregresso':/acut|recent|in corso|attual|infiamm|da poco|giorni fa|settimane fa/.test(ch)?'acuto':'recupero';
+    var st=/pregress|vecchi|anni fa|in passato|operat|intervent|esiti|risolt|guarit/.test(ch)?'pregresso':/acut|recent|in corso|attual|infiamm|da poco|giorni fa|settimane fa/.test(ch)?'acuto':/fastidi|lieve|leggero|ogni tanto|a volte/.test(ch)?'fastidio':'recupero';
     var lato=/\bdx\b|destr/.test(ch)?'dx':/\bsx\b|sinistr/.test(ch)?'sx':'';
     INJRE.forEach(function(z){if(z[1].test(ch)&&(!o[z[0]]||INJRK[st]>INJRK[o[z[0]].st]))o[z[0]]={z:z[0],lato:lato,st:st,nt:ch.trim()}});
   });
@@ -1020,15 +1033,155 @@ function injLoad(e){
 }
 // Esito per il cliente: avoid = da evitare · caut = cautela · '' = nessun problema
 function injHit(e,c){
-  var r={lvl:'',z:[]};if(!e||!c||!c.injZ)return r;var L=injLoad(e);
-  Object.keys(c.injZ).forEach(function(k){var st=c.injZ[k],v=L[k]||0;if(!v)return;
-    if(st>=2){if(r.lvl!=='avoid')r.z=[];r.lvl='avoid';r.z.push(k)}
-    else if(r.lvl!=='avoid'&&v>=2){r.lvl='caut';r.z.push(k)}});
+  var r={lvl:'',z:[],ax:false};if(!e||!c||!c.injZ)return r;var L=injLoad(e);
+  Object.keys(c.injZ).forEach(function(k){var st=c.injZ[k],v=L[k]||0,x=false;
+    if(st===1.5&&AXZ[k]&&axial(e)){x=true;v=2}if(!v)return;
+    if(st>=2||(st===1.5&&v>=2)){if(r.lvl!=='avoid'){r.z=[];r.ax=false}r.lvl='avoid';r.z.push(k);if(x)r.ax=true}
+    else if(r.lvl!=='avoid'&&(v>=2||st===1.5)){r.lvl='caut';r.z.push(k)}});
   return r;
 }
 function injZn(h){return h.z.map(function(k){return INJN[k].split(' /')[0].toLowerCase()}).join(', ')}
-function injTag(h,long){return h.lvl==='avoid'?'<i class="lw">escluso per infortunio: '+esc(injZn(h))+'</i>':h.lvl==='caut'?'<i class="lc">cautela: '+esc(injZn(h))+'</i>':''}
+function injTag(h,long){return h.lvl==='avoid'?'<i class="lw">escluso per infortunio o fastidio: '+esc(injZn(h))+(h.ax?' (carico assiale)':'')+'</i>':h.lvl==='caut'?'<i class="lc">cautela: '+esc(injZn(h))+'</i>':''}
 function injTagN(n,c){var e=EXI[ekey(n)];return e?injTag(injHit(e,c)):''}
+// ---- Fase 25: filtro di auto-sostituzione per fastidi e infortuni ----
+// Stato «fastidio» (dall'anamnesi o segnalato dall'atleta dal link): esclusi gli esercizi ad alto carico per la zona e, per lombare e cervicale,
+// tutti i carichi assiali; al loro posto varianti sicure vincolate (macchine, cavi, appoggio su panca). Gli altri esercizi della zona restano con «cautela».
+// Carico assiale = compressione della colonna: squat e stacchi con bilanciere, spinte sopra la testa, hack squat e multipower, trasporti, balistici.
+function axial(e){if(!e)return false;var s=e.sub,n=e.n;if(e._ax!=null)return e._ax;
+  return e._ax=!!((hasF(e,'vs')&&(e.p!=='Push'||s==='pv'))||(s==='pv'&&n!=='Landmine press'&&!/cavi/.test(n))||s==='hb'||s==='hp'||(e.role==='carry'&&!/slitta|Sled/.test(n))||
+   /^(Squat al multipower|Hack squat|Mezzo squat|Scrollate|Wall ball|Jump squat zavorrato|Affondi camminati con sandbag|Circuito pesi|Complex con bilanciere|Power clean)/.test(n))}
+var AXZ={lomb:1,cerv:1};
+// Varianti preferite per gli esercizi più comuni (la prima compatibile con il profilo vince; le altre restano come riserva)
+var SAFEV=(function(){var o={},S=function(L,v){L.forEach(function(n){o[n]=v})};
+  S(['Squat','Front squat','Mezzo squat','Squat al multipower','Hack squat','Goblet squat'],['Leg press','Leg extension','Bulgarian split squat','Goblet squat','Wall sit']);
+  S(['Stacco da terra'],['Hip thrust','Gluteus machine','Leg curl','Pull-through ai cavi','Leg curl seduto']);
+  S(['Stacco rumeno','Stacco rumeno monopodalico','Nordic curl'],['Leg curl seduto','Leg curl','Leg curl in piedi monopodalico','Hip thrust','Pull-through ai cavi']);
+  S(['Kettlebell swing','Power clean da sospensione'],['Hip thrust','Pull-through ai cavi','Ponte glutei']);
+  S(['Hyperextension 45°','Lower back machine','Reverse hyper'],['Bird dog','Hip thrust','Ponte glutei']);
+  S(['Rematore con bilanciere','Rematore Pendlay','Alzate posteriori a busto flesso','Croci ai cavi alti a busto flesso'],['Low row','Upper back machine','Pulley basso','Row free motion','Rematore manubrio','Alzate posteriori ai cavi']);
+  S(['Military press','Push press','Lento manubri seduto','Lento avanti al multipower','Arnold press','Clean & press','Overhead carry'],['Landmine press','Deltoid machine','Alzate laterali al cavo basso','Alzate laterali']);
+  S(['Panca piana','Panca declinata bilanciere','Dip alle parallele','Piegamenti'],['Chest press','Distensioni manubri panca piana','Pectoral machine','Croci ai cavi']);
+  S(['Panca inclinata bilanciere','Panca inclinata manubri'],['Chest incline (macchina)','Panca inclinata manubri','Croci ai cavi su panca inclinata']);
+  S(['Panca presa stretta','Parallele gomiti stretti','Dips tra le panche','French press','French press manubri','Estensioni dietro la nuca 1 manubrio'],['Triceps machine','Pushdown ai cavi','Push down presa inversa','Kickback manubrio']);
+  S(['Trazioni alla sbarra','Trazioni presa supina (chin-up)','Trazioni sul judogi (Gi pull-up)','Trazioni con asciugamano / salita alla fune'],['Lat machine','Vertical traction (trazioni assistite)','Pulldown alla macchina','Lat machine presa a V']);
+  S(['Tirate al mento','Tirate al mento manubri','Scrollate (shrugs)'],['Face pull','Alzate laterali al cavo basso','Deltoid machine','Upper back machine']);
+  S(['Curl con bilanciere','Curl panca Scott'],['Biceps machine','Curl al cavo basso','Curl manubri']);
+  S(['Farmer walk','Suitcase carry','Zercher carry','Spinta slitta','Sled pull alla fune','Sled drag all’indietro'],['Pallof press','Dead bug','Side plank']);
+  S(['Affondi','Affondi camminati','Affondi camminati con sandbag','Affondi laterali','Cossack squat','Sissy squat','Step-up'],['Leg press','Leg extension','Bulgarian split squat','Adductor machine']);
+  S(['Sit-up','Sollevamenti gambe in sospensione','Crunch gambe tese','Roll up','Hollow hold','Crunch inverso','Crunch'],['Dead bug','Crunch ai cavi','Pallof press','Abdominal crunch machine']);
+  S(['Plank','Side plank','Copenhagen plank','Turkish get-up'],['Dead bug','Pallof press','Vacuum addominale']);
+  S(['Box jump','Jump squat','Squat jump con elastico','Burpee','Burpee broad jump','Wall ball'],['Leg press','Hip thrust']);
+  return o})();
+// 2 macchina guidata · 1,2 cavi · 0,8 appoggio (seduto, su panca, prono, supino)
+function guided(e){return hasEq(e,'m')?2:hasEq(e,'c')?1.2:/seduto|panca|prono|supino|Dead bug|Ponte|Hip thrust/i.test(e.n)?0.8:0}
+function guidedTxt(e){return hasEq(e,'m')?'macchina guidata':hasEq(e,'c')?'ai cavi':guided(e)?'con appoggio':''}
+function safeAx(c){return !!(c&&c.injZ&&Object.keys(c.injZ).some(function(z){return AXZ[z]&&c.injZ[z]>=1.5}))}
+// Alternative sicure per un esercizio escluso, in ordine: [{e, why}]
+function safeAlts(name,day,c,max){
+  var a=EXI[ekey(name)];if(!a||!c)return [];var lv=Math.min(3,c.lvl+1),ax=safeAx(c),pref=SAFEV[a.n]||[],dn=(day||[]).map(function(n){var k=EXI[ekey(n)];return k?k.n:n}),seen={},out=[];
+  var ok=function(e){if(!e||e.n===a.n||seen[e.n]||dn.indexOf(e.n)>-1||!okEx(e,c,lv))return false;
+    if(ax&&axial(e))return false;if(e.role==='plyo'&&a.role!=='plyo')return false;if(e.role==='cond'&&a.role!=='cond')return false;
+    if((e.role==='wu'||e.role==='mob')&&!(a.role==='wu'||a.role==='mob'))return false;if(e.sub==='t'&&a.sub!=='t')return false;return true};
+  var add=function(e,s){if(!ok(e))return;seen[e.n]=1;var pi=pref.indexOf(e.n),h=injHit(e,c);
+    s+=(pi>-1?14-pi*3:0)+guided(e)*1.5+(h.lvl===''?2:-1.5)-(e.lv>c.lvl?1:0)+(e.sub===a.sub?1:0)+(a.m&&e.m===a.m?1:0);
+    var w=[guidedTxt(e),ax&&axial(a)?'senza carico assiale':'',e.sub===a.sub?'stesso movimento':a.m&&e.m===a.m?'stesso muscolo':'',h.lvl==='caut'?'con cautela':''].filter(Boolean);
+    out.push({e:e,s:s,why:w.join(', ')})};
+  altList(a.n,dn,c,null,null,1).forEach(function(x){add(x.e,x.s)});
+  pref.forEach(function(n){add(EXI[ekey(n)],2)});
+  return out.sort(function(x,y){return y.s-x.s}).slice(0,max||3);
+}
+// Piano di sostituzione per le sedute: ogni esercizio escluso → la variante sicura migliore (o niente, se non ce n'è una compatibile)
+function safePlan(days,c){var P=[];if(!c||!c.injZ)return P;
+  days.forEach(function(d,j){var names=d.es.map(function(x){return x.n}).filter(Boolean);
+    d.es.forEach(function(x,i){if(!x.n)return;var e=EXI[ekey(x.n)];if(!e)return;var h=injHit(e,c);if(h.lvl!=='avoid')return;
+      var b=safeAlts(e.n,names,c,1)[0]||null;if(b)names.push(b.e.n);
+      P.push({d:j,i:i,from:e.n,to:b?b.e.n:'',why:b?b.why:'',z:injZn(h),ax:h.ax,dt:d.t||'Seduta '+(j+1)})})});
+  return P}
+function safeWhy(p){return p.z+(p.ax?', carico assiale':'')}
+// Riepilogo delle sostituzioni fatte
+function safeModal(r,save){var P=r.P||[],nw=r.nw||0;
+  modal('<h3>🛡 Filtro di auto-sostituzione</h3>'+(P.length||nw?'<p>Ho sostituito gli esercizi che caricano la zona del fastidio o dell’infortunio con varianti sicure vincolate (macchine, cavi, appoggio), compatibili con livello, test e attrezzi dell’atleta:</p><ul class="sfl">'+
+   P.map(function(p){return '<li><span class="status">'+esc(p.dt)+'</span> <b>'+esc(p.from)+'</b> → '+(p.to?'<b>'+esc(p.to)+'</b> <i class="sfw">'+esc(p.why)+'</i>':'<i class="lw">tolto: nessuna variante sicura compatibile</i>')+' <i class="lc">'+esc(safeWhy(p))+'</i></li>'}).join('')+
+   (nw?'<li>Riscaldamento e defaticamento: '+nw+(nw===1?' esercizio tolto':' esercizi tolti')+'.</li>':'')+'</ul><p class="status">Serie, ripetizioni, RPE e recupero restano quando l’esercizio nuovo è dello stesso tipo. Controlla carichi e note prima di salvare.</p>':'<p>Nessun esercizio da sostituire: la scheda è già compatibile con fastidi e infortuni attuali.</p>')+
+   '<div class="mrow"><button data-act="mclose">'+(save?'Controlla la scheda':'Chiudi')+'</button>'+(save&&(P.length||nw)?'<button class="pri" data-act="'+save+'">Salva la scheda</button>':'')+'</div>')}
+// Bonus nella selezione automatica: con un fastidio, a parità di scelta, vince la variante guidata per gli esercizi che toccano la zona
+function safeBonus(e,c){var L=injLoad(e),s=0;Object.keys(c.injZ).forEach(function(k){if(c.injZ[k]===1.5&&(L[k]||0)>0)s=Math.max(s,guided(e)*.5)});return s}
+
+// ---- Segnalazioni dell'atleta (link #a=): link/{token}/r/fb = {l: JSON [{id, ts, dd, w, d, dt, ex, z, lato, i (1–10), q, nt, ok, u}], t, ts} ----
+// Le regole di Firestore restano quelle della fase 21 (il blocco r/{doc} vale anche per il documento fb).
+var AVF=[],AVFP='',AVFQ=null,AVFI=0;
+function avFbKey(){return avKey()+'_fb'}
+function avFbSave(){try{localStorage.setItem(avFbKey(),JSON.stringify(AVF))}catch(e){}if(AV&&AV.live)avFbQueue()}
+function avFbQueue(){clearTimeout(AVFQ);AVFQ=setTimeout(avFbPush,600)}
+function avFbNet(t){var e=gid('avfbst');if(e)e.textContent=t}
+function avFbPush(){clearTimeout(AVFQ);if(!AV||!AV.live)return;var js=JSON.stringify(AVF);if(js===AVFP)return;
+  if(!AVC){avFbNet('Senza connessione: la segnalazione resta su questo telefono e arriva al tuo PT quando riapri il link con internet.');return}
+  AVC.f.setDoc(AVC.f.doc(AVC.fs,'link',AV.tok,'r','fb'),{l:js,t:AVC.f.serverTimestamp(),ts:Date.now()}).then(function(){AVFP=js;avFbNet('✓ Segnalazione inviata al tuo PT alle '+new Date().toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit'})+'.')},
+   function(e){avFbNet('⚠ Segnalazione non inviata ('+String((e&&e.code)||'errore').replace(/^firestore\//,'')+'): resta su questo telefono, riprovo tra poco.');AVFQ=setTimeout(avFbPush,20000)})}
+function avFbMerge(r,l){var m={};(r||[]).concat(l||[]).forEach(function(x){if(!x||!x.id)return;var o=m[x.id];if(!o||(x.u||x.ts||0)>(o.u||o.ts||0))m[x.id]=x});
+  return Object.keys(m).map(function(k){return m[k]}).sort(function(a,b){return (a.ts||0)-(b.ts||0)})}
+function avFbAct(){return AVF.filter(function(x){return x&&!x.ok&&INJN[x.z]})}
+function fbSt(x){return +x.i>=7?'acuto':'fastidio'}
+function fbLbl(x){var l={dx:' dx',sx:' sx',bil:' (entrambi i lati)'}[x.lato]||'';return INJN[x.z].split(' /')[0]+l}
+// Profilo dell'atleta sul telefono: livello, attrezzi e fastidi attivi (nient'altro dell'anamnesi arriva nel link)
+function avCtx(){var A=avFbAct();if(!A.length)return null;var P=AV.P||{},u=P.u||{},s=P.s||{};
+  var c=profile({liv:u.liv||'',ob:u.ob||[],eta:u.eta||'',luogo:s.luogo||'',heq:s.heq||[],infl:A.map(function(x){return {z:x.z,lato:x.lato||'',st:fbSt(x)}})});return c}
+function avFbBox(){var A=avFbAct(),hi=A.some(function(x){return +x.i>=7});
+  return '<div class="avfb'+(A.length?' on':'')+'">'+(A.length?'<div class="avfbh">🩹 '+(A.length===1?'Fastidio segnalato':'Fastidi segnalati')+'</div><ul>'+A.map(function(x){
+     return '<li><b>'+esc(fbLbl(x))+'</b> · '+esc(String(x.i))+'/10 · '+esc(fdate(x.dd))+(x.ex?' · '+esc(x.ex):'')+' <button type="button" class="btn sm" data-avfok="'+esc(x.id)+'">È passato</button></li>'}).join('')+'</ul>'+
+     '<p>'+(hi?'<b>Dolore forte:</b> oggi niente esercizi che caricano la zona. Se il dolore è improvviso, non passa o peggiora, fermati e rivolgiti al medico. ':'')+
+     'Negli esercizi che caricano la zona trovi la <b>variante sicura</b> da fare al loro posto (stesse serie e ripetizioni; segna i kg nella stessa riga). Il tuo PT riceve la segnalazione e aggiorna la scheda.</p>':'')+
+   '<button type="button" class="btn sm" data-act="avfb">🩹 Segnala un fastidio o un dolore</button><p class="status" id="avfbst" role="status" style="margin:6px 0 0;font-size:13px"></p></div>'}
+// Riquadro dentro la card dell'esercizio: variante sicura se l'esercizio carica la zona del fastidio
+function avSafeCard(ex,d,cx){if(!ex||!cx)return '';var h=injHit(ex,cx);if(!h.lvl)return '';
+  if(h.lvl==='caut')return '<div class="avcaut">⚠ Carica un po’ la zona del fastidio ('+esc(injZn(h))+'): carico più leggero ed escursione senza dolore; fermati se il dolore aumenta.</div>';
+  var b=safeAlts(ex.n,d[1].map(function(x){return x[0]}),cx,1)[0];
+  return '<div class="avsafe">🛡 <b>Oggi evita questo esercizio</b>: carica la zona del fastidio ('+esc(injZn(h))+(h.ax?', carico assiale':'')+'). '+
+   (b?'Al suo posto fai <b>'+esc(b.e.n)+'</b>'+(b.why?' ('+esc(b.why)+')':'')+', con le stesse serie e ripetizioni.<details class="avg"><summary>Come si esegue la variante</summary><div class="avgd">'+legendBody(b.e)+'</div></details>':'Non c’è una variante sicura con la tua attrezzatura: saltalo finché il tuo PT non aggiorna la scheda.')+'</div>'}
+function avFbForm(ex){var e=ex?EXI[ekey(ex)]:null,zg='';if(e){var L=injLoad(e),bv=0;['lomb','ginoc','spalla','anca','cavig','gomito','polso','cerv'].forEach(function(z){if((L[z]||0)>bv){bv=L[z];zg=z}})}AVFI=0;
+  modal('<h3>🩹 Segnala un fastidio o un dolore</h3>'+(ex?'<p>Esercizio: <b>'+esc(ex)+'</b></p>':'')+
+   '<div class="fg"><label class="fl">Dove?<select id="avfz"><option value="">— Seleziona —</option>'+injOpts(INJZ,zg)+'</select></label><label class="fl">Lato<select id="avfl">'+injOpts(INJL,'')+'</select></label></div>'+
+   '<div class="fl"><span>Quanto è forte? 1 = appena percepibile · 10 = fortissimo</span><div class="avfi" role="group" aria-label="Intensità">'+[1,2,3,4,5,6,7,8,9,10].map(function(n){return '<button type="button" data-avfi="'+n+'" class="'+(n>=7?'hi':n>=4?'md':'')+'" aria-pressed="false">'+n+'</button>'}).join('')+'</div></div>'+
+   '<label class="fl">Quando?<select id="avfq"><option>Durante l’esercizio</option><option>Dopo la seduta</option><option>Già da prima della seduta</option></select></label>'+
+   '<label class="fl">Note (facoltative)<input id="avfn" maxlength="200" placeholder="Es. fitta in fondo alla discesa"></label>'+
+   '<p class="status" id="avfst2">Se il dolore è forte, improvviso o non passa, fermati e rivolgiti al medico.</p>'+
+   '<div class="mrow"><button data-act="mclose">Annulla</button><button class="pri" data-act="avfbsend" data-ex="'+esc(ex||'')+'">Invia al PT</button></div>')}
+function avFbSend(ex){var z=(gid('avfz')||{}).value;if(!INJN[z]){st('avfst2','Scegli dove senti il fastidio.');return}if(!AVFI){st('avfst2','Scegli quanto è forte (da 1 a 10).');return}
+  var d=AV.D[AVS.day]||['',[]];
+  AVF.push({id:newId('f'),ts:Date.now(),dd:todayIso(),w:AVS.wk,d:AVS.day,dt:d[0]||'Seduta '+(AVS.day+1),ex:ex||'',z:z,lato:(gid('avfl')||{}).value||'',i:AVFI,q:(gid('avfq')||{}).value||'',nt:String((gid('avfn')||{}).value||'').trim().slice(0,200)});
+  avFbSave();closeModal();avRender();if(!AV.live)avFbNet('Segnalazione salvata su questo telefono: con «Invia i risultati al PT» la mandi anche a lui.')}
+function avFbTxt(){return avFbAct().map(function(x){return '🩹 Fastidio: '+fbLbl(x)+' '+x.i+'/10 ('+fdate(x.dd)+(x.ex?', '+x.ex:'')+(x.q?', '+x.q.toLowerCase():'')+(x.nt?': '+x.nt:'')+')'})}
+
+// ---- Lato PT: segnalazioni lette dal cloud, in scheda e in home ----
+var AFB={},FBT=0;
+async function fbFetch(sc){if(!sc||!sc.atok||!window.Cloud||!Cloud.user()||!Cloud.linkFb)return null;var r=await Cloud.linkFb(sc.atok);AFB[sc.id]=r&&Array.isArray(r.l)?r.l:[];return AFB[sc.id]}
+function fbOpen(sc){var u=find(sc.uid),ok=(u&&u.fbok)||{};return (AFB[sc.id]||[]).filter(function(x){return x&&!x.ok&&!ok[x.id]&&INJN[x.z]})}
+function fbHtml(sc){var L=(AFB[sc.id]||[]).filter(function(x){return x&&INJN[x.z]});if(!L.length)return '';var u=find(sc.uid),ok=(u&&u.fbok)||{};
+  return '<div class="fbx"><h4 style="margin:0 0 6px">🩹 Fastidi segnalati dall’atleta</h4><ul>'+L.slice().reverse().map(function(x){var done=x.ok||ok[x.id];
+    return '<li class="'+(done?'dn':+x.i>=7?'hi':'')+'"><div><b>'+esc(fbLbl(x))+'</b> · intensità <b>'+esc(String(x.i))+'/10</b> · '+esc(fdate(x.dd))+' · settimana '+esc(String(x.w||''))+', '+esc(x.dt||'')+(x.ex?' · <i>'+esc(x.ex)+'</i>':'')+(x.q?' · '+esc(x.q.toLowerCase()):'')+(x.nt?'<br>«'+esc(x.nt)+'»':'')+'</div>'+
+     (x.ok?'<span class="status">passato (lo ha segnato l’atleta)</span>':ok[x.id]?'<span class="status">gestito</span>':'<div class="fbb"><button type="button" class="btn sm pri" data-act="fbapply" data-id="'+esc(sc.id)+'" data-f="'+esc(x.id)+'">🛡 Aggiungi all’anamnesi e sostituisci</button><button type="button" class="btn sm" data-act="fbseen" data-id="'+esc(sc.id)+'" data-f="'+esc(x.id)+'">Segna come gestito</button></div>')+'</li>'}).join('')+'</ul>'+
+   '<p class="status" style="margin:4px 0 0">«Aggiungi all’anamnesi e sostituisci» registra la zona come <b>fastidio</b> (con intensità 7 o più come <b>acuto</b>) e apre l’editor con le varianti sicure già inserite: controlli e salvi. Sul telefono l’atleta vede già la variante sicura.</p></div>'}
+async function fbMark(sid,fid,u2){var sc=findS(sid),u=u2||find(sc&&sc.uid);if(!u)return null;var nu=Object.assign({},u,{fbok:Object.assign({},u.fbok||{})});nu.fbok[fid]=1;
+  await Store.put('utenti',nu);var k=U.indexOf(u);if(k>-1)U[k]=nu;else{k=U.findIndex(function(x){return String(x.id)===String(nu.id)});if(k>-1)U[k]=nu}return nu}
+async function fbApply(sid,fid){var sc=findS(sid),u=sc&&find(sc.uid),x=(AFB[sid]||[]).filter(function(f){return f.id===fid})[0];if(!u||!x)return;
+  var stt=fbSt(x),L=injList(u).map(function(o){return Object.assign({},o)}),nt='Segnalato dall’atleta il '+fdate(x.dd)+' ('+x.i+'/10'+(x.ex?', '+x.ex:'')+(x.nt?': '+x.nt:'')+')';
+  var cur=L.filter(function(y){return y.z===x.z&&(!y.lato||!x.lato||y.lato===x.lato||y.lato==='bil')})[0];
+  if(cur){if((INJRK[stt]||0)>(INJRK[cur.st]||0))cur.st=stt;cur.nt=(cur.nt?cur.nt+' · ':'')+nt;if(!injStop(cur))cur.fino=''}
+  else L.push({z:x.z,lato:x.lato||'',st:stt,fino:'',nt:nt,src:'atleta'});
+  var nu=Object.assign({},u,{infl:L});
+  try{nu=await fbMark(sid,fid,nu)}catch(e){st('sdstat',saveErr());return}
+  var k=U.indexOf(u);if(k>-1)U[k]=nu;renderDues();
+  closeModal();guardGen(function(){openEd(nu.id,sid);var r=edInjSafe();edInjUpd();safeModal(r,'edsafesave')})}
+// Home: le segnalazioni aperte di tutti gli atleti (lette al massimo ogni 2 minuti)
+async function fbScan(){if(!window.Cloud||!Cloud.user()||!Cloud.linkFb)return;FBT=Date.now();var L=SCH.filter(function(s){return s.atok&&!s.aoff}),ch=false;
+  for(var i=0;i<L.length;i+=6){await Promise.all(L.slice(i,i+6).map(function(s){var was=JSON.stringify(AFB[s.id]||[]);return fbFetch(s).then(function(){if(JSON.stringify(AFB[s.id]||[])!==was)ch=true},function(){})}))}
+  if(ch)renderDues()}
+function fbDue(){var o=[];SCH.forEach(function(s){if(!AFB[s.id])return;fbOpen(s).forEach(function(x){var u=find(s.uid);if(u)o.push({u:u,s:s,x:x})})});return o.sort(function(a,b){return (b.x.ts||0)-(a.x.ts||0)})}
+document.addEventListener('click',async function(e){var a=e.target.closest('[data-act="fbapply"],[data-act="fbseen"],[data-act="fbopen"],[data-act="scsafe"]');if(!a)return;var k=a.getAttribute('data-act'),sid=a.getAttribute('data-id');
+  if(k==='fbopen'){viewScheda(sid);return}
+  if(k==='scsafe'){var sc=findS(sid);if(!sc)return;closeModal();guardGen(function(){openEd(sc.uid,sid);var r=edInjSafe();edInjUpd();safeModal(r,'edsafesave')});return}
+  if(k==='fbapply'){a.disabled=true;await fbApply(sid,a.getAttribute('data-f'));return}
+  if(k==='fbseen'){try{await fbMark(sid,a.getAttribute('data-f'))}catch(x){st('sdstat',saveErr());return}var sc2=findS(sid),el=gid('sclog');if(sc2&&el)el.innerHTML=fbHtml(sc2)+logHtml(sc2);renderDues()}});
 function renderAnam(){
   var u=aid?find(aid):null,v=u||{},pq=v.pq||[];
   // clienti salvati prima di questa versione: propongo gli infortuni riconosciuti nel testo libero
@@ -1083,12 +1236,13 @@ function updAnam(){
   var il=readInj(),ih=gid('injh');
   if(ih){ih.hidden=!il.length;ih.className=il.some(function(x){return x.st==='acuto'})?'warn':'info';
     ih.innerHTML=(injGuess?'<b>Riconosciuti dalle note:</b> controlla zona, lato e stato prima di salvare.<br>':'')+il.map(function(x){
+      if(x.st==='fastidio')return '<b>'+esc(injLabel(x))+'</b>: filtro di auto-sostituzione attivo. Esclusi gli esercizi ad alto carico per la zona'+(AXZ[x.z]?' e tutti i carichi assiali (squat e stacchi con bilanciere, spinte sopra la testa, hack squat e multipower, trasporti, swing)':'')+'; al loro posto varianti sicure vincolate (macchine, cavi, appoggio).'+(x.z==='lomb'?'':' '+esc(cap1(INJR[x.z].t))+'.')+' Se il dolore aumenta, passa lo stato ad «Acuto».';
       if(!injStop(x))return '<b>'+esc(injLabel(x))+'</b>: '+esc(INJR[x.z].t)+'. Esercizi ammessi; quelli ad alto carico sono segnalati «cautela».';
       var lf=x.fino?-ago(x.fino):null;
       return '<b>'+esc(injLabel(x,1))+'</b>: zona ferma'+(x.fino?' fino al <b>'+fdate(x.fino)+'</b> ('+(lf>0?'tra '+lf+(lf===1?' giorno':' giorni'):lf===0?'oggi':'data superata: verifica la guarigione e aggiorna lo stato')+')':' — chiedi al cliente fino a quando e indicalo con 📅')+
        '. Esclusi dalla scheda tutti gli esercizi che caricano la zona, compresi rinforzo e mobilità della zona; il cliente allena il resto del corpo.'+(x.fino?' La data è la scadenza per cambiare la scheda in base alla guarigione.':'')}).join('<br>')+
      (il.some(injStop)?'<br>Prima di tornare a caricare la zona serve il via libera del medico o del fisioterapista: poi cambia lo stato in «Pregresso».':'')}
-  [].forEach.call(document.querySelectorAll('#injl .injr'),function(r){var off=r.querySelector('.inj_s').value==='pregresso',w=r.querySelector('.inj_fw');w.classList.toggle('off',off);r.querySelector('.inj_f').disabled=off});
+  [].forEach.call(document.querySelectorAll('#injl .injr'),function(r){var off=!injStop({st:r.querySelector('.inj_s').value}),w=r.querySelector('.inj_fw');w.classList.toggle('off',off);r.querySelector('.inj_f').disabled=off});
   var de=gid('a_d'),ee=gid('a_eta');if(de&&ee&&de.value&&de.value!==de.getAttribute('data-last')){de.setAttribute('data-last',de.value);var ag=ageOf({d:de.value});if(ag!=='')ee.value=ag}
   var mw=gid('mstw'),ag2=nv('a_eta');if(mw){mw.hidden=!(ag2>=55);if(ag2>=55)mw.innerHTML='<b>Over 55 ('+ag2+' anni)</b>: la scheda segue la dispensa «Allenamento Over 55–70»: RIR 2–3, niente cedimento né salti, respirazione senza apnea, equilibrio e cardio al 60–70% della FC (Karvonen). Indica la <b>FC a riposo</b> per le zone cardio e fai i test <b>Chair Stand, Arm Curl, Single Leg Stance e Timed Up and Go</b> nella pagina dei test.'}
   var fr=nv('a_sfreq'),ss=nv('a_ssess')||1,du=nv('a_sdur'),rp=nv('a_srpe'),lw=document.getElementById('loadw'),cs=carSum(carRead(gid('acar')));
@@ -3503,6 +3657,8 @@ function profile(u){
   if(c.inj.length){c.injZ={};c.inj.forEach(function(x){var r=INJRK[x.st]||2;if(!c.injZ[x.z]||r>c.injZ[x.z])c.injZ[x.z]=r});
     INJZ.forEach(function(z){var k=z[0],r=c.injZ[k];if(!r)return;var R=INJR[k];
       var lt=c.inj.filter(function(x){return x.z===k&&x.lato}).map(function(x){return {dx:'dx',sx:'sx',bil:'bilaterale'}[x.lato]})[0];
+      if(r===1.5){c.safe=true;Object.keys(R.b).forEach(function(n){bon(n,R.b[n])});if(R.mob)mob(R.mob);
+        c.notes.push('Fastidio '+INJN[k].toLowerCase()+(lt?' '+lt:'')+': filtro di auto-sostituzione. Esclusi gli esercizi ad alto carico per la zona'+(AXZ[k]?' e tutti i carichi assiali (squat e stacchi con bilanciere, rematore con bilanciere, spinte sopra la testa, hack squat e multipower, trasporti, swing)':'')+'; al loro posto varianti sicure vincolate (macchine, cavi, appoggio su panca). Gli altri esercizi della zona sono segnalati «cautela»: carico moderato ed escursione senza dolore.'+(k==='lomb'?' Core in anti-estensione e anti-rotazione, glutei con hip thrust, niente sit-up.':' '+cap1(R.t)+'.')+' Se il fastidio aumenta o non passa, cambia lo stato in «Acuto» e chiedi il parere del medico o del fisioterapista.');return}
       if(r===1){Object.keys(R.b).forEach(function(n){bon(n,R.b[n])});if(R.mob)mob(R.mob);
         c.notes.push('Infortunio '+INJN[k].toLowerCase()+(lt?' '+lt:'')+' (pregresso): '+R.t+'. Esercizi ammessi; quelli ad alto carico per la zona sono segnalati «cautela».');return}
       var fi='';c.inj.forEach(function(x){if(x.z===k&&injStop(x)&&x.fino&&(!fi||x.fino<fi))fi=x.fino});
@@ -3591,7 +3747,7 @@ function pick(sl,c,used,day,relax){
     if(sl.plyo?e.role!=='plyo':e.role==='plyo')return;
     if(sl.core&&e.role!=='core')return;
     if(day.some(function(x){return x.n===e.n})||!okEx(e,c,lvMax))return;
-    var s=(sl.main?(e.role==='main'?3:0):(e.role==='main'?-1:0))-4*(used[e.n]||0)+(c.prio.indexOf(e.m)>-1?2:0)+(c.bonus[e.n]||0)+(e.lv===c.lvl?0.5:0)+(e.x?-0.6:0)+(c.lvl===1&&hasEq(e,'m')?0.7:0)-(injHit(e,c).lvl==='caut'?1.5:0)+(c.injZ&&c.injZ.polso&&(hasEq(e,'m')||hasEq(e,'c'))?0.6:0)+(c.mac&&hasEq(e,'m')?1.2:0)+(c.home&&!(e.eq||[]).every(function(q){return q==='w'})?0.4:0);
+    var s=(sl.main?(e.role==='main'?3:0):(e.role==='main'?-1:0))-4*(used[e.n]||0)+(c.prio.indexOf(e.m)>-1?2:0)+(c.bonus[e.n]||0)+(e.lv===c.lvl?0.5:0)+(e.x?-0.6:0)+(c.lvl===1&&hasEq(e,'m')?0.7:0)-(injHit(e,c).lvl==='caut'?1.5:0)+(c.safe?safeBonus(e,c):0)+(c.injZ&&c.injZ.polso&&(hasEq(e,'m')||hasEq(e,'c'))?0.6:0)+(c.mac&&hasEq(e,'m')?1.2:0)+(c.home&&!(e.eq||[]).every(function(q){return q==='w'})?0.4:0);
     if(s>bs){bs=s;best=e}
   });
   return best||(relax?null:pick(sl,c,used,day,true));
@@ -3801,8 +3957,9 @@ function sportPlan(u,c,f,sp){
     sl.forEach(function(x){
       var e=EXI[ekey(x.n)],dz=x.d,day=es.map(function(r){return {n:r.n}}),ok=e&&okEx(e,c,lv)&&!(e.role!=='cond'&&es.some(function(r){return r.n===e.n}));
       if(!ok){var alt=x.a?(x.a.charAt(0)==='='?altNamed(x.a.slice(1),c,lv,es):pick(slot(x.a),c,used,day.map(function(r){return EXI[ekey(r.n)]||r}))):null;
+        if(!alt&&e&&injHit(e,c).lvl==='avoid'){var sa=safeAlts(e.n,es.map(function(r){return r.n}),c,1)[0];if(sa)alt=sa.e}
         if(alt&&e&&alt.n===e.n)alt=e;else
-        sub.push('«'+x.n+'» → '+(alt?'«'+alt.n+'»':'nessuna alternativa adatta')+(e?' ('+(!hasEquip(e,c)?'attrezzo non disponibile':injHit(e,c).lvl==='avoid'?'zona ferma per infortunio':e.lv>lv?'livello':c.pq&&e.role==='plyo'?'PAR-Q':'test funzionali')+')':''));
+        sub.push('«'+x.n+'» → '+(alt?'«'+alt.n+'»':'nessuna alternativa adatta')+(e?' ('+(!hasEquip(e,c)?'attrezzo non disponibile':injHit(e,c).lvl==='avoid'?(c.injZ&&Object.keys(c.injZ).some(function(z){return c.injZ[z]===1.5})&&safeAx(c)&&axial(e)?'carico assiale con fastidio':'zona ferma o fastidio'):e.lv>lv?'livello':c.pq&&e.role==='plyo'?'PAR-Q':es.some(function(r){return r.n===e.n})?'già nella seduta':'test funzionali')+')':''));
         if(!alt)return;if(alt===e){}else if(!(x.g&&(alt.role===e.role||(alt.role!=='cond'&&e.role!=='cond'&&alt.role!=='plyo'))))dz=null;e=alt}
       var r=rowFrom(e,c);if(dz){spDose(r,dz,e,c)}
       if(x.k&&es.length)r.lk=1;used[e.n]=(used[e.n]||0)+1;es.push(r)});
@@ -4292,7 +4449,7 @@ document.addEventListener('click',function(e){
 // ---- Tendina «Varia esercizio»: almeno 5 alternative dalla libreria per ogni esercizio della scheda ----
 var EQS={b:'bilanciere',d:'manubri',m:'macchina',c:'cavi',w:'corpo libero',k:'piccoli attrezzi'};
 function grpOf(e){return e.role==='main'||e.role==='acc'?'s':e.role}
-function altList(name,day,c,p,m){
+function altList(name,day,c,p,m,all){
   var a=EXI[ekey(name)],lv=Math.min(3,c.lvl+1),out=[],aT=a?mpTok(a):[];
   day=day.map(function(n){var k=EXI[ekey(n)];return k?k.n:n});
   EXDB.forEach(function(e){
@@ -4319,7 +4476,7 @@ function altList(name,day,c,p,m){
       +(e.spo?(a&&a.spo===e.spo?1.5:(c.spk||[]).indexOf(e.spo)>-1?1:-1):0);
     out.push({e:e,s:s,same:same});
   });
-  return out.sort(function(x,y){return y.s-x.s}).slice(0,8);
+  return out.sort(function(x,y){return y.s-x.s}).slice(0,all?999:8);
 }
 function altOpts(n,names,p,m){
   var c=gctx||profile({}),L=altList(n||'',names||[],c,p,m);
@@ -4526,6 +4683,8 @@ window.addEventListener('beforeprint',function(){[].forEach.call(document.queryS
 window.addEventListener('afterprint',function(){[].forEach.call(document.querySelectorAll('details.lg[data-po]'),function(d){d.open=false;d.removeAttribute('data-po')})});
 // ---- Glossario dei termini tecnici (dalle dispense del corso PT, riscritto in breve) ----
 var GLOSS=[
+  ['Carico assiale','Carico che comprime la colonna lungo il suo asse: bilanciere sulle spalle (squat), stacchi, spinte sopra la testa, trasporti pesanti. Con un fastidio lombare o cervicale l’app lo esclude.'],
+  ['Variante vincolata','Esercizio in cui la traiettoria o il corpo sono guidati da una macchina, da un cavo o da un appoggio (panca, schienale): meno stabilizzazione richiesta e meno carico sulla zona delicata.'],
  ['1RM (massimale)','Carico più alto sollevabile per una sola ripetizione corretta. Nell’app si stima da una serie sub-massimale con le formule di Epley e Brzycki.'],
  ['% 1RM','Carico espresso in percentuale del massimale: 75% 1RM con un massimale di 100 kg sono 75 kg.'],
  ['RIR','Ripetizioni in riserva: quante ripetizioni corrette restano a fine serie. RIR 2 = ti fermi quando ne potresti fare ancora 2.'],
@@ -4895,10 +5054,10 @@ function injBad(days,wl,c){var o=[];if(!c||!c.injZ)return o;
   days.forEach(function(d,j){d.es.forEach(function(x){if(x.n)chk(x.n,d.t||'Seduta '+(j+1))})});
   (wl||[]).forEach(function(x){if(x&&x.n)chk(x.n,'riscaldamento / defaticamento')});return o}
 function isBad(n,c){var e=EXI[ekey(n)];return !!(e&&c&&injHit(e,c).lvl==='avoid')}
-function injBadModal(bad,act){
-  modal('<h3>Esercizi esclusi per infortunio</h3><p>Questi esercizi caricano una zona che deve restare ferma (infortunio acuto o in recupero) e non possono stare nella scheda:</p><ul>'+
-   bad.map(function(b){return '<li><b>'+esc(b.n)+'</b> · '+esc(b.d)+' <i class="lw">'+esc(b.z)+'</i></li>'}).join('')+'</ul><p class="status">Puoi sostituirli con la tendina «⇅ Varia esercizio», che propone solo alternative compatibili.</p>'+
-   '<div class="mrow"><button data-act="mclose">Torna alla scheda</button><button class="pri" data-act="'+act+'">Togli e salva</button></div>');
+function injBadModal(bad,act,safe){
+  modal('<h3>Esercizi esclusi per infortunio o fastidio</h3><p>Questi esercizi caricano una zona ferma (infortunio acuto o in recupero) o, con un fastidio, la sovraccaricano (alto carico o carico assiale) e non possono stare nella scheda:</p><ul>'+
+   bad.map(function(b){return '<li><b>'+esc(b.n)+'</b> · '+esc(b.d)+' <i class="lw">'+esc(b.z)+'</i></li>'}).join('')+'</ul><p class="status">«🛡 Sostituisci con varianti sicure» mette al loro posto macchine, cavi o esercizi con appoggio compatibili con il profilo; puoi anche usare la tendina «⇅ Varia esercizio».</p>'+
+   '<div class="mrow"><button data-act="mclose">Torna alla scheda</button><button data-act="'+act+'">Togli e salva</button>'+(safe?'<button class="pri" data-act="'+safe+'">🛡 Sostituisci con varianti sicure</button>':'')+'</div>');
 }
 function genInjFix(){var c=gctx;
   [].forEach.call(document.querySelectorAll('#days .exr'),function(r){if(isBad(r.querySelector('.ex_n').value,c)){var box=r.parentNode;r.remove();if(!box.querySelector('.exr'))box.insertAdjacentHTML('beforeend',exRow())}});
@@ -4908,8 +5067,26 @@ function edInjFix(){var c=gctx,s=ED.sc;if(!s)return 0;var n=0;
   s.days.forEach(function(d){var L=d.es.filter(function(x){var b=isBad(x.n,c);if(b)n++;return !b});if(!L.length)L=[{}];L[0].lk=false;d.es=L});
   ['wuL','cdL'].forEach(function(k){if(s[k]){var L=s[k].filter(function(x){var b=isBad(x.n,c);if(b)n++;return !b});s[k]=L}});
   if(n){ED.sg=null;edMark();edRefresh();wuRender('wu');wuRender('cd');wuLeg()}return n}
+// Sostituzione automatica nel generatore (righe della pagina) e nell'editor (dati della scheda)
+function genInjSafe(){var c=gctx,P=[],nw=0;if(!c)return {P:P,nw:0};
+  [].forEach.call(document.querySelectorAll('#days .day'),function(box,j){var rows=[].slice.call(box.querySelectorAll('.exr')),names=rows.map(function(r){return r.querySelector('.ex_n').value.trim()}).filter(Boolean);
+    var dt=(box.querySelector('.day_t')||{}).value||'Seduta '+(j+1);
+    rows.forEach(function(r){var n=r.querySelector('.ex_n').value.trim(),e=EXI[ekey(n)];if(!e)return;var hh=injHit(e,c);if(hh.lvl!=='avoid')return;
+      var b=safeAlts(e.n,names,c,1)[0];P.push({from:e.n,to:b?b.e.n:'',why:b?b.why:'',z:injZn(hh),ax:hh.ax,dt:dt});
+      if(b){names.push(b.e.n);genReplace(r,b.e.n)}else{var ct=r.parentNode;r.remove();if(!ct.querySelector('.exr'))ct.insertAdjacentHTML('beforeend',exRow())}})});
+  ['wu','cd'].forEach(function(k){var L=GW[k].filter(function(x){return !isBad(x.n,c)});if(L.length!==GW[k].length){nw+=GW[k].length-L.length;GW[k]=L;GW.man[k]=true;wuRender(k)}});
+  if(P.length||nw){genSgShow(null);gTouched=gDirty=true;refreshEx();updGen();st('sph','Filtro di auto-sostituzione: '+P.filter(function(p){return p.to}).length+' esercizi sostituiti con varianti sicure.')}
+  return {P:P,nw:nw}}
+function edInjSafe(){var c=gctx,s=ED.sc;if(!s||!c)return {P:[],nw:0};var P=safePlan(s.days,c),nw=0;
+  P.forEach(function(p){var D=s.days[p.d],x=D.es[p.i];if(!x)return;
+    if(p.to){var e=EXI[ekey(p.to)],o=edRowFrom(e,c),old=EXI[ekey(x.n)],keep=old&&old.role===e.role?{s:x.s,r:x.r,rpe:x.rpe,rec:x.rec}:{};
+      Object.keys(keep).forEach(function(k){if(keep[k]===''||keep[k]==null)delete keep[k]});D.es[p.i]=Object.assign(o,keep,{lk:x.lk})}else D.es[p.i]=null});
+  s.days.forEach(function(d){if(d.es.some(function(x){return x===null})){d.es=d.es.filter(Boolean);if(!d.es.length)d.es=[{}];d.es[0].lk=false}});
+  ['wuL','cdL'].forEach(function(k){if(s[k]){var L=s[k].filter(function(x){return !isBad(x.n,c)});nw+=s[k].length-L.length;s[k]=L}});
+  if(P.length||nw){ED.sg=null;edMark();edRefresh();wuRender('wu');wuRender('cd');wuLeg();st('edstat','Filtro di auto-sostituzione: '+P.filter(function(p){return p.to}).length+' esercizi sostituiti con varianti sicure. Modifiche non salvate.')}
+  return {P:P,nw:nw}}
 function edInjUpd(){var b=gid('edinj');if(!b||!ED.sc)return;var u=find(ED.uid),s=ED.sc,h='',bad=injBad(s.days,(s.wuL||[]).concat(s.cdL||[]),gctx),ie=u?injEnd(u):'';
-  if(bad.length)h+='<div class="warn" style="margin:0 0 12px"><b>'+bad.length+(bad.length===1?' esercizio carica':' esercizi caricano')+' una zona ferma per infortunio</b> ('+esc(bad.map(function(x){return x.n}).join(', '))+'): non possono restare nella scheda. <button type="button" class="mini" data-act="edinjfix">Togli gli esercizi esclusi</button></div>';
+  if(bad.length)h+='<div class="warn" style="margin:0 0 12px"><b>'+bad.length+(bad.length===1?' esercizio carica':' esercizi caricano')+' una zona ferma per infortunio</b> ('+esc(bad.map(function(x){return x.n}).join(', '))+'): non possono restare nella scheda. <button type="button" class="mini" data-act="edinjsafe">🛡 Sostituisci con varianti sicure</button> <button type="button" class="mini" data-act="edinjfix">Togli gli esercizi esclusi</button></div>';
   if(ie&&ago(ie)<0&&(!s.cambio||ie<s.cambio))h+='<div class="info" style="margin:0 0 12px">Lo stop per infortunio finisce il <b>'+fdate(ie)+'</b>, prima del cambio scheda'+(s.cambio?' ('+fdate(s.cambio)+')':'')+': quella data è la scadenza per cambiare la scheda in base alla guarigione. <button type="button" class="mini" data-act="edcamb">Usa come cambio scheda</button></div>';
   else if(ie&&ago(ie)>=0)h+='<div class="warn" style="margin:0 0 12px">Lo stop per infortunio è finito il <b>'+fdate(ie)+'</b>: verifica la guarigione, aggiorna lo stato nell’anamnesi e cambia la scheda.</div>';
   b.innerHTML=h}
@@ -4919,7 +5096,7 @@ async function saveScheda(send){
   if(!nome){st('scstat','Inserisci il nome della scheda.');gid('sc_n').focus();return}
   var days=readDays().filter(function(d){return d.es.length});
   if(!days.length){st('scstat','Aggiungi almeno un esercizio.');return}
-  var bad=injBad(days,GW.wu.concat(GW.cd),gctx);if(bad.length){injBadModal(bad,'injfixgen');return}
+  var bad=injBad(days,GW.wu.concat(GW.cd),gctx);if(bad.length){injBadModal(bad,'injfixgen','injsafegen');return}
   days.forEach(function(d,j){var gn=0;if(!d.t)d.t='Seduta '+(j+1);
     d.es.forEach(function(x,i){if(x.lk&&i>0){if(!d.es[i-1].g)d.es[i-1].g=++gn;x.g=d.es[i-1].g}});d.es.forEach(function(x){delete x.lk})});
   var flat=[];days.forEach(function(d,i){d.es.forEach(function(x){flat.push(Object.assign({d:i},x))})});
@@ -4976,14 +5153,14 @@ function logHtml(sc){var L=ALOG[sc.id],days=schedaDays(sc),W=Object.keys(L&&L.l|
   return h+'<p class="status" style="margin:6px 0 0">Gli stessi carichi escono nelle colonne «Sett.» dell’Excel e del CSV.</p>'}
 async function logShow(sc){var el=gid('sclog');if(!el)return;
   if(!(window.Cloud&&Cloud.user())){el.innerHTML='<h4>📈 Carichi segnati dall’atleta</h4><p class="status" style="margin:0">Accedi al cloud per vedere i carichi che l’atleta segna dal link.</p>';return}
-  if(!ALOG[sc.id])el.innerHTML='<h4>📈 Carichi segnati dall’atleta</h4><p class="status" style="margin:0">Leggo i carichi dal cloud…</p>';else el.innerHTML=logHtml(sc);
-  try{await logFetch(sc);var e2=gid('sclog');if(e2)e2.innerHTML=logHtml(sc)}
+  if(!ALOG[sc.id])el.innerHTML='<h4>📈 Carichi segnati dall’atleta</h4><p class="status" style="margin:0">Leggo i carichi dal cloud…</p>';else el.innerHTML=fbHtml(sc)+logHtml(sc);
+  try{await Promise.all([logFetch(sc),fbFetch(sc).catch(function(){})]);var e2=gid('sclog');if(e2)e2.innerHTML=fbHtml(sc)+logHtml(sc)}
   catch(e){var e3=gid('sclog');if(e3)e3.innerHTML='<h4>📈 Carichi segnati dall’atleta</h4><p class="status" style="margin:0">Non riesco a leggere i carichi ('+esc(String((e&&e.code)||'errore').replace(/^firestore\//,''))+'). <button type="button" class="btn sm" data-act="sclogr" data-id="'+esc(sc.id)+'">Riprova</button></p>'}}
 document.addEventListener('click',function(e){var a=e.target.closest('[data-act="sclogr"]');if(a){var sc=findS(a.getAttribute('data-id'));if(sc)logShow(sc)}});
 function viewScheda(id){
   var sc=findS(id);if(!sc)return;var u=find(sc.uid);
-  var tmp=sc.id==='__ed',lg=!tmp&&sc.atok;
-  modal('<h3>'+esc(sc.nome)+(tmp&&ED.dirty?' <i class="dc">anteprima non salvata</i>':'')+'</h3>'+(lg?'<div class="sclog" id="sclog" style="margin:0 0 16px"></div>':'')+schedaBody(sc,u)+'<div class="status" id="sdstat"></div><div class="mrow"><button data-act="mclose">Chiudi</button>'+(tmp?'':'<button data-act="edopen" data-id="'+esc(sc.id)+'">Modifica nell’editor</button><button data-act="nutsc" data-id="'+esc(sc.id)+'">🥗 Piano alimentare</button>')+
+  var tmp=sc.id==='__ed',lg=!tmp&&sc.atok,sbad=!tmp&&u?injBad(schedaDays(sc),(sc.wuL||[]).concat(sc.cdL||[]),profile(u)):[];
+  modal('<h3>'+esc(sc.nome)+(tmp&&ED.dirty?' <i class="dc">anteprima non salvata</i>':'')+'</h3>'+(sbad.length?'<div class="warn noprn" style="margin:0 0 14px"><b>🛡 '+sbad.length+(sbad.length===1?' esercizio non è compatibile':' esercizi non sono compatibili')+' con gli infortuni o i fastidi attuali</b> ('+esc(sbad.map(function(b){return b.n}).join(', '))+'). <button type="button" class="btn sm pri" data-act="scsafe" data-id="'+esc(sc.id)+'">Sostituisci con varianti sicure</button><br><span class="status">Si apre l’editor con le sostituzioni già fatte: controlli e salvi; l’atleta vede la scheda nuova dal suo link.</span></div>':'')+(lg?'<div class="sclog" id="sclog" style="margin:0 0 16px"></div>':'')+schedaBody(sc,u)+'<div class="status" id="sdstat"></div><div class="mrow"><button data-act="mclose">Chiudi</button>'+(tmp?'':'<button data-act="edopen" data-id="'+esc(sc.id)+'">Modifica nell’editor</button><button data-act="nutsc" data-id="'+esc(sc.id)+'">🥗 Piano alimentare</button>')+
    '<button data-act="scsv" data-id="'+esc(sc.id)+'">CSV</button><button data-act="sdl" data-id="'+esc(sc.id)+'">Scarica HTML</button><button data-act="prn">Stampa / Esporta PDF</button><button data-act="sxl" data-id="'+esc(sc.id)+'">Esporta Excel (.xlsx)</button><button class="blk" data-act="send" data-id="'+esc(sc.id)+'">📤 Invia PDF ed Excel</button><button class="pri" data-act="share" data-id="'+esc(sc.id)+'">📲 Condividi con l’atleta</button></div>');
   document.querySelector('#modal .mbox').classList.add('xl');
   if(lg)logShow(sc);
@@ -5048,6 +5225,8 @@ document.addEventListener('click',function(e){
   else if(k==='genauto'){if(gTouched)modal('<h3>Rigenerare le sedute?</h3><p>Le modifiche fatte a mano agli esercizi verranno sostituite dalla nuova proposta.</p><div class="mrow"><button data-act="mclose">Annulla</button><button class="pri" data-act="regenok">Rigenera</button></div>');else buildAuto()}
   else if(k==='regenok'){closeModal();buildAuto();gDirty=true}
   else if(k==='injfixgen'){closeModal();genInjFix();saveScheda()}
+  else if(k==='injsafegen'){closeModal();safeModal(genInjSafe(),'injsafegensave')}
+  else if(k==='injsafegensave'){closeModal();saveScheda()}
   else if(k==='addday'){var n=document.querySelectorAll('#days .day').length;gid('days').insertAdjacentHTML('beforeend',dayBlock({},n));gTouched=gDirty=true;refreshEx();updGen()}
   else if(k==='rmday'&&day){if(document.querySelectorAll('#days .day').length>1){day.remove();gTouched=gDirty=true;refreshEx();updGen()}}
   else if(k==='addex'&&day){day.querySelector('.exs').insertAdjacentHTML('beforeend',exRow());gTouched=gDirty=true;refreshEx();updGen()}
@@ -5256,7 +5435,7 @@ function edBuild(){
 }
 async function edSave(asNew){
   var o=edBuild();if(!o.days.length){st('edstat','Aggiungi almeno un esercizio (con il nome) prima di salvare.');return}
-  var bad=injBad(o.days,o.wuL.concat(o.cdL),gctx);if(bad.length){injBadModal(bad,asNew?'edinjfixc':'edinjfixs');return}
+  var bad=injBad(o.days,o.wuL.concat(o.cdL),gctx);if(bad.length){injBadModal(bad,asNew?'edinjfixc':'edinjfixs',asNew?'edinjsafec':'edinjsafes');return}
   var old=ED.sid?findS(ED.sid):null;
   if(asNew&&old&&o.nome===old.nome)o.nome+=' (copia)';
   o.id=(!asNew&&old)?old.id:newId('s');
@@ -5472,6 +5651,9 @@ document.addEventListener('click',function(e){
   else if(k==='edsave')edSave(false);
   else if(k==='edinjfix'){var nf=edInjFix();edInjUpd();st('edstat',nf?'Tolti '+nf+(nf===1?' esercizio escluso':' esercizi esclusi')+' per infortunio. Modifiche non salvate.':'Nessun esercizio da togliere.')}
   else if(k==='edinjfixs'||k==='edinjfixc'){closeModal();edInjFix();edSave(k==='edinjfixc')}
+  else if(k==='edinjsafe'){var rs=edInjSafe();edInjUpd();safeModal(rs)}
+  else if(k==='edinjsafes'||k==='edinjsafec'){closeModal();var rs2=edInjSafe();edInjUpd();safeModal(rs2,k==='edinjsafec'?'edsafesavec':'edsafesave')}
+  else if(k==='edsafesave'||k==='edsafesavec'){closeModal();edSave(k==='edsafesavec')}
   else if(k==='edcamb'){var ie=injEnd(find(ED.uid));if(ie){s.cambio=ie;if(s.deload&&s.deload>=addDays(ie,-6))s.deload='';edMark();renderEd();st('edstat','Cambio scheda impostato al '+fdate(ie)+' (fine dello stop). Modifiche non salvate.')}}
   else if(k==='edcopy')edSave(true);
   else if(k==='edrevert'){edLoad(ED.uid,ED.sid);renderEd()}
@@ -5655,7 +5837,7 @@ var SHL=null;
 // e i carichi che l'atleta segna arrivano al PT. Senza cloud resta il link «fotografia» (#s=, scheda compressa nell'indirizzo).
 // copia della scheda per l’atleta, per creare PDF ed Excel sul suo telefono: senza logica di lavoro né dati dell’anamnesi (solo nome, età e FC a riposo per le zone cardio)
 function pubData(sc,u){var o={};['id','nome','data','deload','cambio','freq','split','days','es','wuL','cdL','wu','cd','car','luogo','heq','v'].forEach(function(k){if(sc[k]!=null)o[k]=sc[k]});
-  return {s:o,u:u?{n:u.n||'',c:u.c||'',eta:ageOf(u),fcr:u.fcr||'',ob:u.ob||[],gara:u.gara||''}:null}}
+  return {s:o,u:u?{n:u.n||'',c:u.c||'',eta:ageOf(u),fcr:u.fcr||'',ob:u.ob||[],gara:u.gara||'',liv:u.liv||''}:null}}
 async function linkFor(id){
   var sc=findS(id);if(!sc)return null;var u=find(sc.uid);
   var base=id==='__ed'?(ED.sid?findS(ED.sid):null):sc,live=null,why='';
@@ -5762,7 +5944,7 @@ async function avFile(pdf){if(!AV||!AV.P)return;var b=gid('avfst');if(b)b.textCo
   catch(e){if(b)b.textContent='Non riesco a creare il file su questo telefono ('+((e&&e.message)||'errore')+'). Prova da Safari o Chrome.'}}
 function avFail(t){gid('main').innerHTML='<div class="atv"><div class="warn">'+t+'</div></div>'}
 async function athleteLive(tok){
-  var ck='spk_al_'+tok,cache=null,remote=null,off=false,x=null;try{cache=localStorage.getItem(ck)}catch(e){}
+  var ck='spk_al_'+tok,cache=null,remote=null,rfb=null,off=false,x=null;try{cache=localStorage.getItem(ck)}catch(e){}
   if(tok.length<16)return avFail('<b>Link non valido.</b> Chiedi al tuo Personal Trainer di mandarlo di nuovo (meglio con «Copia link» e incolla nella chat).');
   var to=function(ms){return new Promise(function(_,r){setTimeout(function(){r(new Error('timeout'))},ms)})};
   try{
@@ -5773,6 +5955,7 @@ async function athleteLive(tok){
     x=d.data();if(x.on===false)return avFail('<b>Il tuo Personal Trainer ha disattivato questo link.</b> Se ti serve '+(x.ty==='nut'?'il piano alimentare':'la scheda')+', chiediglielo di nuovo.');
     if(x.ty==='nut'){try{localStorage.setItem(ck,JSON.stringify({j:x.j,ty:'nut'}))}catch(e){}return avNut(x.j,tok,false)}
     try{var r=await mm[1].getDoc(mm[1].doc(fs,'link',tok,'r','log'));if(r.exists())remote=JSON.parse(r.data().l||'{}')}catch(e){}
+    try{var r2=await mm[1].getDoc(mm[1].doc(fs,'link',tok,'r','fb'));if(r2.exists()){rfb=JSON.parse(r2.data().l||'[]');if(!Array.isArray(rfb))rfb=null}}catch(e){}
     try{localStorage.setItem(ck,JSON.stringify({j:x.j,p:x.p||''}))}catch(e){}
   }catch(e){var c=String((e&&e.code)||(e&&e.message)||e).replace(/^firestore\//,'');
     if(c==='permission-denied')return avFail('<b>Il link non è ancora attivo.</b> Avvisa il tuo Personal Trainer (deve aggiornare le impostazioni del cloud).<p class="status" style="font-size:12px;margin:8px 0 0">Dettaglio per il PT: permission-denied sul documento link.</p>');
@@ -5783,11 +5966,13 @@ async function athleteLive(tok){
   try{AV=avFix(JSON.parse(x?x.j:cj.j));try{var pp=x?x.p:cj.p;AV.P=pp?JSON.parse(pp):null}catch(e){AV.P=null}}catch(e){return avFail('<b>Non riesco ad aprire questa scheda.</b> Chiedi al tuo Personal Trainer di mandare un link nuovo.')}
   AV.tok=tok;AV.live=true;document.title=AV.n+' · S.peaking';
   var sv=null;try{sv=JSON.parse(localStorage.getItem(avKey())||'null')}catch(e){}
-  AVL=avMerge(remote,sv&&sv.l);AVLP=remote?JSON.stringify(remote):'';AVS={day:sv&&sv.s?Math.min(sv.s.day||0,Math.max(0,AV.D.length-1)):0,wk:avNowWk()};
+  AVL=avMerge(remote,sv&&sv.l);AVLP=remote?JSON.stringify(remote):'';
+  var lf=null;try{lf=JSON.parse(localStorage.getItem(avFbKey())||'null')}catch(e){}AVF=avFbMerge(rfb,lf);AVFP=rfb?JSON.stringify(rfb):'';AVS={day:sv&&sv.s?Math.min(sv.s.day||0,Math.max(0,AV.D.length-1)):0,wk:avNowWk()};
   AVNT=off?'Senza connessione: vedi l’ultima versione scaricata della scheda. I carichi che segni arrivano al tuo PT quando riapri il link con internet.':'';
   avRender();
   var pend=false;try{pend=!!localStorage.getItem('spk_alp_'+tok)}catch(e){}
   if(!off&&(pend||JSON.stringify(AVL)!==AVLP))avPush();
+  if(!off&&AVF.length&&JSON.stringify(AVF)!==AVFP)avFbPush();
 }
 window.addEventListener('online',function(){if(AV&&AV.live&&AVC)avPush()});
 document.addEventListener('visibilitychange',function(){if(document.hidden&&AV&&AV.live&&AVC&&JSON.stringify(AVL)!==AVLP)avPush()});
@@ -5806,6 +5991,7 @@ async function athleteMode(){
   document.title=AV.n+' · S.peaking';
   var sv=null;try{sv=JSON.parse(localStorage.getItem(avKey())||'null')}catch(e){}
   AVL=sv&&sv.l||{};AVS={day:sv&&sv.s?Math.min(sv.s.day||0,AV.D.length-1):0,wk:avNowWk()};
+  try{AVF=JSON.parse(localStorage.getItem(avFbKey())||'[]')||[]}catch(e){AVF=[]}
   avRender();
 }
 function avWuList(L,txt,t){
@@ -5823,9 +6009,10 @@ function avRender(){
    '<div class="avwk"><select id="avwk" aria-label="Settimana">'+wopt+'</select>'+(ws?'<span>dal '+fdate(ws).slice(0,5)+' al '+fdate(addDays(ws,6)).slice(0,5)+'</span>':'')+'</div>'+
    (AV.P?'<div class="avfl"><button type="button" class="btn sm" data-act="avpdf">📄 Scarica il PDF</button><button type="button" class="btn sm" data-act="avxls">📊 Scarica l’Excel</button></div><p class="status" id="avfst" role="status" style="margin:6px 0 0;font-size:13px"></p>':'')+
    (AV.live?'<p class="avnet" id="avnet" role="status">'+esc(AVNT||'I kg e le ripetizioni che segni arrivano in automatico al tuo PT.')+'</p>':'')+
-   (wk===dw?'<div class="avdl">Settimana di scarico: stessi esercizi, circa metà delle serie e carichi più leggeri (RPE 6–7).</div>':'')+'</div>'+
+   avFbBox()+(wk===dw?'<div class="avdl">Settimana di scarico: stessi esercizi, circa metà delle serie e carichi più leggeri (RPE 6–7).</div>':'')+'</div>'+
    (D.length>1?'<div class="avtabs" role="tablist">'+D.map(function(x,j){return '<button role="tab" data-avd="'+j+'" aria-selected="'+(j===di)+'">'+esc(x[0]||'Seduta '+(j+1))+'</button>'}).join('')+'</div>':'')+
    avWuList(AV.W,AV.wt,'🔥 Riscaldamento');
+  var cx=avCtx();
   h+=d[1].map(function(e,j){
     var k=di+'|'+e[0],sets=lg[k]||[],n=avNum(e[1]),g=e[8],ex=EXI[ekey(e[0])],done=0,rows='';
     for(var s=0;s<n;s++){var x=sets[s]||{};if(x.ok)done++;
@@ -5835,10 +6022,10 @@ function avRender(){
        '<button class="avok" data-avok aria-pressed="'+!!x.ok+'" aria-label="Serie '+(s+1)+' fatta">✓</button></div>'}
     return '<div class="avc'+(done>=n?' fin':'')+'"><div class="avn">'+(g?'<i class="dc">SS '+String.fromCharCode(64+(+g))+'</i> ':'')+esc(e[0])+'<span class="avcnt">'+done+'/'+n+'</span></div>'+
      '<div class="avp">'+(e[1]!==''?'<span><b>'+esc(e[1])+'</b> serie</span>':'')+(e[2]!==''?'<span><b>'+esc(e[2])+'</b> rip.</span>':'')+(e[3]!==''?'<span>RPE <b>'+esc(e[3])+'</b></span>':'')+(e[5]!==''?'<span>Rec. <b>'+esc(e[5])+' s</b></span>':'')+'</div>'+
-     (e[4]?'<div class="avtg">Carico: '+esc(e[4])+'</div>':'')+(e[6]?'<p class="avnt">'+esc(e[6])+'</p>':'')+
+     avSafeCard(ex,d,cx)+(e[4]?'<div class="avtg">Carico: '+esc(e[4])+'</div>':'')+(e[6]?'<p class="avnt">'+esc(e[6])+'</p>':'')+
      (g&&d[1][j+1]&&d[1][j+1][8]===g?'<p class="avss">Superserie: passa subito all’esercizio successivo, recupera dopo.</p>':'')+
      '<div class="avsh"><span>Serie</span><span>Kg</span><span>Ripetizioni</span><span>Fatta</span></div>'+rows+
-     (ex?'<details class="avg"><summary>Come si esegue</summary><div class="avgd">'+legendBody(ex)+'</div></details>':'')+'</div>'}).join('')||'<p class="status">Nessun esercizio in questa seduta.</p>';
+     (ex?'<details class="avg"><summary>Come si esegue</summary><div class="avgd">'+legendBody(ex)+'</div></details>':'')+'<button type="button" class="avfbx" data-avfbx="'+esc(e[0])+'">🩹 Fastidio o dolore in questo esercizio?</button></div>'}).join('')||'<p class="status">Nessun esercizio in questa seduta.</p>';
   h+=avWuList(AV.C,AV.ct,'🧘 Defaticamento')+(AV.K&&AV.K.length?'<div class="avc"><div class="avn">❤️ Cardio della settimana</div>'+AV.K.map(function(t){return '<p class="avnt">'+esc(t)+'</p>'}).join('')+'</div>':'')+
    '<div class="avact"><button class="btn pri" data-act="avsend">Invia i risultati al PT</button><button class="btn" data-act="avcopy">Copia i risultati</button></div><p class="status" id="avst" role="status"></p>'+
    '<details class="glw"><summary>📖 Glossario dei termini tecnici</summary>'+glossHtml()+'</details>'+
@@ -5858,6 +6045,7 @@ function avResults(){
   L.push('S.peaking — '+AV.n+(AV.a?' · '+AV.a:''));L.push('Settimana '+wk+(wk===avDlw()?' (scarico)':'')+' · '+(d[0]||'Seduta '+(di+1)));
   d[1].forEach(function(e){var S=(lg[di+'|'+e[0]]||[]).filter(function(x){return x&&(x.ok||x.kg||x.rp)});
     L.push('• '+e[0]+': '+(S.length?S.map(function(x){return (x.kg?x.kg+' kg':'')+(x.kg&&x.rp?' × ':'')+(x.rp?x.rp:'')+(!x.kg&&!x.rp?'fatta':'')}).join(', '):'non segnato'))});
+  avFbTxt().forEach(function(t){L.push(t)});
   return L.join('\n');
 }
 function avUpd(r){var k=r.getAttribute('data-k'),s=+r.getAttribute('data-s'),lg=(AVL[AVS.wk]=AVL[AVS.wk]||{}),a=(lg[k]=lg[k]||[]);
@@ -5874,7 +6062,14 @@ document.addEventListener('click',function(e){
     if(on){try{AVAC=AVAC||new (window.AudioContext||window.webkitAudioContext)()}catch(x){}var rc=parseInt(r.getAttribute('data-rec'),10),c=r.closest('.avc');
       var ss=c.querySelector('.avss');if(rc>0&&!ss)avTimer(rc)}
     return}
+  var fx=t.closest('[data-avfbx]');if(fx){avFbForm(fx.getAttribute('data-avfbx'));return}
+  var fi=t.closest('[data-avfi]');if(fi){AVFI=+fi.getAttribute('data-avfi');[].forEach.call(document.querySelectorAll('[data-avfi]'),function(b){b.setAttribute('aria-pressed',String(b===fi))});
+    st('avfst2',AVFI>=7?'Dolore forte: oggi niente esercizi che caricano la zona. Se è improvviso, non passa o peggiora, fermati e rivolgiti al medico.':'Se il dolore è forte, improvviso o non passa, fermati e rivolgiti al medico.');return}
+  var fo=t.closest('[data-avfok]');if(fo){var id=fo.getAttribute('data-avfok');AVF.forEach(function(x){if(x.id===id){x.ok=1;x.u=Date.now()}});avFbSave();avRender();return}
   var a=t.closest('[data-act]');if(!a)return;var k=a.getAttribute('data-act');
+  if(k==='avfb'){avFbForm('');return}
+  if(k==='avfbsend'){avFbSend(a.getAttribute('data-ex')||'');return}
+  if(k==='mclose'){closeModal();return}
   if(k==='avpdf'||k==='avxls'){avFile(k==='avpdf');return}
   if(k==='avt15'&&AVT){AVT.end=Math.max(AVT.end,Date.now())+15000;clearInterval(AVT.iv);avTimer(Math.ceil((AVT.end-Date.now())/1000))}
   else if(k==='avtx'){clearInterval(AVT&&AVT.iv);gid('avt').hidden=true}
@@ -6012,7 +6207,7 @@ function yAtl(g){return yRoster(g).map(function(r){return r.nm})}
 function yRos(g,k){return ((g.ros||{})[k])||{}}
 function yInjOf(g,r){var A=r.u?injList(r.u).map(function(x){return Object.assign({src:'a'},x)}):[];return A.concat((yRos(g,r.k).inj||[]).filter(function(x){return INJN[x.z]}).map(function(x){return Object.assign({src:'g'},x)}))}
 function yInjAct(g){var o=[];yRoster(g).forEach(function(r){yInjOf(g,r).forEach(function(x){o.push({nm:r.nm,k:r.k,z:x.z,lato:x.lato,st:x.st,fino:x.fino,src:x.src})})});return o}
-function yInjLbl(x){return INJN[x.z].split(' /')[0]+(x.lato==='dx'?' dx':x.lato==='sx'?' sx':x.lato==='bil'?' (entrambi)':'')+' · '+(x.st==='acuto'?'acuto':x.st==='recupero'?'in recupero':'pregresso')+(x.fino&&injStop(x)?' fino al '+fdate(x.fino):'')}
+function yInjLbl(x){return INJN[x.z].split(' /')[0]+(x.lato==='dx'?' dx':x.lato==='sx'?' sx':x.lato==='bil'?' (entrambi)':'')+' · '+(x.st==='acuto'?'acuto':x.st==='recupero'?'in recupero':x.st==='fastidio'?'fastidio':'pregresso')+(x.fino&&injStop(x)?' fino al '+fdate(x.fino):'')}
 // avvisi sul singolo esercizio per gli atleti infortunati del gruppo
 function yItWarn(n,act){var e=EXI[ekey(n)];if(!e||!act.length)return '';var L=injLoad(e),o=[];
   act.forEach(function(x){var v=L[x.z]||0;if(!v)return;if(injStop(x))o.push('<i class="lw">'+esc(x.nm)+': '+esc(INJN[x.z].split(' /')[0].toLowerCase())+' → variante o lavoro vincolato</i>');else if(v>=2)o.push('<i class="lc">'+esc(x.nm)+': cautela ('+esc(INJN[x.z].split(' /')[0].toLowerCase())+')</i>')});
