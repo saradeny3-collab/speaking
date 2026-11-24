@@ -271,6 +271,25 @@ Voce **Dashboard PT** nel menu, sotto «Atleti» (su smartphone «PT»; il numer
 - Dati nel cliente (`mac`, `abb`, `ckp`, `ckpo`, `rival`, `pres`); i template sono nelle schede con atleta `__tpl`: cloud, dispositivo e backup come sempre. Le regole di Firestore non cambiano.
 - Le notifiche push vere (anche ad app chiusa, senza calendario) e l’invio automatico dei messaggi agli atleti richiedono un server (Firebase Cloud Functions, piano a pagamento Blaze): qui i messaggi partono con un tocco da WhatsApp o email e gli avvisi arrivano dal calendario. Fasi, percentuali e soglie sono indicative e vanno validate dal Personal Trainer.
 
+## Prontezza (wearable) e gamification (nuovo)
+**⚡ Ready-to-Train Index** (Dashboard PT → «⚡ Prontezza» e pagina della scheda dell’atleta):
+- **Check-in di prontezza** sul link della scheda («Fai il check-in di oggi»): ore e qualità del sonno, stress 1–5, indolenzimento 1–5, FC a riposo, HRV, passi. Il PT lo inserisce per chi si allena con lui («+ Check-in»).
+- **Dati dello smartwatch** («⌚ Collega lo smartwatch»):
+  - iPhone (Apple Watch o orologi che scrivono in Salute: Garmin, Oura, Polar…): un **Comando rapido** legge FC a riposo, HRV, sonno e passi da Salute e apre l’indirizzo `…#a=<codice>&hr=..&hrv=..&sh=..&stp=..`; i valori entrano nel check-in di oggi. Si può far partire ogni mattina con un’automazione.
+  - Android, Garmin Connect, Oura, Polar o un foglio: **import CSV** (riconosce data, passi, FC a riposo, HRV, ore e punteggio del sonno). Anche il PT può importare un CSV per un atleta.
+  - Il collegamento diretto agli account Garmin, Oura e Strava richiede un server (OAuth): non è possibile con un sito su GitHub Pages. Strava non fornisce sonno e HRV.
+- **Indice 0–100**: HRV (30%) e FC a riposo (25%) rispetto alla media personale degli ultimi 28 giorni (servono 3 giorni; prima vale la FC a riposo dell’anamnesi), sonno (25%), stress (12%), indolenzimento (8%). Segnali: HRV sotto l’85% della media, FC a riposo +5 bpm, meno di 5 ore e mezza di sonno, stress 4–5.
+- **Auto-regolazione della seduta di oggi**: 🟢 70+ come da scheda; 🟡 50–69 (o un segnale) −1 serie su complementari e isolamenti; 🔴 sotto 50, due segnali o FC +7 bpm: −1 serie per esercizio (minimo 1), RPE −1, niente cedimento né test massimali. Sul telefono le serie si riducono da sole («oggi 3 ⚡»); l’atleta può scegliere «Allenamento completo». Vale solo per oggi.
+- Lato PT: indice, valori, segnali e andamento di 14 giorni per ogni atleta; «Prontezza bassa» nei semafori (giallo) e nel dettaglio atleta; il check-in dell’atleta conta come feedback.
+- Dati: atleta in `link/<codice>/r/rt` (stesse regole di Firestore di `r/log`), PT in `u.rt`.
+
+**🏆 Record, badge e classifiche** (Dashboard PT → «🏆 Record e classifiche» e «🏅 I tuoi traguardi» nella pagina dell’atleta):
+- **Record personali**: 1RM stimato (Epley) dai kg e dalle ripetizioni segnati nel link, confrontato con i test 1RM e con le settimane precedenti di tutte le schede.
+- **Badge**: primo allenamento, 10/25/50/100 allenamenti, primo record e 10 record, squat al peso corporeo e 1,5 ×, panca al peso corporeo, stacco 2 ×, 4/8/12/26 settimane consecutive di check-in (del PT o di prontezza), 7 giorni di prontezza di fila.
+- **Celebrazione sul telefono dell’atleta** appena spunta la serie del record o raggiunge un traguardo (finestra 🎉, vibrazione), una sola volta.
+- **PT**: «Nuovi traguardi» degli ultimi 30 giorni con «💬 Congratulati» (WhatsApp con il messaggio già scritto); **classifica** per allenamenti (30 giorni), settimane di check-in di fila, record del mese, forza relativa (big 3 / peso), traguardi; «📤 Condividi la classifica» (top 10, di default solo nome e iniziale). Un clic sull’atleta mostra badge e migliori 1RM.
+- Il check-in «Fatto oggi» ora tiene lo storico (`u.ckh`). Senza cloud i carichi del link non arrivano al PT: contano check-in e prontezza.
+
 ## Sezione nutrizionale (nuovo)
 Voce **Sezione nutrizionale** nel menu, sotto «Schede allenamento» (su smartphone «Nutrizione»). È facoltativa: il piano si crea per l’atleta quando serve, di solito dopo la scheda, e si può collegare a una sua scheda. Si apre anche dal dettaglio atleta («Sezione nutrizionale») e dalla scheda salvata («🥗 Piano alimentare»: apre il piano collegato o ne crea uno).
 - **Impostazione**: titolo in stampa («Alimentazione SARA»), data, scheda collegata, «Redatto o validato da», esclusioni (vegetariano, vegano, senza latticini, glutine, pesce, uova, frutta a guscio) e note su allergie e gusti.
@@ -366,7 +385,7 @@ Calcolato dalla scheda più recente di ogni atleta (data di cambio scheda, o 6 s
 - **Esci** (menu Backup): «Esci» tiene la copia sul dispositivo; «Esci e cancella da questo dispositivo» è per un computer o telefono non tuo.
 - Se Firebase non è raggiungibile (niente internet, oppure sito aperto dal file sul computer) puoi continuare con i dati salvati sul dispositivo: le modifiche vengono inviate al cloud al prossimo accesso.
 - Le **foto dei documenti** restano solo sul dispositivo in cui le hai caricate.
-- Il link per l’atleta (`#a=…`) non chiede l’accesso: legge dal cloud solo `link/<codice>` (la sua scheda) e scrive solo i suoi carichi in `link/<codice>/r/log`. Non può elencare gli altri link né leggere `users`. Il vecchio link «fotografia» (`#s=…`) non usa il cloud.
+- Il link per l’atleta (`#a=…`) non chiede l’accesso: legge dal cloud solo `link/<codice>` (la sua scheda) e scrive solo nei suoi documenti `link/<codice>/r/log` (carichi), `r/fb` (fastidi) e `r/rt` (prontezza). Non può elencare gli altri link né leggere `users`. Il vecchio link «fotografia» (`#s=…`) non usa il cloud.
 - Regole di Firestore da tenere pubblicate (**aggiornate in fase 21**: senza il blocco `link` il link dell’atleta resta «fotografia» e i carichi non arrivano; senza il blocco `shared` i gruppi non si condividono). Firebase → Firestore Database → Regole → incolla → Pubblica:
 ```
 rules_version = '2';
