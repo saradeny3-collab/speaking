@@ -1,7 +1,7 @@
 # S.peaking
 
 Anamnesi · Valutazione funzionale · Preparazione atletica.
-Barra di navigazione scura a sinistra (Atleti, Dashboard PT, Schede allenamento, Sezione nutrizionale, Editor schede, Dispense) (in basso su smartphone), area di lavoro centrale chiara, colore principale **viola #4B0082** con testo bianco, stampa A4 pulita.
+Barra di navigazione scura a sinistra (Atleti, Cruscotto atleti, Schede allenamento, Sezione nutrizionale, Editor schede, Dispense) (in basso su smartphone), area di lavoro centrale chiara, colore principale **viola #4B0082** con testo bianco, stampa A4 pulita.
 
 ## Nuovo cliente: anamnesi
 «+ Nuovo Cliente» apre la pagina «Anamnesi, obiettivi e stile di vita»: dati anagrafici e misure (data di nascita ed età calcolata, sesso, FC a riposo, peso, altezza, livello, circonferenze, certificato medico con data di scadenza, con BMI e rapporti vita/fianchi e vita/altezza calcolati), PAR-Q a 7 domande, stato di salute con **infortuni e traumi** (zona, lato, stato, «fermo fino al»), **condizioni frequenti** della dispensa Over 55–70, obiettivi a scelta multipla, gara o sport obiettivo, sport extra settimanali e **cardio** (vedi sotto) con stima del carico, gruppi muscolari prioritari e preferenza di split (la decisione finale spetta al Personal Trainer). Dal dettaglio atleta il pulsante «Anamnesi» riapre il modulo per modificarlo.
@@ -242,8 +242,8 @@ Voce **Yanagi Academy** nel menu, con due sezioni: **Gruppi e squadre** ed **Ese
 
 I gruppi (con gare, atleti, cinture, infortuni del gruppo, test, materiale e maestro) sono salvati nel cloud (`users/<UID>/gruppi`), sul dispositivo e nel backup JSON. I gruppi creati prima continuano a funzionare: la vecchia gara diventa la gara A e le sedute già modificate restano come erano. Contenuti, dosaggi, minuti, coefficienti di carico e riferimenti dei test sono indicativi e vanno adattati dal tecnico.
 
-## Dashboard PT: semafori, scadenzario, template e macrociclo annuale (nuovo)
-Voce **Dashboard PT** nel menu, sotto «Atleti» (su smartphone «PT»; il numero rosso sono gli atleti in rosso). Quattro sezioni:
+## Cruscotto atleti: semafori, scadenzario, template e macrociclo annuale (nuovo)
+Voce **Cruscotto atleti** nel menu, sotto «Atleti» (su smartphone «Cruscotto»; il numero rosso sono gli atleti in rosso). Quattro sezioni:
 
 **🚦 Semafori atleti** (risk management):
 - 🔴 **Rosso**: scheda scaduta, certificato medico o abbonamento scaduti, «fermo fino al» superato (verifica infortunio), rivalutazione non fatta, oppure **nessun feedback da oltre 7 giorni**. Il feedback sono i carichi o le segnalazioni dal link dell’atleta (letti dal cloud, «↻ Aggiorna») oppure «Check-in fatto oggi». Con la spunta «Si allena in presenza» il feedback non conta.
@@ -272,7 +272,7 @@ Voce **Dashboard PT** nel menu, sotto «Atleti» (su smartphone «PT»; il numer
 - Le notifiche push vere (anche ad app chiusa, senza calendario) e l’invio automatico dei messaggi agli atleti richiedono un server (Firebase Cloud Functions, piano a pagamento Blaze): qui i messaggi partono con un tocco da WhatsApp o email e gli avvisi arrivano dal calendario. Fasi, percentuali e soglie sono indicative e vanno validate dal Personal Trainer.
 
 ## Prontezza (wearable) e gamification (nuovo)
-**⚡ Ready-to-Train Index** (Dashboard PT → «⚡ Prontezza» e pagina della scheda dell’atleta):
+**⚡ Ready-to-Train Index** (Cruscotto atleti → «⚡ Prontezza» e pagina della scheda dell’atleta):
 - **Check-in di prontezza** sul link della scheda («Fai il check-in di oggi»): ore e qualità del sonno, stress 1–5, indolenzimento 1–5, FC a riposo, HRV, passi. Il PT lo inserisce per chi si allena con lui («+ Check-in»).
 - **Dati dello smartwatch** («⌚ Collega lo smartwatch»):
   - iPhone (Apple Watch o orologi che scrivono in Salute: Garmin, Oura, Polar…): un **Comando rapido** legge FC a riposo, HRV, sonno e passi da Salute e apre l’indirizzo `…#a=<codice>&hr=..&hrv=..&sh=..&stp=..`; i valori entrano nel check-in di oggi. Si può far partire ogni mattina con un’automazione.
@@ -283,7 +283,7 @@ Voce **Dashboard PT** nel menu, sotto «Atleti» (su smartphone «PT»; il numer
 - Lato PT: indice, valori, segnali e andamento di 14 giorni per ogni atleta; «Prontezza bassa» nei semafori (giallo) e nel dettaglio atleta; il check-in dell’atleta conta come feedback.
 - Dati: atleta in `link/<codice>/r/rt` (stesse regole di Firestore di `r/log`), PT in `u.rt`.
 
-**🏆 Record, badge e classifiche** (Dashboard PT → «🏆 Record e classifiche» e «🏅 I tuoi traguardi» nella pagina dell’atleta):
+**🏆 Record, badge e classifiche** (Cruscotto atleti → «🏆 Record e classifiche» e «🏅 I tuoi traguardi» nella pagina dell’atleta):
 - **Record personali**: 1RM stimato (Epley) dai kg e dalle ripetizioni segnati nel link, confrontato con i test 1RM e con le settimane precedenti di tutte le schede.
 - **Badge**: primo allenamento, 10/25/50/100 allenamenti, primo record e 10 record, squat al peso corporeo e 1,5 ×, panca al peso corporeo, stacco 2 ×, 4/8/12/26 settimane consecutive di check-in (del PT o di prontezza), 7 giorni di prontezza di fila.
 - **Celebrazione sul telefono dell’atleta** appena spunta la serie del record o raggiunge un traguardo (finestra 🎉, vibrazione), una sola volta.
