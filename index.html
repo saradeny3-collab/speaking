@@ -503,6 +503,8 @@ body.athm .side,body.athm .tabbar{display:none!important}body.athm main{width:10
 @media print{.nush .ntit{-webkit-print-color-adjust:exact;print-color-adjust:exact}.nsht td{font-size:9.5pt;padding:5px 7px!important}.nsht tr{break-inside:avoid}}
 @page{size:A4;margin:15mm}
 @page elenco{size:A4 landscape;margin:10mm}
+.c20x{margin:0 0 8px;padding-left:22px}.c20x li{margin:2px 0}.c20pc{border-top:1px solid #ddd;padding:6px 0;break-inside:avoid}.c20pc h4{margin:0 0 2px;font-size:11pt}.c20pc h4 small{font-weight:400;color:#555}.c20pc ol{margin:2px 0 4px;padding-left:20px}.c20pc p{margin:0;font-size:9.5pt}.c20dia{margin-top:18px}.c20dia table{width:100%;table-layout:fixed}.c20dia th,.c20dia td{padding:3px 4px!important;font-size:8.5pt}.c20dia td{height:26px}.c20dia thead tr:first-child th:first-child{width:18%}.c20dia thead tr:first-child th:nth-child(2){width:9%}.c20ln{border-bottom:1px solid #999;height:24px}
+@media print{.c20dia{break-before:page}.c20pc li,.c20pc p{font-size:9pt}}
 .elt td,.elt th{font-size:13px;white-space:nowrap}.elt td:last-child,.elt td:nth-child(8),.elt td:nth-child(10){white-space:normal;min-width:120px}
 @media print{.elp{page:elenco}.elt td,.elt th{font-size:8pt!important;padding:3px 5px!important}.elt tr{break-inside:avoid}.elt thead{display:table-header-group}}
 @media print{
@@ -3542,7 +3544,72 @@ var EXRAW7=[
  'Ginocchio in linea con il piede; tieniti al corrimano se l’equilibrio è incerto.','w']];
 (function(){var Z={'Box squat alla sedia o panca':{ginoc:1},'Sit-to-stand dalla sedia':{ginoc:1},'Stacco sumo con kettlebell':{lomb:1,anca:1},'Shoulder press ai cavi da seduto (piano scapolare)':{spalla:2},'Plank sulle ginocchia':{spalla:1},'Abduzioni con elastico':{anca:1},'Equilibrio monopodalico su cuscino propriocettivo':{cavig:1},'Camminata su tapis roulant (zona Karvonen)':{cavig:1},'Camminata a passo svelto all’aperto':{cavig:1},'Step-up su gradino basso (20 cm)':{ginoc:1,cavig:1}};
  EXRAW7.forEach(function(r){EXM[r[0]]={spo:'master',iz:Z[r[0]]||{}}})})();
-var EXDB=EXRAW.concat(EXRAW2,EXRAW3,EXRAW4,EXRAW5,EXRAW6,EXRAW7).map(function(r,i){return {n:r[0],p:r[1],sub:r[2],m:r[3],sy:r[4]?r[4].split(','):[],lv:r[5],role:r[6],fl:r[7]?r[7].split(','):[],mp:r[8],ms:r[9],sc:r[10],as:r[11],ec:r[12],co:r[13],si:r[14],eq:(r[15]||EQO[r[0]]||'w').split(','),x:i>=EXRAW.length?1:0}});
+// Esercizi nuovi dalla dispensa «Il metodo di allenamento 20/10» (circuiti per il judo, fase 26).
+// Sotto-pattern «k» (condizionamento) o core: entrano nei circuiti 20/10, nell’editor e nella libreria.
+var EXRAW8=[
+['Mountain climber','Isopush','k','Core','Spalle',1,'cond','tm','Retto e trasverso dell’addome, flessori dell’anca','Deltoidi, pettorali, quadricipiti',
+ 'Corsa sul posto in appoggio sulle mani: core, spalle e frequenza cardiaca alta insieme.',
+ 'Posizione di piegamento a braccia tese, mani sotto le spalle, corpo in linea dalla testa ai talloni.',
+ 'Porta un ginocchio verso il petto e torna indietro, poi l’altro, senza alzare il bacino.',
+ 'Alterna le gambe a ritmo veloce per il tempo indicato; nella variante su fitball le mani stanno sulla palla.',
+ 'Spalle sopra i polsi e bacino fermo; con fastidio ai polsi appoggiati sui pugni o su due manubri.','w'],
+['Russian twist','Isopush','cr','Core','Obliqui',1,'core','tm','Obliqui, retto dell’addome','Flessori dell’anca, erettori spinali',
+ 'Rotazioni del busto da seduti con o senza peso: forza e resistenza del core in torsione, utile nelle proiezioni con rotazione del tronco.',
+ 'Seduto, ginocchia piegate, busto inclinato indietro di circa 45°, palla medica, disco o kettlebell al petto (o un capo del judogi o dell’elastico).',
+ 'Ruota il busto da un lato portando il peso vicino all’anca, senza piegare la schiena.',
+ 'Ruota dall’altro lato con ritmo controllato; per più difficoltà solleva i piedi da terra.',
+ 'Schiena lunga e rotazione che parte dal torace; evitalo o riduci il peso con dolore lombare.','k'],
+['Bear crawl','Isopush','k','Core','Spalle,Quadricipiti',1,'cond','tm','Trasverso dell’addome, deltoidi, quadricipiti','Pettorali, tricipiti, glutei',
+ 'Camminata a quattro zampe con le ginocchia sollevate di pochi centimetri: core, spalle e coordinazione, vicina ai movimenti del ne-waza.',
+ 'In quadrupedia, mani sotto le spalle e ginocchia sotto le anche, sollevate di 2–3 cm dal tatami.',
+ 'Avanza muovendo insieme mano e piede opposti, a piccoli passi.',
+ 'Torna indietro o cambia direzione mantenendo la schiena piatta e le ginocchia basse.',
+ 'Bacino stabile, senza ondeggiare; con fastidio ai polsi riduci la durata.','w'],
+['Scatti con cambio di direzione','Squat','k','Quadricipiti','Glutei,Polpacci',1,'cond','tm','Quadricipiti, glutei, polpacci','Adduttori, core',
+ 'Scatti brevi (laterali, avanti e indietro o su 5-10-15 m) con cambi di direzione: rapidità, agilità e frenata, come negli spostamenti dell’incontro.',
+ 'In guardia, piedi alla larghezza delle spalle, ginocchia piegate, peso sugli avampiedi.',
+ 'Frena abbassando il baricentro e appoggiando bene il piede esterno.',
+ 'Riparti subito nella nuova direzione alla massima velocità.',
+ 'Superficie non scivolosa; ginocchio in linea con il piede nella frenata.','w'],
+['Skip sul posto ad alta frequenza','Squat','k','Polpacci','Quadricipiti,Core',1,'cond','tm','Flessori dell’anca, polpacci, quadricipiti','Core, deltoidi',
+ 'Skip con le ginocchia alte sul posto alla massima frequenza (anche con un elastico in vita fissato alla spalliera o tenuto dal compagno): frequenza cardiaca e rapidità di piedi.',
+ 'In piedi, busto eretto, braccia piegate a 90°.',
+ 'Porta alternativamente le ginocchia all’altezza dell’anca.',
+ 'Appoggi rapidi e brevi sugli avampiedi, braccia coordinate con le gambe.',
+ 'Atterraggi morbidi; con dolore a caviglie o ginocchia riduci l’altezza delle ginocchia.','w'],
+['Roll-out con la ruota','Isopush','ca','Core','Dorsali,Spalle',2,'core','tm','Retto e trasverso dell’addome','Gran dorsale, deltoidi, tricipiti',
+ 'Rollout con la ruota addominale: anti-estensione del core, il controllo del tronco che serve nel ne-waza e nelle proiezioni.',
+ 'In ginocchio sul tatami, mani sulla ruota sotto le spalle, addome contratto e bacino in leggera retroversione.',
+ 'Fai scorrere la ruota in avanti allungando il corpo finché riesci a tenere la schiena neutra.',
+ 'Torna indietro tirando con addome e dorsali, senza piegare il bacino per primo.',
+ 'Non inarcare la zona lombare; con dolore lombare riduci l’escursione o sostituiscilo con il plank.','k'],
+['V-up (chiusura a libro)','Isopush','cf','Core','',2,'core','tm','Retto dell’addome, flessori dell’anca','Obliqui',
+ 'Addominali «a libro»: busto e gambe si sollevano insieme, con o senza palla medica o disco.',
+ 'Supino, gambe tese, braccia distese sopra la testa con la palla medica o il disco.',
+ 'Solleva insieme busto e gambe tese cercando di toccare i piedi con le mani.',
+ 'Torna giù lentamente senza appoggiare del tutto spalle e talloni.',
+ 'Movimento controllato senza strappi; con dolore lombare piega le ginocchia.','k'],
+['Plank con tocco delle spalle','Isopush','ca','Core','Spalle',1,'core','tm','Trasverso dell’addome, obliqui','Deltoidi, pettorali',
+ 'Plank a braccia tese toccando con una mano la spalla opposta: anti-rotazione e controllo del corpo.',
+ 'Posizione di piegamento a braccia tese, piedi un po’ divaricati per avere più base.',
+ 'Stacca una mano e tocca la spalla opposta senza far ruotare il bacino.',
+ 'Riporta la mano a terra e alterna i lati a ritmo regolare.',
+ 'Bacino fermo e in linea; con fastidio ai polsi appoggiati sui pugni.','w'],
+['Sprawl','Squat','k','Core','Quadricipiti,Spalle',1,'cond','tm','Core, glutei, quadricipiti','Pettorali, deltoidi',
+ 'Difesa dall’attacco alle gambe: le gambe scivolano indietro e il bacino va a terra, poi si torna in guardia (anche con ritorno laterale o con rotazione).',
+ 'In guardia, ginocchia piegate, mani avanti.',
+ 'Lancia le gambe indietro e abbassa il bacino verso il tatami con le mani in appoggio.',
+ 'Torna rapidamente in guardia, anche con un passo laterale o una rotazione completa.',
+ 'Atterra con il bacino, non con le ginocchia; addome attivo per proteggere la schiena.','w'],
+['Superman','Hinge','cf','Erettori spinali','Glutei,Spalle',1,'core','tm','Erettori spinali, glutei','Trapezio inferiore, deltoidi posteriori',
+ 'Estensione della schiena da proni con braccia e gambe sollevate (anche con un pesetto in mano): catena posteriore e stabilità del tronco.',
+ 'Prono, braccia distese in avanti, sguardo verso il tatami.',
+ 'Solleva insieme braccia e gambe di pochi centimetri, o un braccio e la gamba opposta.',
+ 'Mantieni la posizione per il tempo indicato e torna giù lentamente; al giro dopo inverti gli arti.',
+ 'Collo in linea con la schiena; escursione piccola, senza dolore lombare.','w']];
+(function(){var Z={'Mountain climber':{polso:1,spalla:1},'Russian twist':{lomb:2},'Bear crawl':{polso:1,spalla:1},'Scatti con cambio di direzione':{cavig:2,ginoc:2,anca:1},'Skip sul posto ad alta frequenza':{cavig:1,ginoc:1},'Roll-out con la ruota':{lomb:2,spalla:1},'V-up (chiusura a libro)':{lomb:1},'Plank con tocco delle spalle':{polso:1,spalla:1},'Sprawl':{lomb:1,polso:1,ginoc:1},'Superman':{lomb:1}};
+ EXRAW8.forEach(function(r){EXM[r[0]]={spo:'judo',iz:Z[r[0]]||{}}})})();
+var EXDB=EXRAW.concat(EXRAW2,EXRAW3,EXRAW4,EXRAW5,EXRAW6,EXRAW7,EXRAW8).map(function(r,i){return {n:r[0],p:r[1],sub:r[2],m:r[3],sy:r[4]?r[4].split(','):[],lv:r[5],role:r[6],fl:r[7]?r[7].split(','):[],mp:r[8],ms:r[9],sc:r[10],as:r[11],ec:r[12],co:r[13],si:r[14],eq:(r[15]||EQO[r[0]]||'w').split(','),x:i>=EXRAW.length?1:0}});
 // Esercizi a catena posteriore classificati come complementari nel manuale CSEN
 ['Ponte glutei','Hyperextension 45°','Nordic curl'].forEach(function(n){EXDB.forEach(function(e){if(e.n===n)e.cx=1})});
 EXDB.forEach(function(e){var m=EXM[e.n];if(m)Object.assign(e,m)});
@@ -4809,6 +4876,184 @@ DISP.push({id:'cucina',noex:1,t:'Cucina fit e varietà alimentare: gusto, cucine
  ['Ricettario fit per tutta la giornata',function(){var G=[];NRIC.forEach(function(r){if(!r.cu&&G.indexOf(r.g)<0)G.push(r.g)});return G.map(function(g){return '<p><b>'+esc(g)+'</b></p><ul>'+NRIC.filter(function(r){return r.g===g&&!r.cu}).map(function(r){return '<li><b>'+esc(r.t)+':</b> '+esc(r.it.map(function(a){var F=NF[a[0]];return a[1]+(F&&F.u==='ml'?' ml ':' g ')+(a[2]||nDn(F))+(a[4]?' (oppure '+a[4][1]+(NF[a[4][0]].u==='ml'?' ml ':' g ')+(a[4][2]||nDn(NF[a[4][0]]))+')':'')}).join(', '))+'. '+esc(r.pr)+'</li>'}).join('')+'</ul>'}).join('')}],
  ['Pre-sleep anabolico (posizione ufficiale ISSN)','<p><b>30–40 g di proteine a lenta digestione</b> (caseine, fiocchi di latte o yogurt greco 0%) circa 30 minuti prima di coricarsi stimolano la sintesi proteica muscolare notturna e sostengono il metabolismo a riposo del mattino, senza inibire la lipolisi notturna. Nell’app: pasto «Prima di dormire».</p>'],
  ['Meal prep e spezie',function(){return '<ul>'+NPREP.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul>'}]]});
+// ---- Dispensa «Il metodo di allenamento 20/10» (judo): 40 circuiti, timer, editor e Yanagi Academy (fase 26) ----
+// Circuito: n numero, t titolo, c categoria, g giri (default 2), m materiale, x esercizi [testo della dispensa, esercizio di libreria], p perché, o ottimo per.
+var C20CAT={fz:'Forza e resistenza',ca:'Resistenza cardiovascolare',es:'Esplosività e potenza',cr:'Core e stabilità',ag:'Agilità e velocità',mo:'Mobilità ed equilibrio',tw:'Tachi-waza (in piedi)',nw:'Ne-waza (a terra)',pr:'Presa e kumi-kata',tr:'Transizioni e lotta'};
+var C20=[
+ {n:1,t:'Forza e resistenza',c:'fz',m:'Corpo libero',x:[['Squat jump','Jump squat'],['Push-up con mano a diamante','Piegamenti'],['Sit-up con ginocchia al petto','Sit-up'],['Burpee con ginocchia al petto','Burpee']],
+  p:'Forza esplosiva e resistenza muscolare per eseguire le proiezioni e tenere alta la pressione sull’avversario, soprattutto con gambe, petto e core.',o:'Resistenza aerobica, ritmo alto per periodi lunghi, gambe più forti in attacco e difesa, core più stabile.'},
+ {n:2,t:'Core e agilità',c:'cr',m:'Palla medica o disco',x:[['Plank con rotazione del bacino','Plank'],['Mountain climbers','Mountain climber'],['Russian twist con peso','Russian twist'],['Scatto laterale','Scatti con cambio di direzione']],
+  p:'Un core forte dà il controllo del corpo durante le tecniche; l’agilità rende più fluidi e veloci cambi di direzione, difese ed entrate.',o:'Core più forte e stabile, equilibrio, cambi di direzione più rapidi.'},
+ {n:3,t:'Esplosività e potenza',c:'es',m:'Kettlebell o manubrio',x:[['Saltelli con affondo alternato','Affondi esplosivi (jump lunge)'],['Push-up con battito delle mani','Piegamenti pliometrici (power push-up)'],['Salti ginocchia al petto','Salti ginocchia al petto (tuck jump)'],['Sollevamento di kettlebell o manubrio a due mani','Kettlebell swing']],
+  p:'Movimenti esplosivi per generare forza in fretta: attacchi e proiezioni rapidi ed efficaci, recupero più veloce.',o:'Potenza di gambe e core, velocità e precisione dei movimenti, potenza che regge per tutto l’incontro.'},
+ {n:4,t:'Allenante per le tachi-waza (tecniche in piedi)',c:'tw',m:'Elastici, compagno o dummy, corda',x:[['Uchi-komi con elastici','Uchi-komi (ripetizione tecnica)'],['Proiezioni con compagno o con il dummy (pupazzo)','Nage-komi (proiezioni ripetute)'],['Salto con la corda','Saltelli con la corda'],['Lotta sulle prese con il compagno','Kumi-kata (lotta per la presa)']],
+  p:'Uchi-komi e proiezioni riproducono le tecniche in piedi, alternate al lavoro di frequenza (corda) e al kumi-kata con il compagno.',o:'Muscolatura per le tecniche di gara, equilibrio, resistenza per attacchi esplosivi ripetuti.'},
+ {n:5,t:'Resistenza cardiovascolare',c:'ca',m:'Plinto o step',x:[['Skip sul posto ad alta frequenza','Skip sul posto ad alta frequenza'],['Jumping jack','Jumping jack'],['Step-up con salita sul plinto','Step-up'],['Burpee con piegamento delle braccia','Burpee']],
+  p:'Senza sovraccarichi, movimenti dinamici e continui che alzano la frequenza cardiaca: la resistenza cardiovascolare è una qualità chiave in gara.',o:'Ritmo alto nel randori e in gara, recupero più veloce tra un incontro e l’altro nella giornata di gara.'},
+ {n:6,t:'Equilibrio e mobilità',c:'mo',m:'Manubrio o palla medica, plinto',x:[['Affondi laterali con peso','Affondi laterali'],['Plank laterale con sollevamento della gamba','Side plank'],['Step-up con ginocchio alzato','Step-up'],['Hollow hold (schiena a terra, gambe e braccia alzate)','Hollow hold']],
+  p:'Controllo e stabilità del corpo negli incontri: rinforzo di gambe e core e flessibilità dinamica.',o:'Core e stabilità, mobilità di anche e arti inferiori, equilibrio statico e dinamico.'},
+ {n:7,t:'Forza funzionale',c:'fz',m:'Kettlebell, sbarra',x:[['Turkish get-up','Turkish get-up'],['Deadlift (stacco) con kettlebell','Stacco sumo con kettlebell'],['Pull-up alla sbarra (meglio con un numero minimo in mente)','Trazioni alla sbarra'],['Bear crawl (attenzione al lavoro del core)','Bear crawl']],
+  p:'Forza e potenza in movimenti complessi e multidirezionali, simili a quelli del judo, con più gruppi muscolari insieme.',o:'Forza di tutto il corpo, qualità del movimento e core per kumi-kata e nage-waza.'},
+ {n:8,t:'Resistenza alla potenza',c:'es',m:'Manubri, box',x:[['Push press con i manubri','Push press'],['Air squat','Squat a corpo libero'],['Box jump','Box jump'],['Burpee con salto laterale','Burpee']],
+  p:'Movimenti esplosivi uniti a quelli di resistenza, per mantenere la potenza per tutto il combattimento: lavoro cardiovascolare misto a forza.',o:'Lavoro ad alta intensità e resistenza di parte alta e bassa del corpo.'},
+ {n:9,t:'Agilità e rapidità',c:'ag',m:'Box',x:[['Scatti laterali con cambio di direzione','Scatti con cambio di direzione'],['Jumping lunge','Affondi esplosivi (jump lunge)'],['Plank con tocco delle spalle','Plank con tocco delle spalle'],['Jump box','Box jump']],
+  p:'Rapidità e agilità per passare da attacco a difesa: movimenti molto rapidi e controllo del corpo.',o:'Agilità e velocità, controllo del corpo in posizioni di squilibrio, passaggio dalla difesa al contrattacco.'},
+ {n:10,t:'Forza di presa e core',c:'pr',m:'Manubri o kettlebell, sbarra, judogi',x:[['Farmer’s walk con peso','Farmer walk'],['Pull-up isometrico','Trazioni alla sbarra'],['Sit-up con tirate del judogi','Sit-up'],['Swing con manubrio','Kettlebell swing']],
+  p:'Presa e core, due qualità fondamentali per controllare l’avversario e restare stabili nelle proiezioni.',o:'Prese più forti sul judogi e core più resistente per stabilizzare il corpo nelle tecniche.'},
+ {n:11,t:'Resistenza muscolare',c:'fz',m:'Elastico, parallele o panca',x:[['Push-up con mano a diamante','Piegamenti'],['Air squat con elastico sotto i piedi (che offre resistenza)','Squat a corpo libero'],['Plank con sollevamento gambe alternato (per tutti i 20")','Plank'],['Dip alle parallele (oppure su un piano d’appoggio, mani rivolte in avanti)','Dip alle parallele'],['Jumping jack con accosciata a ogni chiusura delle gambe','Jumping jack']],
+  p:'Resistenza muscolare di arti superiori e inferiori, per lottare al meglio per tutto il combattimento.',o:'Più resistenza della parte alta, muscoli della lotta sulle prese più forti, movimenti intensi e ripetuti.'},
+ {n:12,t:'Allenante per il ne-waza (tecniche a terra)',c:'nw',m:'Ruota, judogi o elastico, compagno',x:[['Ebi (hip escape)','Gambero (ebi) con trazione del bacino'],['Roll-out con la ruota','Roll-out con la ruota'],['Bear crawl','Bear crawl'],['Russian twist con un compagno che tiene il judogi dall’altro capo (o elastico fissato a un supporto)','Russian twist'],['Plank','Plank']],
+  p:'Riproduce i movimenti chiave della lotta a terra, con flessibilità e controllo del corpo.',o:'Core più forte, flessibilità e controllo, resistenza a terra e movimenti efficaci nel ne-waza.'},
+ {n:13,t:'Potenza e resistenza del core',c:'cr',m:'Palla medica o slam ball, kettlebell',x:[['Russian twist con palla medica','Russian twist'],['Mountain climbers','Mountain climber'],['Burpee con salto e atterraggio laterale','Burpee'],['Sit-up con slam ball o palla medica','Sit-up'],['Kettlebell swing a una mano (peso adeguato)','Kettlebell swing']],
+  p:'Core potente e resistente per le tecniche con torsione del busto e per il controllo del corpo in attacco e in difesa.',o:'Movimenti rapidi sostenuti per tutto l’incontro, senza cali.'},
+ {n:14,t:'Velocità e cambio di direzione',c:'ag',m:'6 ostacoli bassi, elastico',x:[['Scatti laterali con 6 ostacoli bassi','Agilità: speed ladder e coni'],['Salto a piedi pari su un ostacolo basso','Salti laterali sugli ostacoli'],['Camminata in plank laterale',''],['High knees con elastico sul core fissato alla spalliera o tenuto dal compagno','Skip sul posto ad alta frequenza']],
+  p:'Velocità e cambi di direzione rapidi, per attaccare dopo uno sbilanciamento o schivare e contrattaccare, con stabilità nel movimento laterale.',o:'Velocità e agilità nei cambi di direzione, controllo del corpo nello squilibrio, resistenza nei movimenti ripetuti.'},
+ {n:15,t:'Resistenza e controllo del corpo',c:'fz',m:'Palla medica o pallone, elastico',x:[['Push-up con le mani su palla medica o pallone da basket','Piegamenti'],['Air squat con elastico','Squat a corpo libero'],['Leg raise in plank laterale','Side plank'],['Camminata con affondo a ogni passo e torsione del tronco','Affondi camminati']],
+  p:'Resistenza muscolare e controllo completo del corpo con movimenti che replicano l’impegno del combattimento: parte alta, core e gambe.',o:'Controllo nella lotta sulle prese, gambe più resistenti per proiezioni più potenti, coordinazione.'},
+ {n:16,t:'Forza e potenza',c:'es',m:'Box, kettlebell, rialzo',x:[['Push-up con piedi rialzati','Piegamenti'],['Box jump','Box jump'],['Kettlebell swing','Kettlebell swing'],['Piegamenti su un braccio alternato','Piegamenti'],['Simulazione di scatto sul posto','']],
+  p:'Forza e potenza per una muscolatura capace di movimenti esplosivi: spinta, core e resistenza di arti superiori e inferiori.',o:'Rinforzo di tutto il corpo per sostenere attacchi e difese e proiettare in modo rapido.'},
+ {n:17,t:'Core e stabilità',c:'cr',m:'Ruota, palla medica o disco',x:[['Plank sulle mani alternando il sollevamento dei piedi','Plank'],['Roll-out con la ruota','Roll-out con la ruota'],['Side plank alternato con sollevamento della gamba','Side plank'],['Russian twist con palla medica o disco (peso secondo il livello)','Russian twist'],['V-up (chiusura a libro) con la stessa palla medica o disco','V-up (chiusura a libro)']],
+  p:'Forza e resistenza dei muscoli centrali per la stabilità del tronco durante le tecniche.',o:'Equilibrio statico e dinamico, resistenza muscolare, controllo dei movimenti nel combattimento.'},
+ {n:18,t:'Agilità e mobilità',c:'ag',m:'Ostacolo, palla medica o disco',x:[['Salti laterali sopra un ostacolo (altezza secondo il livello)','Salti laterali sugli ostacoli'],['Affondi laterali con peso (palla medica o disco)','Affondi laterali'],['Bear crawl','Bear crawl'],['Scatti 5-10-15 m (andata e ritorno di scatto)','Scatti con cambio di direzione'],['Burpee con piegamento, salto e atterraggio laterale','Burpee']],
+  p:'Agilità e mobilità per evitare gli attacchi e riposizionarsi per il contrattacco: movimento in più direzioni, rapidità e coordinazione.',o:'Cambi di direzione rapidi, anche e arti inferiori più mobili, velocità e precisione sotto sforzo.'},
+ {n:19,t:'Lavoro con ne-waza (tecniche a terra)',c:'nw',m:'Swiss ball, judogi o corda spessa, compagno',x:[['Rotazioni con finalizzazione in immobilizzazione, tipo uchi-komi su swiss ball','Osaekomi-waza (immobilizzazioni)'],['Push-up con trazione su judogi o corda spessa fissati (dalle ginocchia se poco allenato)','Piegamenti'],['Roll-out con uke in presa kesa-gatame','Uscite dalle immobilizzazioni'],['Plank con avanzamento controllato del ginocchio (destra e sinistra)','Plank'],['Uscite ripetute con uke che immobilizza tori','Uscite dalle immobilizzazioni']],
+  p:'Lavoro specifico per la lotta a terra: forza e transizioni rapide tra le posizioni.',o:'Core e controllo di uke nel ne-waza, scioltezza nelle uscite dalle posizioni scomode.'},
+ {n:20,t:'Mobilità e flessibilità',c:'mo',m:'Elastico',x:[['Stretching dinamico delle gambe','Leg swing frontali e laterali'],['Movimenti propedeutici al judo con elastico',''],['Step laterali con elastico','Camminata laterale con miniband'],['Da accosciati, sollevarsi su una gamba','Squat monopodalico al box']],
+  p:'Mobilità e flessibilità per prevenire gli infortuni e per le tecniche: flessibilità dinamica e forza delle articolazioni.',o:'Mobilità di spalla, anche e colonna, più flessibilità e meno rischio di infortuni.'},
+ {n:21,t:'Forza e resistenza per le gambe',c:'fz',m:'Elastici, box',x:[['Jump squat','Jump squat'],['Saltelli con affondi a gambe alternate','Affondi esplosivi (jump lunge)'],['Leg press con elastico (supino, gambe sollevate e divaricate, elastico sotto i piedi)',''],['Step-up sul box','Step-up'],['Sprint con elastico legato in vita','Sprint']],
+  p:'Forza e resistenza delle gambe per tenere una buona posizione negli incontri ed eseguire le proiezioni.',o:'Esplosività, muscolatura degli arti inferiori, potenza per attacchi e difese rapidi.'},
+ {n:22,t:'Esplosività e potenza totale',c:'es',m:'Kettlebell, manubri, battle rope, box, bilanciere',x:[['Clean and press con kettlebell','Clean & press'],['Jump squat con peso','Jump squat zavorrato'],['Battle rope slam','Battle rope'],['Box jump con burpee','Box jump'],['Affondi con bilanciere','Affondi']],
+  p:'Potenza ed esplosività di tutto il corpo per attacchi potenti e reattivi: coinvolge i principali gruppi muscolari.',o:'Resistenza esplosiva, gambe e parte alta più forti, attacchi e difese rapidi e intensi.'},
+ {n:23,t:'Tachi-waza avanzato',c:'tw',m:'Elastici o gi, manichino, sbarra',x:[['Uchi-komi contro resistenza (elastici o gi)','Uchi-komi (ripetizione tecnica)'],['Seoi-nage con manichino (sollevamento a ogni ingresso)','Nage-komi (proiezioni ripetute)'],['Jumping pull-up alla sbarra','Trazioni alla sbarra'],['Sprawl dalla posizione di piegamento con rotazione completa','Sprawl']],
+  p:'Forza, tecnica e resistenza per le tecniche in piedi e un judo dinamico negli incontri.',o:'Fase finale della proiezione, transizione tra attacco e difesa, resistenza specifica.'},
+ {n:24,t:'Velocità e resistenza alla forza',c:'es',m:'Elastico o giubbino zavorrato, kettlebell, corda, plinto',x:[['Scatti con resistenza (elastico, giubbino zavorrato o compagno che trattiene)','Sprint'],['Burpee con piegamento e salto verticale','Burpee'],['Kettlebell snatch',''],['Jump rope double under','Saltelli con la corda'],['Step-up sul plinto','Step-up']],
+  p:'Velocità e resistenza alla forza per mantenere la forza esplosiva per tutto l’incontro, con rapidità di movimento.',o:'Velocità e resistenza nei movimenti rapidi, potenza esplosiva delle gambe, movimenti veloci in successione.'},
+ {n:25,t:'Forza e stabilità del core',c:'cr',g:3,m:'Disco o palla medica, pesetto',x:[['Plank con estensione totale del braccio','Plank'],['Russian twist con peso (calibrato sul peso corporeo dell’atleta)','Russian twist'],['Side plank crunch','Side plank'],['V-up con palla medica (chiusura a libro)','V-up (chiusura a libro)'],['Superman con pesetto in mano a braccio disteso (20"; al giro dopo inverti gli arti: 2 volte per lato sui 3 giri)','Superman']],
+  p:'Core e stabilità del tronco per controllare il corpo nelle tecniche: forza, equilibrio e resistenza del core.',o:'Controllo del core, stabilità e controllo del corpo sotto pressione, equilibrio.'},
+ {n:26,t:'Potenziamento degli arti superiori',c:'fz',m:'Sbarra, manubri o piastre leggere',x:[['Pull-up con presa alternata','Trazioni alla sbarra'],['Push-up pliometrici','Piegamenti pliometrici (power push-up)'],['Military press con manubri','Lento manubri seduto'],['Hammer curl con manubri','Curl a martello'],['Shadow kumi-kata con manubri leggeri o piastre in mano','']],
+  p:'Forza e resistenza degli arti superiori, necessarie per il lavoro delle prese, con enfasi su spalle e braccia.',o:'Braccia e spalle più forti e resistenti, prese più salde, stesso livello di forza per tutto l’incontro.'},
+ {n:27,t:'Agilità e resistenza cardiovascolare',c:'ca',m:'Agility ladder, elastico, fitball',x:[['Agility ladder con azioni specifiche del judo','Agilità: speed ladder e coni'],['Burpee con ritorno in salto laterale','Burpee'],['Sprint con cambio di direzione','Scatti con cambio di direzione'],['Jumping jack con resistenza','Jumping jack'],['Mountain climbers su fitball','Mountain climber']],
+  p:'Agilità e resistenza cardiovascolare per muoversi in fretta nello spazio e tenere un ritmo alto nell’incontro.',o:'Velocità e coordinazione, capacità di reggere movimenti intensi e continui.'},
+ {n:28,t:'Propedeutico alle transizioni',c:'tr',m:'Muro, compagno',x:[['Uchi-komi al muro','Uchi-komi (ripetizione tecnica)'],['Burpee dopo ribaltamento da kesa-gatame','Burpee'],['Simulazione di uscita da juji-gatame',''],['Corsa avanti e indietro con cambio di direzione','Scatti con cambio di direzione'],['Crunch con twist laterale','Crunch con torsione']],
+  p:'Lavoro per il ne-waza sulle tecniche di liberazione (ribaltamento da kesa-gatame, uscita da juji-gatame), per mantenere il ritmo a terra e nel passaggio piedi-terra.',o:'Core e resistenza fisica nella lotta a terra.'},
+ {n:29,t:'Forza e resistenza (corpo intero)',c:'fz',m:'Manubri, sbarra, kettlebell o piastra',x:[['Deadlift con manubri','Stacco da terra'],['Push-up con battito delle mani','Piegamenti pliometrici (power push-up)'],['Squat con salto su una gamba',''],['Pull-up con richiamo delle ginocchia al petto','Trazioni alla sbarra'],['Russian twist con kettlebell o piastra','Russian twist']],
+  p:'Spinte e tirate per forza e resistenza di core, parte alta e parte bassa del corpo.',o:'Forza totale e resistenza nei movimenti ad alta intensità, recupero migliore.'},
+ {n:30,t:'Resistenza alla potenza e recupero rapido',c:'es',m:'Box, peso, kettlebell',x:[['Sprint su distanza variabile 5-10-15 m','Scatti con cambio di direzione'],['Box jump con peso','Box jump'],['Push-up con battito delle mani','Piegamenti pliometrici (power push-up)'],['Affondi alternati','Affondi'],['Snatch alternato con la kettlebell','']],
+  p:'Potenza esplosiva e recupero rapido tra i movimenti ad alta intensità: ideale per il judo, fatto di tanti movimenti.',o:'Resistenza alla potenza, recupero rapido, resistenza cardiovascolare nei movimenti esplosivi e continui.'},
+ {n:31,t:'Tecniche di proiezione (tachi-waza)',c:'tw',m:'Bande elastiche, manichino, compagno',x:[['Uchi-komi con bande elastiche','Uchi-komi (ripetizione tecnica)'],['Proiezioni di o-uchi-gari su manichino o su uke','Nage-komi (proiezioni ripetute)'],['Proiezioni di ippon-seoi-nage con uke','Nage-komi (proiezioni ripetute)'],['Uchi-komi di tai-otoshi con bande elastiche','Uchi-komi (ripetizione tecnica)']],
+  p:'Tecniche di proiezione: equilibrio, coordinazione e potenza esplosiva per eseguirle.',o:'Esecuzione della tecnica, entrate rapide e precise, resistenza e potenza durante l’incontro.'},
+ {n:32,t:'Lotta a terra (ne-waza)',c:'nw',m:'Compagno',x:[['Esecuzione di juji-gatame con il compagno','Ne-waza / katame-waza (circuito a terra)'],['Hairi-kata (ingresso a terra) con finalità di kesa-gatame','Ribaltamenti dalla tartaruga (kame)'],['Hip escape (shrimping)','Gambero (ebi) con trazione del bacino'],['Drill di scivolata da un’immobilizzazione all’altra tenendo uke immobilizzato','Osaekomi-waza (immobilizzazioni)']],
+  p:'Tecniche di controllo nel ne-waza: forza del core, resistenza in attacco e fluidità nel passare da un’immobilizzazione all’altra.',o:'Resistenza e controllo dell’avversario a terra, scioltezza nei passaggi.'},
+ {n:33,t:'Evasione e difesa',c:'tr',m:'Compagno',x:[['Sprawl rapido con ritorno in piedi laterale','Sprawl'],['Uscita da kesa-gatame','Uscite dalle immobilizzazioni'],['Difesa da seoi-otoshi con spostamento e hairi-kata conseguente','Attacco e reazione (kaeshi-waza)'],['Bridge e rotazione da immobilizzazione','Uscite dalle immobilizzazioni']],
+  p:'Schivata e difesa dagli attacchi: reattività, velocità e capacità di uscire dalle immobilizzazioni.',o:'Difese rapide e reattive, transizioni veloci da posizioni di svantaggio a posizioni di controllo.'},
+ {n:34,t:'Tachi-waza combinato',c:'tw',m:'Compagno',x:[['Uchi-komi di morote-seoi-nage','Uchi-komi (ripetizione tecnica)'],['Proiezioni di o-soto-gari','Nage-komi (proiezioni ripetute)'],['Proiezioni di uchi-mata','Nage-komi (proiezioni ripetute)'],['Proiezioni di harai-goshi','Nage-komi (proiezioni ripetute)']],
+  p:'Integra più tecniche di proiezione e allena a concatenare gli attacchi in sequenza: attacco dinamico e continuo.',o:'Unire le tecniche, forza ed equilibrio nelle manovre, resistenza specifica per attacchi ripetuti.'},
+ {n:35,t:'Ne-waza e controllo del core',c:'nw',m:'Compagno',x:[['Transizioni da kesa-gatame a tate-shiho-gatame','Osaekomi-waza (immobilizzazioni)'],['Drill di evasione da yoko-shiho-gatame (movimenti da preparare prima)','Uscite dalle immobilizzazioni'],['Control drill sul compagno in guardia (uke tra le gambe)','Ne-waza / katame-waza (circuito a terra)'],['Finalizzazione in ude-hishigi-juji-gatame con tori tra le gambe di uke','Ne-waza / katame-waza (circuito a terra)']],
+  p:'Controllo a terra e forza del core: stabilità per immobilizzare e controllare, transizioni rapide tra le tecniche.',o:'Core e resistenza nel combattimento a terra, transizioni tra le forme del ne-waza e controllo di uke.'},
+ {n:36,t:'Presa e controllo del judogi',c:'pr',m:'Judogi appeso alla sbarra, compagno',x:[['Trazioni con il judogi appeso alla sbarra','Trazioni sul judogi (Gi pull-up)'],['Movimenti di tirata e spinta con uke','Kumi-kata (lotta per la presa)'],['Tirate con presa sulla manica del compagno','Kumi-kata (lotta per la presa)'],['Lotta sulle prese (kumi-kata)','Kumi-kata (lotta per la presa)']],
+  p:'Forza delle prese e controllo del judogi dell’avversario.',o:'Forza e resistenza delle prese, controllo dell’avversario nel kumi-kata, avambracci e spalle più forti.'},
+ {n:37,t:'Proiezioni in movimento',c:'tw',m:'Compagno',x:[['Uchi-komi in movimento con uke','Uchi-komi dinamico (in spostamento)'],['Entrate di uchi-mata senza toccare uke (la gamba colpisce a vuoto, la mano va a cercare il tatami)','Uchi-komi (ripetizione tecnica)'],['Uchi-komi di de-ashi-barai','Uchi-komi dinamico (in spostamento)'],['Ko-uchi-gari su uke in movimento','Nage-komi (proiezioni ripetute)']],
+  p:'Proiezioni in movimento (uchi-mata, de-ashi-barai, ko-uchi-gari), ripetute in velocità per perfezionare coordinazione ed equilibrio.',o:'Proiezioni in movimento, velocità di esecuzione, consapevolezza spaziale e temporale.'},
+ {n:38,t:'Allenamento di kumi-kata (lotta sulle prese)',c:'pr',m:'Compagno',x:[['Kumi-kata drill con partner resistente','Kumi-kata (lotta per la presa)'],['Cambio di presa e spostamento laterale','Kumi-kata (lotta per la presa)'],['Trazione del gi in affondo avanzato',''],['Drill di presa con ura-nage simulato','']],
+  p:'Tecniche di presa per controllare l’avversario e preparare le proiezioni, con rinforzo di mani e avambracci.',o:'Forza della presa, resistenza per prese prolungate, tecnica di presa per un vantaggio competitivo.'},
+ {n:39,t:'Transizione da tachi-waza a ne-waza',c:'tr',m:'Compagno',x:[['Uchi-komi di tecniche di transizione in ne-waza','Uchi-komi (ripetizione tecnica)'],['Simulazione di seoi-nage con caduta in osaekomi','Osaekomi-waza (immobilizzazioni)'],['Passaggi a terra con uke a 4 appoggi e tori che lavora per il ribaltamento immediato','Ribaltamenti dalla tartaruga (kame)'],['Passaggio a terra dopo una tecnica non riuscita (es. seoi in ginocchio, uscita da sotto il gomito di uke e drill di ribaltamento)','Ribaltamenti dalla tartaruga (kame)']],
+  p:'Rapidità nel passaggio a terra partendo in piedi, una delle abilità più difficili: si hanno pochi attimi per finalizzare.',o:'Fluidità nelle transizioni, concatenare tecniche in piedi e a terra, automatizzare il controllo nella transizione.'},
+ {n:40,t:'Resistenza alla lotta',c:'tr',m:'Compagno',x:[['Lotta sulle prese','Kumi-kata (lotta per la presa)'],['Drill di evasione da kesa-gatame','Uscite dalle immobilizzazioni'],['Entrata in proiezione con resistenza di uke','Uchi-komi (ripetizione tecnica)'],['Drill di controllo e squilibrio su uke','']],
+  p:'Condizionamento generale per l’incontro: allena tutte le fasi della lotta unendo resistenza generale e muscolare specifica.',o:'Recupero tra gli sforzi ad alta intensità e controllo del corpo durante la gara.'}];
+var C20F='',C20T=null;
+function c20G(C){return C.g||2}
+function c20Sec(C,g){return (g||c20G(C))*C.x.length*30}
+function c20Dur(C,g){var s=c20Sec(C,g);return Math.floor(s/60)+':'+('0'+s%60).slice(-2)}
+function c20Get(n){return C20.filter(function(C){return C.n===+n})[0]}
+function c20Lib(x){return x[1]&&EXI[ekey(x[1])]?EXI[ekey(x[1])]:null}
+// nome breve da pronunciare / da usare come esercizio (senza parentesi)
+function c20Short(s){return String(s).replace(/\s*\(.*$/,'').trim()}
+// sequenza del timer: 10 s «Pronti», poi per ogni giro ogni esercizio 20" di lavoro e 10" di recupero (niente recupero dopo l’ultimo)
+function c20List(title,names,g){var L=[{k:'p',s:10,t:'Pronti',x:'Primo esercizio: '+names[0],say:''}],n=names.length;
+  for(var i=1;i<=g;i++)names.forEach(function(nm,j){L.push({k:'w',s:20,t:nm,x:'Giro '+i+'/'+g+' · esercizio '+(j+1)+'/'+n+' · 20" di lavoro',say:c20Short(nm)});
+    if(!(i===g&&j===n-1))L.push({k:'r',s:10,t:'Recupero',x:'Poi: '+names[(j+1)%n],say:'Stop'})});
+  return L}
+function c20Timer(n,g,names){var C=c20Get(n);if(!C)return;g=g||c20G(C);names=names&&names.length?names:C.x.map(function(x){return x[0]});
+  yTimer('Circuito 20/10 n. '+C.n+' · '+C.t,c20List(C.t,names,g))}
+function c20Card(C){var g=c20G(C);
+  return '<details class="lg c20"><summary><span><b>'+C.n+'</b> · '+esc(C.t)+'</span><i class="pt">'+esc(C20CAT[C.c])+' · '+C.x.length+' esercizi · '+c20Dur(C)+'</i></summary><div class="lgb">'+
+   '<ol class="c20x">'+C.x.map(function(x){var e=c20Lib(x);return '<li>'+esc(x[0])+(e&&e.n!==x[0]?' <span class="status">→ libreria: '+esc(e.n)+'</span>':'')+'</li>'}).join('')+'</ol>'+
+   '<p><b>Il perché del circuito:</b> '+esc(C.p)+'</p><p><b>Ottimo per:</b> '+esc(C.o)+'</p>'+
+   '<p class="status" style="margin:4px 0 0">🧰 '+esc(C.m)+' · '+g+' giri × '+C.x.length+' esercizi = '+(g*C.x.length)+' intervalli di 20" lavoro / 10" recupero ('+c20Dur(C)+')'+(C.g?' · 3 giri indicati dalla dispensa':'')+'</p>'+
+   '<div class="mrow" style="justify-content:flex-start;margin-top:8px"><button type="button" class="btn" data-c20t="'+C.n+'">⏱ Avvia timer 20/10</button></div></div></details>'}
+function c20ListHtml(){var L=C20.filter(function(C){return !C20F||C.c===C20F});
+  return '<div class="ufil" role="group" aria-label="Filtra i circuiti per obiettivo"><button type="button" data-c20f="" aria-pressed="'+(!C20F)+'">Tutti <small>40</small></button>'+Object.keys(C20CAT).map(function(k){var n=C20.filter(function(C){return C.c===k}).length;return '<button type="button" data-c20f="'+k+'" aria-pressed="'+(C20F===k)+'">'+esc(C20CAT[k])+' <small>'+n+'</small></button>'}).join('')+'</div>'+
+   '<div class="lgw" id="c20l" style="margin-top:10px">'+L.map(c20Card).join('')+'</div>'+
+   '<div class="mrow" style="justify-content:flex-start;margin-top:10px"><button type="button" class="btn" data-c20pr="1">🖨 Stampa '+(C20F?'i circuiti «'+esc(C20CAT[C20F])+'»':'tutti i circuiti')+' e il diario (PDF)</button></div>'}
+SPNAME.j2010='Judo 20/10';DLAB.j2010='Judo 20/10';
+DISP.splice(DISP.map(function(d){return d.id}).indexOf('judo12')+1,0,{id:'j2010',t:'Il metodo di allenamento 20/10: 40 circuiti per il judo',f:'WhatsApp Scan 2026-11-24 at 13.25.59.pdf e 13.28.48.pdf («Il metodo di allenamento 20/10»)',
+ i:'Prontuario di circuiti a intervalli 20/10 (20 secondi di lavoro e 10 di recupero) derivati dal protocollo Tabata e adattati al judo: condizionamento generale, core, esplosività, agilità e mobilità, ma anche lavoro specifico con uchi-komi, proiezioni, ne-waza, kumi-kata e transizioni piedi-terra.',
+ g:'Ogni circuito ha il suo <b>⏱ timer 20/10</b> (segnali acustici e voce, come il timer randori). Nell’<b>editor schede</b>, «+ Aggiungi blocco» → <b>«Circuito 20/10 (judo)»</b> inserisce gli esercizi del circuito scelto in circuito (20", recupero 10", giri come serie), rispettando livello, PAR-Q, attrezzi e infortuni dell’atleta. Nella <b>Yanagi Academy</b> i blocchi «Preparazione atletica» e «Blocco libero» hanno <b>«⚡ Circuito 20/10»</b> e il timer del circuito.',
+ s:[
+ ['Il metodo: dal Tabata al 20/10','<p>Il protocollo prende il nome dal dottor <b>Izumi Tabata</b>, che nel 1996, con il suo gruppo al National Institute of Fitness and Sports di Tokyo, mise a punto un lavoro ad alta intensità per migliorare insieme la capacità aerobica e quella anaerobica. Lo schema è semplice: <b>20 secondi di lavoro e 10 di riposo</b>, per <b>8 cicli</b>, cioè 4 minuti. L’alta intensità unita alla brevità delle sessioni lo rende molto efficace sulla capacità cardiorespiratoria. Nato per i pattinatori, si è esteso presto ad altri sport e in particolare al judo.</p>'],
+ ['Perché i circuiti 20/10 nel judo','<p>Il judo chiede esplosività, forza, resistenza, agilità e la capacità di recuperare in fretta. L’incontro alterna picchi di sforzo massimale a pause brevissime, un modello molto simile al 20/10: allenarsi così simula le condizioni di gara, abitua a tenere un’intensità alta nel combattimento e a recuperare meglio dopo ogni attacco, fatto o subito.</p><p>Il protocollo si personalizza con esercizi specifici del judo (uchi-komi, proiezioni, lotta a terra) e diventa un sistema versatile per le qualità fisiche che servono per praticare e gareggiare.</p>'],
+ ['Struttura dei circuiti','<table class="stab"><thead><tr><th>Circuito</th><th>Giri</th><th>Intervalli 20"/10"</th><th>Durata</th><th>Perché</th></tr></thead><tbody><tr><td><b>4 esercizi</b></td><td>2</td><td>8</td><td>4:00 (Tabata)</td><td>Il tempo regolamentare dell’incontro di cadetti, juniores e seniores</td></tr><tr><td><b>5 esercizi</b></td><td>2</td><td>10</td><td>5:00</td><td>Si supera il tempo dell’incontro (golden score), più varietà e più gruppi muscolari, più resistenza muscolare e cardiovascolare</td></tr><tr><td><b>Circuito 25</b></td><td>3</td><td>15</td><td>7:30</td><td>La dispensa indica 3 giri, invertendo gli arti nel superman a ogni giro</td></tr></tbody></table><ul><li><b>Giro:</b> un passaggio su tutti gli esercizi, 20" di lavoro e 10" di recupero ciascuno, senza pause tra un esercizio e l’altro.</li><li><b>Intensità:</b> massima nei 20" (RPE 9), ritmo e tecnica corretti.</li><li><b>Dosaggio indicativo</b> (non indicato dalla dispensa, da validare dal tecnico): 1–3 circuiti per seduta dopo il riscaldamento, 2–3 minuti di recupero tra un circuito e l’altro, 2–3 sedute con circuiti a settimana; i circuiti con il compagno anche dentro la lezione sul tatami.</li></ul>'],
+ ['I 40 circuiti',function(){return '<div id="c20w">'+c20ListHtml()+'</div>'}],
+ ['Diario settimanale','<p>In fondo a ogni circuito la dispensa ha una pagina per segnare l’allenamento: <b>giorno di allenamento della settimana</b>, <b>numero di circuiti effettuati</b> durante la settimana, per ogni atleta (<b>nome</b>) gli esercizi con <b>serie e ripetizioni</b> fatte nei 20", e gli <b>appunti generali post sessione</b>. Il foglio si stampa con «🖨 Stampa … e il diario» qui sopra: ripetizioni contate in ogni intervallo, da confrontare nelle settimane per vedere i progressi.</p>']]});
+GLOSS.push(['Tabata','Protocollo ad alta intensità di Izumi Tabata (1996): 20 secondi di lavoro e 10 di recupero per 8 cicli, 4 minuti in tutto.'],
+ ['Circuito 20/10','Circuito di 4 o 5 esercizi a intervalli di 20" di lavoro e 10" di recupero, ripetuto per più giri senza pause tra gli esercizi (dispensa «Il metodo di allenamento 20/10»).'],
+ ['Sprawl','Difesa dall’attacco alle gambe: le gambe scivolano indietro e il bacino va a terra per non farsi prendere, poi si torna in guardia.'],
+ ['Hairi-kata','Modo di entrare nel ne-waza, per esempio da dietro uke in posizione a 4 appoggi, per arrivare a un’immobilizzazione come kesa-gatame.'],
+ ['Kesa-gatame / tate-shiho-gatame / yoko-shiho-gatame','Immobilizzazioni (osaekomi-waza): «a sciarpa» di fianco a uke, a cavalcioni sopra di lui e trasversale.'],
+ ['Juji-gatame','Ude-hishigi-juji-gatame: leva al gomito con le gambe di tori incrociate sul petto di uke.']);
+// indicazioni della dispensa sugli esercizi della libreria (legenda, libreria e pagina Dispense)
+(function(){var M={};C20.forEach(function(C){C.x.forEach(function(x){var e=c20Lib(x);if(!e)return;(M[e.n]=M[e.n]||[]).push('n. '+C.n+(c20Short(x[0])!==e.n?' («'+c20Short(x[0])+'»)':''))})});
+ Object.keys(M).forEach(function(n){(DZX[n]=DZX[n]||[]).push(['Judo 20/10','Circuit'+(M[n].length>1?'i ':'o ')+M[n].join(', ')+': 20" di lavoro e 10" di recupero, al massimo dell’intensità.'])})})();
+// ---- Dispense: filtro, timer e stampa ----
+document.addEventListener('click',function(e){if(!e.target.closest)return;
+  var f=e.target.closest('[data-c20f]');if(f&&gid('c20w')){C20F=f.getAttribute('data-c20f');gid('c20w').innerHTML=c20ListHtml();return}
+  var t=e.target.closest('[data-c20t]');if(t){c20Timer(t.getAttribute('data-c20t'));return}
+  var p=e.target.closest('[data-c20pr]');if(p){c20Print();return}
+  var k=e.target.closest('[data-c20k]');if(k&&C20T){c20Pick(+k.getAttribute('data-c20k'));return}
+  var kf=e.target.closest('[data-c20kf]');if(kf&&gid('c20kl')){C20F=kf.getAttribute('data-c20kf');gid('c20kl').innerHTML=c20PickList();[].forEach.call(document.querySelectorAll('[data-c20kf]'),function(b){b.setAttribute('aria-pressed',b===kf)});return}});
+function c20Diary(){var R='';for(var i=0;i<10;i++)R+='<tr><td>&nbsp;</td><td></td>'+'<td></td><td></td>'.repeat(5)+'</tr>';
+  return '<section class="c20dia"><h3>Diario settimanale · circuiti 20/10</h3><p>Giorno di allenamento della settimana: ______________________ &nbsp; Numero di circuiti effettuati durante la settimana: ______</p>'+
+   '<table class="stab"><thead><tr><th rowspan="2">Nome</th><th rowspan="2">Circuito</th>'+[1,2,3,4,5].map(function(i){return '<th colspan="2">Esercizio '+i+'</th>'}).join('')+'</tr><tr>'+'<th>Serie</th><th>Rep.</th>'.repeat(5)+'</tr></thead><tbody>'+R+'</tbody></table>'+
+   '<p style="margin-top:12px"><b>Appunti generali post sessione</b></p>'+'<div class="c20ln"></div>'.repeat(6)+'</section>'}
+function c20Print(){var L=C20.filter(function(C){return !C20F||C.c===C20F});
+  modal('<div class="c20pr"><h3 style="margin:0 0 2px">Il metodo di allenamento 20/10 · circuiti per il judo'+(C20F?' · '+esc(C20CAT[C20F]):'')+'</h3><p class="status" style="margin:0 0 10px">20" di lavoro e 10" di recupero, senza pause tra gli esercizi · 4 esercizi × 2 giri = 4:00 · 5 esercizi × 2 giri = 5:00. Intensità massima, tecnica corretta.</p>'+
+   L.map(function(C){return '<div class="c20pc"><h4>Circuito '+C.n+': '+esc(C.t)+' <small>'+esc(C20CAT[C.c])+' · '+c20G(C)+' giri · '+c20Dur(C)+'</small></h4><ol>'+C.x.map(function(x){return '<li>'+esc(x[0])+'</li>'}).join('')+'</ol><p><b>Perché:</b> '+esc(C.p)+' <b>Ottimo per:</b> '+esc(C.o)+' <i>Materiale: '+esc(C.m)+'.</i></p></div>'}).join('')+
+   c20Diary()+'</div><p class="status noprn">Premi «Stampa / Salva PDF» e scegli «Salva come PDF». Il diario esce su una pagina a parte.</p><div class="mrow"><button data-act="mclose">Chiudi</button><button class="pri" data-act="elprint">Stampa / Salva PDF</button></div>');
+  document.querySelector('#modal .mbox').classList.add('xl')}
+// ---- scelta del circuito (editor schede e Yanagi Academy) ----
+function c20PickList(){return C20.filter(function(C){return !C20F||C.c===C20F}).map(function(C){return '<button type="button" data-c20k="'+C.n+'"><b>'+C.n+' · '+esc(C.t)+'</b><span>'+esc(C.x.map(function(x){return c20Short(x[0])}).join(' · '))+' — '+c20Dur(C)+'</span></button>'}).join('')}
+function c20Open(t){C20T=t;
+  modal('<div class="lhd"><h3>Circuito 20/10 (judo)</h3><button type="button" class="xr" data-act="mclose" aria-label="Chiudi">×</button></div><p class="status">'+(t.ed?'Gli esercizi entrano nella seduta '+(ED.day+1)+' collegati in circuito: serie = giri, 20" di lavoro, 10" di recupero. Quelli non adatti al profilo dell’atleta (livello, PAR-Q, attrezzi, infortuni) non vengono inseriti.':'Gli esercizi entrano nel blocco con il dosaggio 20" lavoro / 10" recupero; il blocco avrà il suo timer 20/10.')+'</p>'+
+   '<div class="fg" style="margin:0 0 8px"><label class="fl">Giri<select id="c20g"><option value="">Come la dispensa (2, il n. 25 3)</option><option value="1">1 giro</option><option value="2">2 giri</option><option value="3">3 giri</option><option value="4">4 giri</option></select></label></div>'+
+   '<div class="ufil" role="group" aria-label="Filtra i circuiti"><button type="button" data-c20kf="" aria-pressed="'+(!C20F)+'">Tutti</button>'+Object.keys(C20CAT).map(function(k){return '<button type="button" data-c20kf="'+k+'" aria-pressed="'+(C20F===k)+'">'+esc(C20CAT[k])+'</button>'}).join('')+'</div>'+
+   '<div class="blkl" id="c20kl" style="margin-top:10px">'+c20PickList()+'</div><div class="mrow"><button data-act="mclose">Annulla</button></div>');
+  document.querySelector('#modal .mbox').classList.add('xl')}
+function c20Pick(n){var C=c20Get(n),gs=gid('c20g'),g=gs&&+gs.value||c20G(C),t=C20T;C20T=null;if(!C)return;
+  if(t.ed)c20ToEd(C,g);else if(t.y)c20ToY(C,g,t.y)}
+function c20ToEd(C,g){if(!ED.sc)return;var D=ED.sc.days[ED.day],c=gctx||profile({}),rows=[],out=[],tg='Circuito 20/10 n. '+C.n+' · 20" lavoro / 10" recupero';
+  C.x.forEach(function(x){var e=c20Lib(x),r;
+    if(e){if(!okEx(e,c,3)){out.push(c20Short(x[0]));return}r=edRowFrom(e,c);r.nt=(c20Short(x[0])!==e.n?'Dalla dispensa: '+x[0]+'. ':'')+(r.nt||'')}
+    else r={n:c20Short(x[0]),p:'',m:'',nt:x[0]!==c20Short(x[0])?x[0]:''};
+    r.s=g;r.r='20"';r.rpe='9';r.tg=tg;r.k='';r.rec=10;r.af={s:r.s,r:r.r,rpe:r.rpe,tg:r.tg,k:r.k,rec:r.rec};if(rows.length)r.lk=true;rows.push(r)});
+  closeModal();
+  if(!rows.length){st('edstat','Nessun esercizio del circuito '+C.n+' è adatto a questo profilo: scegline un altro.');return}
+  var es=D.es.filter(function(x){return x.n||x.lk});D.es=es.concat(rows);D.es[0].lk=false;if(sgAuto())ED.sg=D.es.length-1;
+  edMark();edRefresh();st('edstat','Aggiunto il circuito 20/10 n. '+C.n+' «'+C.t+'»: '+rows.length+(rows.length===1?' esercizio':' esercizi')+' × '+g+(g===1?' giro':' giri')+' ('+c20Dur({x:rows},g)+')'+(out.length?'. Non inseriti perché non adatti al profilo: '+out.join(', '):'')+'. Modifiche non salvate.')}
+// Yanagi Academy: il circuito entra nel blocco; il timer legge gli esercizi con dosaggio 20" e i giri dalle indicazioni del blocco
+function c20Nt(C,g){return 'Circuito 20/10 n. '+C.n+' «'+C.t+'»: '+g+' giri × '+C.x.length+' esercizi, 20" lavoro / 10" recupero ('+c20Dur(C,g)+')'}
+function c20ToY(C,g,sec){if(!sec||!document.body.contains(sec))return;var box=sec.querySelector('.yits'),act=(function(){var gg=YG&&YG!=='new'?yFind(YG):null;return gg?yInjAct(gg):[]})();
+  [].forEach.call(box.querySelectorAll('.yit'),function(r){if(!r.querySelector('.yi_n').value.trim()&&!r.querySelector('.yi_d').value.trim())r.remove()});var had=box.querySelectorAll('.yit').length>0;
+  box.insertAdjacentHTML('beforeend',C.x.map(function(x){var e=c20Lib(x);return yItRow([e?e.n:c20Short(x[0]),g+' giri × 20" lavoro / 10" recupero',e&&c20Short(x[0])!==e.n?x[0]:x[0]!==c20Short(x[0])?x[0]:''],act)}).join(''));
+  var nt=sec.querySelector('.yp_nt'),cur=nt.value.trim();nt.value=cur?cur+' · '+c20Nt(C,g):c20Nt(C,g);
+  var mi=sec.querySelector('.yp_min'),add=Math.ceil(c20Sec(C,g)/60);mi.value=had?(+mi.value||0)+add:Math.max(+mi.value||0,add);
+  c20YBtn(sec);YDIRTY=YSBD=true;closeModal();yMinChk();sec.scrollIntoView({block:'center'})}
+function c20YBtn(sec){var has=/Circuito 20\/10 n\. \d+/.test(sec.querySelector('.yp_nt').value),b=sec.querySelector('[data-act="yc20t"]');
+  if(has&&!b)sec.querySelector('[data-act="yc20"]').insertAdjacentHTML('afterend','<button type="button" class="addx" data-act="yc20t">⏱ Timer 20/10</button>');else if(!has&&b)b.remove()}
+function c20YTimer(sec){var nt=sec.querySelector('.yp_nt').value,mm=nt.match(/Circuito 20\/10 n\. (\d+)[^:]*: (\d+) giri/),C=mm&&c20Get(mm[1]);if(!C)return;
+  var names=[].map.call(sec.querySelectorAll('.yit'),function(r){return [r.querySelector('.yi_t').value.trim()||r.querySelector('.yi_n').value.trim(),r.querySelector('.yi_d').value]}).filter(function(x){return x[0]&&/20" lavoro/.test(x[1])}).map(function(x){return x[0]});
+  c20Timer(C.n,+mm[2],names)}
+document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-act="yc20"],[data-act="yc20t"]');if(!b)return;var sec=b.closest('.ypart');if(!sec)return;
+  if(b.getAttribute('data-act')==='yc20')c20Open({y:sec});else c20YTimer(sec)});
 function renderDisp(){
   var D=DISP.filter(function(d){return d.id===dispSel})[0]||DISP[0],ex=dispEx(D.id);
   document.getElementById('main').innerHTML='<div class="kick">Preparazione specifica</div><h2 class="atitle">Dispense</h2>'+
@@ -5566,6 +5811,7 @@ BLK.splice(BLK.length-1,0,
  {id:'rnrip',t:'Allunghi + ripetute (Corsa)',d:'Allunghi di tecnica e ripetute medie a ritmo gara 10 km (dispensa corsa).',rows:[['Allunghi (strides)',{s:4,r:'100 m',tg:'Prima delle ripetute',rpe:'6',rec:60}],['Ripetute medie (1000 m)',{s:6,r:'1000 m',tg:'RG 10 km · recupero 2\' di corsa lenta',rpe:'8',rec:120}]]},
  {id:'rnfor',t:'Forza e prevenzione podisti (Corsa)',d:'Squat monopodalico, stacco rumeno monopodalico, calf raise eccentrico, Pallof press: 30 minuti (dispensa corsa).',rows:[['Squat monopodalico al box',{s:3,r:'8 per lato',tg:'RIR 2 · dosaggio indicativo',rpe:'8',rec:75}],['Stacco rumeno monopodalico',{s:3,r:'8 per lato',tg:'RIR 2 · dosaggio indicativo',rpe:'8',rec:75}],['Calf raise eccentrico monopodalico',{s:3,r:'12 per lato',tg:'Discesa in 3–4 s · dosaggio indicativo',rpe:'7',rec:60}],['Pallof press',{s:3,r:'10 per lato',tg:'dosaggio indicativo',rpe:'7',rec:45}]]},
  {id:'rnply',t:'Pliometria bassa e soleo (Corsa)',d:'Saltelli con la corda, ankle hops e isometria del soleo (dispensa corsa).',rows:[['Saltelli con la corda',{s:3,r:'45-60 s',tg:'dosaggio indicativo',rpe:'6',rec:45}],['Ankle hops (saltelli di caviglia)',{s:3,r:'20',tg:'Contatti brevissimi · dosaggio indicativo',rpe:'6',rec:60}],['Calf raise isometrico a ginocchia piegate (soleo)',{s:3,r:'30-45 s',tg:'dosaggio indicativo',rpe:'7',rec:60}]]});
+BLK.splice(BLK.map(function(b){return b.id}).indexOf('jdtat')+1,0,{id:'c2010',t:'Circuito 20/10 (judo)',d:'Uno dei 40 circuiti della dispensa «Il metodo di allenamento 20/10»: 20" di lavoro, 10" di recupero, giri come serie.'});
 function openBlock(){var D=ED.sc.days[ED.day];
   modal('<div class="lhd"><h3>Aggiungi blocco</h3><button type="button" class="xr" data-act="mclose" aria-label="Chiudi">×</button></div><p class="status">Alla seduta '+(ED.day+1)+(D.t?' — '+esc(D.t):'')+'. Gli esercizi sono scelti dal profilo dell’atleta (obiettivi, livello, test, PAR-Q) e restano modificabili.</p>'+
    '<div class="blkl">'+BLK.map(function(b){return '<button type="button" data-blk="'+b.id+'"><b>'+esc(b.t)+'</b><span>'+esc(b.d)+'</span></button>'}).join('')+'</div>'+
@@ -5574,6 +5820,7 @@ function openBlock(){var D=ED.sc.days[ED.day];
   document.querySelector('#modal .mbox').classList.add('xl');
 }
 function addBlock(id){
+  if(id==='c2010'){c20Open({ed:1});return}
   var b=BLK.filter(function(x){return x.id===id})[0];if(!b||!ED.sc)return;
   var D=ED.sc.days[ED.day],c=gctx||profile({}),used=edUsed(),day=D.es.filter(function(x){return x.n}).map(function(x){return {n:x.n}}),rows=[];
   if(b.empty){for(var i=0;i<b.empty;i++)rows.push({lk:i>0})}
@@ -6476,7 +6723,7 @@ function yBlkHtml(p,j,g,act){var c=YBC[p.k]||YBC.lib,its=p.it||[];
     '<label class="ymin"><input type="number" class="yp_min" min="0" step="5" inputmode="numeric" value="'+esc(p.min)+'" aria-label="Minuti"> min</label><span class="ybm"><button type="button" class="yix" data-act="ybup" aria-label="Sposta su">↑</button><button type="button" class="yix" data-act="ybdn" aria-label="Sposta giù">↓</button><button type="button" class="yix" data-act="ybdel" aria-label="Togli blocco">×</button></span></div>'+
     '<input class="yp_nt" value="'+esc(p.nt||'')+'" placeholder="Indicazioni per questo blocco (formato, recuperi…)" aria-label="Indicazioni">'+
     (p.k==='ran'?yRanHtml(p.rd||yRd(1,'A',false,p.min||20,1))+(act.length?'<div class="yitw">'+yItWarn('Randori',act)+'</div>':''):'')+(p.k==='per'?yPerHtml(p,g):'')+
-    (p.k==='per'?'':'<div class="yits">'+its.map(function(x){return yItRow(x,act)}).join('')+'</div><button type="button" class="addx" data-act="yitadd">+ Aggiungi esercizio</button>')+'</section>'}
+    (p.k==='per'?'':'<div class="yits">'+its.map(function(x){return yItRow(x,act)}).join('')+'</div><button type="button" class="addx" data-act="yitadd">+ Aggiungi esercizio</button>'+(p.k==='pa'||p.k==='lib'||p.k==='wu'||/Circuito 20\/10 n\. \d+/.test(p.nt||'')?'<button type="button" class="addx" data-act="yc20">⚡ Circuito 20/10</button>'+(/Circuito 20\/10 n\. \d+/.test(p.nt||'')?'<button type="button" class="addx" data-act="yc20t">⏱ Timer 20/10</button>':''):''))+'</section>'}
 function ySesHtml(g,d){
   var i=yInfo(g,d),P=ySes(g,d),o=(g.sed||{})[d]||{},st0=o.st||'',ga=yGara(g),tot=yMinTot(i),seen={},lg=[],act=yInjAct(g),fr=YFR[i.ph],kd=yKids(g);
   P.forEach(function(p){yItems(p).concat(p.k==='ran'?[['Randori']]:[]).forEach(function(x){var e=EXI[ekey(String(x[0]).replace(/^Stazione \d+: /,''))];if(e&&!seen[e.n]){seen[e.n]=1;lg.push(e)}})});
