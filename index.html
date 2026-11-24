@@ -541,6 +541,49 @@ body:has(#modal) .stage{display:none!important}
 .carr{display:grid;grid-template-columns:repeat(4,1fr) 42px;gap:10px;align-items:end;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--line)}
 .carr .fl:nth-child(n+5){grid-column:span 1}.carr .fl:nth-child(8){grid-column:1/-2}.carr .xr{height:44px;grid-row:1;grid-column:5}
 @media (max-width:700px){.carr{grid-template-columns:1fr 1fr}.carr .fl:nth-child(1),.carr .fl:nth-child(4),.carr .fl:nth-child(5),.carr .fl:nth-child(8){grid-column:1/-1}.carr .xr{grid-row:auto;grid-column:auto}}
+/* fase 28: Dashboard PT, semafori, scadenzario, template, macrociclo annuale */
+.crmtabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}
+.ctab{border:1.5px solid var(--line);background:var(--surface);color:var(--text);border-radius:10px;padding:9px 14px;font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.ctab[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#fff}
+.sem{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 0 14px}
+@media (max-width:640px){.sem{grid-template-columns:1fr 1fr}}
+.semt{border:1.5px solid var(--line);border-top:5px solid #bdbdbd;border-radius:14px;padding:12px 14px;background:var(--surface);cursor:pointer;text-align:left;font:inherit;font-size:13px;font-weight:600;color:var(--text)}
+.semt b{display:block;font-size:30px;line-height:1.1;margin-bottom:2px}
+.semt.r{border-top-color:#d62828}.semt.y{border-top-color:#f2b705}.semt.g{border-top-color:#2e9b55}
+.semt[aria-pressed="true"]{border-color:var(--brand);box-shadow:0 0 0 2px var(--brand) inset}
+.sdot{display:inline-block;width:14px;height:14px;border-radius:50%;flex:0 0 14px;margin-top:4px;background:#bdbdbd}
+.sdot.r{background:#d62828}.sdot.y{background:#f2b705}.sdot.g{background:#2e9b55}
+.srow{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-left:5px solid #bdbdbd;border-radius:12px;padding:12px 14px;margin-bottom:8px;cursor:pointer}
+.srow.r{border-left-color:#d62828}.srow.y{border-left-color:#f2b705}.srow.g{border-left-color:#2e9b55}
+.srow:hover b{text-decoration:underline}.srow .sm1{flex:1 1 240px;min-width:0}.srow .sic{font-size:20px;line-height:1.2}
+.srow .why{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.wchip{font-style:normal;font-size:12px;font-weight:700;border-radius:99px;padding:2px 9px;background:#eee;color:#222;white-space:nowrap}
+.wchip.r{background:#fde8e8;color:#9b1c1c}.wchip.y{background:#fff4cc;color:#6b4e00}.wchip.g{background:#def3e5;color:#1d5e34}
+.mact{display:flex;gap:6px;flex-wrap:wrap;align-items:flex-start}
+.crmh{font-size:16px;margin:18px 0 8px}.crmh small{color:var(--muted);font-weight:600}
+.lnk{background:none;border:0;padding:0;color:var(--brand);font:inherit;font-weight:700;text-decoration:underline;cursor:pointer}
+.n.nr{background:#d62828!important;color:#fff!important}
+.mbox.xw{max-width:780px}
+.mtlw{margin:6px 0 4px}.mtl{position:relative;display:flex;height:58px;border-radius:10px;overflow:visible;border:1px solid var(--line)}
+.mtl>div{display:flex;flex-direction:column;justify-content:center;padding:0 6px;min-width:0;overflow:hidden;white-space:nowrap;border-right:1px solid rgba(0,0,0,.1)}
+.mtl>div:first-child{border-radius:9px 0 0 9px}.mtl>div:last-of-type{border-right:0;border-radius:0 9px 9px 0}
+.mtl>div span{font-size:12px;font-weight:800}.mtl>div small{font-size:10px;font-weight:600;overflow:hidden;text-overflow:ellipsis}
+.mtod{position:absolute;top:-6px;bottom:-6px;width:3px;margin-left:-1px;background:#000;border-radius:2px}
+.mmon{display:flex;font-size:10px;color:var(--muted);margin-top:4px}.mmon span{flex:1;text-align:center;text-transform:capitalize}
+.msch{position:relative;height:14px;margin-top:6px;background:var(--bg);border-radius:6px}.msch i{position:absolute;height:10px;top:2px;border-radius:4px;background:var(--brand);opacity:.8}
+.mph{border:1px solid var(--line);border-left:6px solid;border-radius:12px;padding:14px;margin-top:10px}.mphh{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.msl{margin:0;padding-left:18px;font-size:14px}.msl li{margin:4px 0}
+.msea{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:16px}
+.msc{background:var(--surface);border:1px solid var(--line);border-top:5px solid;border-radius:14px;padding:14px}.msc.on{box-shadow:0 0 0 2px var(--brand) inset}
+.msc b{display:block;margin:4px 0}.msc p{font-size:14px;margin:6px 0 0}
+.tplg{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.tplc{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px}.tplc>b{display:block;margin:4px 0;font-size:16px}
+.tplpre{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
+.tplpre .btn{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:2px}.tplpre .btn span{font-weight:500;font-size:12px;color:var(--muted)}
+.tal{max-height:44vh;overflow:auto;border:1px solid var(--line);border-radius:10px;margin-top:8px}
+.tar{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border-bottom:1px solid var(--line);cursor:pointer;font-size:14px}.tar:last-child{border-bottom:0}.tar input{margin-top:3px}
+.ckl{display:flex;gap:8px;align-items:flex-start;font-size:14px;margin-top:6px}
+.mbox .tar,.mbox .ckl{flex-direction:row;color:var(--text)}.mbox .tar input,.mbox .ckl input{padding:0;width:18px;height:18px;flex:0 0 18px}.mbox .tar .status{font-size:13px}
 </style>
 </head>
 <body>
@@ -563,6 +606,7 @@ var I = {
   edit:'<svg viewBox="0 0 24 24"><path d="M3 5h11M3 10h7M3 15h5M14.5 19.5l-3 .8.8-3 7.4-7.4a1.6 1.6 0 012.2 2.2z"/></svg>',
   book:'<svg viewBox="0 0 24 24"><path d="M4 4.5h6a2 2 0 012 2V20a1.5 1.5 0 00-1.5-1.5H4zM20 4.5h-6a2 2 0 00-2 2V20a1.5 1.5 0 011.5-1.5H20z"/></svg>',
   yan:'<svg viewBox="0 0 24 24"><path d="M3 10.5h18M9.5 10.5L6.5 20M14.5 10.5l3 9.5M9.5 7l2.5 3.5L14.5 7"/></svg>',
+  crm:'<svg viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="3"/><circle cx="12" cy="7" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="17" r="1.6"/></svg>',
   nut:'<svg viewBox="0 0 24 24"><path d="M12 7.5c-1.6-1.3-4.2-1.4-5.8.3C4 10.1 4.6 15 7.2 18.2c1.3 1.6 2.8 2.3 4.8 1.4 2 .9 3.5.2 4.8-1.4 2.6-3.2 3.2-8.1 1-10.4-1.6-1.7-4.2-1.6-5.8-.3zM12 7.5c0-2 .8-3.6 2.6-4.5"/></svg>'
 };
 var cur = 'home', uf = 'all';
@@ -582,6 +626,7 @@ function deadlines(u){
   if(sc.length&&sc[0].data&&!isNaN(Date.parse(sc[0].data)))L.push({k:'sch',sid:sc[0].id,d:sc[0].cambio||addDays(sc[0].data,42),t:'Cambio scheda'+(sc[0].nome?' «'+sc[0].nome+'»':'')});
   injList(u).forEach(function(x){if(injStop(x)&&x.fino)L.push({k:'inj',d:x.fino,t:'Fine stop medico: '+injLabel(x,1)})});
   if(u.certd)L.push({k:'cert',d:u.certd,t:'Scadenza certificato medico'});
+  if(u.abb&&u.abb.scad)L.push({k:'abb',d:u.abb.scad,t:'Scadenza abbonamento'+(u.abb.tipo?' '+String(u.abb.tipo).toLowerCase():'')});
   L.forEach(function(x){x.left=-ago(x.d)});
   return L.filter(function(x){return !isNaN(x.left)}).sort(function(a,b){return a.left-b.left});
 }
@@ -598,9 +643,9 @@ function ustat(u){
 }
 function counts(){var c={all:U.length,scad:0,ck:0,att:0};U.forEach(function(u){var s=ustat(u);if(s.scad)c.scad++;if(s.ck)c.ck++;if(s.att)c.att++});return c}
 function renderNav(){
-  var items = [{id:'home',t:'Home',i:I.home},{id:'schede',t:'Schede',i:I.plan},{id:'nut',t:'Nutrizione',i:I.nut},{id:'ed',t:'Editor',i:I.edit},{id:'disp',t:'Dispense',i:I.book},{id:'yan',t:'Yanagi',i:I.yan}], c=counts();
+  var items = [{id:'home',t:'Home',i:I.home},{id:'crm',t:'PT',i:I.crm},{id:'schede',t:'Schede',i:I.plan},{id:'nut',t:'Nutrizione',i:I.nut},{id:'ed',t:'Editor',i:I.edit},{id:'disp',t:'Dispense',i:I.book},{id:'yan',t:'Yanagi',i:I.yan}], c=counts();
   document.getElementById('tabbar').innerHTML = items.map(function(x){return '<button class="tab" data-go="'+x.id+'"'+(x.id===cur||((cur==='anam'||cur==='test')&&x.id==='home')||(cur==='gen'&&x.id==='schede')?' aria-current="true"':'')+'>'+x.i+'<span>'+x.t+'</span></button>'}).join('');
-  document.getElementById('side').innerHTML = '<div class="sbrand">'+BRAND+'</div>'+items.filter(function(x){return !(x.id==='yan'&&typeof YLOGO==='string'&&YLOGO)}).map(function(x){var f=x.id==='schede'?'Schede allenamento':x.id==='nut'?'Sezione nutrizionale':x.id==='ed'?'Editor schede':x.id==='disp'?'Dispense':x.id==='yan'?'Yanagi Academy':'Atleti';return '<button data-go="'+x.id+'"'+((x.id===cur&&!(cur==='home'&&uf!=='all'))||((cur==='anam'||cur==='test')&&x.id==='home')||(cur==='gen'&&x.id==='schede')?' aria-current="true"':'')+'>'+x.i+'<span>'+f+'</span>'+(x.id==='home'?'<b class="n">'+c.all+'</b>':'')+'</button>'}).join('')+
+  document.getElementById('side').innerHTML = '<div class="sbrand">'+BRAND+'</div>'+items.filter(function(x){return !(x.id==='yan'&&typeof YLOGO==='string'&&YLOGO)}).map(function(x){var f=x.id==='crm'?'Dashboard PT':x.id==='schede'?'Schede allenamento':x.id==='nut'?'Sezione nutrizionale':x.id==='ed'?'Editor schede':x.id==='disp'?'Dispense':x.id==='yan'?'Yanagi Academy':'Atleti';return '<button data-go="'+x.id+'"'+((x.id===cur&&!(cur==='home'&&uf!=='all'))||((cur==='anam'||cur==='test')&&x.id==='home')||(cur==='gen'&&x.id==='schede')?' aria-current="true"':'')+'>'+x.i+'<span>'+f+'</span>'+(x.id==='home'?'<b class="n">'+c.all+'</b>':x.id==='crm'&&typeof semCounts==='function'&&U.length?(function(){var r=semCounts().r;return r?'<b class="n nr" title="Atleti in rosso">'+r+'</b>':''})():'')+'</button>'}).join('')+
    '<div class="slab">Stato atleti</div>'+FILT.slice(1).map(function(f){return '<button data-uf="'+f.id+'"'+(cur==='home'&&uf===f.id?' aria-current="true"':'')+'><i class="sd '+f.id+'"></i><span>'+f.t+'</span><b class="n">'+c[f.id]+'</b></button>'}).join('')+
     (typeof YLOGO==='string'&&YLOGO?'<button class="sylogo" data-go="yan" title="Apri Yanagi Academy"'+(cur==='yan'?' aria-current="true"':'')+'><img src="'+YLOGO+'" alt="Stemma Yanagi Academy"><span>Yanagi Academy</span></button>':'');
 }
@@ -613,6 +658,7 @@ function render(){
   else if (cur === 'disp') renderDisp();
   else if (cur === 'yan') renderYan();
   else if (cur === 'nut') renderNut();
+  else if (cur === 'crm') renderCrm();
   else { document.getElementById('main').innerHTML = ''; renderSchede(); }
   renderNav();
 }
@@ -876,9 +922,9 @@ function renderUtenti(){
   document.getElementById('usearch').addEventListener('input',function(e){uq=e.target.value;listUtenti()});
   listUtenti();cloudBar();
 }
-var DLS={sch:'Scheda',inj:'Stop infortunio',cert:'Certificato'};
+var DLS={sch:'Scheda',inj:'Stop infortunio',cert:'Certificato',abb:'Abbonamento'};
 function badges(u){var s=ustat(u),h='';
-  dueSoon(u).forEach(function(x){h+='<i class="st scad" title="'+esc(x.t+' · '+fdate(x.d))+'">'+(x.left<0?(x.k==='inj'?'Verifica infortunio':x.k==='cert'?'Certificato scaduto':'Scheda scaduta'):DLS[x.k]+' '+(x.left===0?'oggi':'tra '+x.left+' gg'))+'</i>'});
+  dueSoon(u).forEach(function(x){h+='<i class="st scad" title="'+esc(x.t+' · '+fdate(x.d))+'">'+(x.left<0?(x.k==='inj'?'Verifica infortunio':x.k==='cert'?'Certificato scaduto':x.k==='abb'?'Abbonamento scaduto':'Scheda scaduta'):DLS[x.k]+' '+(x.left===0?'oggi':'tra '+x.left+' gg'))+'</i>'});
   if(u.cert==='Scaduto'&&!u.certd)h+='<i class="st scad">Certificato scaduto</i>';if(s.ck)h+='<i class="st ck">Check-in</i>';if(s.att&&!s.scad&&!s.ck)h+='<i class="st att">Attivo</i>';return h}
 function hasDoc(u){return !!(u.frontId||u.backId||u.frontBlob||u.backBlob)}
 function listUtenti(){
@@ -903,7 +949,7 @@ function listUtenti(){
 }
 // Avviso in home: tutte le scadenze dei prossimi AVV giorni (e quelle già superate), dalla più vicina
 function renderDues(){
-  var box=document.getElementById('dues');if(!box)return;
+  var box=document.getElementById('dues');if(!box)return;if(typeof ntfCheck==='function')setTimeout(ntfCheck,800);
   var L=[];U.forEach(function(u){dueSoon(u).forEach(function(x){L.push({u:u,x:x})});if(u.cert==='Scaduto'&&!u.certd)L.push({u:u,x:{k:'cert',d:'',left:-1,t:'Certificato medico segnato come scaduto'}})});
   L.sort(function(a,b){return a.x.left-b.x.left});
   if(window.Cloud&&Cloud.user()&&Date.now()-FBT>120000)setTimeout(fbScan,0);
@@ -913,7 +959,7 @@ function renderDues(){
   box.innerHTML=fh+(L.length?'<div class="dues" role="region" aria-label="Scadenze"><h3>⚠ Scadenze entro '+AVV+' giorni ('+L.length+')</h3><ul>'+L.map(function(r){
     var x=r.x,late=x.left<0;
     return '<li class="'+(late?'late':x.left<=3?'near':'')+'" data-row="'+esc(r.u.id)+'"><b>'+esc(r.u.n+' '+r.u.c)+'</b><span>'+esc(x.t)+'</span><span class="dd2">'+(x.d?fdate(x.d)+' · ':'')+(x.d?leftTxt(x.left):'da aggiornare')+'</span>'+(x.k==='sch'&&x.sid?'<button type="button" class="btn sm" data-act="scrin" data-id="'+esc(x.sid)+'">♻ Rinnova</button>':'')+'</li>'}).join('')+
-   '</ul><p>'+(L.some(function(r){return r.x.k==='inj'})?'Fine stop medico: prima di far tornare a caricare la zona serve il via libera del medico o del fisioterapista; poi aggiorna l’anamnesi e prepara la nuova scheda. ':'')+'Tocca un nome per aprire l’atleta.</p></div>':'');
+   '</ul><p>'+(L.some(function(r){return r.x.k==='abb'})?'Abbonamenti: rinnovi e messaggi dalla Dashboard PT → Scadenzario. ':'')+(L.some(function(r){return r.x.k==='inj'})?'Fine stop medico: prima di far tornare a caricare la zona serve il via libera del medico o del fisioterapista; poi aggiorna l’anamnesi e prepara la nuova scheda. ':'')+'Tocca un nome per aprire l’atleta.</p></div>':'');
 }
 function modal(html){var m=document.getElementById('modal');if(!m){m=document.createElement('div');m.id='modal';m.className='modal';document.body.appendChild(m)}m.innerHTML='<div class="mbox">'+html+'</div>'}
 function closeModal(){var m=document.getElementById('modal');if(m)m.remove()}
@@ -1632,14 +1678,15 @@ function openUser(id){
   var u=find(id); if(!u)return;
   var j=function(a){return a&&a.length?a.join(', '):''};
   var pm=[u.peso?fnum(u.peso)+' kg':'',u.alt?fnum(u.alt)+' cm':''].filter(Boolean).join(' · ');
-  var rows=[['Età',ageOf(u)!==''?ageOf(u)+' anni':''],['Sesso',u.sx],['Livello',u.liv],['Peso e altezza',pm],['Obiettivi',j(u.ob)],['Gara / sport obiettivo',u.gara],['Gruppi prioritari',j(u.mus)],['Infortuni',injText(u)],['Certificato medico',[u.cert,u.certd?'scade il '+fdate(u.certd):''].filter(Boolean).join(' · ')],['Split preferito',u.split],['Telefono',u.t],['Email',u.e],['Ultimo check-in',u.ck?fdate(u.ck):'']];
+  var rows=[['Età',ageOf(u)!==''?ageOf(u)+' anni':''],['Sesso',u.sx],['Livello',u.liv],['Peso e altezza',pm],['Obiettivi',j(u.ob)],['Gara / sport obiettivo',u.gara],['Gruppi prioritari',j(u.mus)],['Infortuni',injText(u)],['Certificato medico',[u.cert,u.certd?'scade il '+fdate(u.certd):''].filter(Boolean).join(' · ')],['Split preferito',u.split],['Fase stagionale',(function(){var p=macFor(u);return p?macLbl(p)+' (fino al '+fdate(p.a)+')':macOn(u)?'macrociclo attivo, nessuna fase oggi':''})()],['Abbonamento',u.abb&&(u.abb.tipo||u.abb.scad)?[u.abb.tipo,u.abb.scad?'scade il '+fdate(u.abb.scad):''].filter(Boolean).join(' · '):''],['Prossimo check-in',u.ckp?fdate(u.ckp)+(u.ckpo?' alle '+u.ckpo:''):''],['Rivalutazione / test',u.rival?fdate(u.rival):''],['Telefono',u.t],['Email',u.e],['Ultimo check-in',u.ck?fdate(u.ck):'']];
+  rows=rows.filter(function(r){return r[1]||['Fase stagionale','Abbonamento','Prossimo check-in','Rivalutazione / test'].indexOf(r[0])<0});
   var btn=function(s,l){return (u[s+'Id']||u[s+'Blob'])?'<button data-act="dl" data-id="'+esc(u.id)+'" data-side="'+s+'">Scarica '+l+'</button>':''};
   var docs=btn('front','fronte')+btn('back','retro'),ps=pqState(u.pq);
   var dl=deadlines(u),ds=dl.filter(function(x){return x.left<=AVV});
   var dlh=dl.length?'<div class="'+(ds.length?'warn':'info')+'" style="margin-top:10px"><b>Scadenze</b>'+(ds.length?' (avviso '+AVV+' giorni prima)':'')+'<br>'+dl.map(function(x){return esc(x.t)+': <b>'+fdate(x.d)+'</b> ('+leftTxt(x.left)+')'}).join('<br>')+'</div>':'';
   modal('<h3>'+esc(u.n+' '+u.c)+'</h3><div><span class="pqb '+ps+'">'+PQT[ps]+'</span></div>'+dlh+'<dl class="det">'+rows.map(function(r){return '<dt>'+r[0]+'</dt><dd>'+esc(r[1]||'—')+'</dd>'}).join('')+'</dl>'+
    (docs?'<div class="idbox"><b>Documento d’identità</b><div class="idrow">'+docs+'</div><div class="status" id="dstat"></div></div>':'')+
-   '<div class="mrow"><button data-act="mclose">Chiudi</button><button data-act="ckin" data-id="'+esc(u.id)+'">Check-in fatto oggi</button><button data-act="anam" data-id="'+esc(u.id)+'">Anamnesi</button><button data-act="test" data-id="'+esc(u.id)+'">Test funzionali</button><button data-act="edopen" data-uid="'+esc(u.id)+'">Editor scheda</button><button data-act="nutopen" data-id="'+esc(u.id)+'">Sezione nutrizionale</button><button class="pri" data-act="gosch" data-id="'+esc(u.id)+'">Schede allenamento</button></div>');
+   '<div class="mrow"><button data-act="mclose">Chiudi</button><button data-act="ckin" data-id="'+esc(u.id)+'">Check-in fatto oggi</button><button data-act="anam" data-id="'+esc(u.id)+'">Anamnesi</button><button data-act="test" data-id="'+esc(u.id)+'">Test funzionali</button><button data-act="edopen" data-uid="'+esc(u.id)+'">Editor scheda</button><button data-act="nutopen" data-id="'+esc(u.id)+'">Sezione nutrizionale</button><button data-act="macopen" data-id="'+esc(u.id)+'">📅 Macrociclo</button><button data-act="abbopen" data-uid="'+esc(u.id)+'">💼 Abbonamento e appuntamenti</button><button class="pri" data-act="gosch" data-id="'+esc(u.id)+'">Schede allenamento</button></div>');
 }
 async function doCheckin(id){
   var u=find(id);if(!u)return;u.ck=todayIso();
@@ -3836,7 +3883,9 @@ function presc(e,c){
     else{o.r='12-15';pct=[55,65];rir='3';o.rec=60}
     if(R==='iso')pct=null;
     if(hasF(e,'lr'))o.r+=' per lato';
-  }else if(R==='plyo'){o.r=hasF(e,'hi')?'12-15':hasF(e,'lr')?'5 per lato':'5';o.tg='Massima esplosività · recupero completo';o.rpe='7–8';o.rec=90}
+  }
+  if(c.mac&&MACP[c.mac.k]&&!(c.spk&&c.spk.length)&&(R==='main'||R==='acc'||R==='iso')){var mq=macPresc(o,R,e,c);if(mq){pct=mq.pct;rir=mq.rir;x=mq.x}}
+  if(R==='plyo'){o.r=hasF(e,'hi')?'12-15':hasF(e,'lr')?'5 per lato':'5';o.tg='Massima esplosività · recupero completo';o.rpe='7–8';o.rec=90}
   else if(R==='core'){o.r=(hasF(e,'tm')?'30-45 s':'8-12')+(hasF(e,'lr')?' per lato':'');o.tg='Controllo totale';o.rpe='7';o.rec=45}
   else if(R==='carry'){o.r='30-40 m';o.tg='Carico impegnativo · postura perfetta';o.rpe='8';o.rec=90}
   else if(R==='cond'){o.s=4;o.r='4 min';o.tg='Ritmo sostenuto';o.rpe='8';o.rec=90}
@@ -4634,7 +4683,7 @@ function readRow(r){var q=function(c){return r.querySelector(c).value.trim()};
 function readDays(){return [].map.call(document.querySelectorAll('#days .day'),function(d){
   return {t:d.querySelector('.day_t').value.trim(),es:[].map.call(d.querySelectorAll('.exs .exr'),readRow).filter(function(x){return x.n})}})}
 function schedaForm(){openGen()}
-function openGen(){cur='gen';closeModal();render();window.scrollTo(0,0)}
+function openGen(keep){if(!keep)GMAC=null;cur='gen';closeModal();render();window.scrollTo(0,0)}
 var gctx=null,gTouched=false,gDirty=false,gCust=[],gSpPrev='';
 function splLabel(s){return SPLD[s]||s}
 function custRender(){
@@ -4644,8 +4693,8 @@ function custRender(){
 }
 function renderGen(){
   var u=find(suid);if(!u){cur='schede';suid=null;render();return}
-  gctx=profile(u);gTouched=false;gDirty=false;GW={wu:[],cd:[],man:{},sig:{}};
-  var td=todayIso(),names=EXDB.map(function(e){return e.n}),ps=pqState(u.pq),f=autoFreq(gctx),so=spOpts(gctx),sp=so.length?so[0]:splitFromPref(u.split,f);if(SPSI[sp]==='judo12')f=autoFase12(gctx.garad)>=6?2:3;
+  gctx=profile(u);var MG=macApply(u,gctx);gTouched=false;gDirty=false;GW={wu:[],cd:[],man:{},sig:{}};
+  var td=gctx.mac&&!gctx.mac.trav&&gctx.mac.da>todayIso()?gctx.mac.da:todayIso(),names=EXDB.map(function(e){return e.n}),ps=pqState(u.pq),f=autoFreq(gctx),so=spOpts(gctx),sp=so.length?so[0]:splitFromPref(u.split,f);if(SPSI[sp]==='judo12')f=autoFase12(gctx.garad)>=6?2:3;
   gCust=dayPlan(sp,f).days.map(function(d){return d.type});gSpPrev=sp;var kd=keyDates(td,gctx);
   var past=exNames(suid);Object.keys(past).forEach(function(k){if(!EXI[k])names.push(past[k])});
   document.getElementById('main').innerHTML=
@@ -4654,7 +4703,7 @@ function renderGen(){
    '<section class="asec"><h3>Impostazione</h3><div class="fg">'+fld('sc_n','Nome scheda *','','text',' placeholder="Es. Forza – mesociclo 1"')+
     '<label class="fl">Sedute a settimana<select id="sc_f">'+[1,2,3,4,5,6].map(function(n){return '<option'+(n===f?' selected':'')+'>'+n+'</option>'}).join('')+'</select></label>'+
     '<label class="fl">Split delle sedute<select id="sc_sp">'+so.concat(SPL).map(function(s){return '<option value="'+esc(s)+'"'+(s===sp?' selected':'')+'>'+esc(splLabel(s))+'</option>'}).join('')+'</select></label>'+
-    '<label class="fl" id="sc_fasew"'+(SPSI[sp]?'':' hidden')+'>Fase della preparazione<select id="sc_fase">'+faseOpts(sp)+'</select></label>'+homeHtml('sc',u.luogo,u.heq)+'</div>'+
+    '<label class="fl" id="sc_fasew"'+(SPSI[sp]?'':' hidden')+'>Fase della preparazione<select id="sc_fase">'+faseOpts(sp)+'</select></label>'+macSel(u)+homeHtml('sc',MG?MG.lu:u.luogo,MG?MG.heq:u.heq)+'</div>'+
     '<p class="status" id="fasech"'+(SPSI[sp]?'':' hidden')+'>'+faseHint()+'</p>'+
     '<div class="custw" id="sc_custw" hidden><div class="kick" style="margin-bottom:8px">Split personalizzato: tipo di ogni seduta</div><div class="fg" id="sc_cust"></div></div>'+
     '<p class="status" style="margin-top:10px">Preferenza del cliente: <b>'+esc(u.split||'nessuna')+'</b> <span class="ptnote">La decisione finale spetta al Personal Trainer</span></p>'+
@@ -4679,7 +4728,7 @@ function buildAuto(){
   var u=find(suid),c=gctx,f=+gid('sc_f').value||3,sp=gid('sc_sp').value,P=genPlan(u,c,f,sp,gCust);
   gid('days').innerHTML=P.days.map(dayBlock).join('');
   var lg=gid('sc_logic');if(!lg.getAttribute('data-man'))lg.value=P.logic+genExtra(u,c,sp);
-  var nm=gid('sc_n'),ss=SPSI[sp];if(!nm.getAttribute('data-man'))nm.value=ss&&c.fase?SPNAME[ss]+' · '+FASI[ss][c.fase.n].t:(c.ob.length?c.ob.join(' + '):'Scheda')+' · '+sp;
+  var nm=gid('sc_n'),ss=SPSI[sp];if(!nm.getAttribute('data-man'))nm.value=ss&&c.fase?SPNAME[ss]+' · '+FASI[ss][c.fase.n].t:(c.mac?(c.mac.trav?'Scheda da viaggio · '+c.mac.lbl:c.mac.t+' · '+c.mac.s):c.ob.length?c.ob.join(' + '):'Scheda')+' · '+sp;
   var st0=gid('sc_start').value||todayIso(),kd=keyDates(st0,c),dl=gid('sc_del'),cm=gid('sc_cam');if(!dl.getAttribute('data-man'))dl.value=kd.del;if(!cm.getAttribute('data-man'))cm.value=kd.cam;
   gid('sph').textContent='Proposta generata: '+P.days.length+(P.days.length===1?' seduta ':' sedute ')+(sp==='Personalizzato'?'('+P.days.map(function(d){return d.t}).join(' · ')+')':sp)+'.'+(P.note?' '+P.note:'')+' Modifica liberamente esercizi e parametri.';
   gTouched=false;refreshEx();updGen();
@@ -4715,6 +4764,10 @@ function keyDates(start,c){var cam=addDays(start,42),del=addDays(start,21),why='
     if(n===4){del='';why='Tapering: nessuna settimana di scarico, la scheda porta alla gara.'}
     if(end&&end>start&&(end<cam||n===4)){cam=end;if(del&&del>=addDays(cam,-6))del='';why=(why?why+' ':'')+(n===4?'Cambio scheda alla data della gara.':'Cambio scheda il '+fdate(cam)+', inizio della '+FASI[s][n+1].t+(c.garad?' (calcolato dalla data della gara).':' (durata della fase nella dispensa).'))}}
   if(c&&c.master&&!sf&&!why)why='Over 55 (dispensa): scarico nella 4ª settimana con volume −30/40% e rivalutazione funzionale dopo 6 settimane (massimo 8).';
+  if(c&&c.mac&&!sf){if(c.mac.trav){cam=addDays(start,7*(c.mac.w||2));del='';why='Scheda da viaggio: '+(c.mac.w||2)+((c.mac.w||2)===1?' settimana':' settimane')+' senza scarico; al rientro si riprende la programmazione del macrociclo.'}
+    else{if(c.mac.k==='dl')del='';var me=c.mac.a?addDays(c.mac.a,1):'';if(me&&me>addDays(start,13)&&me<cam){cam=me;if(del&&del>=addDays(cam,-6))del='';why=(why?why+' ':'')+'Macrociclo annuale: cambio scheda il '+fdate(cam)+', inizio della fase «'+(c.mac.nx||'successiva')+'».'}
+      else if(me&&me<=addDays(start,13)&&me>start)why=(why?why+' ':'')+'La fase «'+c.mac.t+'» finisce il '+fdate(c.mac.a)+': valuta di preparare già la scheda della fase «'+(c.mac.nx||'successiva')+'».';
+      else if(!why)why='Macrociclo annuale · '+c.mac.t+' (fino al '+fdate(c.mac.a)+'): scarico nella 4ª settimana, cambio scheda dopo 6 settimane.'}}
   if(c&&c.injEnd&&c.injEnd>start){
     if(c.injEnd<cam){cam=c.injEnd;why='Cambio scheda anticipato al '+fdate(cam)+': è la fine dello stop per infortunio indicata dal cliente. In quella data verifica la guarigione e prepara la scheda successiva.';if(del>=addDays(cam,-6))del=''}
     else why='Lo stop per infortunio finisce il '+fdate(c.injEnd)+', dopo il cambio scheda: anche nella scheda successiva gli esercizi della zona restano esclusi.'}
@@ -5352,10 +5405,11 @@ async function saveScheda(send){
   if(sp==='Personalizzato')sp='Personalizzato ('+dayPlan(sp,+gv('sc_f')||days.length,gCust).days.map(function(d){return DTT[d.type]}).join(' · ')+')';
   var hr=homeRead('sc'),hu=find(suid);
   var o={uid:String(suid),nome:nome,data:start,deload:gv('sc_del'),cambio:gv('sc_cam'),freq:+gv('sc_f')||days.length,split:sp,logica:gv('sc_logic'),wuL:wuL,cdL:cdL,wu:wuText(wuL,'wu'),cd:wuText(cdL,'cd'),days:days,es:flat,luogo:hr.lu,heq:hr.lu==='casa'?hr.heq:[],car:carRead(gid('gcar')),v:2,ts:Date.now()};
+  if(gctx&&gctx.mac)o.mac={k:gctx.mac.k,t:gctx.mac.trav?'Scheda da viaggio':gctx.mac.t,trav:gctx.mac.trav?1:0};
   var b=gid('scsave');b.disabled=true;b.textContent='Salvataggio…';
   try{o.id=newId('s');await Store.put('schede',o);SCH.unshift(o);
-    if(hu&&((hu.luogo||'palestra')!==hr.lu||(hr.lu==='casa'&&JSON.stringify(hu.heq||[])!==JSON.stringify(hr.heq)))){var nu=Object.assign({},hu,{luogo:hr.lu,heq:hr.heq});Store.put('utenti',nu).then(function(){var k=U.indexOf(hu);if(k>-1)U[k]=nu}).catch(function(){})}
-   gDirty=false;cur='schede';render();window.scrollTo(0,0);if(send)sendModal(o.id);else viewScheda(o.id)}
+    if(hu&&!(gctx&&gctx.mac&&gctx.mac.hl)&&((hu.luogo||'palestra')!==hr.lu||(hr.lu==='casa'&&JSON.stringify(hu.heq||[])!==JSON.stringify(hr.heq)))){var nu=Object.assign({},hu,{luogo:hr.lu,heq:hr.heq});Store.put('utenti',nu).then(function(){var k=U.indexOf(hu);if(k>-1)U[k]=nu}).catch(function(){})}
+   gDirty=false;GMAC=null;cur='schede';render();window.scrollTo(0,0);if(send)sendModal(o.id);else viewScheda(o.id)}
   catch(e){b.disabled=false;b.textContent='Salva scheda';st('scstat',saveErr())}
 }
 function schedaDays(sc){return sc.days&&sc.days.length?sc.days:[{t:'',es:sc.es||[]}]}
@@ -5541,7 +5595,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
 function viewScheda(id){
   var sc=findS(id);if(!sc)return;var u=find(sc.uid);
   var tmp=sc.id==='__ed',lg=!tmp&&sc.atok,sbad=!tmp&&u?injBad(schedaDays(sc),(sc.wuL||[]).concat(sc.cdL||[]),profile(u)):[];
-  modal('<h3>'+esc(sc.nome)+(tmp&&ED.dirty?' <i class="dc">anteprima non salvata</i>':'')+'</h3>'+(sbad.length?'<div class="warn noprn" style="margin:0 0 14px"><b>🛡 '+sbad.length+(sbad.length===1?' esercizio non è compatibile':' esercizi non sono compatibili')+' con gli infortuni o i fastidi attuali</b> ('+esc(sbad.map(function(b){return b.n}).join(', '))+'). <button type="button" class="btn sm pri" data-act="scsafe" data-id="'+esc(sc.id)+'">Sostituisci con varianti sicure</button><br><span class="status">Si apre l’editor con le sostituzioni già fatte: controlli e salvi; l’atleta vede la scheda nuova dal suo link.</span></div>':'')+(lg?'<div class="sclog" id="sclog" style="margin:0 0 16px"></div>':'')+schedaBody(sc,u)+'<div class="status" id="sdstat"></div><div class="mrow"><button data-act="mclose">Chiudi</button>'+(tmp?'':'<button class="blk" data-act="scrin" data-id="'+esc(sc.id)+'">♻ Rinnova scheda</button><button data-act="edopen" data-id="'+esc(sc.id)+'">Modifica nell’editor</button><button data-act="nutsc" data-id="'+esc(sc.id)+'">🥗 Piano alimentare</button>')+
+  modal('<h3>'+esc(sc.nome)+(tmp&&ED.dirty?' <i class="dc">anteprima non salvata</i>':'')+'</h3>'+(sbad.length?'<div class="warn noprn" style="margin:0 0 14px"><b>🛡 '+sbad.length+(sbad.length===1?' esercizio non è compatibile':' esercizi non sono compatibili')+' con gli infortuni o i fastidi attuali</b> ('+esc(sbad.map(function(b){return b.n}).join(', '))+'). <button type="button" class="btn sm pri" data-act="scsafe" data-id="'+esc(sc.id)+'">Sostituisci con varianti sicure</button><br><span class="status">Si apre l’editor con le sostituzioni già fatte: controlli e salvi; l’atleta vede la scheda nuova dal suo link.</span></div>':'')+(lg?'<div class="sclog" id="sclog" style="margin:0 0 16px"></div>':'')+schedaBody(sc,u)+'<div class="status" id="sdstat"></div><div class="mrow"><button data-act="mclose">Chiudi</button>'+(tmp?'':'<button class="blk" data-act="scrin" data-id="'+esc(sc.id)+'">♻ Rinnova scheda</button><button data-act="edopen" data-id="'+esc(sc.id)+'">Modifica nell’editor</button><button data-act="nutsc" data-id="'+esc(sc.id)+'">🥗 Piano alimentare</button><button data-act="tplfrom" data-id="'+esc(sc.id)+'">🧩 Salva come template</button>')+
    '<button data-act="scsv" data-id="'+esc(sc.id)+'">CSV</button><button data-act="sdl" data-id="'+esc(sc.id)+'">Scarica HTML</button><button data-act="prn">Stampa / Esporta PDF</button><button data-act="sxl" data-id="'+esc(sc.id)+'">Esporta Excel (.xlsx)</button><button class="blk" data-act="send" data-id="'+esc(sc.id)+'">📤 Invia PDF ed Excel</button><button class="pri" data-act="share" data-id="'+esc(sc.id)+'">📲 Condividi con l’atleta</button></div>');
   document.querySelector('#modal .mbox').classList.add('xl');
   if(lg)logShow(sc);
@@ -6104,7 +6158,7 @@ document.addEventListener('click',function(e){
 });
 document.addEventListener('change',function(e){var t=e.target;if(t.id==='impf'&&t.files&&t.files[0]){if(isPT())readImport(t.files[0]);t.value=''}});
 // ---- Elenco atleti con i dati anagrafici (PDF, Excel, CSV) ----
-function statoTxt(u){var s=ustat(u),L=dueSoon(u).map(function(x){return x.left<0?(x.k==='inj'?'Verifica infortunio':x.k==='cert'?'Certificato scaduto':'Scheda scaduta'):DLS[x.k]+' '+(x.left===0?'oggi':'tra '+x.left+' gg')});
+function statoTxt(u){var s=ustat(u),L=dueSoon(u).map(function(x){return x.left<0?(x.k==='inj'?'Verifica infortunio':x.k==='cert'?'Certificato scaduto':x.k==='abb'?'Abbonamento scaduto':'Scheda scaduta'):DLS[x.k]+' '+(x.left===0?'oggi':'tra '+x.left+' gg')});
   if(u.cert==='Scaduto'&&!u.certd)L.push('Certificato scaduto');if(s.ck)L.push('Check-in');if(s.att&&!s.scad&&!s.ck)L.push('Attivo');if(!L.length)L.push(schedeOf(u.id).length?'Scheda terminata':'Senza scheda');return L.join(', ')}
 function certTxt(u){return (u.cert||'')+(u.certd?(u.cert?' · ':'')+'scad. '+fdate(u.certd):'')}
 var ELC=[['Cognome',16,function(u){return u.c}],['Nome',14,function(u){return u.n}],['Codice fiscale',19,function(u){return (u.cf||'').toUpperCase()}],
@@ -7933,6 +7987,7 @@ function nTarg(P,u){
   return o}
 function nNewPlan(u,sid){
   var ob=(u.ob||[]).join(' ').toLowerCase(),fase=/ipertrofia/.test(ob)?'iper':/dimagr/.test(ob)?'def':/forza/.test(ob)?'forza':'mant';
+  var mph=typeof macFor==='function'&&!hasSpk(u)?macFor(u):null;if(mph&&MACS[mph.k])fase=MACS[mph.k].nut;
   var sc=sid?SCH.filter(function(s){return String(s.id)===String(sid)})[0]:schedeOf(u.id)[0];
   return {id:newId('n'),nome:'Alimentazione '+String(u.n||'').toUpperCase(),data:todayIso(),sid:sc?sc.id:'',by:'',nt:'',ex:[],fase:fase,pal:'',kcal:'',pk:'',fk:'',kg:'',alt:'',eta:'',sx:'',
     pasti:NMEALS.map(function(m){return {k:m[0],t:m[1],on:!!m[3],pct:m[2],ora:'',sez:[]}}),cf:{},prk:false,pri:true,rf:true,prc:true,wk:{on:true,only:false,d:null},ts:0}}
@@ -8391,6 +8446,423 @@ document.addEventListener('click',function(e){var a=e.target.closest('[data-act=
   if(a.getAttribute('data-act')==='nutopen'){closeModal();NU.uid=a.getAttribute('data-id');NU.P=null;NU.dirty=false;cur='nut';render();window.scrollTo(0,0);return}
   var sc=findS(a.getAttribute('data-id'));if(!sc)return;var u=find(sc.uid);if(!u)return;var P=nPlans(u).filter(function(x){return String(x.sid)===String(sc.id)})[0];
   nOpen(u.id,P?P.id:null,sc.id)});
+
+// ===================== Fase 28: macrociclo annuale stagionale, Dashboard PT (semafori), template di mesociclo, scadenzario =====================
+// Dati nel cliente: u.mac = {on, ph:[{k, da, a, ob[], lu, heq[], nt}]}, u.abb = {tipo, da, scad, nl, imp, nt, st[]}, u.ckp / u.ckpo (colloquio di check-in),
+// u.rival (rivalutazione / test), u.pres (si allena in presenza: niente feedback a distanza).
+// Template di mesociclo: record in «schede» con uid '__tpl' (stessa sincronizzazione e stesso backup delle schede); le schede assegnate hanno tplid.
+var MACK=['aut','inv','pri','est','dl'];
+var MACS={
+ aut:{t:'Autunno',s:'Adattamento e ricondizionamento',ob:['Ricondizionamento','Mobilità'],col:'#c2410c',bg:'#fdebd9',nut:'mant',
+  fo:'Adattamento anatomico e condizionamento generale dopo la pausa estiva: mobilità, stabilità e ricostruzione della capacità di lavoro.',
+  px:'Fondamentali 3×10–12 al 60–67% 1RM (RIR 3, eccentrica controllata in 3"), complementari 3×12–15, recuperi 60–90 s; mobilità e stabilità in ogni seduta.'},
+ inv:{t:'Inverno',s:'Forza massima e ipertrofia',ob:['Forza','Ipertrofia'],col:'#0077b6',bg:'#dcefff',nut:'iper',
+  fo:'Periodo preparatorio ad alto volume o alta intensità di carico (75–85% 1RM) per aumentare massa magra e forza.',
+  px:'Fondamentali 4×5–8 al 75–85% 1RM (RIR 1–2, recupero 150 s), complementari 4×8–10 al 70–75% 1RM, isolamenti 3×10–12.'},
+ pri:{t:'Primavera',s:'Definizione e cutting',ob:['Dimagrimento','Ipertrofia'],col:'#2e9b55',bg:'#def3e5',nut:'def',
+  fo:'Transizione verso il deficit calorico e la rifinitura estetica: più densità di allenamento e più spesa energetica, carichi mantenuti.',
+  px:'Fondamentali 3×8–10 al 70–75% 1RM per conservare la forza in deficit, complementari 3×12–15 con recuperi di 45 s e superserie, finisher di condizionamento.'},
+ est:{t:'Estate',s:'Mantenimento e Travel Gym',ob:['Ricondizionamento'],col:'#a87900',bg:'#fbf0c9',nut:'mant',
+  fo:'Mantenimento con volume ridotto e intensità conservata; schede outdoor o da viaggio con attrezzatura minima (corpo libero, elastici, TRX, kettlebell).',
+  px:'Mantenimento: fondamentali 3×6–8 al 72–78% 1RM (RIR 2–3), complementari 2×10–12; volume circa −30%, intensità mantenuta.'},
+ dl:{t:'Fine estate',s:'Transizione e scarico attivo',ob:['Mobilità','Ricondizionamento'],col:'#5f5f5f',bg:'#ececec',nut:'mant',
+  fo:'Microciclo di rigenerazione fisica e mentale (deload) per evitare il sovraccarico neuromuscolare prima del nuovo ciclo annuale.',
+  px:'Scarico attivo: 2 serie, carichi al 55–60% 1RM, RIR 3–4; mobilità, attività all’aperto e recupero prima del nuovo macrociclo.'}
+};
+// prescrizioni di fase (sostituiscono quelle dell’obiettivo; livello, PAR-Q, Over 55 e dispense restano con le loro regole)
+var MACP={
+ aut:{main:{s:3,r:'10-12',pct:[60,67],rir:'3',rec:90,x:'eccentrica controllata 3"'},acc:{s:3,r:'12-15',pct:[55,65],rir:'3',rec:60},iso:{s:2,r:'15-20',rir:'3',rec:45}},
+ inv:{main:{s:4,r:'5-8',pct:[75,85],rir:'1–2',rec:150},acc:{s:4,r:'8-10',pct:[70,75],rir:'1–2',rec:90},iso:{s:3,r:'10-12',rir:'1',rec:60}},
+ pri:{main:{s:3,r:'8-10',pct:[70,75],rir:'2',rec:90,x:'carichi mantenuti in deficit'},acc:{s:3,r:'12-15',pct:[60,67],rir:'1–2',rec:45},iso:{s:3,r:'15',rir:'1',rec:30}},
+ est:{main:{s:3,r:'6-8',pct:[72,78],rir:'2–3',rec:120,x:'mantenimento'},acc:{s:2,r:'10-12',pct:[65,72],rir:'2',rec:75},iso:{s:2,r:'12-15',rir:'2',rec:60}},
+ dl:{main:{s:2,r:'10',pct:[55,60],rir:'3–4',rec:90,x:'scarico attivo'},acc:{s:2,r:'12',pct:[50,60],rir:'3–4',rec:60},iso:{s:2,r:'12-15',rir:'3–4',rec:45}}
+};
+var TRAVP={mare:{t:'Mare · spiaggia',heq:['ela','trx','tap'],nt:'Cardio: camminata o corsa sulla sabbia, nuoto.'},
+ mon:{t:'Montagna · outdoor',heq:['ela','kb','cor'],nt:'Cardio: camminata in salita o escursione in zona 2.'},
+ hot:{t:'Hotel / camera',heq:['ela','mini','tap'],nt:'Cardio: circuito a corpo libero o camminata veloce.'},
+ bw:{t:'Solo corpo libero',heq:[],nt:'Cardio: camminata veloce o corsa facile.'}};
+var GMAC=null;
+function shiftY(iso,k){if(!iso||!k)return iso;var y=+iso.slice(0,4)+k,md=iso.slice(5),leap=new Date(Date.UTC(y,1,29)).getUTCMonth()===1;if(md==='02-29'&&!leap)md='02-28';else if(md==='02-28'&&leap)md='02-29';return y+'-'+md}
+function macYear(d){d=d||todayIso();var y=+d.slice(0,4),m=+d.slice(5,7);return m>=9?y:y-1}
+function macDefault(y){var Y=String(y),N=String(y+1);return [
+  {k:'aut',da:Y+'-09-01',a:Y+'-11-30',ob:MACS.aut.ob.slice(),lu:'palestra',heq:[],nt:''},
+  {k:'inv',da:Y+'-12-01',a:addDays(N+'-03-01',-1),ob:MACS.inv.ob.slice(),lu:'palestra',heq:[],nt:''},
+  {k:'pri',da:N+'-03-01',a:N+'-05-31',ob:MACS.pri.ob.slice(),lu:'palestra',heq:[],nt:''},
+  {k:'est',da:N+'-06-01',a:N+'-08-16',ob:MACS.est.ob.slice(),lu:'palestra',heq:[],nt:''},
+  {k:'dl',da:N+'-08-17',a:N+'-08-31',ob:MACS.dl.ob.slice(),lu:'palestra',heq:[],nt:''}]}
+function macOn(u){return !!(u&&u.mac&&u.mac.on&&u.mac.ph&&u.mac.ph.length)}
+// le fasi si ripetono ogni anno: cerco il ciclo che contiene la data (fino a 6 anni dopo il primo)
+function macCycle(u,k){var P=u.mac.ph.slice().sort(function(a,b){return a.da<b.da?-1:1});return P.map(function(p,i){return Object.assign({},p,{da:shiftY(p.da,k),a:shiftY(p.a,k),i:i})})}
+function macFor(u,d){if(!macOn(u))return null;d=d||todayIso();
+  for(var k=0;k<6;k++){var Q=macCycle(u,k);if(d<Q[0].da)return null;if(d<=Q[Q.length-1].a){var p=null;Q.forEach(function(q){if(q.da<=d)p=q});if(!p)return null;
+    var nx=Q[p.i+1]||macCycle(u,k+1)[0];p.nx=MACS[nx.k].t;p.nxo=nx;p.cy=k;return p}}
+  return null}
+function macNext(u){var p=macFor(u);if(p)return p.nxo;if(!macOn(u))return null;var Q=macCycle(u,0);return todayIso()<Q[0].da?Q[0]:null}
+// la fase k più vicina (quella in corso o la prossima occorrenza)
+function macPick(u,k){if(!macOn(u))return null;var td=todayIso();for(var y=0;y<6;y++){var Q=macCycle(u,y),i=Q.findIndex(function(q){return q.k===k});if(i<0)return null;
+  if(Q[i].a>=td){var p=Q[i],nx=Q[i+1]||macCycle(u,y+1)[0];p.nx=MACS[nx.k].t;p.nxo=nx;return p}}return null}
+function macLbl(p){return p?MACS[p.k].t+' · '+MACS[p.k].s:''}
+function hasSpk(u){var g=String((u&&u.gara)||'').toLowerCase();return /hyrox|judo/.test(g)||(typeof corsaIn==='function'&&corsaIn(g))}
+// applicazione al generatore: obiettivi, attrezzi e note della fase (le dispense Hyrox, judo e corsa hanno la precedenza)
+function macApply(u,c){var G=GMAC&&String(GMAC.uid)===String(u.id)?GMAC:null;
+  if(G&&G.k==='off')return null;
+  if(G&&G.k==='trav'){var T=TRAVP[G.p]||TRAVP.mare,hq=G.heq||T.heq;c.mac={k:'est',trav:1,lbl:T.t,w:+G.w||2,t:'Scheda da viaggio',s:T.t,hl:1};c.ob=['Ricondizionamento'];c.home=homeOf('casa',hq);
+    c.notes.push('Scheda da viaggio ('+T.t+', '+(+G.w||2)+' settimane): mantenimento con attrezzatura minima ('+homeTxt('casa',hq).replace(/^A casa \/ attrezzi limitati: /,'')+'). Intensità conservata e volume ridotto: 2–3 serie, RIR 2–3, recuperi brevi. '+T.nt+' Al rientro si riprende la programmazione del macrociclo.');return {lu:'casa',heq:hq}}
+  if(c.spk&&c.spk.length)return null;
+  var ph=G&&G.k?macPick(u,G.k):macFor(u,todayIso());if(!ph)return null;var M=MACS[ph.k];
+  c.mac={k:ph.k,t:M.t,s:M.s,da:ph.da,a:ph.a,nx:ph.nx};if(ph.ob&&ph.ob.length)c.ob=ph.ob.slice();
+  c.notes.push('Macrociclo annuale · '+M.t+' – '+M.s+' (dal '+fdate(ph.da)+' al '+fdate(ph.a)+'): '+M.fo+' '+M.px+(ph.nt?' Nota del PT: '+ph.nt:''));
+  if(ph.lu==='casa'){c.home=homeOf('casa',ph.heq);c.mac.hl=1;return {lu:'casa',heq:ph.heq||[]}}
+  return null}
+function macPresc(o,R,e,c){var P=MACP[c.mac.k],q=P&&P[R==='main'?'main':R==='iso'?'iso':R==='acc'?'acc':''];if(!q)return null;
+  o.s=q.s;o.r=q.r+(R!=='main'&&hasF(e,'lr')?' per lato':'');o.rec=q.rec;return {pct:q.pct?q.pct.slice():null,rir:q.rir,x:q.x||''}}
+function macSel(u){var spk=hasSpk(u),G=GMAC&&String(GMAC.uid)===String(u.id)?GMAC:null,v=G?G.k:'auto',cp=macFor(u);
+  if(!macOn(u)&&!(G&&G.k==='trav'))return '';
+  var o=[['auto',cp?'Fase in corso: '+macLbl(cp):'Fase in corso (nessuna oggi)']];if(macOn(u))MACK.forEach(function(k){var p=macPick(u,k);if(p)o.push([k,macLbl(p)+' ('+fdate(p.da)+'–'+fdate(p.a)+')'])});
+  o.push(['trav','🧳 Scheda da viaggio (outdoor, attrezzatura minima)'],['off','Nessuna: obiettivi dell’anamnesi']);
+  return '<label class="fl">Fase del macrociclo annuale<select id="sc_mac">'+o.map(function(x){return '<option value="'+x[0]+'"'+(x[0]===v?' selected':'')+'>'+esc(x[1])+'</option>'}).join('')+'</select></label>'+(spk&&v!=='trav'?'<p class="status full" style="margin:0">Gara o sport con programma della dispensa: per questo atleta il programma della dispensa ha la precedenza sugli obiettivi della fase.</p>':'')}
+document.addEventListener('change',function(e){if(e.target.id!=='sc_mac'||cur!=='gen')return;var v=e.target.value,G=GMAC&&String(GMAC.uid)===String(suid)?GMAC:{};
+  GMAC=v==='auto'?null:Object.assign({},v==='trav'?{p:G.p||'mare',heq:G.heq,w:G.w||2}:{},{uid:String(suid),k:v});renderGen()});
+
+// ---- modale del macrociclo annuale dell’atleta ----
+function macBar(u,P){var s=P[0].da,e=P[P.length-1].a,S=Date.parse(s),D=(Date.parse(e)-S)/864e5+1,pc=function(d){return Math.max(0,Math.min(100,(Date.parse(d)-S)/864e5/D*100))},td=todayIso();
+  var mon=[];for(var i=0;i<12;i++){var d=new Date(s+'T12:00:00Z');d.setUTCMonth(d.getUTCMonth()+i);mon.push(d.toLocaleDateString('it-IT',{month:'short'}).replace('.',''))}
+  var sc=schedeOf(u.id).filter(function(x){var c=x.cambio||addDays(x.data,42);return x.data&&c>=s&&x.data<=e});
+  return '<div class="mtlw"><div class="mtl">'+P.map(function(p){var w=(Date.parse(p.a)-Date.parse(p.da))/864e5+1;return '<div style="flex:'+w+';background:'+MACS[p.k].bg+';color:'+MACS[p.k].col+'" title="'+esc(macLbl(p)+' · '+fdate(p.da)+'–'+fdate(p.a))+'"><span>'+esc(MACS[p.k].t)+'</span><small>'+esc(MACS[p.k].s)+'</small></div>'}).join('')+
+   (td>=s&&td<=e?'<i class="mtod" style="left:'+pc(td)+'%"></i>':'')+'</div><div class="mmon">'+mon.map(function(m){return '<span>'+m+'</span>'}).join('')+'</div>'+
+   (sc.length?'<div class="msch" aria-label="Schede nel macrociclo">'+sc.map(function(x){var a=x.data<s?s:x.data,b=x.cambio||addDays(x.data,42);if(b>e)b=e;return '<i style="left:'+pc(a)+'%;width:'+Math.max(1,pc(b)-pc(a))+'%" title="'+esc(x.nome+' · '+fdate(x.data)+'–'+fdate(x.cambio||addDays(x.data,42)))+'"></i>'}).join('')+'</div><p class="status" style="margin:2px 0 0">Barre viola: le schede dell’atleta nel macrociclo.</p>':'')+'</div>'}
+function macOpen(uid){var u=find(uid);if(!u)return;
+  if(!macOn(u)){modal('<h3>📅 Macrociclo annuale · '+esc(u.n+' '+u.c)+'</h3><p>Il macrociclo divide l’anno in fasi stagionali con obiettivi, prescrizioni e attrezzi propri. Il generatore usa la fase in corso, la nutrizione propone la fase calorica coerente e il cambio fase compare tra le scadenze.</p>'+
+    '<ul class="msl">'+MACK.map(function(k){return '<li><b style="color:'+MACS[k].col+'">'+MACS[k].t+' · '+MACS[k].s+'</b> '+esc(MACS[k].fo)+'</li>'}).join('')+'</ul>'+
+    (hasSpk(u)?'<div class="info">Questo atleta ha una gara con il programma della dispensa (Hyrox, judo o corsa): nel generatore la dispensa ha la precedenza, il macrociclo resta come quadro annuale.</div>':'')+
+    '<label class="fl">Ciclo annuale<select id="mac_y">'+[macYear()-1,macYear(),macYear()+1].map(function(y){return '<option value="'+y+'"'+(y===macYear()?' selected':'')+'>settembre '+y+' – agosto '+(y+1)+'</option>'}).join('')+'</select></label>'+
+    '<div class="mrow"><button data-act="mclose">Chiudi</button><button class="pri" data-act="macon" data-id="'+esc(u.id)+'">Attiva il macrociclo standard</button></div>');wideModal();return}
+  var P=macCycle(u,0),cp=macFor(u),cy=cp?cp.cy:0;if(cy)P=macCycle(u,cy);
+  modal('<h3>📅 Macrociclo annuale · '+esc(u.n+' '+u.c)+'</h3>'+(cp?'<p class="status" style="margin:0">Oggi: <b style="color:'+MACS[cp.k].col+'">'+esc(macLbl(cp))+'</b> fino al '+fdate(cp.a)+' · poi '+esc(cp.nx)+'.</p>':'<p class="status" style="margin:0">Oggi nessuna fase: il macrociclo inizia il '+fdate(P[0].da)+'.</p>')+macBar(u,P)+
+   P.map(function(p,i){var M=MACS[p.k];return '<div class="mph" style="border-left-color:'+M.col+'" data-mi="'+i+'"><div class="mphh"><b style="color:'+M.col+'">'+M.t+' · '+M.s+'</b>'+(cp&&cp.k===p.k?'<i class="wchip g">in corso</i>':'')+'</div><p class="status" style="margin:4px 0 10px">'+esc(M.fo)+'<br>'+esc(M.px)+'</p>'+
+    '<div class="fg">'+fld('mac_da_'+i,'Dal',p.da,'date')+fld('mac_a_'+i,'Al',p.a,'date')+'<label class="fl">Dove si allena<select id="mac_lu_'+i+'" data-mlu="'+i+'"><option value="palestra"'+(p.lu!=='casa'?' selected':'')+'>In palestra</option><option value="casa"'+(p.lu==='casa'?' selected':'')+'>Outdoor / viaggio / casa (attrezzi limitati)</option></select></label></div>'+
+    '<div class="kick" style="margin:12px 0 6px">Obiettivi della fase</div>'+tgs('macob'+i,OBJ,p.ob||[])+
+    '<div id="mac_hw_'+i+'"'+(p.lu==='casa'?'':' hidden')+'><div class="kick" style="margin:12px 0 6px">Attrezzi disponibili · il corpo libero è sempre incluso</div>'+tgs('macheq'+i,HEQ.map(function(x){return x[1]}),(p.heq||[]).map(function(k){return HEQN[k]}))+'</div>'+
+    '<label class="fl full" style="margin-top:12px">Note del PT<textarea id="mac_nt_'+i+'" rows="2">'+esc(p.nt||'')+'</textarea></label>'+
+    '<div class="mact" style="margin-top:10px"><button type="button" class="btn sm" data-act="macgen" data-id="'+esc(u.id)+'" data-k="'+p.k+'">⚡ Genera la scheda di questa fase</button>'+(p.k==='est'||p.k==='dl'?'<button type="button" class="btn sm" data-act="mactrav" data-id="'+esc(u.id)+'">🧳 Scheda da viaggio</button>':'')+'</div></div>'}).join('')+
+   '<p class="status">Le date valgono ogni anno: alla fine del ciclo le fasi ripartono da settembre. Le schede già salvate non cambiano.</p><div class="status" id="macst" role="status"></div>'+
+   '<div class="mrow"><button data-act="mclose">Chiudi</button><button data-act="macoff" data-id="'+esc(u.id)+'">Disattiva</button><button data-act="macrst" data-id="'+esc(u.id)+'">Ripristina standard</button><button class="pri" data-act="macsave" data-id="'+esc(u.id)+'">Salva</button></div>');wideModal()}
+function wideModal(){var b=document.querySelector('#modal .mbox');if(b)b.classList.add('xw')}
+function macRead(u){var n=document.querySelectorAll('.mph[data-mi]').length,P=[],err='';
+  for(var i=0;i<n;i++){var g=function(id){var e=gid(id);return e?e.value.trim():''},k=MACK[i],old=(macCycle(u,0)[i]||{}),lu=g('mac_lu_'+i);
+    var p={k:old.k||k,da:g('mac_da_'+i),a:g('mac_a_'+i),ob:readG('macob'+i),lu:lu==='casa'?'casa':'palestra',heq:lu==='casa'?readG('macheq'+i).map(function(v){return HEQK[v]}).filter(Boolean):[],nt:g('mac_nt_'+i)};
+    if(!p.da||!p.a||p.a<p.da)err='Controlla le date di «'+MACS[p.k].t+'»: la fine deve venire dopo l’inizio.';
+    if(i&&P[i-1].a&&p.da&&p.da<=P[i-1].a)err='«'+MACS[p.k].t+'» inizia prima della fine di «'+MACS[P[i-1].k].t+'»: le fasi non si possono sovrapporre.';P.push(p)}
+  return {P:P,err:err}}
+async function macPut(u,txt){try{await Store.put('utenti',u)}catch(e){st('macst',saveErr());return false}renderNav();if(cur==='crm')crmBody();if(txt)st('macst',txt);return true}
+document.addEventListener('change',function(e){var i=e.target.getAttribute&&e.target.getAttribute('data-mlu');if(i==null)return;var w=gid('mac_hw_'+i);if(w)w.hidden=e.target.value!=='casa'});
+document.addEventListener('click',async function(e){var a=e.target.closest&&e.target.closest('[data-act^="mac"]');if(!a)return;var k=a.getAttribute('data-act'),u=find(a.getAttribute('data-id'));
+  if(k==='macopen'){if(u)macOpen(u.id);return}
+  if(!u)return;
+  if(k==='macon'){var y=+((gid('mac_y')||{}).value||macYear());u.mac={on:true,ph:macDefault(y)};if(await macPut(u))macOpen(u.id);return}
+  if(k==='macrst'){var y2=macYear(macCycle(u,0)[0].da);u.mac={on:true,ph:macDefault(y2)};if(await macPut(u))macOpen(u.id);return}
+  if(k==='macoff'){u.mac=Object.assign({},u.mac,{on:false});if(await macPut(u))macOpen(u.id);return}
+  if(k==='macsave'||k==='macgen'){var r=gid('mac_da_0')?macRead(u):null;if(r){if(r.err){st('macst',r.err);return}var cp=macFor(u),cy=cp?cp.cy:0;u.mac={on:true,ph:r.P.map(function(p){return Object.assign(p,{da:shiftY(p.da,-cy),a:shiftY(p.a,-cy)})})};if(!(await macPut(u,'Macrociclo salvato.')))return}
+    if(k==='macgen'){var go=function(){GMAC={uid:String(u.id),k:a.getAttribute('data-k')};suid=u.id;openGen(1)};closeModal();guardGen(go)}return}
+  if(k==='mactrav'){travModal(u);return}
+  if(k==='mactgo'){var p=(document.querySelector('.tg[data-g="trvp"][aria-pressed="true"]')||{}).getAttribute?document.querySelector('.tg[data-g="trvp"][aria-pressed="true"]').getAttribute('data-k'):'mare';
+    var hq=readG('trvh').map(function(v){return HEQK[v]}).filter(Boolean),w=+gid('trv_w').value||2;closeModal();guardGen(function(){GMAC={uid:String(u.id),k:'trav',p:p,heq:hq,w:w};suid=u.id;openGen(1)});return}
+});
+function travModal(u){var ks=Object.keys(TRAVP);
+  modal('<h3>🧳 Scheda da viaggio · '+esc(u.n+' '+u.c)+'</h3><p class="status" style="margin:0">Per chi si allena al mare, in montagna o in hotel: il generatore usa solo il corpo libero e gli attrezzi spuntati, con prescrizioni di mantenimento.</p>'+
+   '<div class="kick" style="margin-top:8px">Dove</div><div class="tgs" role="group">'+ks.map(function(k,i){return '<button type="button" class="tg" data-g="trvp" data-single="1" data-k="'+k+'" data-v="'+esc(TRAVP[k].t)+'" aria-pressed="'+(i===0)+'">'+esc(TRAVP[k].t)+'</button>'}).join('')+'</div>'+
+   '<div class="kick" style="margin-top:8px">Attrezzi disponibili</div><div id="trvhw">'+tgs('trvh',HEQ.map(function(x){return x[1]}),TRAVP.mare.heq.map(function(k){return HEQN[k]}))+'</div>'+
+   '<label class="fl">Durata<select id="trv_w">'+[1,2,3,4].map(function(n){return '<option value="'+n+'"'+(n===2?' selected':'')+'>'+n+(n===1?' settimana':' settimane')+'</option>'}).join('')+'</select></label>'+
+   '<div class="mrow"><button data-act="mclose">Annulla</button><button class="pri" data-act="mactgo" data-id="'+esc(u.id)+'">⚡ Crea la scheda da viaggio</button></div>');wideModal()}
+document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('.tg[data-g="trvp"]');if(!t)return;var P=TRAVP[t.getAttribute('data-k')];if(!P)return;
+  setTimeout(function(){var w=gid('trvhw');if(w)w.innerHTML=tgs('trvh',HEQ.map(function(x){return x[1]}),P.heq.map(function(k){return HEQN[k]}))},0)});
+
+// ---- Semafori (risk management) ----
+var LGT=0,CKI_D=28;
+function cki(){try{return +localStorage.getItem('spk_cki')||CKI_D}catch(e){return CKI_D}}
+async function logScan(){if(!window.Cloud||!Cloud.user()||typeof logFetch!=='function')return;LGT=Date.now();var L=[];U.forEach(function(u){var s=schedeOf(u.id)[0];if(s&&s.atok&&!s.aoff)L.push(s)});var ch=false;
+  for(var i=0;i<L.length;i+=6){await Promise.all(L.slice(i,i+6).map(function(s){var was=(ALOG[s.id]||{}).ts;return logFetch(s).then(function(){if((ALOG[s.id]||{}).ts!==was)ch=true},function(){})}))}
+  if(typeof fbScan==='function'&&Date.now()-FBT>120000)try{await fbScan()}catch(e){}
+  if(ch&&cur==='crm')crmBody();if(ch)renderNav()}
+function lastFb(u){var best=0,src='';if(u.ck){var t=Date.parse(u.ck+'T12:00:00');if(t>best){best=t;src='check-in'}}
+  schedeOf(u.id).slice(0,2).forEach(function(s){var L=ALOG[s.id];if(L&&+L.ts>best){best=+L.ts;src='carichi dal link'}(AFB[s.id]||[]).forEach(function(x){if(+x.ts>best){best=+x.ts;src='segnalazione dal link'}})});
+  return {ts:best,src:src,days:best?Math.max(0,Math.floor((Date.now()-best)/864e5)):null}}
+function semOf(u){var R=[],Y=[],sc=schedeOf(u.id)[0],act=null,l;
+  if(sc&&sc.data&&!isNaN(Date.parse(sc.data))){var end=sc.cambio||addDays(sc.data,42);l=-ago(end);act={sc:sc,end:end,l:l};
+    if(l<0)R.push({k:'sch',t:'Scheda scaduta da '+(-l)+(l===-1?' giorno':' giorni'),sid:sc.id});else if(l<=5)Y.push({k:'sch',t:'Rivalutazione e cambio scheda '+(l?'tra '+l+' gg':'oggi'),sid:sc.id})}
+  if(u.certd){l=-ago(u.certd);if(l<0)R.push({k:'cert',t:'Certificato medico scaduto'});else if(l<=5)Y.push({k:'cert',t:'Certificato scade '+(l?'tra '+l+' gg':'oggi')})}else if(u.cert==='Scaduto')R.push({k:'cert',t:'Certificato medico scaduto'});
+  if(u.abb&&u.abb.scad){l=-ago(u.abb.scad);if(l<0)R.push({k:'abb',t:'Abbonamento scaduto'});else if(l<=5)Y.push({k:'abb',t:'Abbonamento scade '+(l?'tra '+l+' gg':'oggi')})}
+  injList(u).forEach(function(x){if(injStop(x)&&x.fino&&ago(x.fino)>=0)R.push({k:'inj',t:'Verifica infortunio ('+injLabel(x,1)+')'})});
+  var fb=lastFb(u);
+  if(act&&act.l>=0&&!u.pres){var since=fb.ts&&fb.ts>=Date.parse(act.sc.data+'T00:00:00')?fb.days:Math.max(0,ago(act.sc.data));if(since>7)R.push({k:'fb',t:'Nessun feedback da '+since+' giorni'+(fb.ts&&fb.days===since?'':' (dall’inizio della scheda)')})}
+  if(u.rival){l=-ago(u.rival);if(l>=0&&l<=5)Y.push({k:'riv',t:'Test funzionali '+(l?'tra '+l+' gg':'oggi')});else if(l<0&&l>=-30)R.push({k:'riv',t:'Rivalutazione da fare (era il '+fdate(u.rival)+')'})}
+  var nx=macNext(u);if(nx){l=-ago(nx.da);if(l>=0&&l<=5)Y.push({k:'mac',t:'Cambio fase stagionale: '+MACS[nx.k].t+(l?' tra '+l+' gg':' oggi')})}
+  var c=R.length?'r':Y.length?'y':act&&act.l>=0?'g':'n';
+  return {c:c,R:R,Y:Y,act:act,fb:fb,ph:macFor(u)}}
+var SEMT={r:'🔴 Rosso',y:'🟡 Giallo',g:'🟢 Verde',n:'⚪ Senza scheda'},SORD={r:0,y:1,g:2,n:3};
+function semCounts(){var c={r:0,y:0,g:0,n:0};U.forEach(function(u){c[semOf(u).c]++});return c}
+
+// ---- Dashboard PT ----
+var CRM={tab:'sem',f:'all',q:''};
+function renderCrm(){var m=gid('main');if(!isPT()){m.innerHTML='<div class="empty">Area riservata al Personal Trainer.</div>';return}
+  if(window.Cloud&&Cloud.user()&&Date.now()-LGT>120000)setTimeout(logScan,0);
+  var T=[['sem','🚦 Semafori atleti'],['scad','📆 Scadenzario e rinnovi'],['tpl','🧩 Template di mesociclo'],['mac','📅 Stagioni e macrociclo']];
+  m.innerHTML='<div class="kick">Gestione e scaling</div><h2 class="atitle">Dashboard PT</h2><div class="crmtabs" role="group" aria-label="Sezioni">'+T.map(function(t){return '<button type="button" class="ctab" data-act="crmtab" data-v="'+t[0]+'" aria-pressed="'+(CRM.tab===t[0])+'">'+t[1]+'</button>'}).join('')+'</div><div id="crmb"></div>';
+  crmBody()}
+function crmBody(){var b=gid('crmb');if(!b||cur!=='crm')return;b.innerHTML=CRM.tab==='scad'?crmScad():CRM.tab==='tpl'?crmTpl():CRM.tab==='mac'?crmMac():crmSem();
+  var q=gid('crmq');if(q){q.addEventListener('input',function(){CRM.q=q.value;var l=gid('semlist');if(l)l.innerHTML=semRows()})}}
+function crmSem(){var c=semCounts();
+  return '<div class="sem">'+['r','y','g','n'].map(function(k){return '<button type="button" class="semt '+k+'" data-act="semf" data-v="'+k+'" aria-pressed="'+(CRM.f===k)+'"><b>'+c[k]+'</b>'+SEMT[k]+'</button>'}).join('')+'</div>'+
+   '<p class="status" style="margin:-6px 0 12px">🔴 scheda scaduta, certificato o abbonamento scaduti, infortunio da verificare o nessun feedback da oltre 7 giorni · 🟡 rivalutazione, test o scadenze entro 5 giorni · 🟢 scheda attiva e feedback regolari. Feedback = carichi o segnalazioni dal link dell’atleta, oppure «Check-in fatto oggi».'+(window.Cloud&&Cloud.user()?' <button type="button" class="lnk" data-act="semrel">↻ Aggiorna i feedback dal cloud</button>':' Senza cloud contano solo i check-in.')+'</p>'+
+   '<div class="fg" style="grid-template-columns:1fr auto;margin-bottom:12px"><input class="search" id="crmq" type="search" placeholder="Cerca atleta…" value="'+esc(CRM.q)+'" style="margin:0">'+(CRM.f!=='all'?'<button type="button" class="btn sm" data-act="semf" data-v="all">Mostra tutti</button>':'<span></span>')+'</div>'+
+   '<div class="status" id="crmst" role="status"></div><div id="semlist">'+semRows()+'</div>'}
+function semRows(){var q=String(CRM.q||'').toLowerCase(),L=U.map(function(u){return {u:u,s:semOf(u)}}).filter(function(x){return (CRM.f==='all'||x.s.c===CRM.f)&&(!q||(x.u.n+' '+x.u.c).toLowerCase().indexOf(q)>-1)})
+  .sort(function(a,b){return SORD[a.s.c]-SORD[b.s.c]||String(a.u.c||'').localeCompare(String(b.u.c||''))});
+  if(!L.length)return '<div class="empty">'+(U.length?'Nessun atleta in questo stato.':'Nessun atleta: aggiungi i clienti dalla home.')+'</div>';
+  return L.map(function(x){var u=x.u,s=x.s,ch=s.R.map(function(r){return '<i class="wchip r">'+esc(r.t)+'</i>'}).concat(s.Y.map(function(r){return '<i class="wchip y">'+esc(r.t)+'</i>'}));
+    if(s.c==='g')ch.push('<i class="wchip g">Scheda attiva fino al '+fdate(s.act.end)+'</i>');if(s.c==='n')ch.push('<i class="wchip">Nessuna scheda</i>');
+    var sch=s.R.concat(s.Y).filter(function(r){return r.k==='sch'})[0],mk=(s.R[0]||s.Y[0]||{}).k;
+    return '<div class="srow '+s.c+'" data-row="'+esc(u.id)+'"><i class="sdot '+s.c+'" aria-label="'+SEMT[s.c]+'"></i><div class="sm1"><b>'+esc(u.n+' '+u.c)+'</b>'+(s.ph?' <i class="wchip" style="background:'+MACS[s.ph.k].bg+';color:'+MACS[s.ph.k].col+'">'+esc(MACS[s.ph.k].t)+'</i>':'')+
+     '<div class="why">'+ch.join('')+'</div><div class="status" style="margin-top:4px">'+(u.pres?'Si allena in presenza':!s.act?'':'Ultimo feedback: '+(s.fb.ts?(s.fb.days===0?'oggi':s.fb.days===1?'ieri':s.fb.days+' giorni fa')+' ('+s.fb.src+')':'nessuno'))+(u.abb&&u.abb.scad?' · abbonamento fino al '+fdate(u.abb.scad):'')+'</div></div>'+
+     '<div class="mact">'+(sch?'<button type="button" class="btn sm" data-act="scrin" data-id="'+esc(sch.sid)+'">♻ Rinnova</button>':s.c==='n'?'<button type="button" class="btn sm" data-act="gosch" data-id="'+esc(u.id)+'">+ Scheda</button>':'')+
+     (mk&&mk!=='sch'&&mk!=='inj'&&mk!=='fb'?'<button type="button" class="btn sm" data-act="crmmsg" data-uid="'+esc(u.id)+'" data-k="'+mk+'">💬 Messaggio</button>':mk==='fb'?'<button type="button" class="btn sm" data-act="crmmsg" data-uid="'+esc(u.id)+'" data-k="fb">💬 Sollecita</button><button type="button" class="btn sm" data-act="crmck" data-uid="'+esc(u.id)+'">✓ Check-in</button>':'')+'</div></div>'}).join('')}
+
+// ---- scadenzario e rinnovi commerciali ----
+var ABBT=['Mensile','Bimestrale','Trimestrale','Semestrale','Annuale','Pacchetto lezioni','Altro'],ABBM={Mensile:1,Bimestrale:2,Trimestrale:3,Semestrale:6,Annuale:12};
+function addMon(iso,n){var d=new Date(iso+'T12:00:00Z');if(isNaN(d))return '';var day=d.getUTCDate();d.setUTCDate(1);d.setUTCMonth(d.getUTCMonth()+n);var last=new Date(Date.UTC(d.getUTCFullYear(),d.getUTCMonth()+1,0)).getUTCDate();d.setUTCDate(Math.min(day,last));return d.toISOString().slice(0,10)}
+function abbEnd(tipo,da){var n=ABBM[tipo];return n&&da?addDays(addMon(da,n),-1):''}
+var CRMI={abb:'💳',ckp:'🗓',ckn:'☎',riv:'🧪',sch:'♻',cert:'🩺',mac:'📅'};
+function crmItems(H,fut){var L=[],td=todayIso(),C=cki();
+  U.forEach(function(u){var add=function(k,d,t,x){if(!d||isNaN(Date.parse(d)))return;var l=-ago(d);if(l>H||(fut&&l<0))return;L.push(Object.assign({u:u,k:k,d:d,l:l,t:t},x||{}))},sc=schedeOf(u.id)[0];
+    if(u.abb&&u.abb.scad)add('abb',u.abb.scad,'Abbonamento'+(u.abb.tipo?' '+u.abb.tipo.toLowerCase():'')+(u.abb.scad<td?' scaduto':' in scadenza'));
+    if(u.ckp)add('ckp',u.ckp,'Colloquio di check-in'+(u.ckpo?' alle '+u.ckpo:''));
+    else if(!fut){var last=u.ck||(sc&&sc.data)||'';if(last)add('ckn',addDays(last,C),'Check-in da prenotare (ultimo '+(u.ck?'il '+fdate(u.ck):'mai fatto')+')')}
+    if(u.rival)add('riv',u.rival,'Rivalutazione e test funzionali');
+    if(sc&&sc.data)add('sch',sc.cambio||addDays(sc.data,42),'Cambio scheda «'+(sc.nome||'')+'» e rivalutazione',{sid:sc.id});
+    if(u.certd)add('cert',u.certd,'Certificato medico');
+    var nx=macNext(u);if(nx)add('mac',nx.da,'Inizio fase '+MACS[nx.k].t+' · '+MACS[nx.k].s,{mk:nx.k})});
+  return L.sort(function(a,b){return a.l-b.l||String(a.u.c||'').localeCompare(String(b.u.c||''))})}
+function crmAct(x){var u=x.u,id=esc(u.id),b=function(act,t,ex){return '<button type="button" class="btn sm" data-act="'+act+'" data-uid="'+id+'" data-k="'+x.k+'"'+(ex||'')+'>'+t+'</button>'},
+  msg=(u.t?b('crmwa','💬 WhatsApp'):'')+(u.e?b('crmml','✉ Email'):'');
+  if(x.k==='abb')return msg+b('abbren','✓ Rinnovato')+b('abbopen','✎');
+  if(x.k==='ckp')return msg+b('crmck','✓ Fatto')+b('abbopen','✎');
+  if(x.k==='ckn')return msg+b('abbopen','📅 Prenota')+b('crmck','✓ Fatto oggi');
+  if(x.k==='riv')return msg+'<button type="button" class="btn sm" data-act="test" data-id="'+id+'">🧪 Test</button>'+b('abbopen','✎');
+  if(x.k==='sch')return '<button type="button" class="btn sm" data-act="scrin" data-id="'+esc(x.sid)+'">♻ Rinnova</button>'+msg;
+  if(x.k==='cert')return msg+'<button type="button" class="btn sm" data-act="anam" data-id="'+id+'">Anamnesi</button>';
+  if(x.k==='mac')return '<button type="button" class="btn sm" data-act="macgen" data-id="'+id+'" data-k="'+x.mk+'">⚡ Scheda della fase</button><button type="button" class="btn sm" data-act="macopen" data-id="'+id+'">📅</button>';
+  return msg}
+function crmScad(){var L=crmItems(30),G=[['Scaduti o da fare',function(x){return x.l<0}],['Oggi e prossimi 7 giorni',function(x){return x.l>=0&&x.l<=7}],['Prossimi 30 giorni',function(x){return x.l>7}]],C=cki(),nt=ntfState();
+  var h='<section class="asec"><h3>Promemoria e calendario</h3><div class="mact" style="align-items:center"><button type="button" class="btn sm'+(nt==='on'?' pri':'')+'" data-act="ntfon">🔔 '+(nt==='on'?'Promemoria attivi su questo dispositivo':'Attiva i promemoria su questo dispositivo')+'</button>'+
+   '<button type="button" class="btn sm" data-act="icsall">📅 Esporta tutte le scadenze nel calendario (.ics)</button>'+
+   '<label class="fl" style="min-width:190px">Check-in ogni<select id="crm_cki">'+[14,21,28,42,56].map(function(n){return '<option value="'+n+'"'+(n===C?' selected':'')+'>'+n+' giorni</option>'}).join('')+'</select></label></div>'+
+   '<p class="status" style="margin:10px 0 0">'+(nt==='no'?'Questo browser non mostra notifiche: usa il calendario. ':nt==='den'?'Le notifiche sono bloccate nelle impostazioni del browser: usa il calendario. ':'')+'I promemoria del dispositivo arrivano quando apri S.peaking (una volta al giorno, con le scadenze di oggi e quelle superate). Per avvisi anche ad app chiusa esporta il file .ics nel calendario del telefono: ogni scadenza ha un promemoria il giorno prima e la mattina stessa (per gli abbonamenti anche 7 giorni prima). I messaggi agli atleti partono da WhatsApp o dall’email con il testo già scritto: basta premere Invia.</p><div class="status" id="crmst" role="status"></div></section>';
+  if(!L.length)return h+'<div class="empty">Nessuna scadenza nei prossimi 30 giorni. Aggiungi abbonamenti, colloqui e rivalutazioni da «💼 Abbonamento e appuntamenti» nel dettaglio dell’atleta.</div>';
+  G.forEach(function(g){var S=L.filter(g[1]);if(!S.length)return;
+    h+='<h3 class="crmh">'+g[0]+' <small>('+S.length+')</small></h3>'+S.map(function(x){return '<div class="srow '+(x.l<0?'r':x.l<=5?'y':'g')+'" data-row="'+esc(x.u.id)+'"><span class="sic" aria-hidden="true">'+CRMI[x.k]+'</span><div class="sm1"><b>'+esc(x.u.n+' '+x.u.c)+'</b><div>'+esc(x.t)+'</div><div class="status">'+fdate(x.d)+' · '+leftTxt(x.l)+'</div></div><div class="mact">'+crmAct(x)+'</div></div>'}).join('')});
+  return h}
+function crmMsg(u,k){var n=u.n||'',d=function(x){return fdate(x)},a=u.abb||{},sc=schedeOf(u.id)[0],td=todayIso();
+  var T={abb:['Rinnovo abbonamento','Ciao '+n+', il tuo abbonamento'+(a.tipo?' '+a.tipo.toLowerCase():'')+(a.scad&&a.scad<td?' è scaduto il '+d(a.scad):' scade il '+d(a.scad))+'. Vuoi rinnovarlo? Scrivimi e lo sistemiamo, così non perdi la continuità degli allenamenti 💪'],
+   ckp:['Colloquio di check-in','Ciao '+n+', ti ricordo il nostro colloquio di check-in '+(u.ckp?'il '+d(u.ckp):'')+(u.ckpo?' alle '+u.ckpo:'')+'. Porta le tue domande e come ti sei sentito nelle ultime settimane. A presto!'],
+   ckn:['Prenotiamo il check-in','Ciao '+n+', è il momento del check-in sui tuoi progressi. Quando sei disponibile questa settimana per un colloquio di 15 minuti?'],
+   riv:['Rivalutazione e test funzionali','Ciao '+n+', '+(u.rival?'il '+d(u.rival):'a breve')+' facciamo la rivalutazione con i test funzionali: vieni riposato, con abbigliamento comodo e scarpe da ginnastica.'],
+   sch:['La tua nuova scheda','Ciao '+n+', la tua scheda'+(sc&&sc.nome?' «'+sc.nome+'»':'')+(sc?' arriva a fine ciclo il '+d(sc.cambio||addDays(sc.data,42)):'')+': fissiamo la rivalutazione e preparo la nuova.'],
+   cert:['Certificato medico','Ciao '+n+', il tuo certificato medico '+(u.certd?(u.certd<td?'è scaduto il ':'scade il ')+d(u.certd):'risulta scaduto')+': portamene una copia nuova appena puoi, serve per continuare ad allenarti.'],
+   fb:['Come vanno gli allenamenti?','Ciao '+n+', non vedo i carichi degli ultimi allenamenti: come sta andando? Ricordati di segnarli dal link della tua scheda (o scrivimi se qualcosa non va) 💪'],
+   mac:['Nuova fase della preparazione','Ciao '+n+', '+(function(){var x=macNext(u);return x?'dal '+d(x.da)+' iniziamo la fase «'+MACS[x.k].t+' · '+MACS[x.k].s+'»':'cambiamo fase della preparazione'})()+': fissiamo un momento per impostare la nuova scheda.']};
+  var o=T[k]||T.ckn;return {s:o[0],t:o[1]}}
+function crmMsgModal(u,k){var m=crmMsg(u,k),ph=waPhone(u.t);
+  modal('<h3>💬 Messaggio a '+esc(u.n+' '+u.c)+'</h3><label class="fl full">Testo (modificabile)<textarea id="crm_txt" rows="5">'+esc(m.t)+'</textarea></label>'+
+   '<div class="mrow"><button data-act="mclose">Chiudi</button>'+(u.e?'<button data-act="crmsendml" data-uid="'+esc(u.id)+'" data-s="'+esc(m.s)+'">✉ Email</button>':'')+'<button data-act="crmcopy">Copia</button><button class="pri" data-act="crmsendwa" data-uid="'+esc(u.id)+'">💬 WhatsApp'+(ph?'':' (scegli la chat)')+'</button></div>')}
+function crmWa(u,txt){var p=waPhone(u.t);window.open('https://wa.me/'+p+'?text='+encodeURIComponent(txt),'_blank')}
+function crmMail(u,s,txt){location.href='mailto:'+encodeURIComponent(u.e||'')+'?subject='+encodeURIComponent(s)+'&body='+encodeURIComponent(txt)}
+async function uPut(u,ok){try{await Store.put('utenti',u)}catch(e){st('crmst',saveErr());return false}renderNav();if(cur==='crm')crmBody();else if(cur==='home')listUtenti();if(ok)setTimeout(function(){st('crmst',ok)},0);return true}
+function abbModal(u){var a=u.abb||{};
+  modal('<h3>💼 Abbonamento e appuntamenti · '+esc(u.n+' '+u.c)+'</h3><div class="fg">'+
+   '<label class="fl">Tipo di abbonamento<select id="ab_tipo"><option value="">—</option>'+ABBT.map(function(t){return '<option'+(a.tipo===t?' selected':'')+'>'+t+'</option>'}).join('')+'</select></label>'+
+   fld('ab_da','Inizio',a.da||'','date')+fld('ab_scad','Scadenza',a.scad||'','date',a.scad?' data-man="1"':'')+fld('ab_nl','Lezioni (pacchetto)',a.nl||'','number',' min="0"')+fld('ab_imp','Importo (€, facoltativo)',a.imp||'','text',' inputmode="decimal"')+'</div>'+
+   '<label class="fl full">Note commerciali<textarea id="ab_nt" rows="2">'+esc(a.nt||'')+'</textarea></label>'+
+   '<div class="kick" style="margin-top:6px">Appuntamenti</div><div class="fg">'+fld('ab_ckp','Prossimo colloquio di check-in',u.ckp||'','date')+fld('ab_ckpo','Ora',u.ckpo||'','time')+fld('ab_riv','Prossima rivalutazione / test',u.rival||'','date')+'</div>'+
+   '<label class="ckl"><input type="checkbox" id="ab_pres"'+(u.pres?' checked':'')+'> Si allena in presenza con me: non chiedere feedback a distanza (il semaforo non lo segna rosso per i feedback)</label>'+
+   (a.st&&a.st.length?'<p class="status">Rinnovi precedenti: '+a.st.slice(-4).map(function(x){return esc((x.tipo||'')+' '+fdate(x.da)+'–'+fdate(x.scad))}).join(' · ')+'</p>':'')+
+   '<div class="status" id="abst" role="status"></div><div class="mrow"><button data-act="mclose">Annulla</button><button class="pri" data-act="abbsave" data-uid="'+esc(u.id)+'">Salva</button></div>');wideModal()}
+document.addEventListener('input',function(e){if(e.target.id==='ab_scad')e.target.setAttribute('data-man','1')});
+document.addEventListener('change',function(e){var t=e.target;if(t.id==='ab_tipo'||t.id==='ab_da'){var s=gid('ab_scad'),v=abbEnd(gid('ab_tipo').value,gid('ab_da').value);if(s&&v&&!s.getAttribute('data-man'))s.value=v}
+  if(t.id==='crm_cki'){try{localStorage.setItem('spk_cki',t.value)}catch(x){}crmBody()}});
+document.addEventListener('click',async function(e){var a=e.target.closest&&e.target.closest('[data-act]');if(!a)return;var k=a.getAttribute('data-act'),u=find(a.getAttribute('data-uid'));
+  if(k==='crmtab'){CRM.tab=a.getAttribute('data-v');renderCrm();return}
+  if(k==='semf'){var v=a.getAttribute('data-v');CRM.f=CRM.f===v?'all':v;crmBody();return}
+  if(k==='semrel'){LGT=0;FBT=0;a.textContent='Leggo i feedback…';await logScan();crmBody();return}
+  if(k==='crmmsg'&&u){crmMsgModal(u,a.getAttribute('data-k'));return}
+  if(k==='crmwa'&&u){crmWa(u,crmMsg(u,a.getAttribute('data-k')).t);return}
+  if(k==='crmml'&&u){var m=crmMsg(u,a.getAttribute('data-k'));crmMail(u,m.s,m.t);return}
+  if(k==='crmsendwa'&&u){crmWa(u,gid('crm_txt').value);return}
+  if(k==='crmsendml'&&u){crmMail(u,a.getAttribute('data-s'),gid('crm_txt').value);return}
+  if(k==='crmcopy'){var tx=gid('crm_txt').value;try{await navigator.clipboard.writeText(tx);a.textContent='Copiato ✓'}catch(x){gid('crm_txt').select()}return}
+  if(k==='crmck'&&u){u.ck=todayIso();if(u.ckp&&u.ckp<=todayIso()){u.ckp='';u.ckpo=''}await uPut(u,'Check-in di '+u.n+' segnato oggi.');return}
+  if(k==='abbopen'&&u){abbModal(u);return}
+  if(k==='abbren'&&u){var A=u.abb||{},n=ABBM[A.tipo];if(!n||!A.scad){abbModal(u);setTimeout(function(){st('abst','Indica la nuova scadenza del '+(A.tipo||'rinnovo').toLowerCase()+'.')},0);return}
+    var st0=(A.st||[]).concat([{tipo:A.tipo,da:A.da,scad:A.scad}]).slice(-12),da=A.scad<addDays(todayIso(),-30)?todayIso():addDays(A.scad,1);
+    u.abb=Object.assign({},A,{da:da,scad:abbEnd(A.tipo,da),st:st0});await uPut(u,'Abbonamento di '+u.n+' rinnovato fino al '+fdate(u.abb.scad)+'.');return}
+  if(k==='abbsave'&&u){var g=function(id){return (gid(id)||{}).value||''},tipo=g('ab_tipo'),ab={tipo:tipo,da:g('ab_da'),scad:g('ab_scad')||abbEnd(tipo,g('ab_da')),nl:g('ab_nl'),imp:g('ab_imp').trim(),nt:g('ab_nt').trim(),st:(u.abb&&u.abb.st)||[]};
+    if(ab.da&&ab.scad&&ab.scad<ab.da){st('abst','La scadenza viene prima dell’inizio.');return}
+    if(ab.tipo||ab.da||ab.scad||ab.nl||ab.imp||ab.nt||ab.st.length)u.abb=ab;else delete u.abb;
+    u.ckp=g('ab_ckp');u.ckpo=u.ckp?g('ab_ckpo'):'';u.rival=g('ab_riv');u.pres=!!(gid('ab_pres')&&gid('ab_pres').checked);closeModal();await uPut(u,'Dati salvati per '+u.n+'.');return}
+  if(k==='ntfon'){ntfEnable();return}
+  if(k==='icsall'){icsExport();return}
+});
+// promemoria sul dispositivo (Notification API): una volta al giorno all’apertura, con le scadenze di oggi e quelle superate
+function ntfState(){if(!('Notification' in window))return 'no';if(Notification.permission==='denied')return 'den';try{return Notification.permission==='granted'&&localStorage.getItem('spk_ntf')==='1'?'on':'off'}catch(e){return 'off'}}
+function ntfEnable(){if(!('Notification' in window)){st('crmst','Questo browser non permette le notifiche: esporta le scadenze nel calendario.');return}
+  if(ntfState()==='on'){try{localStorage.removeItem('spk_ntf')}catch(e){}crmBody();st('crmst','Promemoria disattivati su questo dispositivo.');return}
+  Notification.requestPermission().then(function(p){if(p==='granted'){try{localStorage.setItem('spk_ntf','1');localStorage.removeItem('spk_ntf_'+todayIso())}catch(e){}crmBody();ntfCheck(true)}else{crmBody();st('crmst','Notifiche non consentite: usa l’esportazione nel calendario.')}})}
+function ntfCheck(force){try{if(ntfState()!=='on'||!isPT()||!U.length)return;var key='spk_ntf_'+todayIso();if(!force&&localStorage.getItem(key))return;
+  var L=crmItems(1).filter(function(x){return x.l<=0||x.k==='ckp'}),R=U.filter(function(u){return semOf(u).c==='r'}).length;
+  if(!L.length&&!R&&!force)return;localStorage.setItem(key,'1');
+  var by={};L.forEach(function(x){by[x.k]=(by[x.k]||0)+1});
+  var body=(L.length?[['abb','abbonamento','abbonamenti'],['ckp','colloquio','colloqui'],['ckn','check-in da prenotare','check-in da prenotare'],['riv','rivalutazione','rivalutazioni'],['sch','scheda da rinnovare','schede da rinnovare'],['cert','certificato','certificati'],['mac','cambio di fase','cambi di fase']].filter(function(x){return by[x[0]]}).map(function(x){return by[x[0]]+' '+(by[x[0]]===1?x[1]:x[2])}).join(', '):'Nessuna scadenza oggi')+(R?' · '+R+(R===1?' atleta in rosso':' atleti in rosso'):'');
+  var o={body:body,tag:'spk-due',icon:undefined},go=function(){window.focus();cur='crm';CRM.tab='scad';render()};
+  try{var n=new Notification('S.peaking · scadenze di oggi',o);n.onclick=go}catch(e){if(navigator.serviceWorker&&navigator.serviceWorker.getRegistration)navigator.serviceWorker.getRegistration().then(function(r){if(r)r.showNotification('S.peaking · scadenze di oggi',o)}).catch(function(){})}}catch(e){}}
+document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')setTimeout(ntfCheck,1500)});
+setInterval(function(){ntfCheck()},30*60*1000);
+// esportazione nel calendario (.ics) con promemoria: funziona anche ad app chiusa
+function icsEsc(s){return String(s||'').replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\r?\n/g,'\\n')}
+function icsD(d){return d.replace(/-/g,'')}
+function icsExport(){var L=crmItems(400,true),now=new Date().toISOString().replace(/[-:]/g,'').slice(0,15)+'Z',ev=[];
+  L.forEach(function(x){if(x.k==='ckn')return;var u=x.u,tit=CRMI[x.k]+' '+x.t+' · '+u.n+' '+u.c,id='spk-'+x.k+'-'+u.id+'-'+icsD(x.d)+'@speaking',al=[];
+    var e=['BEGIN:VEVENT','UID:'+id,'DTSTAMP:'+now];
+    if(x.k==='ckp'&&u.ckpo&&/^\d\d:\d\d$/.test(u.ckpo)){var t=icsD(x.d)+'T'+u.ckpo.replace(':','')+'00',m=(+u.ckpo.slice(0,2))*60+(+u.ckpo.slice(3))+30,te=icsD(x.d)+'T'+('0'+Math.floor(m/60)%24).slice(-2)+('0'+m%60).slice(-2)+'00';e.push('DTSTART:'+t,'DTEND:'+te);al=['-P1D','-PT1H']}
+    else{e.push('DTSTART;VALUE=DATE:'+icsD(x.d),'DTEND;VALUE=DATE:'+icsD(addDays(x.d,1)));al=x.k==='abb'?['-P6DT15H','-PT15H','PT9H']:['-PT15H','PT9H']}
+    e.push('SUMMARY:'+icsEsc(tit),'DESCRIPTION:'+icsEsc(x.t+(u.t?'\nTelefono: '+u.t:'')+'\nDa S.peaking · Dashboard PT'));
+    al.forEach(function(tr){e.push('BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:'+icsEsc(tit),'TRIGGER:'+tr,'END:VALARM')});e.push('END:VEVENT');ev.push(e.join('\r\n'))});
+  if(!ev.length){st('crmst','Nessuna scadenza futura da esportare.');return}
+  var ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//S.peaking//Scadenze PT//IT','CALSCALE:GREGORIAN','METHOD:PUBLISH','X-WR-CALNAME:S.peaking · scadenze'].join('\r\n')+'\r\n'+ev.join('\r\n')+'\r\nEND:VCALENDAR\r\n';
+  saveBlob(new Blob([ics],{type:'text/calendar'}),'scadenze-speaking-'+todayIso()+'.ics').then(function(){st('crmst','File del calendario creato con '+ev.length+' scadenze: aprilo sul telefono (o importalo in Google Calendar / Calendario di iPhone). Se lo importi di nuovo, le scadenze già presenti si aggiornano.')},function(){st('crmst','Download non riuscito.')})}
+
+// ---- template di mesociclo e assegnazione di gruppo ----
+var TPLC=['Principianti','Ipertrofia','Forza','Definizione','Donna','Over 55','Stagionale','Viaggio / outdoor','Sport','Altro'];
+var TPLP=[
+ {id:'pi',n:'Principiante Ipertrofia · Full Body 3 giorni',cat:'Principianti',u:{liv:'Principiante (< 6 mesi)',ob:['Ipertrofia']},f:3,sp:'Full Body',w:6,d:'Macchine e multiarticolari semplici, tecnica prima del carico.'},
+ {id:'dg',n:'Donna ginoide · 4 giorni',cat:'Donna',u:{liv:'Intermedio (6–24 mesi)',sx:'F',ob:['Ipertrofia','Dimagrimento'],mus:['Glutei','Ischiocrurali','Quadricipiti']},f:4,sp:'Upper/Lower',w:6,d:'Focus su glutei, femorali e quadricipiti; parte alta di tonificazione; densità con superserie.'},
+ {id:'m60',n:'Master 60+ Longevity',cat:'Over 55',u:{liv:'Principiante (< 6 mesi)',eta:62,ob:['Ricondizionamento','Mobilità']},f:2,sp:'m55',w:6,d:'Dalla dispensa Over 55–70: forza base, equilibrio, potenza con concentrica veloce, RIR 2–3.'},
+ {id:'fi',n:'Intermedio Forza · Upper/Lower 4 giorni',cat:'Forza',u:{liv:'Intermedio (6–24 mesi)',ob:['Forza']},f:4,sp:'Upper/Lower',w:6,d:'Fondamentali pesanti con progressione lineare.'},
+ {id:'aa',n:'Adattamento anatomico · Full Body 3 giorni (autunno)',cat:'Stagionale',u:{liv:'Intermedio (6–24 mesi)'},mac:'aut',f:3,sp:'Full Body',w:6,d:'Ripresa dopo l’estate: mobilità, stabilità, capacità di lavoro.'},
+ {id:'fm',n:'Forza e ipertrofia · Upper/Lower 4 giorni (inverno)',cat:'Stagionale',u:{liv:'Intermedio (6–24 mesi)'},mac:'inv',f:4,sp:'Upper/Lower',w:6,d:'Periodo preparatorio al 75–85% 1RM.'},
+ {id:'df',n:'Definizione · Upper/Lower 4 giorni (primavera)',cat:'Definizione',u:{liv:'Intermedio (6–24 mesi)'},mac:'pri',f:4,sp:'Upper/Lower',w:6,d:'Carichi mantenuti, recuperi brevi, superserie e finisher.'},
+ {id:'tv',n:'Travel / outdoor · elastici e TRX (estate)',cat:'Viaggio / outdoor',u:{liv:'Intermedio (6–24 mesi)',luogo:'casa',heq:['ela','trx','tap']},mac:'est',f:3,sp:'Full Body',w:3,d:'Mantenimento con corpo libero, elastici e TRX.'}];
+function tplAll(){return SCH.filter(function(x){return x.uid==='__tpl'}).sort(function(a,b){return (b.ts||0)-(a.ts||0)})}
+function tplDays(days){return days.map(function(d,j){var gn=0,es=d.es.filter(function(x){return x.n}).map(function(x){var o=Object.assign({},x);delete o.auto;delete o.af;return o});
+  es.forEach(function(x,i){if(x.lk&&i>0){if(!es[i-1].g)es[i-1].g=++gn;x.g=es[i-1].g}});es.forEach(function(x){delete x.lk;x.k='';x.tg=String(x.tg||'').replace(/\s*·?\s*≈ [\d,.]+ kg/g,'')});return {t:d.t||'Seduta '+(j+1),es:es}}).filter(function(d){return d.es.length})}
+function tplFlat(days){var f=[];days.forEach(function(d,i){d.es.forEach(function(x){f.push(Object.assign({d:i},x))})});return f}
+function tplLogic(t){return String(t||'').split('\n').filter(function(l){return !/infortun|fastidio|PAR-Q|Shoulder|Overhead|Plank sotto|Pull-up|Thomas|ASLR|Single Leg|anamnesi|preferenza del cliente|Assegnato dal template|Sostituzioni per il profilo|Over 55 \(|1RM stimat|prontuario|Macrociclo annuale|Scheda da viaggio/i.test(l)}).join('\n')}
+function tplFromPreset(P){var u=Object.assign({id:'__tpl',n:'',c:''},P.u),c=profile(u),sp=P.sp==='m55'?SPS.m55:P.sp;
+  if(P.mac){c.mac={k:P.mac,t:MACS[P.mac].t,s:MACS[P.mac].s};if(!(P.u.ob&&P.u.ob.length))c.ob=MACS[P.mac].ob.slice()}
+  if(P.sp==='m55')c.fase={sp:'m55',n:m55Fase(c)};
+  var G=genPlan(u,c,P.f,sp,null),days=tplDays(G.days.map(function(d){return {t:d.t,es:d.es}})),wuL=wuClean(autoWU(days,c)),cdL=wuClean(autoCD(days,c));
+  return {uid:'__tpl',nome:P.n,data:'',deload:'',cambio:'',freq:P.f,split:sp,logica:tplLogic(G.logic)+(P.mac?'\n• Fase del macrociclo: '+MACS[P.mac].t+' · '+MACS[P.mac].s+'. '+MACS[P.mac].px:''),wuL:wuL,cdL:cdL,wu:wuText(wuL,'wu'),cd:wuText(cdL,'cd'),days:days,es:tplFlat(days),luogo:u.luogo==='casa'?'casa':'',heq:u.luogo==='casa'?u.heq:[],car:[],v:2,
+   tpl:{cat:P.cat,desc:P.d||'',w:P.w,dlo:P.w>=4?21:'',src:'Modello pronto',mac:P.mac||''}}}
+function tplFromSch(sc,meta){var days=tplDays(JSON.parse(JSON.stringify(schedaDays(sc)))),w=sc.cambio&&sc.data?Math.max(1,Math.round((Date.parse(sc.cambio)-Date.parse(sc.data))/864e5/7)):6,dl=sc.deload&&sc.data?Math.round((Date.parse(sc.deload)-Date.parse(sc.data))/864e5):'';
+  return {uid:'__tpl',nome:meta.n,data:'',deload:'',cambio:'',freq:+sc.freq||days.length,split:sc.split||'',logica:tplLogic(sc.logica||''),wuL:wuClean(sc.wuL),cdL:wuClean(sc.cdL),wu:sc.wu||'',cd:sc.cd||'',days:days,es:tplFlat(days),luogo:sc.luogo==='casa'?'casa':'',heq:sc.luogo==='casa'?(sc.heq||[]):[],car:[],v:2,
+   tpl:{cat:meta.cat,desc:meta.d,w:+meta.w||w,dlo:dl===''||isNaN(dl)?'':dl,src:'Dalla scheda «'+(sc.nome||'')+'»',mac:sc.mac&&sc.mac.k&&!sc.mac.trav?sc.mac.k:''}}}
+async function tplPut(T){T.id=T.id||newId('t');T.ts=Date.now();try{await Store.put('schede',T)}catch(e){st('crmst',saveErr());return null}var k=SCH.findIndex(function(x){return String(x.id)===String(T.id)});if(k>-1)SCH[k]=T;else SCH.unshift(T);return T}
+function crmTpl(){var L=tplAll();
+  return '<div class="mact" style="margin-bottom:14px"><button type="button" class="btn pri" data-act="tplnew">+ Nuovo template</button></div>'+
+   '<p class="status" style="margin:0 0 14px">Un template è un mesociclo per una categoria omogenea di clienti. «Assegna» crea in un clic una scheda per ogni atleta scelto e la adatta al suo profilo: esercizi esclusi da infortuni, fastidi, attrezzi, livello, PAR-Q o test sostituiti con alternative compatibili, kg calcolati dal suo 1RM, regole Over 55. Poi ogni scheda si rifinisce nell’editor.</p><div class="status" id="crmst" role="status"></div>'+
+   (L.length?'<div class="tplg">'+L.map(function(T){var n=SCH.filter(function(s){return s.tplid===T.id}).length,t=T.tpl||{};return '<div class="tplc"><div class="kick">'+esc(t.cat||'Template')+'</div><b>'+esc(T.nome)+'</b><div class="status">'+(+T.freq||schedaDays(T).length)+' sedute/sett. · '+esc(T.split||'')+' · '+(t.w||6)+' settimane'+(T.luogo==='casa'?' · attrezzi limitati':'')+'</div>'+(t.desc?'<p class="status" style="margin:6px 0 0">'+esc(t.desc)+'</p>':'')+
+     '<div class="status" style="margin-top:6px">'+(n?'Assegnato '+n+(n===1?' volta':' volte'):'Mai assegnato')+'</div><div class="mact" style="margin-top:10px"><button type="button" class="btn sm pri" data-act="tplasg" data-id="'+esc(T.id)+'">👥 Assegna</button><button type="button" class="btn sm" data-act="tplview" data-id="'+esc(T.id)+'">Anteprima</button></div></div>'}).join('')+'</div>':
+     '<div class="empty">Nessun template. Crea il primo da un modello pronto (Principiante Ipertrofia, Donna ginoide 4 giorni, Master 60+ Longevity…) o da una scheda già salvata («🧩 Salva come template» nella scheda).</div>')}
+function tplNewModal(){var S=SCH.filter(function(s){return s.uid!=='__tpl'&&find(s.uid)}).sort(function(a,b){return String(b.data||'').localeCompare(String(a.data||''))}).slice(0,60);
+  modal('<h3>🧩 Nuovo template di mesociclo</h3><div class="kick">Modelli pronti (dal generatore)</div><div class="tplpre">'+TPLP.map(function(P){return '<button type="button" class="btn sm" data-act="tplpre" data-v="'+P.id+'"><b>'+esc(P.n)+'</b><span>'+esc(P.d)+'</span></button>'}).join('')+'</div>'+
+   (S.length?'<div class="kick" style="margin-top:10px">Da una scheda salvata</div><label class="fl full">Scheda<select id="tpl_src">'+S.map(function(s){var u=find(s.uid);return '<option value="'+esc(s.id)+'">'+esc((u?u.n+' '+u.c+' · ':'')+(s.nome||'Scheda')+' · '+fdate(s.data))+'</option>'}).join('')+'</select></label><div class="mrow" style="margin-top:0"><button data-act="tplsrc">Usa questa scheda</button></div>':'')+
+   '<div class="status" id="tplst" role="status"></div><div class="mrow"><button data-act="mclose">Chiudi</button></div>');wideModal()}
+function tplMetaModal(sid,T){var sc=sid?findS(sid):null,t=(T&&T.tpl)||{},w=T?t.w:sc&&sc.cambio&&sc.data?Math.max(1,Math.round((Date.parse(sc.cambio)-Date.parse(sc.data))/864e5/7)):6;
+  modal('<h3>🧩 '+(T?'Modifica il template':'Salva come template')+'</h3>'+(sc?'<p class="status" style="margin:0">Dalla scheda «'+esc(sc.nome)+'». Nel template non restano kg, cardio e note legate all’atleta (infortuni, test, PAR-Q).</p>':'')+
+   '<div class="fg">'+fld('tm_n','Nome',T?T.nome:sc?sc.nome:'')+'<label class="fl">Categoria<input id="tm_c" list="tplcl" value="'+esc(T?t.cat:'')+'" placeholder="Es. Principianti"><datalist id="tplcl">'+TPLC.map(function(c){return '<option value="'+esc(c)+'">'}).join('')+'</datalist></label>'+fld('tm_w','Durata (settimane)',w,'number',' min="1" max="16"')+'</div>'+
+   '<label class="fl full">Descrizione (a chi è rivolto)<textarea id="tm_d" rows="2">'+esc(T?t.desc:'')+'</textarea></label><div class="status" id="tplst" role="status"></div>'+
+   '<div class="mrow"><button data-act="mclose">Annulla</button>'+(T?'<button class="danger" data-act="tpldel" data-id="'+esc(T.id)+'">Elimina</button>':'')+'<button class="pri" data-act="tplmsave" data-id="'+esc(T?T.id:'')+'" data-sid="'+esc(sid||'')+'">Salva template</button></div>')}
+function tplView(T){var t=T.tpl||{},td=todayIso(),P=Object.assign({},T,{data:td,cambio:addDays(td,7*(t.w||6)),deload:t.dlo!==''&&t.dlo!=null?addDays(td,+t.dlo):''});
+  modal('<h3>🧩 '+esc(T.nome)+'</h3><p class="status" style="margin:0">'+esc([t.cat,t.src,t.desc].filter(Boolean).join(' · '))+'. Date di esempio: partono dal giorno dell’assegnazione.</p>'+schedaBody(P,null)+
+   '<div class="mrow"><button data-act="mclose">Chiudi</button><button data-act="tplmeta" data-id="'+esc(T.id)+'">✎ Modifica</button><button class="pri" data-act="tplasg" data-id="'+esc(T.id)+'">👥 Assegna</button></div>');wideModal()}
+// personalizzazione del template per il singolo atleta
+function tplWhy(e,c,lv){var h=injHit(e,c);if(h.lvl==='avoid')return 'infortunio o fastidio: '+injZn(h);if(!hasEquip(e,c))return 'attrezzo non disponibile';if(c.avoid.oh&&hasF(e,'oh'))return 'Shoulder Mobility: niente spinte sopra la testa';
+  if(c.avoid.pl&&e.role==='plyo')return 'PAR-Q: niente pliometria';if(c.avoidN[e.n])return 'test funzionali';if(e.lv>lv)return 'livello dell’atleta';return 'profilo dell’atleta'}
+function tplApply(T,u,start,adapt){var c=profile(u),t=T.tpl||{},rep=[],nk=0,lv=c.lvl===1?1:Math.min(3,c.lvl+1);
+  if(T.luogo==='casa')c.home=homeOf('casa',T.heq);
+  if(t.mac&&!(c.spk&&c.spk.length)&&MACS[t.mac])c.mac={k:t.mac,t:MACS[t.mac].t,s:MACS[t.mac].s};
+  var days=JSON.parse(JSON.stringify(schedaDays(T))).map(function(d,j){var names=d.es.map(function(x){return x.n}),dt=d.t||'Seduta '+(j+1);
+    d.es=d.es.map(function(x){var e=EXI[ekey(x.n)];if(!e)return x;var e2=e,why='';
+      if(!okEx(e,c,lv)){var h=injHit(e,c),b=h.lvl==='avoid'?(safeAlts(e.n,names,c,1)[0]||null):(altList(e.n,names,c,null,null).filter(function(z){return z.same||z.s>=2.5})[0]||null);why=tplWhy(e,c,lv);
+        if(!b){rep.push({dt:dt,from:e.n,to:'',why:why});return null}e2=b.e;names.push(e2.n);rep.push({dt:dt,from:e.n,to:e2.n,why:why})}
+      var o;
+      if(adapt||e2.role!==e.role||c.lvl===1||c.pq){var r=rowFrom(e2,c);o=Object.assign({},x,{n:e2.n,p:r.p,m:r.m,s:r.s,r:r.r,rpe:r.rpe,tg:r.tg,k:r.k,rec:r.rec,nt:r.nt});if(r.k)nk++}
+      else{o=Object.assign({},x,{n:e2.n});if(e2!==e){o.p=e2.p;o.m=e2.m;o.nt=exNote(e2)}
+        var pr={s:o.s,r:o.r,rpe:o.rpe,rec:o.rec,k:'',tg:String(o.tg||'').replace(/\s*·?\s*≈ [\d,.]+ kg/g,'')},S=e2.role==='main'||e2.role==='acc'||e2.role==='iso';
+        if(S&&hasF(e2,'bw'))pr.tg=pr.tg.replace(/\d+–\d+% 1RM\s*·?\s*/,'');
+        if(S&&c.pq){pr.tg='RIR 3–4 · in attesa del parere medico';pr.rpe='6–7'}
+        var mm=/(\d+)–(\d+)% 1RM/.exec(pr.tg);if(S&&mm&&c.rm[e2.n]){pr.k=Math.round(c.rm[e2.n]*(+mm[1]+(+mm[2]))/200/2.5)*2.5;pr.tg+=' · ≈ '+fnum(pr.k)+' kg';nk++}
+        if(S)masterPresc(pr,e2,c);Object.assign(o,pr)}
+      return o}).filter(Boolean);
+    var cnt={};d.es.forEach(function(x){if(x.g)cnt[x.g]=(cnt[x.g]||0)+1});d.es.forEach(function(x){if(x.g&&cnt[x.g]<2)delete x.g});return d}).filter(function(d){return d.es.length});
+  var w=+t.w||6,cam=addDays(start,7*w),del=t.dlo!==''&&t.dlo!=null&&!isNaN(+t.dlo)?addDays(start,+t.dlo):'',why=[];
+  if(c.injEnd&&c.injEnd>start&&c.injEnd<cam){cam=c.injEnd;why.push('cambio scheda anticipato alla fine dello stop per infortunio')}
+  var ph=macFor(u,start);if(ph){var me=addDays(ph.a,1);if(me<cam&&me>addDays(start,13)){cam=me;why.push('cambio scheda all’inizio della fase «'+ph.nx+'» del macrociclo')}}
+  if(del&&del>=addDays(cam,-6))del='';
+  var wuL=wuClean(autoWU(days,c)),cdL=wuClean(autoCD(days,c)),lu=T.luogo==='casa'?'casa':(u.luogo||'palestra'),hq=lu==='casa'?(T.luogo==='casa'?T.heq:u.heq)||[]:[];
+  var lg=String(T.logica||'')+'\n• Assegnato dal template «'+T.nome+'»'+(t.cat?' ('+t.cat+')':'')+' il '+fdate(todayIso())+': '+(adapt?'dosaggi ricalcolati sul profilo dell’atleta':c.lvl===1||c.pq?'dosaggi ricalcolati sul profilo dell’atleta ('+(c.pq?'PAR-Q con un «Sì»':'principiante')+')':'dosaggi del template, kg calcolati dal 1RM dell’atleta')+'.'+
+    (rep.length?'\n• Sostituzioni per il profilo: '+rep.map(function(r){return r.from+(r.to?' → '+r.to:' tolto')+' ('+r.why+')'}).join('; ')+'.':'')+(why.length?'\n• Date: '+why.join('; ')+'.':'')+(c.notes.length?'\n• '+c.notes.filter(function(n){return !/^Macrociclo/.test(n)}).join('\n• '):'');
+  var sc={uid:String(u.id),nome:T.nome,data:start,deload:del,cambio:cam,freq:+T.freq||days.length,split:T.split||'',logica:lg,wuL:wuL,cdL:cdL,wu:wuText(wuL,'wu'),cd:wuText(cdL,'cd'),days:days,es:tplFlat(days),luogo:lu,heq:hq,car:carList(u.card),v:2,ts:Date.now(),tplid:T.id};
+  if(c.mac)sc.mac={k:c.mac.k,t:c.mac.t};
+  return {sc:sc,rep:rep,nk:nk,bad:injBad(days,wuL.concat(cdL),c)}}
+var TASG={id:null,sel:{},f:'all',q:''};
+function tplAsgModal(T){TASG={id:T.id,sel:{},f:'all',q:''};
+  modal('<h3>👥 Assegna «'+esc(T.nome)+'»</h3><div class="fg">'+fld('ta_d','Data di inizio',todayIso(),'date')+'<label class="fl">Dosaggi<select id="ta_ad"><option value="0">Del template</option><option value="1">Ricalcolati sul profilo</option></select></label></div>'+
+   '<p class="status" style="margin:0">«Del template»: serie, ripetizioni e %1RM del template, con i kg calcolati dal 1RM di ognuno; principianti e PAR-Q con un «Sì» sono sempre ricalcolati sul loro profilo, Over 55 con le regole della dispensa.</p>'+'<div class="tgs" style="margin:6px 0" role="group">'+[['all','Tutti'],['free','Senza scheda attiva'],['l1','Principianti'],['m55','Over 55'],['r','🔴 In rosso']].map(function(f){return '<button type="button" class="ctab" data-act="taf" data-v="'+f[0]+'" aria-pressed="'+(f[0]==='all')+'">'+f[1]+'</button>'}).join('')+'</div>'+
+   '<input class="search" id="ta_q" type="search" placeholder="Cerca atleta…" style="margin:0"><div class="tal" id="ta_l"></div><div class="status" id="ta_st" role="status"></div>'+
+   '<div class="mrow"><button data-act="mclose">Annulla</button><button data-act="taall">Seleziona tutti quelli in elenco</button><button class="pri" data-act="tago" id="ta_go" disabled>Assegna</button></div>');wideModal();taList();
+  gid('ta_q').addEventListener('input',function(e){TASG.q=e.target.value;taList()})}
+function taFilt(){var q=String(TASG.q||'').toLowerCase();return U.filter(function(u){if(q&&(u.n+' '+u.c).toLowerCase().indexOf(q)<0)return false;var f=TASG.f;
+  if(f==='free'){var s=semOf(u);return !s.act||s.act.l<0}if(f==='l1')return lvlOf(u)===1;if(f==='m55')return isMaster(u);if(f==='r')return semOf(u).c==='r';return true}).sort(function(a,b){return String(a.c||'').localeCompare(String(b.c||''))})}
+function taList(){var L=taFilt(),n=Object.keys(TASG.sel).length,b=gid('ta_go');
+  gid('ta_l').innerHTML=L.length?L.map(function(u){var s=semOf(u);return '<label class="tar"><input type="checkbox" data-tau="'+esc(u.id)+'"'+(TASG.sel[u.id]?' checked':'')+'><i class="sdot '+s.c+'"></i><span><b>'+esc(u.n+' '+u.c)+'</b> <span class="status">'+esc([u.liv?u.liv.split(' ')[0]:'',ageOf(u)!==''?ageOf(u)+' anni':'',(u.ob||[]).join(', '),s.act&&s.act.l>=0?'scheda attiva fino al '+fdate(s.act.end):'nessuna scheda attiva'].filter(Boolean).join(' · '))+'</span>'+(injList(u).length?' <i class="wchip y">infortuni</i>':'')+'</span></label>'}).join(''):'<p class="status">Nessun atleta con questo filtro.</p>';
+  if(b){b.disabled=!n;b.textContent=n?'Assegna a '+n+(n===1?' atleta':' atleti'):'Assegna'}}
+document.addEventListener('change',function(e){var id=e.target.getAttribute&&e.target.getAttribute('data-tau');if(id==null)return;if(e.target.checked)TASG.sel[id]=1;else delete TASG.sel[id];taList()});
+async function taGo(){var T=findS(TASG.id),ids=Object.keys(TASG.sel);if(!T||!ids.length)return;var start=gid('ta_d').value||todayIso(),ad=gid('ta_ad').value==='1',out=[],b=gid('ta_go');b.disabled=true;b.textContent='Assegno…';
+  for(var i=0;i<ids.length;i++){var u=find(ids[i]);if(!u)continue;try{var r=tplApply(T,u,start,ad);if(!r.sc.days.length){out.push({u:u,err:'nessun esercizio compatibile con il profilo'});continue}
+    r.sc.id=newId('s');await Store.put('schede',r.sc);SCH.unshift(r.sc);out.push({u:u,r:r})}catch(e){out.push({u:u,err:(e&&e.message)||'salvataggio non riuscito'})}}
+  renderNav();if(cur==='crm')crmBody();
+  modal('<h3>✓ Template assegnato</h3><p class="status" style="margin:0">«'+esc(T.nome)+'» dal '+fdate(start)+'. Ogni scheda è salvata ed è già nello storico dell’atleta: aprila nell’editor per rifinire carichi e scelte.</p><div class="xwrap"><table class="stab"><thead><tr><th>Atleta</th><th>Scheda</th><th>Adattamenti</th><th></th></tr></thead><tbody>'+
+   out.map(function(o){if(o.err)return '<tr><td>'+esc(o.u.n+' '+o.u.c)+'</td><td colspan="3" class="lw">Non assegnato: '+esc(o.err)+'</td></tr>';var r=o.r;
+     return '<tr><td><b>'+esc(o.u.n+' '+o.u.c)+'</b></td><td>'+fdate(r.sc.data)+' → '+fdate(r.sc.cambio)+'</td><td>'+(r.rep.length?r.rep.map(function(x){return esc(x.from)+' → '+(x.to?'<b>'+esc(x.to)+'</b>':'<i>tolto</i>')+' <i class="status">'+esc(x.why)+'</i>'}).join('<br>'):'nessuna sostituzione')+(r.nk?'<br><span class="status">kg calcolati su '+r.nk+(r.nk===1?' esercizio':' esercizi')+'</span>':'')+'</td><td><button type="button" class="btn sm" data-act="edopen" data-id="'+esc(r.sc.id)+'">Editor</button></td></tr>'}).join('')+'</tbody></table></div><div class="mrow"><button class="pri" data-act="mclose">Fatto</button></div>');wideModal()}
+document.addEventListener('click',async function(e){var a=e.target.closest&&e.target.closest('[data-act^="tpl"],[data-act^="ta"]');if(!a)return;var k=a.getAttribute('data-act'),T=findS(a.getAttribute('data-id'));
+  if(k==='tplnew'){tplNewModal();return}
+  if(k==='tplpre'){var P=TPLP.filter(function(x){return x.id===a.getAttribute('data-v')})[0];if(!P)return;a.disabled=true;try{var N=await tplPut(tplFromPreset(P));if(N){if(cur==='crm')crmBody();tplView(N)}}catch(x){st('tplst','Modello non creato ('+((x&&x.message)||'errore')+').');a.disabled=false}return}
+  if(k==='tplsrc'){var s=gid('tpl_src');if(s)tplMetaModal(s.value,null);return}
+  if(k==='tplfrom'){var sc=findS(a.getAttribute('data-id'));if(sc)tplMetaModal(sc.id,null);return}
+  if(k==='tplmeta'&&T){tplMetaModal('',T);return}
+  if(k==='tplview'&&T){tplView(T);return}
+  if(k==='tplasg'&&T){tplAsgModal(T);return}
+  if(k==='tpldel'&&T){if(!confirm('Eliminare il template «'+T.nome+'»? Le schede già assegnate restano.'))return;try{await Store.del('schede',T.id)}catch(x){}SCH=SCH.filter(function(x){return x.id!==T.id});closeModal();if(cur==='crm')crmBody();return}
+  if(k==='tplmsave'){var n=(gid('tm_n').value||'').trim();if(!n){st('tplst','Dai un nome al template.');return}var meta={n:n,cat:(gid('tm_c').value||'').trim(),d:(gid('tm_d').value||'').trim(),w:+gid('tm_w').value||6},R;
+    if(T){R=Object.assign({},T,{nome:meta.n,tpl:Object.assign({},T.tpl,{cat:meta.cat,desc:meta.d,w:meta.w})})}else{var sc2=findS(a.getAttribute('data-sid'));if(!sc2)return;R=tplFromSch(sc2,meta)}
+    var N2=await tplPut(R);if(!N2){st('tplst',saveErr());return}closeModal();if(cur==='crm')crmBody();else{CRM.tab='tpl';cur='crm';render()}setTimeout(function(){st('crmst','Template «'+N2.nome+'» salvato.')},0);return}
+  if(k==='taf'){TASG.f=a.getAttribute('data-v');[].forEach.call(document.querySelectorAll('[data-act="taf"]'),function(b){b.setAttribute('aria-pressed',String(b===a))});taList();return}
+  if(k==='taall'){taFilt().forEach(function(u){TASG.sel[u.id]=1});taList();return}
+  if(k==='tago'){taGo();return}
+});
+
+// ---- Stagioni: quadro di tutti gli atleti ----
+function crmMac(){var td=todayIso(),y=macYear(),D=macDefault(y),cs=D.filter(function(p){return p.da<=td&&td<=p.a})[0]||D[0],L=U.slice().sort(function(a,b){return String(a.c||'').localeCompare(String(b.c||''))}),off=L.filter(function(u){return !macOn(u)&&!hasSpk(u)}).length;
+  return '<div class="msea">'+D.filter(function(p){return p.k!=='dl'}).map(function(p){var M=MACS[p.k],on=cs.k===p.k||(cs.k==='dl'&&p.k==='est');return '<div class="msc'+(on?' on':'')+'" style="border-top-color:'+M.col+'"><div class="kick" style="color:'+M.col+'">'+M.t+(on?' · in corso':'')+'</div><b>'+M.s+'</b><p>'+esc(M.fo)+'</p><p class="status">'+esc(M.px)+'</p>'+(p.k==='est'?'<p class="status">Ultime 2 settimane di agosto: '+esc(MACS.dl.s.toLowerCase())+'. '+esc(MACS.dl.px)+'</p>':'')+'</div>'}).join('')+'</div>'+
+   '<section class="asec"><h3>Atleti e fase stagionale <small>'+L.filter(macOn).length+' con macrociclo attivo</small></h3>'+(off?'<div class="mact" style="margin-bottom:12px"><button type="button" class="btn sm pri" data-act="macall">Attiva il macrociclo standard per '+off+(off===1?' atleta':' atleti')+' senza</button></div>':'')+
+   '<div class="status" id="crmst" role="status"></div>'+(L.length?'<div class="xwrap"><table class="stab"><thead><tr><th>Atleta</th><th>Fase attuale</th><th>Fino al</th><th>Poi</th><th></th></tr></thead><tbody>'+L.map(function(u){var p=macFor(u),sp=hasSpk(u);
+     return '<tr><td><b>'+esc(u.n+' '+u.c)+'</b>'+(sp?' <i class="wchip">dispensa '+esc(String(u.gara||'').slice(0,24))+'</i>':'')+'</td><td>'+(p?'<i class="wchip" style="background:'+MACS[p.k].bg+';color:'+MACS[p.k].col+'">'+esc(macLbl(p))+'</i>':macOn(u)?'—':'<span class="status">non attivo</span>')+'</td><td>'+(p?fdate(p.a):'')+'</td><td>'+(p?esc(p.nx):'')+'</td><td><button type="button" class="btn sm" data-act="macopen" data-id="'+esc(u.id)+'">📅 '+(macOn(u)?'Apri':'Attiva')+'</button></td></tr>'}).join('')+'</tbody></table></div>':'<div class="empty">Nessun atleta.</div>')+
+   '<p class="status">Le dispense Hyrox, judo e corsa hanno la loro periodizzazione verso la gara: per quegli atleti il macrociclo stagionale non cambia gli obiettivi della scheda.</p></section>'}
+document.addEventListener('click',async function(e){var a=e.target.closest&&e.target.closest('[data-act="macall"]');if(!a)return;a.disabled=true;var n=0,y=macYear();
+  for(var u of U){if(macOn(u)||hasSpk(u))continue;u.mac={on:true,ph:macDefault(y)};try{await Store.put('utenti',u);n++}catch(x){}}
+  crmBody();setTimeout(function(){st('crmst','Macrociclo standard attivato per '+n+(n===1?' atleta.':' atleti.'))},0)});
+// reset della scelta di fase quando si esce dal generatore
+document.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('[data-act="gback"],[data-go]'))GMAC=null},true);
+
 </script>
 </body>
 </html>

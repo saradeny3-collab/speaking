@@ -1,7 +1,7 @@
 # S.peaking
 
 Anamnesi · Valutazione funzionale · Preparazione atletica.
-Barra di navigazione scura a sinistra (Atleti, Schede allenamento, Sezione nutrizionale, Editor schede, Dispense) (in basso su smartphone), area di lavoro centrale chiara, colore principale **viola #4B0082** con testo bianco, stampa A4 pulita.
+Barra di navigazione scura a sinistra (Atleti, Dashboard PT, Schede allenamento, Sezione nutrizionale, Editor schede, Dispense) (in basso su smartphone), area di lavoro centrale chiara, colore principale **viola #4B0082** con testo bianco, stampa A4 pulita.
 
 ## Nuovo cliente: anamnesi
 «+ Nuovo Cliente» apre la pagina «Anamnesi, obiettivi e stile di vita»: dati anagrafici e misure (data di nascita ed età calcolata, sesso, FC a riposo, peso, altezza, livello, circonferenze, certificato medico con data di scadenza, con BMI e rapporti vita/fianchi e vita/altezza calcolati), PAR-Q a 7 domande, stato di salute con **infortuni e traumi** (zona, lato, stato, «fermo fino al»), **condizioni frequenti** della dispensa Over 55–70, obiettivi a scelta multipla, gara o sport obiettivo, sport extra settimanali e **cardio** (vedi sotto) con stima del carico, gruppi muscolari prioritari e preferenza di split (la decisione finale spetta al Personal Trainer). Dal dettaglio atleta il pulsante «Anamnesi» riapre il modulo per modificarlo.
@@ -242,6 +242,35 @@ Voce **Yanagi Academy** nel menu, con due sezioni: **Gruppi e squadre** ed **Ese
 
 I gruppi (con gare, atleti, cinture, infortuni del gruppo, test, materiale e maestro) sono salvati nel cloud (`users/<UID>/gruppi`), sul dispositivo e nel backup JSON. I gruppi creati prima continuano a funzionare: la vecchia gara diventa la gara A e le sedute già modificate restano come erano. Contenuti, dosaggi, minuti, coefficienti di carico e riferimenti dei test sono indicativi e vanno adattati dal tecnico.
 
+## Dashboard PT: semafori, scadenzario, template e macrociclo annuale (nuovo)
+Voce **Dashboard PT** nel menu, sotto «Atleti» (su smartphone «PT»; il numero rosso sono gli atleti in rosso). Quattro sezioni:
+
+**🚦 Semafori atleti** (risk management):
+- 🔴 **Rosso**: scheda scaduta, certificato medico o abbonamento scaduti, «fermo fino al» superato (verifica infortunio), rivalutazione non fatta, oppure **nessun feedback da oltre 7 giorni**. Il feedback sono i carichi o le segnalazioni dal link dell’atleta (letti dal cloud, «↻ Aggiorna») oppure «Check-in fatto oggi». Con la spunta «Si allena in presenza» il feedback non conta.
+- 🟡 **Giallo**: rivalutazione e cambio scheda, test funzionali, certificato, abbonamento o cambio di fase stagionale entro 5 giorni.
+- 🟢 **Verde**: scheda attiva e feedback regolari. ⚪ Senza scheda.
+- Riquadri cliccabili per filtrare, ricerca, motivi su ogni atleta e azioni rapide («♻ Rinnova», «💬 Messaggio» o «Sollecita», «✓ Check-in»).
+
+**📆 Scadenzario e rinnovi**:
+- Nel dettaglio atleta **«💼 Abbonamento e appuntamenti»**: tipo (mensile, bimestrale, trimestrale, semestrale, annuale, pacchetto lezioni, altro), inizio, scadenza (calcolata dal tipo), lezioni, importo, note, prossimo **colloquio di check-in** (data e ora), prossima **rivalutazione / test**, «si allena in presenza».
+- Elenco «Scaduti o da fare», «Oggi e prossimi 7 giorni», «Prossimi 30 giorni»: abbonamenti, colloqui, check-in da prenotare (ogni 14–56 giorni, scelta in alto), rivalutazioni, cambi scheda, certificati, cambi di fase.
+- Azioni: 💬 WhatsApp ed ✉ Email con il messaggio già scritto, «✓ Rinnovato» (sposta l’abbonamento al periodo successivo e tiene lo storico), «📅 Prenota», «✓ Fatto», «🧪 Test», «♻ Rinnova».
+- **Promemoria**: «🔔 Attiva i promemoria su questo dispositivo» mostra una notifica al giorno, all’apertura dell’app, con le scadenze di oggi e gli atleti in rosso. **«📅 Esporta nel calendario (.ics)»** porta tutte le scadenze nel calendario del telefono con un promemoria il giorno prima e la mattina stessa (abbonamenti anche 7 giorni prima): gli avvisi arrivano anche ad app chiusa. Reimportando il file le scadenze si aggiornano.
+- L’abbonamento entra anche nelle scadenze della home e nello stato «In scadenza».
+
+**🧩 Template di mesociclo** (batch programming):
+- «+ Nuovo template» da un **modello pronto** (Principiante Ipertrofia Full Body 3 giorni, Donna ginoide 4 giorni, Master 60+ Longevity, Intermedio Forza Upper/Lower, Adattamento anatomico, Forza e ipertrofia, Definizione, Travel / outdoor) o da una **scheda salvata** («🧩 Salva come template» nella scheda: restano esercizi e dosaggi, non i kg, il cardio e le note sull’atleta).
+- **«👥 Assegna»**: data di inizio, atleti da spuntare (filtri: senza scheda attiva, principianti, Over 55, in rosso), dosaggi «del template» o «ricalcolati sul profilo». Per ogni atleta si crea una scheda salvata adattata: esercizi esclusi da infortuni e fastidi (varianti sicure), attrezzi, livello, PAR-Q o test sostituiti con alternative dello stesso movimento o muscolo (o tolti se non ce n’è una), kg dal suo 1RM, regole Over 55; principianti e PAR-Q con un «Sì» sempre ricalcolati. Date: durata del template, anticipate alla fine di uno stop per infortunio o all’inizio della fase stagionale successiva. Il riepilogo elenca le sostituzioni e apre ogni scheda nell’editor.
+
+**📅 Stagioni e macrociclo** (periodizzazione annuale):
+- Fasi standard da settembre ad agosto: **Autunno** (adattamento e ricondizionamento: 3×10–12 al 60–67% 1RM, mobilità e stabilità), **Inverno** (forza massima e ipertrofia: 4×5–8 al 75–85% 1RM), **Primavera** (definizione: 3×8–10 al 70–75%, recuperi brevi, superserie, finisher), **Estate** (mantenimento e Travel Gym: volume −30%, intensità mantenuta), **Fine estate** (ultime 2 settimane di agosto: transizione e scarico attivo).
+- Per ogni atleta «📅 Macrociclo» (dettaglio atleta o sezione Stagioni): barra dei 12 mesi con le schede, date, obiettivi, «dove si allena» (palestra oppure outdoor / viaggio con gli attrezzi) e note di ogni fase. Le fasi si ripetono ogni anno. «Attiva il macrociclo standard per N atleti» lo attiva per tutti quelli senza.
+- **Generatore**: nuovo menu «Fase del macrociclo annuale» (fase in corso, una fase a scelta, scheda da viaggio, nessuna). La fase decide obiettivi, prescrizioni, attrezzi e nome della scheda; per una fase futura la scheda parte dalla sua data; il cambio scheda si allinea all’inizio della fase successiva (in fine estate niente scarico). Le dispense Hyrox, judo e corsa hanno la precedenza.
+- **🧳 Scheda da viaggio**: mare, montagna, hotel o solo corpo libero, attrezzi da spuntare, 1–4 settimane senza scarico; solo esercizi eseguibili con quegli attrezzi, prescrizioni di mantenimento. Non cambia gli attrezzi predefiniti dell’atleta.
+- **Nutrizione**: un piano nuovo propone la fase calorica della stagione (primavera definizione, inverno ipertrofia, altrimenti mantenimento).
+- Dati nel cliente (`mac`, `abb`, `ckp`, `ckpo`, `rival`, `pres`); i template sono nelle schede con atleta `__tpl`: cloud, dispositivo e backup come sempre. Le regole di Firestore non cambiano.
+- Le notifiche push vere (anche ad app chiusa, senza calendario) e l’invio automatico dei messaggi agli atleti richiedono un server (Firebase Cloud Functions, piano a pagamento Blaze): qui i messaggi partono con un tocco da WhatsApp o email e gli avvisi arrivano dal calendario. Fasi, percentuali e soglie sono indicative e vanno validate dal Personal Trainer.
+
 ## Sezione nutrizionale (nuovo)
 Voce **Sezione nutrizionale** nel menu, sotto «Schede allenamento» (su smartphone «Nutrizione»). È facoltativa: il piano si crea per l’atleta quando serve, di solito dopo la scheda, e si può collegare a una sua scheda. Si apre anche dal dettaglio atleta («Sezione nutrizionale») e dalla scheda salvata («🥗 Piano alimentare»: apre il piano collegato o ne crea uno).
 - **Impostazione**: titolo in stampa («Alimentazione SARA»), data, scheda collegata, «Redatto o validato da», esclusioni (vegetariano, vegano, senza latticini, glutine, pesce, uova, frutta a guscio) e note su allergie e gusti.
@@ -320,7 +349,7 @@ Nell’elenco gli atleti non hanno pallini né iniziali: si legge subito il nome
 
 Calcolato dalla scheda più recente di ogni atleta (data di cambio scheda, o 6 settimane dall'inizio se manca):
 - **Attivi**: cambio scheda non ancora raggiunto.
-- **In scadenza**: cambio scheda, fine dello stop medico per infortunio o scadenza del certificato medico entro **10 giorni** o già superati. In home il riquadro «⚠ Scadenze entro 10 giorni» le elenca dalla più vicina (un clic sul nome apre l’atleta); ogni atleta ha l’etichetta precisa («Scheda tra 9 gg», «Stop infortunio tra 5 gg», «Certificato scaduto»…) e il dettaglio atleta mostra tutte le date.
+- **In scadenza**: cambio scheda, fine dello stop medico per infortunio, scadenza del certificato medico o dell’abbonamento entro **10 giorni** o già superati. In home il riquadro «⚠ Scadenze entro 10 giorni» le elenca dalla più vicina (un clic sul nome apre l’atleta); ogni atleta ha l’etichetta precisa («Scheda tra 9 gg», «Stop infortunio tra 5 gg», «Certificato scaduto»…) e il dettaglio atleta mostra tutte le date.
 - **Verifica infortunio**: la data «fermo fino al» è passata.
 - **Check-in**: atleta attivo senza check-in da almeno 14 giorni.
 
