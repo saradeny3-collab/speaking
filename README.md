@@ -91,6 +91,26 @@ Voce **Editor schede** nel menu, oppure «Modifica nell'editor» da una scheda s
 - **+ Aggiungi esercizio**, **Libreria esercizi** e **+ Aggiungi blocco**: superserie (spinta + tirata, gambe, braccia), triserie/circuito, blocco esplosivo, core, finisher con trasporto, mobilità, blocco vuoto, oppure una **seduta completa** (Full Body, Upper, Lower, Push, Pull, Legs, Petto e tricipiti…). Gli esercizi sono scelti dal profilo dell'atleta.
 - **Salva scheda** aggiorna la scheda esistente; **Salva come nuova** ne crea una copia. «Anteprima · Stampa · Excel» esporta anche le modifiche non ancora salvate.
 
+## Rinnovo costruttivo della scheda (nuovo)
+Quando la scheda scade (o dopo la seduta di rivalutazione con i test aggiornati) il pulsante **«♻ Rinnova scheda»** prepara la scheda nuova partendo da quella vecchia. Si trova nella scheda salvata, nell'editor («♻ Rinnova») e in home, accanto a ogni «Cambio scheda» nel riquadro delle scadenze. La scheda nuova si apre nell'editor, da controllare e salvare; quella vecchia resta nello storico (la nuova ricorda da quale viene).
+1. **Schemi motori**, non singoli esercizi. Catene di rotazione:
+   - spinta orizzontale: panca piana → panca inclinata manubri → dip alle parallele;
+   - trazione orizzontale: rematore con bilanciere → pulley basso → rematore manubrio;
+   - spinta verticale: military press → push press → lento manubri seduto;
+   - trazione verticale: trazioni alla sbarra → lat machine presa supina → pullover ai cavi (pulldown a braccia tese);
+   - accosciata: squat → hack squat → Bulgarian split squat;
+   - cerniera d'anca: stacco da terra → stacco rumeno → hip thrust.
+   Ogni esercizio ruota dentro il suo schema (o sullo stesso muscolo per i complementari), con lo stesso numero di esercizi per schema; lo stesso esercizio vecchio diventa lo stesso esercizio nuovo in tutte le sedute.
+2. **Variazione**: dalla macchina ai pesi liberi o ai cavi, angolo della panca o presa diversi; con un'asimmetria nello screening (Single Leg Squat, Thomas o Shoulder Mobility diversi tra destra e sinistra) vince la variante monopodalica nell'accosciata e nella cerniera. Esercizi già usati nella scheda vecchia penalizzati.
+3. **Mesociclo**: forza (4×6 all'80% 1RM, RIR 2) → ipertrofia (3×10–12, RIR 1–0) e viceversa, riconosciuto dalle ripetute medie dei fondamentali (scelta automatica o a mano). Kg calcolati dal 1RM quando c'è. Over 55: massimo 3 serie e RIR 2–3; principianti e PAR-Q con le regole di sempre.
+4. **Diario degli ultimi 30 giorni** (dal link dell'atleta, serve il cloud):
+   - fastidi segnalati → stato «fastidio» sulla zona: varianti vincolate e niente carichi assiali (spalla: shoulder press ai cavi sul piano scapolare, poi landmine press);
+   - 1RM stimato con Epley piatto per 3 settimane (scarico escluso, crescita sotto l'1%) → esercizio **«saturo»**, sostituito.
+5. **Regola 70/30**: circa il 30% degli esercizi resta, prima i big lift (squat, panca, stacco, trazioni) e poi gli altri fondamentali, se non saturi e compatibili con infortuni e fastidi. Il 1RM di riferimento (diario, poi test, poi carico della scheda con Epley) aumenta del 2,5% nella parte alta e del 5% nelle gambe; nota sul doppio progressivo. Il restante 70% ruota.
+- **Date**: la scheda nuova parte alla data di cambio di quella vecchia (o oggi, se è già passata), con la stessa durata e la stessa settimana di scarico.
+- **Resoconto**: tabella Prima → Dopo con la regola applicata (⚓ ancora, ↻ rotazione, 🛡 fastidio, ⛔ saturo, = invariato) e il motivo; lo stesso testo è nella logica di lavoro della scheda nuova.
+- Condizionamento, tatami, mobilità ed esercizi non in libreria restano com'erano. Catene, soglie (30%, 1%, 3 settimane, +2,5/5%) e scelte delle varianti sono indicative e vanno validate dal Personal Trainer.
+
 ## Proposte del prossimo esercizio
 Nell’editor e nel generatore, quando inserisci un esercizio (scritto, dalla libreria o da una proposta), sotto la riga compaiono 5 proposte:
 1. **Antagonista**, già impostato in superserie (puoi togliere la spunta);

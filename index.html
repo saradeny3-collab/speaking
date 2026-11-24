@@ -503,6 +503,7 @@ body.athm .side,body.athm .tabbar{display:none!important}body.athm main{width:10
 @media print{.nush .ntit{-webkit-print-color-adjust:exact;print-color-adjust:exact}.nsht td{font-size:9.5pt;padding:5px 7px!important}.nsht tr{break-inside:avoid}}
 @page{size:A4;margin:15mm}
 @page elenco{size:A4 landscape;margin:10mm}
+.rinr{margin:8px 0 12px;padding-left:20px}.rinr li{margin:4px 0}.rint td{font-size:13px;vertical-align:top;white-space:normal}.rint td:first-child{white-space:nowrap}.rint td:last-child{min-width:260px}.rint tr.rancora td:nth-child(4){color:#14622f;font-weight:700}.rint tr.rfastidio td:nth-child(4),.rint tr.rsaturo td:nth-child(4){color:#9b1c1c;font-weight:700}.rint tr.rrotazione td:nth-child(4){color:#4B0082;font-weight:700}
 .c20x{margin:0 0 8px;padding-left:22px}.c20x li{margin:2px 0}.c20pc{border-top:1px solid #ddd;padding:6px 0;break-inside:avoid}.c20pc h4{margin:0 0 2px;font-size:11pt}.c20pc h4 small{font-weight:400;color:#555}.c20pc ol{margin:2px 0 4px;padding-left:20px}.c20pc p{margin:0;font-size:9.5pt}.c20dia{margin-top:18px}.c20dia table{width:100%;table-layout:fixed}.c20dia th,.c20dia td{padding:3px 4px!important;font-size:8.5pt}.c20dia td{height:26px}.c20dia thead tr:first-child th:first-child{width:18%}.c20dia thead tr:first-child th:nth-child(2){width:9%}.c20ln{border-bottom:1px solid #999;height:24px}
 @media print{.c20dia{break-before:page}.c20pc li,.c20pc p{font-size:9pt}}
 .elt td,.elt th{font-size:13px;white-space:nowrap}.elt td:last-child,.elt td:nth-child(8),.elt td:nth-child(10){white-space:normal;min-width:120px}
@@ -578,7 +579,7 @@ function ago(iso){return Math.floor((Date.parse(todayIso())-Date.parse(iso))/864
 var AVV=10;
 function deadlines(u){
   var L=[],sc=schedeOf(u.id);
-  if(sc.length&&sc[0].data&&!isNaN(Date.parse(sc[0].data)))L.push({k:'sch',d:sc[0].cambio||addDays(sc[0].data,42),t:'Cambio scheda'+(sc[0].nome?' «'+sc[0].nome+'»':'')});
+  if(sc.length&&sc[0].data&&!isNaN(Date.parse(sc[0].data)))L.push({k:'sch',sid:sc[0].id,d:sc[0].cambio||addDays(sc[0].data,42),t:'Cambio scheda'+(sc[0].nome?' «'+sc[0].nome+'»':'')});
   injList(u).forEach(function(x){if(injStop(x)&&x.fino)L.push({k:'inj',d:x.fino,t:'Fine stop medico: '+injLabel(x,1)})});
   if(u.certd)L.push({k:'cert',d:u.certd,t:'Scadenza certificato medico'});
   L.forEach(function(x){x.left=-ago(x.d)});
@@ -911,7 +912,7 @@ function renderDues(){
    '</ul><p>Tocca un nome per aprire la scheda: da lì aggiungi il fastidio all’anamnesi e il filtro sostituisce gli esercizi con varianti sicure.</p></div>':'';
   box.innerHTML=fh+(L.length?'<div class="dues" role="region" aria-label="Scadenze"><h3>⚠ Scadenze entro '+AVV+' giorni ('+L.length+')</h3><ul>'+L.map(function(r){
     var x=r.x,late=x.left<0;
-    return '<li class="'+(late?'late':x.left<=3?'near':'')+'" data-row="'+esc(r.u.id)+'"><b>'+esc(r.u.n+' '+r.u.c)+'</b><span>'+esc(x.t)+'</span><span class="dd2">'+(x.d?fdate(x.d)+' · ':'')+(x.d?leftTxt(x.left):'da aggiornare')+'</span></li>'}).join('')+
+    return '<li class="'+(late?'late':x.left<=3?'near':'')+'" data-row="'+esc(r.u.id)+'"><b>'+esc(r.u.n+' '+r.u.c)+'</b><span>'+esc(x.t)+'</span><span class="dd2">'+(x.d?fdate(x.d)+' · ':'')+(x.d?leftTxt(x.left):'da aggiornare')+'</span>'+(x.k==='sch'&&x.sid?'<button type="button" class="btn sm" data-act="scrin" data-id="'+esc(x.sid)+'">♻ Rinnova</button>':'')+'</li>'}).join('')+
    '</ul><p>'+(L.some(function(r){return r.x.k==='inj'})?'Fine stop medico: prima di far tornare a caricare la zona serve il via libera del medico o del fisioterapista; poi aggiorna l’anamnesi e prepara la nuova scheda. ':'')+'Tocca un nome per aprire l’atleta.</p></div>':'');
 }
 function modal(html){var m=document.getElementById('modal');if(!m){m=document.createElement('div');m.id='modal';m.className='modal';document.body.appendChild(m)}m.innerHTML='<div class="mbox">'+html+'</div>'}
@@ -1000,7 +1001,7 @@ function injLoad(e){
   // spalla
   if(hasF(e,'oh')||s==='pv'||dip||inN(e,['Wall ball','Clean & press']))S('spalla',2);
   if(s==='po'||(s==='pi'&&(m==='Petto'||m==='Deltoidi'))||s==='lv'||/Pullover/.test(n)||inN(e,['Plank','Side plank','Copenhagen plank','Dislocazioni con bastone','Lancio laterale palla medica']))S('spalla',1);
-  if(n==='Landmine press')z.spalla=1;
+  if(n==='Landmine press'||n==='Shoulder press ai cavi da seduto (piano scapolare)')z.spalla=1;
   if(s==='lo'||m==='Deltoidi'||m==='Petto'||inN(e,['Extrarotazioni con elastico','Band pull-apart','Wall slide']))S('spalla',1);
   // gomito
   if(dip||/French|Estensioni dietro/.test(n))S('gomito',2);
@@ -1061,7 +1062,7 @@ var SAFEV=(function(){var o={},S=function(L,v){L.forEach(function(n){o[n]=v})};
   S(['Kettlebell swing','Power clean da sospensione'],['Hip thrust','Pull-through ai cavi','Ponte glutei']);
   S(['Hyperextension 45°','Lower back machine','Reverse hyper'],['Bird dog','Hip thrust','Ponte glutei']);
   S(['Rematore con bilanciere','Rematore Pendlay','Alzate posteriori a busto flesso','Croci ai cavi alti a busto flesso'],['Low row','Upper back machine','Pulley basso','Row free motion','Rematore manubrio','Alzate posteriori ai cavi']);
-  S(['Military press','Push press','Lento manubri seduto','Lento avanti al multipower','Arnold press','Clean & press','Overhead carry'],['Landmine press','Deltoid machine','Alzate laterali al cavo basso','Alzate laterali']);
+  S(['Military press','Push press','Lento manubri seduto','Lento avanti al multipower','Arnold press','Clean & press','Overhead carry'],['Shoulder press ai cavi da seduto (piano scapolare)','Landmine press','Deltoid machine','Alzate laterali al cavo basso','Alzate laterali']);
   S(['Panca piana','Panca declinata bilanciere','Dip alle parallele','Piegamenti'],['Chest press','Distensioni manubri panca piana','Pectoral machine','Croci ai cavi']);
   S(['Panca inclinata bilanciere','Panca inclinata manubri'],['Chest incline (macchina)','Panca inclinata manubri','Croci ai cavi su panca inclinata']);
   S(['Panca presa stretta','Parallele gomiti stretti','Dips tra le panche','French press','French press manubri','Estensioni dietro la nuca 1 manubrio'],['Triceps machine','Pushdown ai cavi','Push down presa inversa','Kickback manubrio']);
@@ -3542,7 +3543,7 @@ var EXRAW7=[
  'Scendi lentamente con la gamba che non lavora, controllando il ginocchio.',
  'Sali spingendo con il piede appoggiato sul gradino, senza slanci con la gamba dietro.',
  'Ginocchio in linea con il piede; tieniti al corrimano se l’equilibrio è incerto.','w']];
-(function(){var Z={'Box squat alla sedia o panca':{ginoc:1},'Sit-to-stand dalla sedia':{ginoc:1},'Stacco sumo con kettlebell':{lomb:1,anca:1},'Shoulder press ai cavi da seduto (piano scapolare)':{spalla:2},'Plank sulle ginocchia':{spalla:1},'Abduzioni con elastico':{anca:1},'Equilibrio monopodalico su cuscino propriocettivo':{cavig:1},'Camminata su tapis roulant (zona Karvonen)':{cavig:1},'Camminata a passo svelto all’aperto':{cavig:1},'Step-up su gradino basso (20 cm)':{ginoc:1,cavig:1}};
+(function(){var Z={'Box squat alla sedia o panca':{ginoc:1},'Sit-to-stand dalla sedia':{ginoc:1},'Stacco sumo con kettlebell':{lomb:1,anca:1},'Shoulder press ai cavi da seduto (piano scapolare)':{spalla:1},'Plank sulle ginocchia':{spalla:1},'Abduzioni con elastico':{anca:1},'Equilibrio monopodalico su cuscino propriocettivo':{cavig:1},'Camminata su tapis roulant (zona Karvonen)':{cavig:1},'Camminata a passo svelto all’aperto':{cavig:1},'Step-up su gradino basso (20 cm)':{ginoc:1,cavig:1}};
  EXRAW7.forEach(function(r){EXM[r[0]]={spo:'master',iz:Z[r[0]]||{}}})})();
 // Esercizi nuovi dalla dispensa «Il metodo di allenamento 20/10» (circuiti per il judo, fase 26).
 // Sotto-pattern «k» (condizionamento) o core: entrano nei circuiti 20/10, nell’editor e nella libreria.
@@ -5402,10 +5403,145 @@ async function logShow(sc){var el=gid('sclog');if(!el)return;
   try{await Promise.all([logFetch(sc),fbFetch(sc).catch(function(){})]);var e2=gid('sclog');if(e2)e2.innerHTML=fbHtml(sc)+logHtml(sc)}
   catch(e){var e3=gid('sclog');if(e3)e3.innerHTML='<h4>📈 Carichi segnati dall’atleta</h4><p class="status" style="margin:0">Non riesco a leggere i carichi ('+esc(String((e&&e.code)||'errore').replace(/^firestore\//,''))+'). <button type="button" class="btn sm" data-act="sclogr" data-id="'+esc(sc.id)+'">Riprova</button></p>'}}
 document.addEventListener('click',function(e){var a=e.target.closest('[data-act="sclogr"]');if(a){var sc=findS(a.getAttribute('data-id'));if(sc)logShow(sc)}});
+// ---- Rinnovo costruttivo della scheda (fase 27) ----
+// 5 regole: 1 mappatura per schema motorio · 2 variazione di vettore, attrezzo o piano · 3 rotazione del mesociclo (forza ↔ ipertrofia) e progressione degli ancora
+// · 4 diario degli ultimi 30 giorni (fastidi → varianti vincolate; 1RM Epley piatto per 3 settimane → esercizio «saturo») · 5 regola 70/30 (30% esercizi ancora).
+var RFAM={po:'so',pv:'sv',lo:'to',lv:'tv',sb:'acc',su:'acc',hb:'cer',hu:'cer',hg:'cer',hh:'cer'};
+var RFAMN={so:'Spinta orizzontale',sv:'Spinta verticale',to:'Trazione orizzontale',tv:'Trazione verticale',acc:'Accosciata (dominante ginocchio)',cer:'Cerniera d’anca (dominante anca)'};
+// catene di rotazione per schema motorio: al rinnovo si passa all’anello successivo
+var RCH={so:['Panca piana','Panca inclinata manubri','Dip alle parallele'],to:['Rematore con bilanciere','Pulley basso','Rematore manubrio'],sv:['Military press','Push press','Lento manubri seduto'],
+ tv:['Trazioni alla sbarra','Lat machine presa supina','Pullover ai cavi'],acc:['Squat','Hack squat','Bulgarian split squat'],cer:['Stacco da terra','Stacco rumeno','Hip thrust']};
+var RANCH=['Squat','Panca piana','Stacco da terra','Trazioni alla sbarra','Front squat','Trazioni presa supina (chin-up)','Military press'];
+var RLOW={acc:1,cer:1};
+function rFam(e){if(!e)return '';if(RFAM[e.sub])return RFAM[e.sub];for(var k in RCH)if(RCH[k].indexOf(e.n)>-1)return k;return ''}
+function rEpley(kg,rp){kg=+String(kg).replace(',','.');rp=+rp;return kg>0&&rp>0&&rp<=15?kg*(1+rp/30):0}
+function rRepAvg(r){var m=String(r||'').match(/\d+/g);if(!m)return 0;m=m.map(Number).filter(function(x){return x<=30});return m.length?(m[0]+m[m.length-1])/2:0}
+function rRound(k){return Math.round(k/2.5)*2.5}
+// diario: per esercizio il 1RM stimato (Epley) migliore di ogni settimana, nella finestra degli ultimi 30 giorni, senza la settimana di scarico
+function rDiary(sc){var L=ALOG[sc.id],o={},dw=dlWeek(sc),t30=addDays(todayIso(),-30);if(!L||!L.l)return {ex:o,weeks:[],any:false};
+  var weeks=Object.keys(L.l).map(Number).filter(function(w){var ws=sc.data?addDays(sc.data,(w-1)*7):'';return w!==dw&&(!ws||addDays(ws,6)>=t30)}).sort(function(a,b){return a-b});
+  weeks.forEach(function(w){var W=L.l[w]||{};Object.keys(W).forEach(function(k){var n=k.slice(k.indexOf('|')+1),b=0;(W[k]||[]).forEach(function(s){var v=rEpley(s&&s.kg,s&&s.rp);if(v>b)b=v});if(!b)return;
+    var x=o[n]=o[n]||{};if(!x[w]||b>x[w])x[w]=b})});
+  return {ex:o,weeks:weeks,any:weeks.length>0}}
+// stallo: le ultime 3 settimane con dati, senza crescita oltre l’1%
+function rStall(x){var w=Object.keys(x||{}).map(Number).sort(function(a,b){return a-b});if(w.length<3)return null;var l=w.slice(-3),v=l.map(function(k){return x[k]});
+  return Math.max(v[1],v[2])<=v[0]*1.01?{w:l,v:v}:null}
+function rBest(x){var w=Object.keys(x||{}).map(Number).sort(function(a,b){return a-b}).slice(-2);return w.reduce(function(m,k){return Math.max(m,x[k])},0)}
+// fastidi segnalati dall’atleta negli ultimi 30 giorni (dal link) e quelli dell’anamnesi
+function rFb(sc){var t=Date.now()-30*864e5;return (AFB[sc.id]||[]).filter(function(x){return x&&INJN[x.z]&&(+x.ts||Date.parse(x.dd)||0)>=t})}
+// mesociclo della scheda scaduta: ripetizioni medie dei fondamentali e dei base
+function rMeso(days){var a=[];days.forEach(function(d){d.es.forEach(function(x){var e=EXI[ekey(x.n)];if(e&&(e.role==='main'||e.role==='acc')){var r=rRepAvg(x.r);if(r)a.push(r)}})});
+  if(!a.length)return '';var m=a.reduce(function(s,x){return s+x},0)/a.length;return m<=7?'forza':m>=8?'ipertrofia':''}
+var RPRE={forza:{main:{s:4,r:'6',pct:[80,80],rir:'2',rpe:'8',rec:150},acc:{s:3,r:'6-8',rir:'2',rpe:'8',rec:120},iso:{s:3,r:'8-10',rir:'2',rpe:'8',rec:90}},
+ ipertrofia:{main:{s:3,r:'10-12',pct:[67,72],rir:'1–0',rpe:'9–10',rec:120},acc:{s:3,r:'10-12',rir:'1–0',rpe:'9–10',rec:90},iso:{s:3,r:'12-15',rir:'1–0',rpe:'9–10',rec:60}}};
+function rDose(x,e,c,meso,rm,anc){var R=RPRE[meso],k=e.role==='main'?'main':e.role==='acc'?'acc':'iso',d=JSON.parse(JSON.stringify(R[k]));
+  if(anc&&!d.pct)d.pct=meso==='forza'?[75,80]:[67,72];
+  if(c.master){d.s=Math.min(d.s,3);d.rir='2–3';d.rpe='7–8';if(d.pct)d.pct=[Math.min(d.pct[0],75),Math.min(d.pct[1],80)]}
+  var keep=c.rm[e.n];if(rm)c.rm[e.n]=rm;
+  x.s=d.s;x.r=d.r;x.rec=d.rec;
+  if(d.pct&&rm){spDose(x,{s:d.s,r:d.r,rec:d.rec,pct:d.pct,rir:d.rir,rpe:d.rpe},e,c)}
+  else{x.k='';x.rpe=c.lvl===1||c.pq?(c.pq?'6–7':'7–8'):d.rpe;x.tg=c.lvl===1||c.pq?(c.pq?'RIR 3–4 · in attesa del parere medico':'RIR 2–3 · priorità alla tecnica'):(d.pct?(d.pct[0]===d.pct[1]?d.pct[0]:d.pct[0]+'–'+d.pct[1])+'% 1RM · ':'')+'RIR '+d.rir}
+  if(keep)c.rm[e.n]=keep;else delete c.rm[e.n];
+  x.af={s:x.s,r:x.r,rpe:x.rpe,tg:x.tg,k:x.k,rec:x.rec}}
+// sceglie la variante di rotazione per un esercizio non ancora
+function rPick(a,dayNames,c,o){var F=rFam(a),ch=RCH[F]||[],ci=ch.indexOf(a.n),best=null,lv=Math.min(3,c.lvl+1);
+  var cand=altList(a.n,dayNames,c,null,null,1).map(function(x){return {e:x.e,s:x.s,same:x.same}});
+  ch.forEach(function(n){var e=EXI[ekey(n)];if(e&&e.n!==a.n&&!cand.some(function(x){return x.e.n===n})&&okEx(e,c,lv)&&dayNames.indexOf(n)<0)cand.push({e:e,s:2})});
+  cand.forEach(function(x){var e=x.e,w=[],s=x.s;
+    if(o.anchors[e.n]||o.taken[e.n])return;if(injHit(e,c).lvl==='avoid')return;if(o.safe&&safeAx(c)&&axial(e))return;
+    if(F&&rFam(e)&&rFam(e)!==F)return;
+    var ni=ch.indexOf(e.n);if(ch.length&&ni>-1){var nx=ci>-1?ch[(ci+1)%ch.length]:'';if(e.n===nx){s+=6;w.push('anello successivo della catena '+RFAMN[F].toLowerCase())}else s+=1.5}
+    var str=['main','acc','iso'].indexOf(a.role)>-1,am=str&&hasEq(a,'m'),em=hasEq(e,'m'),free=hasEq(e,'b')||hasEq(e,'d')||hasEq(e,'k')||hasEq(e,'w');
+    if(am&&!em&&(free||hasEq(e,'c'))){s+=2.5;w.push('dalla macchina ai '+(hasEq(e,'c')&&!free?'cavi':'pesi liberi')+': più stabilizzatori e coordinazione')}
+    else if(str&&e.eq.join()!==a.eq.join()){s+=1;w.push('attrezzo diverso')}
+    if(e.sub===a.sub&&e.m===a.m&&/inclinat|declinat|presa|supin|neutra|inversa|chin-up/i.test(e.n+' '+a.n)){s+=1;w.push('angolo o presa diversi: altri fasci muscolari')}
+    if(o.asym&&(F==='acc'||F==='cer')&&(e.sub==='su'||e.sub==='hu')){s+=5;w.push('monopodalico per l’asimmetria dello screening')}
+    if(o.prev[e.n]){s-=4}
+    if(['core','carry','plyo','cond'].indexOf(a.role)>-1&&e.sub===a.sub)s+=3;
+    if(o.used[e.n])s-=2;
+    if(injHit(e,c).lvl==='caut'){w.push('con cautela')}
+    if(!best||s>best.s)best={e:e,s:s,w:w}});
+  return best}
+function rAsym(u){var v=(u&&u.test&&u.test.v)||{},d=function(k,re){return re.test(v[k+'_dx']||'')!==re.test(v[k+'_sx']||'')};
+  return d('sls',/marcat|lieve/i)||d('thomas',/Positivo/)||d('shm',/Oltre|Dolore/)}
+// costruisce la scheda nuova (dati dell’editor) e il resoconto
+function renewBuild(sc,u,opt){
+  var c=profile(u),old=edClone(sc),diary=rDiary(sc),fb=rFb(sc),notes=[],items=[];
+  // fastidi del diario → stato «fastidio» sulla zona (filtro di auto-sostituzione)
+  if(fb.length){c.injZ=c.injZ||{};fb.forEach(function(x){if(!c.injZ[x.z]||c.injZ[x.z]<1.5)c.injZ[x.z]=1.5});c.safe=true}
+  var meso0=rMeso(old),meso=opt.meso&&opt.meso!=='auto'?opt.meso:meso0==='forza'?'ipertrofia':meso0==='ipertrofia'?'forza':(c.ob.indexOf('Ipertrofia')>-1&&c.ob.indexOf('Forza')<0?'forza':'ipertrofia');
+  var rows=[];old.forEach(function(d,j){d.es.forEach(function(x,i){if(!x.n)return;var e=EXI[ekey(x.n)];rows.push({d:j,i:i,x:x,e:e})})});
+  var gym=rows.filter(function(r){return r.e&&['main','acc','iso','core','carry','plyo'].indexOf(r.e.role)>-1});
+  var quota=Math.max(gym.length?1:0,Math.round(gym.length*0.3)),anchors={},nA=0,prev={};rows.forEach(function(r){if(r.e)prev[r.e.n]=1});
+  // stallo e 1RM dal diario
+  var stall={},best={};Object.keys(diary.ex).forEach(function(n){var e=EXI[ekey(n)],k=e?e.n:n,s=rStall(diary.ex[n]);if(s)stall[k]=s;var b=rBest(diary.ex[n]);if(b&&(!best[k]||b>best[k]))best[k]=b});
+  // 5. esercizi ancora: big lifts (poi altri fondamentali) fino al 30%, se non saturi e compatibili con infortuni e fastidi
+  var cands=gym.filter(function(r){return r.e.role==='main'}).map(function(r){return {r:r,p:RANCH.indexOf(r.e.n)>-1?RANCH.indexOf(r.e.n):20}}).sort(function(a,b){return a.p-b.p});
+  cands.forEach(function(x){var e=x.r.e;if(nA>=quota&&!anchors[e.n])return;if(stall[e.n]||injHit(e,c).lvl==='avoid'||(fb.length&&safeAx(c)&&axial(e)))return;
+    if(!anchors[e.n]){var cnt=gym.filter(function(r){return r.e.n===e.n}).length;if(nA+cnt>quota&&nA>0)return;anchors[e.n]=1;nA+=cnt}});
+  var map={},used={},o={anchors:anchors,taken:{},prev:prev,used:used,asym:rAsym(u),safe:fb.length>0};
+  old.forEach(function(d,j){var names=d.es.map(function(x){return x.n}).filter(Boolean);
+    d.es.forEach(function(x,i){if(!x.n)return;var e=EXI[ekey(x.n)],dt=d.t||'Seduta '+(j+1);
+      if(!e||['main','acc','iso','core','carry','plyo'].indexOf(e.role)<0){items.push({g:0,dt:dt,from:x.n,to:x.n,t:'invariato',why:e?'Non è un esercizio di forza: resta com’è (condizionamento, tatami, mobilità).':'Non è in libreria: resta com’è.'});return}
+      var strength=['main','acc','iso'].indexOf(e.role)>-1,F=rFam(e);
+      if(anchors[e.n]){var b0=best[e.n]||c.rm[e.n]||(x.k&&rRepAvg(x.r)?rEpley(x.k,rRepAvg(x.r)):0),inc=RLOW[F]?0.05:0.025,rm=b0?b0*(1+inc):0;
+        var kOld=x.k;rDose(x,e,c,meso,rm,1);x.nt=(x.nt?x.nt+' ':'')+'Esercizio ancora: doppio progressivo, quando completi tutte le serie al massimo delle ripetizioni aumenta il carico (+2,5 kg nella parte alta, +5 kg nelle gambe).';
+        items.push({g:1,dt:dt,from:e.n,to:e.n,t:'ancora',why:'Big lift mantenuto (regola 70/30) per seguire la curva della forza massima.'+(rm?' 1RM di riferimento '+fnum(Math.round(b0))+' kg'+(best[e.n]?' (diario, Epley)':c.rm[e.n]?' (test)':' (carico della scheda)')+' → '+fnum(Math.round(rm))+' kg (+'+(inc*100).toLocaleString('it-IT')+'%)'+(x.k?': '+fnum(x.k)+' kg'+(kOld?' (prima '+fnum(kOld)+' kg)':''):''):' Senza 1RM: progressione a RIR e doppio progressivo.')});return}
+      var why=[],tp='rotazione',to=null;
+      if(map[e.n]){to=map[e.n].e;why=map[e.n].w.slice();tp=map[e.n].t}
+      else{
+        var hit=injHit(e,c);
+        if(hit.lvl==='avoid'||(fb.length&&safeAx(c)&&axial(e))){var sa=safeAlts(e.n,names.concat(Object.keys(o.taken)),c,3).filter(function(y){return !anchors[y.e.n]})[0];
+          if(sa){to=sa.e;tp='fastidio';why=['Fastidio '+injZn(hit.z.length?hit:{z:fb.map(function(f){return f.z})})+' nel diario: variante vincolata ('+sa.why+')']}}
+        if(!to){var pk=rPick(e,names,c,o);if(pk){to=pk.e;why=pk.w;if(stall[e.n]){tp='saturo';why.unshift('Saturo: 1RM stimato piatto per 3 settimane ('+stall[e.n].v.map(function(v){return fnum(Math.round(v))}).join(' → ')+' kg)')}}}
+        if(!to){to=e;tp='invariato';why=['Nessuna variante compatibile con profilo, infortuni e attrezzi']}
+        map[e.n]={e:to,w:why,t:tp};o.taken[to.n]=1}
+      used[to.n]=1;
+      var nx=to===e?x:Object.assign(edRowFrom(to,c),{lk:x.lk});
+      if(strength&&['main','acc','iso'].indexOf(to.role)>-1){var rm2=best[to.n]||c.rm[to.n]||0;rDose(nx,to,c,meso,rm2,0)}
+      else if(to!==e&&to.sub===e.sub){nx.s=x.s;nx.r=x.r;nx.rec=x.rec;nx.rpe=x.rpe;nx.tg=x.tg;nx.k='';nx.af={s:nx.s,r:nx.r,rpe:nx.rpe,tg:nx.tg,k:nx.k,rec:nx.rec}}
+      d.es[i]=nx;names[i]=to.n;
+      items.push({g:1,dt:dt,from:e.n,to:to.n,t:tp,why:(why.length?why.join('; '):F?RFAMN[F]+': stesso schema motorio, esercizio diverso':'Stesso muscolo, esercizio diverso')+'.',f:F})})});
+  var nInn=items.filter(function(x){return x.t==='rotazione'||x.t==='fastidio'||x.t==='saturo'}).length,nAnc=items.filter(function(x){return x.t==='ancora'}).length,nG=items.filter(function(x){return x.g}).length;
+  var td=todayIso(),start=sc.cambio&&sc.cambio>td?sc.cambio:td,len=sc.cambio&&sc.data?Math.max(28,Math.round((Date.parse(sc.cambio)-Date.parse(sc.data))/864e5)):42,dlo=sc.deload&&sc.data?Math.round((Date.parse(sc.deload)-Date.parse(sc.data))/864e5):21;
+  var MN={forza:'Forza',ipertrofia:'Ipertrofia'},R={da:sc.id,dn:sc.nome||'',dt:td,meso0:meso0,meso:meso,quota:quota,nAnc:nAnc,nInn:nInn,nG:nG,items:items,fb:fb.map(function(x){return {dd:x.dd,z:x.z,i:x.i,ex:x.ex||'',ok:!!x.ok}}),stall:Object.keys(stall),diary:diary.any,asym:o.asym};
+  var lg=['RINNOVO COSTRUTTIVO della scheda «'+(sc.nome||'Scheda')+'» ('+fdate(td)+').',
+   '1. Schemi motori: ogni esercizio è letto per pattern (spinta e trazione orizzontale e verticale, accosciata, cerniera d’anca) e sostituito restando nello stesso schema, con la stessa quantità di lavoro.',
+   '2. Variazione: attrezzo (dalla macchina ai pesi liberi o ai cavi), angolo o presa'+(o.asym?', varianti monopodaliche per l’asimmetria rilevata nello screening':'')+'.',
+   '3. Mesociclo: '+(meso0?MN[meso0]:'non riconosciuto')+' → '+MN[meso]+(meso==='ipertrofia'?' (3×10–12, RIR 1–0): si sfrutta la forza guadagnata per caricare di più nelle serie ad alto volume.':' (4×6 all’80% 1RM, RIR 2): si consolida il volume del blocco precedente in forza massima.')+(c.master?' Regole Over 55: massimo 3 serie, RIR 2–3.':''),
+   '4. Diario degli ultimi 30 giorni: '+(diary.any?'carichi dell’atleta letti dal link'+(R.stall.length?'; saturi (1RM Epley piatto per 3 settimane): '+R.stall.join(', '):'; nessun esercizio saturo'):'nessun carico segnato dall’atleta (1RM dai test o dai carichi della scheda)')+'; '+(fb.length?fb.length+(fb.length===1?' fastidio segnalato':' fastidi segnalati')+' ('+fb.map(function(x){return INJN[x.z].toLowerCase()+' '+x.i+'/10'+(x.ex?' su '+x.ex:'')}).join('; ')+'): varianti vincolate e niente carichi assiali sulla zona.':'nessun fastidio segnalato.'),
+   '5. Regola 70/30: '+nAnc+' esercizi ancora su '+nG+' ('+(nG?Math.round(nAnc/nG*100):0)+'%), '+nInn+' ruotati ('+(nG?Math.round(nInn/nG*100):0)+'%). Gli ancora proseguono con progressione del 2,5% (parte alta) o del 5% (gambe) e doppio progressivo.'];
+  var ns={nome:String(sc.nome||'Scheda').replace(/\s*·\s*rinnovo.*$/i,'')+' · rinnovo '+MN[meso].toLowerCase(),data:start,deload:addDays(start,dlo>0&&dlo<len?dlo:21),cambio:addDays(start,len),freq:+sc.freq||old.length,split:sc.split||'',
+   logica:lg.join('\n')+(sc.logica?'\n\nScheda precedente:\n'+sc.logica:''),wu:sc.wu||'',cd:sc.cd||'',wuL:JSON.parse(JSON.stringify(sc.wuL||[])),cdL:JSON.parse(JSON.stringify(sc.cdL||[])),days:old,luogo:sc.luogo||'',heq:(sc.heq||[]).slice(),car:JSON.parse(JSON.stringify(sc.car||[])),prev:sc.id,rin:R};
+  return {sc:ns,R:R,c:c}}
+// ---- interfaccia ----
+var RINS=null;
+function renewOpen(id){var sc=findS(id);if(!sc)return;var u=find(sc.uid);if(!u)return;RINS=sc.id;var m0=rMeso(edClone(sc)),MN={forza:'Forza',ipertrofia:'Ipertrofia'};
+  var cl=!!(window.Cloud&&Cloud.user()&&sc.atok);
+  modal('<h3>♻ Rinnovo costruttivo · '+esc(sc.nome||'Scheda')+'</h3><p class="status">'+esc(u.n+' '+u.c)+' · cambio scheda '+(sc.cambio?fdate(sc.cambio):'non indicato')+'. L’app legge la scheda scaduta e prepara la nuova nell’editor, da controllare e salvare: la scheda vecchia resta nello storico.</p>'+
+   '<ol class="rinr"><li><b>Schemi motori</b>, non singoli esercizi: spinta e trazione orizzontale e verticale, accosciata, cerniera d’anca, con la stessa quantità di lavoro.</li><li><b>Variazione</b> di attrezzo (dalla macchina ai pesi liberi o ai cavi), angolo o presa; monopodalico se lo screening mostra un’asimmetria.</li><li><b>Mesociclo</b>: forza → ipertrofia o ipertrofia → forza; progressione del 2,5–5% sugli esercizi che restano.</li><li><b>Diario degli ultimi 30 giorni</b>: fastidi → varianti vincolate; 1RM stimato piatto per 3 settimane → esercizio «saturo» sostituito.</li><li><b>Regola 70/30</b>: circa il 30% resta (squat, panca, stacco, trazioni) per seguire la forza massima, il 70% ruota.</li></ol>'+
+   '<div class="fg"><label class="fl">Mesociclo nuovo<select id="rin_m"><option value="auto">Automatico: '+(m0?MN[m0]+' → '+(m0==='forza'?'Ipertrofia':'Forza'):'dagli obiettivi')+'</option><option value="ipertrofia">Ipertrofia (3×10–12, RIR 1–0)</option><option value="forza">Forza (4×6 all’80% 1RM, RIR 2)</option></select></label></div>'+
+   '<p class="status" id="rinst">'+(cl?'Leggo dal link dell’atleta carichi e fastidi degli ultimi 30 giorni…':'Senza il link sempre aggiornato (cloud) il diario dell’atleta non è disponibile: si usano test, carichi della scheda e infortuni dell’anamnesi.')+'</p>'+
+   '<div class="mrow"><button data-act="mclose">Annulla</button><button class="pri" data-act="rinok" id="rinok"'+(cl?' disabled':'')+'>♻ Prepara la scheda nuova</button></div>');
+  if(cl)Promise.all([logFetch(sc).catch(function(){}),fbFetch(sc).catch(function(){})]).then(function(){if(RINS!==sc.id||!gid('rinst'))return;var d=rDiary(sc),f=rFb(sc);
+    st('rinst','Diario degli ultimi 30 giorni: '+(d.any?d.weeks.length+(d.weeks.length===1?' settimana':' settimane')+' con carichi segnati':'nessun carico segnato')+' · '+(f.length?f.length+(f.length===1?' fastidio':' fastidi'):'nessun fastidio')+'.');gid('rinok').disabled=false})}
+function renewGo(){var sc=findS(RINS);if(!sc)return;var u=find(sc.uid),m=(gid('rin_m')||{}).value||'auto';
+  var B=renewBuild(sc,u,{meso:m});closeModal();
+  cur='ed';ED.uid=u.id;ED.sid=null;ED.day=0;ED.sg=null;ED.sc=B.sc;ED.dirty=true;gctx=profile(u);if(B.sc.luogo)gctx.home=homeOf(B.sc.luogo,B.sc.heq);
+  render();window.scrollTo(0,0);renewReport(B.R);st('edstat','Scheda rinnovata, non ancora salvata: controlla e premi «Salva scheda».')}
+function renewReport(R){var TN={ancora:'⚓ Ancora',rotazione:'↻ Rotazione',fastidio:'🛡 Fastidio',saturo:'⛔ Saturo',invariato:'= Invariato'},MN={forza:'Forza',ipertrofia:'Ipertrofia'};
+  modal('<h3>♻ Rinnovo costruttivo: resoconto</h3><p class="status">Dalla scheda «'+esc(R.dn)+'» · mesociclo '+(R.meso0?MN[R.meso0]:'—')+' → <b>'+MN[R.meso]+'</b> · esercizi ancora '+R.nAnc+' su '+R.nG+' ('+(R.nG?Math.round(R.nAnc/R.nG*100):0)+'%) · ruotati '+R.nInn+' ('+(R.nG?Math.round(R.nInn/R.nG*100):0)+'%)'+(R.asym?' · asimmetria nello screening':'')+'.</p>'+
+   (R.fb.length?'<div class="warn" style="margin:0 0 10px">🩹 Fastidi degli ultimi 30 giorni: '+esc(R.fb.map(function(x){return fdate(x.dd)+' '+INJN[x.z].toLowerCase()+' '+x.i+'/10'+(x.ex?' ('+x.ex+')':'')}).join(' · '))+'. Valuta se aggiornare anche l’anamnesi.</div>':'')+
+   '<div class="xwrap"><table class="stab rint"><thead><tr><th>Seduta</th><th>Prima</th><th>Dopo</th><th>Regola</th><th>Perché</th></tr></thead><tbody>'+R.items.map(function(x){return '<tr class="r'+x.t+'"><td>'+esc(x.dt)+'</td><td>'+esc(x.from)+'</td><td><b>'+esc(x.to)+'</b></td><td>'+TN[x.t]+'</td><td>'+esc(x.why)+'</td></tr>'}).join('')+'</tbody></table></div>'+
+   '<p class="status">Il resoconto è anche nella logica di lavoro della scheda nuova. Serie, ripetizioni, RIR e carichi restano modificabili nell’editor; la scheda vecchia non cambia.</p><div class="mrow"><button class="pri" data-act="mclose">Controlla nell’editor</button></div>');
+  document.querySelector('#modal .mbox').classList.add('xl')}
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('[data-act="scrin"]');if(!a)return;e.stopPropagation();e.preventDefault();
+  var id=a.getAttribute('data-id');if(id==='__ed')id=ED.sid;if(cur==='ed'&&ED.dirty&&ED.sid===id){st('edstat','Salva o annulla le modifiche prima di rinnovare la scheda.');return}renewOpen(id)},true);
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('[data-act="rinok"]');if(a&&!a.disabled)renewGo()});
 function viewScheda(id){
   var sc=findS(id);if(!sc)return;var u=find(sc.uid);
   var tmp=sc.id==='__ed',lg=!tmp&&sc.atok,sbad=!tmp&&u?injBad(schedaDays(sc),(sc.wuL||[]).concat(sc.cdL||[]),profile(u)):[];
-  modal('<h3>'+esc(sc.nome)+(tmp&&ED.dirty?' <i class="dc">anteprima non salvata</i>':'')+'</h3>'+(sbad.length?'<div class="warn noprn" style="margin:0 0 14px"><b>🛡 '+sbad.length+(sbad.length===1?' esercizio non è compatibile':' esercizi non sono compatibili')+' con gli infortuni o i fastidi attuali</b> ('+esc(sbad.map(function(b){return b.n}).join(', '))+'). <button type="button" class="btn sm pri" data-act="scsafe" data-id="'+esc(sc.id)+'">Sostituisci con varianti sicure</button><br><span class="status">Si apre l’editor con le sostituzioni già fatte: controlli e salvi; l’atleta vede la scheda nuova dal suo link.</span></div>':'')+(lg?'<div class="sclog" id="sclog" style="margin:0 0 16px"></div>':'')+schedaBody(sc,u)+'<div class="status" id="sdstat"></div><div class="mrow"><button data-act="mclose">Chiudi</button>'+(tmp?'':'<button data-act="edopen" data-id="'+esc(sc.id)+'">Modifica nell’editor</button><button data-act="nutsc" data-id="'+esc(sc.id)+'">🥗 Piano alimentare</button>')+
+  modal('<h3>'+esc(sc.nome)+(tmp&&ED.dirty?' <i class="dc">anteprima non salvata</i>':'')+'</h3>'+(sbad.length?'<div class="warn noprn" style="margin:0 0 14px"><b>🛡 '+sbad.length+(sbad.length===1?' esercizio non è compatibile':' esercizi non sono compatibili')+' con gli infortuni o i fastidi attuali</b> ('+esc(sbad.map(function(b){return b.n}).join(', '))+'). <button type="button" class="btn sm pri" data-act="scsafe" data-id="'+esc(sc.id)+'">Sostituisci con varianti sicure</button><br><span class="status">Si apre l’editor con le sostituzioni già fatte: controlli e salvi; l’atleta vede la scheda nuova dal suo link.</span></div>':'')+(lg?'<div class="sclog" id="sclog" style="margin:0 0 16px"></div>':'')+schedaBody(sc,u)+'<div class="status" id="sdstat"></div><div class="mrow"><button data-act="mclose">Chiudi</button>'+(tmp?'':'<button class="blk" data-act="scrin" data-id="'+esc(sc.id)+'">♻ Rinnova scheda</button><button data-act="edopen" data-id="'+esc(sc.id)+'">Modifica nell’editor</button><button data-act="nutsc" data-id="'+esc(sc.id)+'">🥗 Piano alimentare</button>')+
    '<button data-act="scsv" data-id="'+esc(sc.id)+'">CSV</button><button data-act="sdl" data-id="'+esc(sc.id)+'">Scarica HTML</button><button data-act="prn">Stampa / Esporta PDF</button><button data-act="sxl" data-id="'+esc(sc.id)+'">Esporta Excel (.xlsx)</button><button class="blk" data-act="send" data-id="'+esc(sc.id)+'">📤 Invia PDF ed Excel</button><button class="pri" data-act="share" data-id="'+esc(sc.id)+'">📲 Condividi con l’atleta</button></div>');
   document.querySelector('#modal .mbox').classList.add('xl');
   if(lg)logShow(sc);
@@ -5665,7 +5801,7 @@ function edClone(sc){
 function edLoad(uid,sid){
   var u=find(uid);ED.uid=u?u.id:null;ED.day=0;ED.dirty=false;ED.sg=null;gctx=u?profile(u):null;
   var sc=u?((sid&&findS(sid))||schedeOf(u.id)[0]):null;if(sc&&String(sc.uid)!==String(ED.uid))sc=null;
-  if(sc){ED.sid=sc.id;ED.sc={nome:sc.nome||'',data:sc.data||todayIso(),deload:sc.deload||'',cambio:sc.cambio||'',freq:+sc.freq||schedaDays(sc).length||1,split:sc.split||'',logica:sc.logica||sc.note||'',wu:sc.wu||'',cd:sc.cd||'',wuL:JSON.parse(JSON.stringify(sc.wuL||[])),cdL:JSON.parse(JSON.stringify(sc.cdL||[])),days:edClone(sc),luogo:sc.luogo||'',heq:(sc.heq||[]).slice(),car:JSON.parse(JSON.stringify(sc.car||[]))};if(gctx&&sc.luogo)gctx.home=homeOf(sc.luogo,sc.heq)}
+  if(sc){ED.sid=sc.id;ED.sc={nome:sc.nome||'',data:sc.data||todayIso(),deload:sc.deload||'',cambio:sc.cambio||'',freq:+sc.freq||schedaDays(sc).length||1,split:sc.split||'',logica:sc.logica||sc.note||'',wu:sc.wu||'',cd:sc.cd||'',wuL:JSON.parse(JSON.stringify(sc.wuL||[])),cdL:JSON.parse(JSON.stringify(sc.cdL||[])),days:edClone(sc),luogo:sc.luogo||'',heq:(sc.heq||[]).slice(),car:JSON.parse(JSON.stringify(sc.car||[])),prev:sc.prev||'',rin:sc.rin||null};if(gctx&&sc.luogo)gctx.home=homeOf(sc.luogo,sc.heq)}
   else{ED.sid=null;ED.sc=null}
 }
 function openEd(uid,sid){cur='ed';closeModal();edLoad(uid,sid);render();window.scrollTo(0,0)}
@@ -5676,7 +5812,8 @@ function edBuild(){
   days.forEach(function(d){var gn=0;d.es.forEach(function(x,i){if(x.lk&&i>0){if(!d.es[i-1].g)d.es[i-1].g=++gn;x.g=d.es[i-1].g}});d.es.forEach(function(x){delete x.lk;delete x.auto;delete x.af})});
   var flat=[];days.forEach(function(d,i){d.es.forEach(function(x){flat.push(Object.assign({d:i},x))})});
   var wuL=wuClean(s.wuL),cdL=wuClean(s.cdL);
-  return {uid:String(ED.uid),nome:(s.nome||'').trim()||'Scheda',data:s.data||todayIso(),deload:s.deload||'',cambio:s.cambio||'',freq:+s.freq||days.length||1,split:s.split||'',logica:s.logica||'',wuL:wuL,cdL:cdL,wu:wuL.length?wuText(wuL,'wu'):(s.wu||''),cd:cdL.length?wuText(cdL,'cd'):(s.cd||''),days:days,es:flat,luogo:s.luogo||'',heq:s.luogo==='casa'?(s.heq||[]):[],car:carList(s.car),v:2,ts:Date.now()};
+  var o={uid:String(ED.uid),nome:(s.nome||'').trim()||'Scheda',data:s.data||todayIso(),deload:s.deload||'',cambio:s.cambio||'',freq:+s.freq||days.length||1,split:s.split||'',logica:s.logica||'',wuL:wuL,cdL:cdL,wu:wuL.length?wuText(wuL,'wu'):(s.wu||''),cd:cdL.length?wuText(cdL,'cd'):(s.cd||''),days:days,es:flat,luogo:s.luogo||'',heq:s.luogo==='casa'?(s.heq||[]):[],car:carList(s.car),v:2,ts:Date.now()};
+  if(s.prev){o.prev=s.prev;if(s.rin)o.rin=s.rin}return o;
 }
 async function edSave(asNew){
   var o=edBuild();if(!o.days.length){st('edstat','Aggiungi almeno un esercizio (con il nome) prima di salvare.');return}
@@ -5761,7 +5898,7 @@ function edBody(){
    '<details class="asec edfold" data-ko="vol"'+(ED.open.vol?' open':'')+'><summary><b>Volume settimanale per muscolo</b></summary><div id="edvol" style="margin-top:12px">'+edVolHtml()+'</div></details>';
   h+='<div class="edfoot"><span class="status'+(ED.dirty?' dirty':'')+'" id="edstat" role="status">'+(ED.dirty?'Modifiche non salvate.':'')+'</span>'+
    (ED.sid&&ED.dirty?'<button type="button" class="btn" data-act="edrevert"><span class="dx">Annulla modifiche</span><span class="mx">Annulla</span></button>':'')+
-   '<button type="button" class="btn" data-act="edprev">Anteprima<span class="dx"> · Stampa · Excel</span></button><button type="button" class="btn" data-act="send" data-id="__ed">📤<span class="dx"> Invia PDF · Excel</span></button>'+(ED.sid?'<button type="button" class="btn blk" data-act="edcopy"><span class="dx">Salva come nuova</span><span class="mx">Copia</span></button>':'')+'<button type="button" class="btn pri" data-act="edsave"><span class="dx">Salva scheda</span><span class="mx">Salva</span></button></div>';
+   '<button type="button" class="btn" data-act="edprev">Anteprima<span class="dx"> · Stampa · Excel</span></button><button type="button" class="btn" data-act="send" data-id="__ed">📤<span class="dx"> Invia PDF · Excel</span></button>'+(ED.sid?'<button type="button" class="btn" data-act="scrin" data-id="__ed">♻<span class="dx"> Rinnova</span></button>':'')+(ED.sid?'<button type="button" class="btn blk" data-act="edcopy"><span class="dx">Salva come nuova</span><span class="mx">Copia</span></button>':'')+'<button type="button" class="btn pri" data-act="edsave"><span class="dx">Salva scheda</span><span class="mx">Salva</span></button></div>';
   return h;
 }
 function renderEd(){
