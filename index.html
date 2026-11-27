@@ -165,7 +165,7 @@ main.mstart{--bg:#000;--surface:#141414;--text:#fff;--muted:#cfcfcf;--line:#3a3a
 .stb2 i{font-style:normal;margin-left:auto;font-size:16px}.stb2 .stn{margin-left:auto;background:#fff;color:#4B0082;border-radius:99px;padding:1px 11px;font-size:15px}.stb2 .stn+i{margin-left:6px}
 .stb2 .stplus{width:28px;text-align:center;font-size:30px;line-height:1}
 .styan{flex-direction:column;justify-content:center;text-align:center;gap:8px;padding:22px}.styan img{width:110px;max-width:40%;height:auto}.styan small{font-size:13px;font-weight:500;color:#e6dcf5}
-.stb2.styan{background:#000;border-color:#000;color:#fff}.stb2.styan:hover,.stb2.styan:focus-visible{border-color:#4B0082}.styan small{color:#cfcfcf}
+.stb2.styan{background:#000;border-color:#000;color:#fff}.stb2.styan:hover,.stb2.styan:focus-visible{border-color:#4B0082}#stgr .styan{min-height:0;border-radius:12px}.styan small{color:#cfcfcf}
 .stal{margin-top:8px;background:#141414;border:1px solid #4B0082;border-radius:14px;padding:10px}.stal[hidden]{display:none}.stal .search{margin:0 0 8px}
 .stul{list-style:none;margin:0;padding:0;max-height:55vh;overflow:auto}.stul li+li{border-top:1px solid #2c2c2c}
 .stul button{width:100%;display:flex;flex-wrap:wrap;align-items:center;gap:8px;background:none;border:0;color:#fff;font:inherit;font-size:16px;padding:12px 10px;border-radius:10px;cursor:pointer;text-align:left}.stul button:hover,.stul button:focus-visible{background:#2a1550}
@@ -710,7 +710,7 @@ var I = {
   crm:'<svg viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="3"/><circle cx="12" cy="7" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="17" r="1.6"/></svg>',
   nut:'<svg viewBox="0 0 24 24"><path d="M12 7.5c-1.6-1.3-4.2-1.4-5.8.3C4 10.1 4.6 15 7.2 18.2c1.3 1.6 2.8 2.3 4.8 1.4 2 .9 3.5.2 4.8-1.4 2.6-3.2 3.2-8.1 1-10.4-1.6-1.7-4.2-1.6-5.8-.3zM12 7.5c0-2 .8-3.6 2.6-4.5"/></svg>'
 };
-var cur = 'start', uf = 'all', STA = false, STQ = '';
+var cur = 'start', uf = 'all', STA = false, STQ = '', STG = false;
 var BRAND='<div class="brand"><div class="bl"><svg viewBox="0 0 32 32" aria-hidden="true"><polyline points="2,18 8,18 11.5,6 16.5,27 20,14 22.5,18 26,18"/></svg><span class="wm" aria-label="S.peaking"><b>S.</b>peaking</span></div><div class="tag">Anamnesi · Valutazione funzionale · Preparazione atletica</div></div>';
 document.getElementById('hdr').innerHTML=BRAND;
 // Stato degli atleti, calcolato dalla scheda più recente:
@@ -1005,7 +1005,7 @@ function filtered(){
   return U.filter(function(u){return (!q||[u.n,u.c,u.cf,u.t,u.e,u.ci,(u.ob||[]).join(' '),u.gara,(u.sp||[]).join(' ')].join(' ').toLowerCase().indexOf(q)>-1)&&(uf==='all'||ustat(u)[uf])})
    .sort(function(a,b){return (a.c+a.n).localeCompare(b.c+b.n)});
 }
-// ---- Pagina iniziale (nera, pulsanti viola): Atleti, Nuovo cliente, Elenco atleti, Backup, Yanagi Academy ----
+// ---- Pagina iniziale (nera, pulsanti viola): Atleti, Nuovo cliente, Elenco atleti, Backup, Allenamento di gruppo o squadre (tendina con Yanagi Academy) ----
 function renderStart(){
   var y=typeof YLOGO==='string'&&YLOGO;
   document.getElementById('main').innerHTML=
@@ -1023,7 +1023,8 @@ function renderStart(){
    '<div class="ddm" id="bkm" role="menu" hidden><button role="menuitem" data-act="exp">Esporta backup (JSON)</button><button role="menuitem" data-act="imp">Importa backup (JSON)</button>'+
    (Cloud.user()?'<button role="menuitem" data-act="cloudup">Carica nel cloud i dati di questo dispositivo</button><button role="menuitem" data-act="logout">Esci ('+esc(Cloud.user().email||'')+')</button><p class="hint" id="cloudst">'+esc(Cloud.status())+'</p>':
    '<p class="hint">Stai lavorando senza cloud: i dati sono salvati solo in questo browser. Per passarli a un altro dispositivo usa Esporta e poi Importa.</p>')+'</div></div>')+
-   '<div class="stcell stwide"><button class="stb2 styan" data-go="yan">'+(y?'<img src="'+YLOGO+'" alt="">':I.yan)+'<span>Yanagi Academy</span><small>Gruppi e squadre di judo · Esercizi judo · Timer randori</small></button></div>'+
+   '<div class="stcell stwide"><button class="stb2" data-act="stgrp" aria-expanded="'+STG+'" aria-controls="stgr"><svg viewBox="0 0 24 24"><circle cx="12" cy="6.5" r="2.8"/><circle cx="5" cy="9" r="2.3"/><circle cx="19" cy="9" r="2.3"/><path d="M7.5 20c0-3 2-5.2 4.5-5.2s4.5 2.2 4.5 5.2M1.5 19c0-2.4 1.5-4.2 3.5-4.2.9 0 1.7.3 2.3.9M22.5 19c0-2.4-1.5-4.2-3.5-4.2-.9 0-1.7.3-2.3.9"/></svg><span>Allenamento di gruppo o squadre</span>'+(typeof GR!=='undefined'&&GR.length?'<b class="stn">'+GR.length+'</b>':'')+'<i aria-hidden="true">'+(STG?'▴':'▾')+'</i></button>'+
+   '<div class="stal" id="stgr"'+(STG?'':' hidden')+'><button class="stb2 styan" data-go="yan">'+(y?'<img src="'+YLOGO+'" alt="">':I.yan)+'<span>Yanagi Academy</span><small>Gruppi e squadre di judo · Esercizi judo · Timer randori</small></button></div></div>'+
    '</div></div>';
   var q=document.getElementById('stq');if(q)q.addEventListener('input',function(e){STQ=e.target.value;stList()});
   stList();cloudBar();
@@ -1034,6 +1035,8 @@ function stList(){
   box.innerHTML=!U.length?'<p class="stemp">Nessun atleta ancora: usa «+ Nuovo cliente».</p>':!L.length?'<p class="stemp">Nessun atleta con questo nome.</p>':
    '<ul class="stul">'+L.map(function(u){var b=badges(u);return '<li><button data-row="'+esc(u.id)+'"><b>'+esc(u.c+' '+u.n)+'</b>'+(b?'<span class="ubd">'+b+'</span>':'')+'</button></li>'}).join('')+'</ul>';
 }
+document.addEventListener('click',function(e){var a=e.target.closest('[data-act="stgrp"]');if(!a)return;STG=!STG;
+  var p=document.getElementById('stgr');if(p){p.hidden=!STG;a.setAttribute('aria-expanded',String(STG));a.querySelector('i').textContent=STG?'▴':'▾'}});
 document.addEventListener('click',function(e){var a=e.target.closest('[data-act="statl"]');if(!a)return;STA=!STA;
   var p=document.getElementById('stal');if(p){p.hidden=!STA;a.setAttribute('aria-expanded',String(STA));a.querySelector('i').textContent=STA?'▴':'▾';if(STA){var q=document.getElementById('stq');if(q)q.focus()}}});
 function renderUtenti(){

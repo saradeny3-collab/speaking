@@ -9,7 +9,7 @@ All’apertura l’app mostra la **Pagina iniziale**: area a destra nera come la
 - **Nuovo cliente**: apre l’anamnesi.
 - **Elenco atleti ▾**: PDF, Excel, CSV.
 - **Backup ▾** (solo per il PT): esporta, importa, carica nel cloud, esci.
-- **Yanagi Academy** con lo stemma, su sfondo nero come la pagina (bordo viola al passaggio del mouse): la sezione è stata spostata qui dalla barra laterale (non è più nel menu né nella barra in basso del telefono).
+- **Allenamento di gruppo o squadre** (con il numero dei gruppi): come «Atleti», un clic apre la tendina con il riquadro **Yanagi Academy** (stemma e nome, su sfondo nero, bordo viola al passaggio del mouse); un clic sul riquadro apre la sezione. La Yanagi Academy non è nel menu né nella barra in basso del telefono.
 Nel menu la voce «Pagina iniziale» (su smartphone «Inizio») riporta qui; «Atleti» apre la pagina completa degli atleti.
 Il numero sul pulsante **Atleti**, il conteggio «N atleti in archivio» e l’elenco della tendina si aggiornano appena gli atleti sono caricati dal dispositivo e dal cloud (prima della correzione restavano a 0 fino al cambio di pagina) e anche quando torni sull’app dopo almeno un minuto.
 
@@ -250,7 +250,7 @@ Dalla dispensa «Manuale metodologico di corsa su strada» (corsa-periodizzazion
 - La dispensa non indica serie e ripetizioni della forza né la durata delle fasi (tranne il tapering): sono «dosaggio indicativo» e vanno validati dal Personal Trainer.
 
 ## Yanagi Academy: allenamenti di gruppo e squadra (judo)
-Pulsante **Yanagi Academy** nella Pagina iniziale, con due sezioni: **Gruppi e squadre** ed **Esercizi judo**, più il pulsante **⏱ Timer randori**.
+Pulsante **Allenamento di gruppo o squadre** nella Pagina iniziale → tendina → **Yanagi Academy**, con due sezioni: **Gruppi e squadre** ed **Esercizi judo**, più il pulsante **⏱ Timer randori**.
 
 **Gruppo** («+ Nuovo gruppo o squadra» → Impostazioni):
 - **Fascia d’età e livello**: Bambini (6–8 anni), Ragazzi (9–12), Esordienti (13–14), Agonisti Cadetti / Juniores / Seniores, Master, Amatori, misto. Bambini e Ragazzi: giochi, percorsi funzionali e randori di studio. Esordienti e Master: niente sovraccarichi pesanti.
@@ -288,7 +288,7 @@ Pulsante **Yanagi Academy** nella Pagina iniziale, con due sezioni: **Gruppi e s
 - «Stampa calendario / PDF» (A4 orizzontale) ed **Excel** con 4 fogli: Calendario (blocchi, forza, RPE, carico), Carico settimanale, Gruppo (gare, attrezzi, atleti con cintura) e Test.
 - **🖨 Stampa seduta completa (PDF)** e **🖨 Programma completo (PDF)** (dal calendario, scegli il periodo: una seduta per pagina): ogni seduta dal rei al defaticamento, blocchi con orari, ogni esercizio con orario e minuti indicativi (≈), dosaggio, note e guida all’esecuzione, materiale, alert infortuni, presenze. «Scarica file» salva la pagina HTML.
 
-**Stemma**: lo stemma della squadra è sul pulsante «Yanagi Academy» della Pagina iniziale (un clic apre la sezione), accanto a «Yanagi Academy» in tutte le pagine della sezione e nelle stampe.
+**Stemma**: lo stemma della squadra è sul riquadro «Yanagi Academy» nella tendina «Allenamento di gruppo o squadre» della Pagina iniziale (un clic apre la sezione), accanto a «Yanagi Academy» in tutte le pagine della sezione e nelle stampe.
 
 **Atleti non in archivio**: «+ Nuovo atleta» (in Impostazioni o in «Atleti, test e infortuni») con nome, cognome, età, categoria (proposta dall’età), peso, cintura e categoria di peso facoltativa. Gli stessi dati si modificano per tutti gli atleti del gruppo.
 
