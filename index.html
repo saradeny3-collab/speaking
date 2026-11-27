@@ -656,6 +656,17 @@ main a{color:var(--brand-hi)}main a.btn,main a.shx{color:inherit}
 .urow.term:hover{border-color:#fff}
 .stl li.end{background:#4B0082;border-color:#B794F6;border-left-color:#fff;color:#fff}.stl li.end .stp,.stl li.end b{color:#fff}.stl li.end .stb.end{background:#fff;color:#4B0082}.stl li.end .btn{background:#2a1550;color:#fff;border-color:#B794F6}
 .info.termb{background:#4B0082;color:#fff;border-left-color:#fff}
+/* pulsante «Terminata»: giallo evidenziatore */
+button[data-act="scterm"],button[data-act="nterm"]{background:#FFF200!important;color:#000!important;border:1px solid #FFF200!important;font-weight:800}
+button[data-act="scterm"]:hover,button[data-act="nterm"]:hover{background:#FFE600!important;border-color:#FFE600!important}
+/* pagina dell'atleta (link): resta chiara come prima */
+body.athm{background:#f3f3f0}
+body.athm main,body.athm .modal{--bg:#f3f3f0;--surface:#fff;--text:#0b0b0b;--muted:#4a4a4a;--line:#cdcdcd;--brand-soft:#ede5f7;--accent:#000;--focus:#4B0082;--c1:#4B0082;--c2:#e4572e;--c3:#0077b6;--c4:#2e9b55;color-scheme:light;
+--t-red-bg:#fde8e8;--t-red:#9b1c1c;--t-grn-bg:#e3f4e8;--t-grn:#14622f;--t-amb-bg:#fdebd0;--t-amb:#7a4300;--t-pur-bg:#f5f0fb;--t-pur:#4B0082;--t-gry-bg:#eee}
+body.athm main input::placeholder,body.athm main textarea::placeholder{color:#777}
+body.athm main a{color:#4B0082}
+body.athm .avok{color:#999}
+body.athm main .ddb,body.athm main .btn.blk{border:0}
 @media print{
 :root{color-scheme:light;--t-red-bg:#fde8e8;--t-red:#9b1c1c;--t-grn-bg:#e3f4e8;--t-grn:#14622f;--t-amb-bg:#fdebd0;--t-amb:#7a4300;--t-pur-bg:#f5f0fb;--t-pur:#4B0082;--t-gry-bg:#eee}
 main,.modal{--bg:#f3f3f0;--surface:#fff;--text:#0b0b0b;--muted:#4a4a4a;--line:#cdcdcd;--brand-soft:#ede5f7;--accent:#000;--focus:#4B0082;--c1:#4B0082;--c2:#e4572e;--c3:#0077b6;--c4:#2e9b55;color-scheme:light}
