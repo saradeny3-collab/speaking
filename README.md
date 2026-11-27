@@ -9,7 +9,7 @@ All’apertura l’app mostra la **Pagina iniziale**: area a destra nera come la
 - **Nuovo cliente**: apre l’anamnesi.
 - **Elenco atleti ▾**: PDF, Excel, CSV.
 - **Backup ▾** (solo per il PT): esporta, importa, carica nel cloud, esci.
-- **Yanagi Academy** con lo stemma: la sezione è stata spostata qui dalla barra laterale (non è più nel menu né nella barra in basso del telefono).
+- **Yanagi Academy** con lo stemma, su sfondo nero come la pagina (bordo viola al passaggio del mouse): la sezione è stata spostata qui dalla barra laterale (non è più nel menu né nella barra in basso del telefono).
 Nel menu la voce «Pagina iniziale» (su smartphone «Inizio») riporta qui; «Atleti» apre la pagina completa degli atleti.
 Il numero sul pulsante **Atleti**, il conteggio «N atleti in archivio» e l’elenco della tendina si aggiornano appena gli atleti sono caricati dal dispositivo e dal cloud (prima della correzione restavano a 0 fino al cambio di pagina) e anche quando torni sull’app dopo almeno un minuto.
 
@@ -61,8 +61,8 @@ Dal dettaglio atleta **«🗓 Diario attività»** (anche dal riquadro cardio di
 - **Scheda terminata**: «✓ Terminata» sull’elenco schede, «✓ Segna come terminata» nella scheda salvata o nello storico. Si indicano l’ultimo giorno svolto e una nota (es. ciclo completato, interrotto per infortunio). La scheda passa nella sezione «🗄 Archivio · schede terminate» con il periodo in evidenza («Svolta dal 01/10 al 12/11/2026, 6 settimane»), resta apribile, stampabile ed esportabile e non conta più come scheda attiva (niente avvisi di cambio scheda). L’atleta, dal link, vede che è terminata. «↺ Riapri» la rimette attiva.
 - **Piano alimentare terminato**: stesso funzionamento nella Sezione nutrizionale («Seguito dal … al …»).
 - **Sfondo viola**: schede e piani alimentari terminati hanno lo sfondo viola nell’elenco, nello «🗄 Storico e archivio» e nella fascia «Scheda terminata» della scheda salvata, così si distinguono subito da quelli in corso. In stampa restano bianchi.
-- **Pulsante «✓ Segna come terminata» / «✓ Segna come terminato»** (elenchi, scheda salvata, storico) su sfondo giallo evidenziatore con testo nero, per vederlo subito.
-- Negli elenchi la scheda in corso ha l’etichetta verde **«● Scheda attiva · in corso»**; le schede e i piani terminati hanno a destra l’etichetta gialla «✓ Terminata» / «✓ Terminato» al posto di «↺ Riapri». Per riaprirli: «↺ Riapri» nella scheda salvata o nello «🗄 Storico e archivio».
+- **Pulsante «✓ Segna come terminata» / «✓ Segna come terminato»** (scheda salvata e storico) su sfondo giallo evidenziatore con testo nero, per vederlo subito.
+- **Elenchi di schede e piani**: a destra di ogni scheda o piano attivo c’è il pulsante verde **«● In corso ▾»** («● Scaduta ▾» in arancione se la scheda ha superato il cambio). Un clic apre la tendina con **«✓ Termina la scheda…»** / **«✓ Termina il piano…»**, che apre la finestra con ultimo giorno svolto e nota. Le schede e i piani terminati hanno a destra l’etichetta gialla «✓ Terminata» / «✓ Terminato». Per riaprirli: «↺ Riapri» nella scheda salvata o nello «🗄 Storico e archivio».
 - **🗄 Storico e archivio** nel dettaglio atleta: tutte le schede e i piani con stato (in corso, scaduta, terminata, sostituito) e periodo, le rivalutazioni con il confronto, le scadenze archiviate.
 - Dati: nella scheda `term`, `fine`, `fnt`; nel piano gli stessi campi; nel cliente `dla` (scadenze archiviate).
 

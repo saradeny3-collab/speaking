@@ -165,6 +165,7 @@ main.mstart{--bg:#000;--surface:#141414;--text:#fff;--muted:#cfcfcf;--line:#3a3a
 .stb2 i{font-style:normal;margin-left:auto;font-size:16px}.stb2 .stn{margin-left:auto;background:#fff;color:#4B0082;border-radius:99px;padding:1px 11px;font-size:15px}.stb2 .stn+i{margin-left:6px}
 .stb2 .stplus{width:28px;text-align:center;font-size:30px;line-height:1}
 .styan{flex-direction:column;justify-content:center;text-align:center;gap:8px;padding:22px}.styan img{width:110px;max-width:40%;height:auto}.styan small{font-size:13px;font-weight:500;color:#e6dcf5}
+.stb2.styan{background:#000;border-color:#000;color:#fff}.stb2.styan:hover,.stb2.styan:focus-visible{border-color:#4B0082}.styan small{color:#cfcfcf}
 .stal{margin-top:8px;background:#141414;border:1px solid #4B0082;border-radius:14px;padding:10px}.stal[hidden]{display:none}.stal .search{margin:0 0 8px}
 .stul{list-style:none;margin:0;padding:0;max-height:55vh;overflow:auto}.stul li+li{border-top:1px solid #2c2c2c}
 .stul button{width:100%;display:flex;flex-wrap:wrap;align-items:center;gap:8px;background:none;border:0;color:#fff;font:inherit;font-size:16px;padding:12px 10px;border-radius:10px;cursor:pointer;text-align:left}.stul button:hover,.stul button:focus-visible{background:#2a1550}
@@ -657,6 +658,14 @@ main a{color:var(--brand-hi)}main a.btn,main a.shx{color:inherit}
 .stl li.end{background:#4B0082;border-color:#B794F6;border-left-color:#fff;color:#fff}.stl li.end .stp,.stl li.end b{color:#fff}.stl li.end .stb.end{background:#fff;color:#4B0082}.stl li.end .btn{background:#2a1550;color:#fff;border-color:#B794F6}
 .info.termb{background:#4B0082;color:#fff;border-left-color:#fff}
 /* pulsante «Terminata»: giallo evidenziatore */
+.tmw{position:relative;margin-left:auto;align-self:center}
+.tmon{border:0;border-radius:10px;padding:8px 14px;font:inherit;font-size:14px;font-weight:800;cursor:pointer;white-space:nowrap;background:#22a355;color:#fff}
+.tmon.exp{background:#d08a00;color:#000}.tmon:hover{filter:brightness(1.1)}
+.tmenu{position:absolute;right:0;top:calc(100% + 6px);z-index:15;min-width:240px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px;box-shadow:0 10px 30px rgba(0,0,0,.45);display:flex;flex-direction:column;gap:6px}
+.tmenu[hidden]{display:none}
+.tmenu button{background:#FFF200;color:#000;border:0;border-radius:10px;padding:10px 14px;font:inherit;font-size:14px;font-weight:800;cursor:pointer;text-align:left}
+.tmenu small{color:var(--muted);font-size:12px}
+@media print{.tmw{display:none}}
 .stb.on.act,.stl li.on .stb.on{background:#22a355;color:#fff;font-size:12px;padding:3px 10px;border-radius:6px}
 .tdone{display:inline-flex;align-items:center;background:#FFF200;color:#000;font-weight:800;font-size:14px;border-radius:10px;padding:7px 14px;white-space:nowrap}
 @media print{.tdone{background:#fff;border:1px solid #000}}
@@ -1936,7 +1945,7 @@ function listSchede(){
   var LA=L.filter(function(x){return !x.term}),LT=L.filter(function(x){return x.term});
   document.getElementById('slist').innerHTML=L.length?LA.concat(LT).map(function(x,i){var z=scStato(x);
     return (x.term&&x===LT[0]?'<h3 class="arch">🗄 Archivio · schede terminate ('+LT.length+')</h3>':'')+'<div class="urow'+(ssel[x.id]?' sel':'')+(x.term?' term':'')+'" data-srow="'+esc(x.id)+'" style="cursor:pointer">'+(sdm?'<input type="checkbox"'+(ssel[x.id]?' checked':'')+' aria-label="Seleziona">':'')+
-    '<div class="cells two"><b>'+esc(x.nome)+(x===L[0]&&!x.term?' <i class="dc">attuale</i>':'')+(x.term?'':z.c==='on'?' <i class="stb on act">● Scheda attiva · in corso</i>':' <i class="stb '+z.c+'">'+z.t+'</i>')+(sdm?'':' <button type="button" class="scren" data-act="scren" data-id="'+esc(x.id)+'" title="Rinomina" aria-label="Rinomina la scheda '+esc(x.nome)+'">✏</button>')+'</b><span>'+(x.term?'<b class="stp">Svolta '+esc(z.p)+'</b>'+(x.fnt?' · '+esc(x.fnt):''):'Inizio '+fdate(x.data)+(x.cambio?' · cambio '+fdate(x.cambio):''))+' · '+x.es.length+(x.es.length===1?' esercizio':' esercizi')+'</span></div>'+(sdm?'':x.term?'<span class="tdone tbtn">✓ Terminata</span>':'<button type="button" class="btn sm tbtn" data-act="scterm" data-id="'+esc(x.id)+'">✓ Segna come terminata</button>')+'</div>'}).join(''):'<div class="empty">Nessuna scheda. Creane una con +.</div>';
+    '<div class="cells two"><b>'+esc(x.nome)+(x===L[0]&&!x.term?' <i class="dc">attuale</i>':'')+(sdm?'':' <button type="button" class="scren" data-act="scren" data-id="'+esc(x.id)+'" title="Rinomina" aria-label="Rinomina la scheda '+esc(x.nome)+'">✏</button>')+'</b><span>'+(x.term?'<b class="stp">Svolta '+esc(z.p)+'</b>'+(x.fnt?' · '+esc(x.fnt):''):'Inizio '+fdate(x.data)+(x.cambio?' · cambio '+fdate(x.cambio):''))+' · '+x.es.length+(x.es.length===1?' esercizio':' esercizi')+'</span></div>'+(sdm?'':x.term?'<span class="tdone tbtn">✓ Terminata</span>':tmMenu(z.c==='exp'?'exp':'on',z.c==='exp'?'Scaduta':'In corso','<button type="button" data-act="scterm" data-id="'+esc(x.id)+'">✓ Termina la scheda…</button><small>Indichi l’ultimo giorno svolto e una nota.</small>'))+'</div>'}).join(''):'<div class="empty">Nessuna scheda. Creane una con +.</div>';
 }
 function chipsHtml(){
   var names=exNames(suid),q=eq.toLowerCase().trim();
@@ -6023,7 +6032,7 @@ document.addEventListener('click',function(e){
   var su=e.target.closest('[data-su]');
   if(su){suid=su.getAttribute('data-su');sdm=false;ssel={};trend=[];eq='';renderSchede();return}
   var sr=e.target.closest('[data-srow]');
-  if(sr){var id=sr.getAttribute('data-srow');if(sdm){if(ssel[id])delete ssel[id];else ssel[id]=1;listSchede()}else viewScheda(id)}
+  if(sr&&!e.target.closest('.tmw')){var id=sr.getAttribute('data-srow');if(sdm){if(ssel[id])delete ssel[id];else ssel[id]=1;listSchede()}else viewScheda(id)}
 });
 // ---- Editor modulare interattivo: cambio atleta, sedute a schede, celle modificabili, esercizi e blocchi ----
 // ED.sc è una copia di lavoro della scheda: si salva sulla stessa scheda («Salva scheda») o come nuova.
@@ -6413,6 +6422,14 @@ function inflateRaw(src){
 }
 function inflateZ(u8){if(u8.length<2||(u8[0]&15)!==8)throw new Error('fmt');return inflateRaw(u8.subarray(2))}
 // Formato del link: y<crc>.<dati compressi> (oppure x<crc>.<dati> senza compressione). Il crc controlla che il link sia arrivato intero.
+// stato «In corso» con tendina per terminare (elenchi di schede e piani)
+function tmMenu(c,t,items){return '<div class="tmw tbtn"><button type="button" class="tmon '+c+'" data-tm aria-expanded="false">● '+t+' ▾</button><div class="tmenu" hidden>'+items+'</div></div>'}
+document.addEventListener('click',function(e){
+  var b=e.target.closest&&e.target.closest('[data-tm]');
+  document.querySelectorAll('.tmw .tmenu:not([hidden])').forEach(function(m){if(!b||m.previousElementSibling!==b){m.hidden=true;m.previousElementSibling.setAttribute('aria-expanded','false')}});
+  if(!b)return;e.stopImmediatePropagation();e.preventDefault();
+  var m=b.nextElementSibling;m.hidden=!m.hidden;b.setAttribute('aria-expanded',m.hidden?'false':'true');
+},true);
 async function packLink(o){var u8=new TextEncoder().encode(JSON.stringify(o)),c=crc32(u8).toString(36);
   if(window.CompressionStream){try{var z=await streamBytes(u8,new CompressionStream('deflate'));if(new TextDecoder().decode(inflateZ(z))===new TextDecoder().decode(u8))return 'y'+c+'.'+b64u(z)}catch(e){}}
   return 'x'+c+'.'+b64u(u8)}
@@ -8254,7 +8271,7 @@ function renderNut(){
    '<div class="uact"><button class="ab pri" data-na="nnew" aria-label="Nuovo piano alimentare"><span class="i">+</span><span class="t">Nuovo piano</span></button></div></div>'+
    (S.length?'':'<div class="info" style="margin:0 0 12px">'+esc(u.n)+' non ha ancora una scheda di allenamento. Puoi creare il piano lo stesso; il livello di attività si calcola dagli sport extra e dal cardio dell’anamnesi. Per collegarlo a una scheda, creala prima da «Schede allenamento».</div>')+
    (L.length?L.filter(function(P){return !P.term}).concat(L.filter(function(P){return P.term})).map(function(P){var sc=nSched(P,u),T=nTarg(P,u),LT=L.filter(function(x){return x.term});
-     return (P.term&&P===LT[0]?'<h3 class="arch">🗄 Archivio · piani terminati ('+LT.length+')</h3>':'')+'<div class="urow'+(P.term?' term':'')+'" data-np="'+esc(P.id)+'" style="cursor:pointer"><div class="cells two"><b>'+esc(P.nome||'Piano alimentare')+(P===L.filter(function(x){return !x.term})[0]?' <i class="dc">attuale</i>':'')+''+'</b><span>'+(P.term?'<b class="stp">Seguito '+esc(periodTxt(P.data,P.fine))+'</b>'+(P.fnt?' · '+esc(P.fnt):''):'Del '+fdate(P.data))+' · '+esc((NFASE[P.fase]||NFASE.mant).t)+(T.kcal?' · '+nfmt(T.kcal)+' kcal':'')+' · '+(sc?'collegato a «'+esc(sc.nome||'scheda')+'»':'non collegato a una scheda')+'</span></div>'+(P.term?'<span class="tdone tbtn">✓ Terminato</span>':'<button type="button" class="btn sm tbtn" data-act="nterm" data-id="'+esc(P.id)+'" data-uid="'+esc(u.id)+'">✓ Segna come terminato</button>')+'</div>'}).join(''):'<div class="empty">Nessun piano alimentare. Creane uno con «+ Nuovo piano».</div>');
+     return (P.term&&P===LT[0]?'<h3 class="arch">🗄 Archivio · piani terminati ('+LT.length+')</h3>':'')+'<div class="urow'+(P.term?' term':'')+'" data-np="'+esc(P.id)+'" style="cursor:pointer"><div class="cells two"><b>'+esc(P.nome||'Piano alimentare')+(P===L.filter(function(x){return !x.term})[0]?' <i class="dc">attuale</i>':'')+''+'</b><span>'+(P.term?'<b class="stp">Seguito '+esc(periodTxt(P.data,P.fine))+'</b>'+(P.fnt?' · '+esc(P.fnt):''):'Del '+fdate(P.data))+' · '+esc((NFASE[P.fase]||NFASE.mant).t)+(T.kcal?' · '+nfmt(T.kcal)+' kcal':'')+' · '+(sc?'collegato a «'+esc(sc.nome||'scheda')+'»':'non collegato a una scheda')+'</span></div>'+(P.term?'<span class="tdone tbtn">✓ Terminato</span>':tmMenu('on','In corso','<button type="button" data-act="nterm" data-id="'+esc(P.id)+'" data-uid="'+esc(u.id)+'">✓ Termina il piano…</button><small>Indichi l’ultimo giorno seguito e una nota.</small>'))+'</div>'}).join(''):'<div class="empty">Nessun piano alimentare. Creane uno con «+ Nuovo piano».</div>');
 }
 function nutList(){var q=NU.q.toLowerCase().trim(),L=U.filter(function(u){return !q||(u.n+' '+u.c).toLowerCase().indexOf(q)>-1}).sort(function(a,b){return (a.c+a.n).localeCompare(b.c+b.n)}),box=gid('nulist');if(!box)return;
   box.innerHTML=L.length?L.map(function(u){var P=nPlans(u),S=schedeOf(u.id);
@@ -8384,7 +8401,7 @@ function nMealGen(mm){var P=NU.P,u=find(NU.uid),T=nTarg(P,u),X=nExTags(P),mt=T.m
 document.addEventListener('click',function(e){
   if(cur!=='nut')return;
   var r=e.target.closest('[data-nu]');if(r){NU.uid=r.getAttribute('data-nu');renderNut();window.scrollTo(0,0);return}
-  var q=e.target.closest('[data-np]');if(q){nOpen(NU.uid,q.getAttribute('data-np'));return}
+  var q=e.target.closest('[data-np]');if(q&&!e.target.closest('.tmw')){nOpen(NU.uid,q.getAttribute('data-np'));return}
   var b=e.target.closest('[data-na]');if(!b)return;var k=b.getAttribute('data-na'),p=b.getAttribute('data-p'),P=NU.P,u=find(NU.uid);
   if(k==='nback'){NU.uid=null;renderNut();window.scrollTo(0,0);return}
   if(k==='nnew'){nOpen(NU.uid,null);return}
