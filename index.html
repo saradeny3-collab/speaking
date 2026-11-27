@@ -512,6 +512,8 @@ body.athm .side,body.athm .tabbar{display:none!important}body.athm main{width:10
 @media (max-width:760px){.nwab{grid-template-columns:1fr}}
 .nwfree{border:1px dashed var(--line);border-radius:10px;padding:8px 10px;margin:4px 0}
 .nqtag{display:inline-flex;align-items:center;gap:6px;padding-right:6px}.nqtag button{background:none;border:0;color:inherit;font:inherit;font-size:16px;line-height:1;cursor:pointer;padding:0 2px}
+#npsbox label{display:flex!important;flex-direction:row!important;align-items:flex-start;justify-content:flex-start;gap:10px;text-align:left;margin:0;padding:5px 0;font-size:14px;font-weight:500;text-transform:none;letter-spacing:0}#npsbox input{width:auto!important;flex:none;margin:3px 0 0;height:auto;padding:0}
+.npsr{padding:9px 0!important;border-top:1px solid var(--line)}.npsr small{color:var(--muted,#555);font-weight:400}.npsck{padding:0 0 6px 26px}.npsck .nck.dis{opacity:.5}
 .nqf .nqb{margin:0 0 8px}.nqf .nwsel input{flex:1;min-width:0;font:15px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text)}
 #nqeff ul{margin:6px 0 0;padding-left:18px}#nqeff li{margin:2px 0}.nwsel select{flex:1;min-width:0;font:15px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text)}.nwt{width:100%;margin:0 0 6px}.avnm ul{margin:4px 0 6px;padding-left:20px}body.athm main{min-width:0;max-width:100vw}.avnut{min-width:0}.avnut .nsht{table-layout:fixed;width:100%}.avnut .nsht td{overflow-wrap:anywhere;white-space:normal!important}.avnut .lgb{columns:auto!important}.avnut .nush .ntit{font-size:17px}.avnm li{margin:2px 0}.nsec:first-of-type{border-top:0;margin-top:0;padding-top:0}
 .nsh{display:flex;gap:8px;align-items:center;margin-bottom:6px}.nst{flex:1;min-width:0;font:inherit;font-weight:800;font-size:16px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text)}
@@ -7844,7 +7846,7 @@ if(/^#[sa]=/.test(location.hash))athleteMode();
 else boot();
 // ---- Avvio con accesso (Firebase) ----
 // a caricamento finito ridisegno solo le pagine di elenco, per non cancellare un modulo che si sta compilando
-function safeRender(){if(cur==='home'||(cur==='schede'&&!suid)||(cur==='ed'&&!ED.dirty)||(cur==='yan'&&!YDIRTY&&!YD&&YG!=='new'))render();else renderNav()}
+function safeRender(){if(cur==='start'||cur==='home'||(cur==='schede'&&!suid)||(cur==='ed'&&!ED.dirty)||(cur==='yan'&&!YDIRTY&&!YD&&YG!=='new'))render();else renderNav()}
 var CBhide=false,lastSync=0,started=false;
 function cloudBar(){var e=gid('cloudbar');if(!e)return;var o=Cloud.localOnly();
   if(!Cloud.user()||CBhide||!o.first||!(o.utenti||o.schede||o.gruppi)){e.innerHTML='';return}
@@ -7931,7 +7933,7 @@ document.addEventListener('click',function(e){
 // tornando sull'app dopo un po' (es. modifiche fatte sul telefono) rileggo il cloud, ma solo nelle pagine di elenco
 document.addEventListener('visibilitychange',function(){
   if(document.visibilityState!=='visible'||!Cloud.user()||Date.now()-lastSync<60000)return;
-  if(cur==='home'&&!dm||(cur==='schede'&&!suid)||(cur==='yan'&&!YDIRTY&&!YD&&YG!=='new'))cloudSync();
+  if(cur==='start'||cur==='home'&&!dm||(cur==='schede'&&!suid)||(cur==='yan'&&!YDIRTY&&!YD&&YG!=='new'))cloudSync();
 });
 window.addEventListener('online',function(){var e=gid('cloudst');if(e)e.textContent=Cloud.status()});
 window.addEventListener('offline',function(){var e=gid('cloudst');if(e)e.textContent=Cloud.status()});
@@ -8165,7 +8167,7 @@ function nNewPlan(u,sid){
   var mph=typeof macFor==='function'&&!hasSpk(u)?macFor(u):null;if(mph&&MACS[mph.k])fase=MACS[mph.k].nut;
   var sc=sid?SCH.filter(function(s){return String(s.id)===String(sid)})[0]:schedeOf(u.id)[0];
   return {id:newId('n'),nome:'Alimentazione '+String(u.n||'').toUpperCase(),data:todayIso(),sid:sc?sc.id:'',by:'',nt:'',ex:[],fase:fase,pal:'',kcal:'',pk:'',fk:'',kg:'',alt:'',eta:'',sx:'',
-    pasti:NMEALS.map(function(m){return {k:m[0],t:m[1],on:!!m[3],pct:m[2],ora:'',sez:[]}}),cf:{},prk:false,pri:true,rf:true,prc:true,wk:{on:true,only:false,n:2,x:true,d:null},ts:0}}
+    pasti:NMEALS.map(function(m){return {k:m[0],t:m[1],on:!!m[3],pct:m[2],ora:'',sez:[]}}),cf:{},prk:false,pri:true,rf:true,prc:true,ps:{m:'all'},wk:{on:true,only:false,n:2,x:true,d:null},ts:0}}
 // ---- generazione dello schema dai riferimenti ----
 function nExTags(P){var t={};(P.ex||[]).forEach(function(k){NEX.forEach(function(x){if(x[0]===k)x[2].forEach(function(g){t[g]=1})})});(P.no||[]).forEach(function(f){t['@'+f]=1});return t}
 function nBad(f,T){if(!f||!NF[f])return false;if(T['@'+f])return true;if(NF[f].tg&&T[NF[f].tg])return true;return (NFX[f]||[]).some(function(g){return T[g]})}
@@ -8305,11 +8307,11 @@ function nutEditor(){
       '<div class="mrow" style="justify-content:flex-start"><button type="button" data-na="sadd" data-p="pasti.'+mi+'" data-ty="op">+ Sezione con opzioni A, B, C</button><button type="button" data-na="sadd" data-p="pasti.'+mi+'" data-ty="pi">+ «Crea il tuo piatto»</button><button type="button" data-na="ricpick" data-p="pasti.'+mi+'">🍳 Aggiungi una ricetta fit</button>'+(NTPL[m.k]?'<button type="button" data-na="mgen" data-p="pasti.'+mi+'">⚡ Rigenera questo pasto</button>':'')+'</div></section>'}).join('')+
    nWeekHtml(P,u,T,X)+
    '<div id="ncust">'+nCustomHtml(P)+'</div>'+
-   '<section class="asec"><h3>Stampa e invio</h3><label class="nck"><input type="checkbox" data-nb="pri"'+(P.pri?' checked':'')+'> Aggiungi le indicazioni generali (acqua, proteine per pasto, tempi)</label><label class="nck"><input type="checkbox" data-nb="prc"'+(P.prc?' checked':'')+'> Aggiungi i consigli di cucina fit (piatto bilanciato, meal prep, spezie)</label><label class="nck"><input type="checkbox" data-nb="prk"'+(P.prk?' checked':'')+'> Mostra calorie e macronutrienti (fabbisogno e pasti)</label>'+(P.q?'<label class="nck"><input type="checkbox" data-nb="prq"'+(P.prq!==false?' checked':'')+'> Aggiungi le indicazioni personalizzate dal questionario (acqua, caffè, alcol, orari, fuori casa, fame, digestione)</label>':'')+
+   '<section class="asec"><h3>Stampa e invio</h3><p class="status" style="margin-top:-4px">In stampa e nel PDF: <b id="npstxt">'+esc(nPsTxt(P))+'</b></p><div class="mrow" style="justify-content:flex-start"><button type="button" class="pri" data-na="nprint">🖨 Scegli cosa stampare</button></div>'+
     '<div class="info ndisc"><b>Disclaimer di compliance nutrizionale (art. 348 c.p.)</b><br>'+esc(NDISC)+'</div><p class="status">Il disclaimer esce sempre in fondo alla stampa e al PDF. Usa lo strumento per educazione alimentare e indicazioni generali (ISSN, ACSM, ISS) o per trascrivere e organizzare il piano del professionista.</p></section>'+
    '<div class="status" id="nustat"></div><div class="afoot edfoot" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;margin:16px 0">'+
     (nHas(P)?'<button type="button" class="btn" data-na="ndel" style="margin-right:auto">Elimina</button>':'')+
-    '<button type="button" class="btn" data-na="nprint">Anteprima · Stampa</button><button type="button" class="btn" data-na="npdf">Scarica PDF</button><button type="button" class="btn blk" data-na="nsend">📤 '+(nHas(P)&&!NU.dirty?'Invia all’atleta':'Salva e invia all’atleta')+'</button><button type="button" class="btn pri" data-na="nsave">Salva piano</button></div>';
+    '<button type="button" class="btn" data-na="nprint">🖨 Stampa · PDF</button><button type="button" class="btn blk" data-na="nsend">📤 '+(nHas(P)&&!NU.dirty?'Invia all’atleta':'Salva e invia all’atleta')+'</button><button type="button" class="btn pri" data-na="nsave">Salva piano</button></div>';
   nqStat();if(y)window.scrollTo(0,y);
 }
 function nHas(P){var u=find(NU.uid);return !!(u&&(u.nut||[]).some(function(x){return x.id===P.id}))}
@@ -8387,7 +8389,8 @@ document.addEventListener('click',function(e){
     closeModal();P.wk=P.wk||{};P.wk.on=true;nWeekGen(P,u)}
   else if(k==='ndel'){modal('<h3>Eliminare il piano?</h3><p>«'+esc(P.nome)+'» di '+esc(u.n+' '+u.c)+' viene eliminato.</p><div class="mrow"><button data-act="mclose">Annulla</button><button class="danger" data-na="ndelok">Elimina</button></div>');return}
   else if(k==='ndelok'){nDel();return}
-  else if(k==='nprint'){nPreview();return}
+  else if(k==='nprint'){nPrintModal();return}
+  else if(k==='nprint2'){nPreview();return}
   else if(k==='npdf'||k==='nshare'){nPdf(k==='nshare',b);return}
   else return;
   nDirty();nutEditor();
@@ -8407,7 +8410,7 @@ function nRicAdd(m,id,u){var r=nRic(id);if(!r||!m)return;var P=NU.P,T=nTarg(P,u)
 async function nSave(quiet){var P=NU.P,u=find(NU.uid);if(!P||!u)return false;
   try{await nPersist(P)}catch(e){st('nustat',saveErr());return false}
   var lk='';if(P.atok&&window.Cloud&&Cloud.user()){lk=' Il link dell’atleta è aggiornato.';try{Cloud.linkSet(P.atok,nLinkDoc(P,u)).catch(function(e){showNotice('Link del piano alimentare non aggiornato: '+((e&&e.code)||(e&&e.message)||'errore'))})}catch(e){}}
-  nutEditor();var s=gid('nustat');if(s&&!quiet)s.innerHTML=esc('Piano alimentare salvato nel profilo di '+u.n+' '+u.c+'.'+lk)+' <button type="button" class="btn sm blk" data-na="nsend">📤 Invia all’atleta (WhatsApp · email)</button>';return true}
+  nutEditor();var s=gid('nustat');if(s&&!quiet)s.innerHTML=esc('Piano alimentare salvato nel profilo di '+u.n+' '+u.c+'.'+lk)+' <button type="button" class="btn sm blk" data-na="nsend">📤 Invia all’atleta (WhatsApp · email)</button> <button type="button" class="btn sm" data-na="nprint">🖨 Stampa o PDF: scegli cosa</button>';return true}
 async function nDel(){var P=NU.P,u=find(NU.uid);closeModal();if(!P||!u)return;if(P.atok&&window.Cloud&&Cloud.user())Cloud.linkRm(P.atok);var o=Object.assign({},u);o.nut=(u.nut||[]).filter(function(x){return x.id!==P.id});
   try{await Store.put('utenti',o)}catch(e){st('nustat',saveErr());return}
   var i=U.findIndex(function(x){return String(x.id)===String(o.id)});if(i>-1)U[i]=o;NU.P=null;NU.dirty=false;renderNut();window.scrollTo(0,0)}
@@ -8422,33 +8425,57 @@ function nSecSheet(S,P,mt){var L=[];
   L.push('<b>'+esc(String(S.t||'').toUpperCase())+':</b>');
   S.op.forEach(function(o,i){var s=nSum(o.it,P);L.push(String.fromCharCode(65+i)+') '+(o.t?'<b>'+esc(o.t.toUpperCase())+'</b> ':'')+esc(o.it.map(function(it){return nItTxt(it,P)}).join(' + '))+(o.nt?' <i>· '+esc(o.nt)+'</i>':'')+(P.prk?' <small>(≈ '+nfmt(s.k)+' kcal · P '+nfmt(s.p)+' g)</small>':''))});
   return L.join('<br>')}
-function nSheet(P,u){var T=nTarg(P,u),D=T.D;
-  var rows=P.pasti.filter(function(m){return m.on&&m.sez&&m.sez.length}).map(function(m){var mt=T.meal[m.k];
-    return '<tr><td><b>'+esc(m.t.toUpperCase())+'</b>'+(m.ora?'<br>ore '+esc(m.ora):'')+(P.prk&&mt?'<br><small>≈ '+nfmt(mt.k)+' kcal</small>':'')+'</td><td>'+m.sez.map(function(S){return nSecSheet(S,P,mt)}).join('<br><br>')+'</td></tr>'}).join('');
-  var ind=P.pri?'<h3>Indicazioni generali</h3><ul>'+
+// ---- cosa stampare (fase 35): P.ps = {m:'all'|'wk'|'cus', sum, opt, wk, pri, prq, prc, nt} ----
+var NPS=[['sum','Fabbisogno, calorie e macronutrienti (anche per pasto)'],['opt','Opzioni dei pasti (A, B, C, ricette fit e «Crea il tuo piatto»)'],['wk','Menu settimanale'],['pri','Indicazioni generali (acqua, proteine, allenamento)'],['prq','Indicazioni personalizzate dal questionario'],['prc','Consigli di cucina fit'],['nt','Note per l’atleta']];
+function nPsOf(P){var W=P.wk||{},x=P.ps;
+  if(!x)x={m:'cus',sum:!!P.prk,opt:!W.only,wk:W.on!==false,pri:P.pri!==false,prq:P.prq!==false,prc:!!P.prc,nt:true};
+  var hw=!!(W.on!==false&&W.d&&W.d.length===7),hq=!!P.q,c;
+  if(x.m==='all')c={sum:true,opt:true,wk:true,pri:true,prq:true,prc:true,nt:true};
+  else if(x.m==='wk')c={sum:false,opt:!hw,wk:true,pri:false,prq:false,prc:false,nt:false};
+  else c={sum:!!x.sum,opt:x.opt!==false,wk:x.wk!==false,pri:!!x.pri,prq:!!x.prq,prc:!!x.prc,nt:x.nt!==false};
+  c.wk=c.wk&&hw;c.prq=c.prq&&hq;c.m=x.m||'cus';if(!c.opt&&!c.wk)c.opt=true;return c}
+function nPsTxt(P){var c=nPsOf(P);if(c.m==='all')return 'Piano completo: tutte le sezioni.';if(c.m==='wk')return 'Solo il menu settimanale'+(c.opt?' (manca il menu: escono le opzioni dei pasti)':'')+'.';
+  return 'Personalizzata: '+NPS.filter(function(x){return c[x[0]]}).map(function(x){return x[1].split(' (')[0].toLowerCase()}).join(', ')+'.'}
+function nSheet(P0,u){var c=nPsOf(P0),P=Object.assign({},P0,{prk:c.sum,wk:Object.assign({},P0.wk||{},{on:c.wk,only:!c.opt})}),T=nTarg(P,u),D=T.D;
+  var wk=c.wk?nWeekSheet(P,u):'',only=!c.opt;if(wk&&c.m==='wk')wk=wk.replace('<h3>Menu settimanale</h3>','');
+  var rows=c.opt?P.pasti.filter(function(m){return m.on&&m.sez&&m.sez.length}).map(function(m){var mt=T.meal[m.k];
+    return '<tr><td><b>'+esc(m.t.toUpperCase())+'</b>'+(m.ora?'<br>ore '+esc(m.ora):'')+(P.prk&&mt?'<br><small>≈ '+nfmt(mt.k)+' kcal</small>':'')+'</td><td>'+m.sez.map(function(S){return nSecSheet(S,P,mt)}).join('<br><br>')+'</td></tr>'}).join(''):'';
+  var ind=c.pri?'<h3>Indicazioni generali</h3><ul>'+
     (D.kg?'<li><b>Acqua:</b> '+nfmt(T.acq[0]/1000,1)+'–'+nfmt(T.acq[1]/1000,1)+' litri al giorno, distribuiti nella giornata. Dopo l’allenamento bevi 1,25–1,5 litri per ogni kg di peso perso con il sudore: una perdita oltre il 2% del peso riduce forza, resistenza e coordinazione.</li>':'<li><b>Acqua:</b> 30–35 ml per kg di peso al giorno.</li>')+
     '<li><b>Proteine:</b> distribuiscile in porzioni simili ogni 3–4 ore'+(D.kg?' ('+nfmt(D.kg*0.25)+'–'+nfmt(D.kg*0.4)+' g per pasto)':' (20–40 g per pasto)')+', da fonti di alto valore biologico.</li>'+
     '<li><b>Allenamento:</b> carboidrati nel pasto prima e dopo la seduta; evita pasti abbondanti nelle 2 ore precedenti.</li>'+
-    (wk?'<li><b>Menu settimanale:</b> segui il pasto del giorno. Se un giorno non puoi, scambialo con lo stesso pasto di un altro giorno'+(only?'':' o con una delle opzioni A, B, C')+'.</li>':'')+
+    (wk?'<li><b>Menu settimanale:</b> segui il pasto del giorno. Se un giorno non puoi, scambialo con lo stesso pasto di un altro giorno'+(only?'':' o con una delle opzioni dei pasti')+'.</li>':'')+
     '<li><b>Scelte:</b> '+(only?'':'in ogni pasto scegli una sola opzione (A, B o C) oppure una fonte di carboidrati e una proteica del piatto. ')+'Le grammature sono a crudo e al netto degli scarti, salvo diversa indicazione.</li>'+
     (P.pasti.some(function(m){return m.on&&m.k==='not'})?'<li><b>Prima di dormire:</b> 30–40 g di caseina 30–90 minuti prima del sonno sostengono la sintesi proteica notturna.</li>':'')+'</ul>':'';
-  var qt=P.q&&P.prq!==false?nqTips(P,T):[];if(qt.length)ind+='<h3>Indicazioni personalizzate</h3><ul>'+qt.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul>';
-  if(P.prc)ind+='<h3>Cucina fit: consigli pratici</h3><ul><li><b>'+esc(NPLATE.split(':')[0])+':</b>'+esc(NPLATE.slice(NPLATE.indexOf(':')+1))+'</li>'+NPREP.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul>';
-  var sum=P.prk&&T.kcal?'<p class="nsum"><b>Fabbisogno:</b> '+nfmt(T.kcal)+' kcal · proteine '+nfmt(T.p)+' g · carboidrati '+nfmt(T.c)+' g · grassi '+nfmt(T.f)+' g · '+esc(T.F.t)+'</p>':'';
-  var wk=nWkHas(P)?nWeekSheet(P,u):'',only=wk&&P.wk.only;
-  return '<div class="nush"><h1 class="ntit">'+esc(P.nome||'Alimentazione')+' ('+esc(nLong(P.data))+')</h1>'+sum+
-   (only?'':rows?'<table class="stab nsht" data-cw="0.2,0.8"><tbody>'+rows+'</tbody></table>':'<p>Nessun pasto compilato.</p>')+wk+
-   (P.nt?'<p><b>Note:</b> '+esc(P.nt)+'</p>':'')+ind+
+  var qt=c.prq?nqTips(P,T):[];if(qt.length)ind+='<h3>Indicazioni personalizzate</h3><ul>'+qt.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul>';
+  if(c.prc)ind+='<h3>Cucina fit: consigli pratici</h3><ul><li><b>'+esc(NPLATE.split(':')[0])+':</b>'+esc(NPLATE.slice(NPLATE.indexOf(':')+1))+'</li>'+NPREP.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul>';
+  var sum=c.sum&&T.kcal?'<p class="nsum"><b>Fabbisogno:</b> '+nfmt(T.kcal)+' kcal · proteine '+nfmt(T.p)+' g · carboidrati '+nfmt(T.c)+' g · grassi '+nfmt(T.f)+' g · '+esc(T.F.t)+'</p>':'';
+  return '<div class="nush"><h1 class="ntit">'+esc(c.m==='wk'&&wk?'Menu settimanale · ':'')+esc(P.nome||'Alimentazione')+' ('+esc(nLong(P.data))+')</h1>'+sum+
+   (c.opt?(rows?'<table class="stab nsht" data-cw="0.2,0.8"><tbody>'+rows+'</tbody></table>':'<p>Nessun pasto compilato.</p>'):'')+wk+
+   (c.nt&&P.nt?'<p><b>Note:</b> '+esc(P.nt)+'</p>':'')+ind+
    '<p class="status">'+(P.by?'Redatto da '+esc(P.by)+'. ':'')+'Indicazioni alimentari generali per '+esc(u.n+' '+u.c)+'.</p><p class="status ndisc"><b>Disclaimer:</b> '+esc(NDISC)+'</p></div>'}
+function nPsHtml(P){var x=P.ps||Object.assign({m:'cus'},nPsOf(P)),c=nPsOf(P),hw=!!(P.wk&&P.wk.on!==false&&P.wk.d&&P.wk.d.length===7);
+  var r=function(v,t,d){return '<label class="nck npsr"><input type="radio" name="nps" data-nps="m" value="'+v+'"'+(c.m===v?' checked':'')+'> <span><b>'+t+'</b><br><small>'+d+'</small></span></label>'};
+  return '<div id="npsbox">'+r('wk','Solo il menu settimanale','Lunedì–domenica'+(P.wk&&+P.wk.n===2?' con le opzioni A e B':'')+', titolo e disclaimer. '+(hw?'':'<b>Il menu non c’è ancora: crealo nel riquadro «Menu settimanale».</b>'))+
+   r('all','Piano completo (file intero)','Fabbisogno, opzioni dei pasti, menu settimanale, indicazioni generali e personalizzate, consigli di cucina, note.')+
+   r('cus','Personalizzata','Spunta le sezioni da includere:')+
+   '<div class="npsck">'+NPS.map(function(z){var dis=c.m!=='cus'||(z[0]==='wk'&&!hw)||(z[0]==='prq'&&!P.q);return '<label class="nck'+(dis?' dis':'')+'"><input type="checkbox" data-nps="'+z[0]+'"'+(c[z[0]]?' checked':'')+(dis?' disabled':'')+'> '+esc(z[1])+(z[0]==='prq'&&!P.q?' <small>(serve il questionario applicato)</small>':'')+'</label>'}).join('')+'</div>'+
+   '<p class="status">Il disclaimer esce sempre. La scelta resta salvata nel piano e vale anche per il PDF dell’atleta.</p></div>'}
+function nPrintModal(){var P=NU.P;if(!P)return;
+  modal('<h3>🖨 Cosa vuoi stampare?</h3>'+nPsHtml(P)+'<div class="mrow"><button data-act="mclose">Chiudi</button>'+(canShareFiles()?'<button data-na="nshare">📤 Condividi PDF</button>':'')+'<button data-na="npdf">Scarica PDF</button><button class="pri" data-na="nprint2">Anteprima · Stampa</button></div><p class="status" id="nustat2"></p>')}
+document.addEventListener('change',function(e){var t=e.target,k=t.getAttribute&&t.getAttribute('data-nps');if(!k||!NU.P)return;var P=NU.P,c=nPsOf(P);
+  var ps={m:c.m,sum:c.sum,opt:c.opt,wk:c.wk,pri:c.pri,prq:c.prq,prc:c.prc,nt:c.nt};if(P.ps&&P.ps.m==='cus'&&c.m!=='cus')ps=Object.assign(ps,P.ps);
+  if(k==='m')ps.m=t.value;else{ps.m='cus';ps[k]=t.checked}
+  P.ps=ps;nDirty();var b=gid('npsbox');if(b)b.outerHTML=nPsHtml(P);var s=gid('npstxt');if(s)s.textContent=nPsTxt(P)});
 function nPreview(){var P=NU.P,u=find(NU.uid);if(!P||!u)return;
-  modal(nSheet(P,u)+'<p class="status noprn">Premi «Stampa / Salva PDF» e, come stampante, scegli «Salva come PDF».</p><div class="mrow"><button data-act="mclose">Chiudi</button><button data-na="npdf">Scarica PDF</button><button class="pri" data-act="prn">Stampa / Salva PDF</button></div>');
+  modal(nSheet(P,u)+'<p class="status noprn">Premi «Stampa / Salva PDF» e, come stampante, scegli «Salva come PDF».</p><div class="mrow"><button data-act="mclose">Chiudi</button><button data-na="nprint">← Cambia cosa stampare</button><button data-na="npdf">Scarica PDF</button><button class="pri" data-act="prn">Stampa / Salva PDF</button></div>');
   document.querySelector('#modal .mbox').classList.add('xl')}
 async function nPdf(share,btn){var P=NU.P,u=find(NU.uid);if(!P||!u)return;
-  var name=('Alimentazione_'+u.n+'_'+u.c+'_'+(P.data||todayIso())).replace(/[^\w\-]+/g,'_')+'.pdf';
+  var name=((nPsOf(P).m==='wk'?'Menu_settimanale_':'Alimentazione_')+u.n+'_'+u.c+'_'+(P.data||todayIso())).replace(/[^\w\-]+/g,'_')+'.pdf';
   try{if(btn)btn.disabled=true;
     var blob=await PDFW.fromHtml(nSheet(P,u),{title:(P.nome||'Alimentazione')+' · '+u.n+' '+u.c,brand:u.n+' '+u.c,size:9.5,tsize:9}),f=new File([blob],name,{type:'application/pdf'});
     if(share&&navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:P.nome,text:'Ciao '+u.n+', ecco il tuo piano alimentare ('+fdate(P.data)+').'});st('nustat','PDF condiviso.')}
-    else{await saveBlob(blob,name);st('nustat',share?'Questo browser non condivide file: il PDF è stato scaricato, allegalo al messaggio.':'PDF scaricato.')}
+    else{await saveBlob(blob,name);var mm=share?'Questo browser non condivide file: il PDF è stato scaricato, allegalo al messaggio.':'PDF scaricato: '+name+'.';st('nustat',mm);st('nustat2',mm)}
   }catch(e){if(!(e&&e.name==='AbortError'))st('nustat','PDF non creato: '+(e&&e.message||'errore'))}finally{if(btn)btn.disabled=false}}
 
 // ===================== Fase 35: questionario alimentare dell'atleta (anamnesi nutrizionale in 6 blocchi) =====================
@@ -8790,8 +8817,8 @@ function nWeekHtml(P,u,T,X){var W=P.wk,has=!!(W&&W.d&&W.d.length===7),two=nWk2(P
    '<div class="fg">'+nFl('Opzioni per pasto',nSel('wk.n',[['1','1 opzione: un pasto preciso'],['2','2 opzioni: A mediterranea · B fit / dal mondo']],two?'2':'1',' data-nwr="1"'))+
     nFl('Pasto libero controllato',nSel('wk.fl',[['','Nessuno'],['6c','Domenica a cena'],['6p','Domenica a pranzo'],['5c','Sabato a cena']],(W&&W.fl)||'',' data-nwf="1"'))+'</div>'+
    '<label class="nck"><input type="checkbox" data-nb="wk.x"'+(!W||W.x!==false?' checked':'')+'> Usa anche i piatti del ricettario (classici mediterranei e fit dal mondo: pasta e legumi, frittata, poke bowl, curry di ceci…)</label>'+
-   '<label class="nck"><input type="checkbox" data-nb="wk.on"'+(W&&W.on?' checked':'')+'> Includi il menu settimanale in stampa, PDF e link dell’atleta</label>'+
-   '<label class="nck"><input type="checkbox" data-nb="wk.only"'+(W&&W.only?' checked':'')+'> In stampa solo il menu settimanale (senza l’elenco delle opzioni A, B, C dei pasti)</label>'+
+   '<label class="nck"><input type="checkbox" data-nb="wk.on"'+(W&&W.on?' checked':'')+'> Mostra il menu settimanale all’atleta (link) e rendilo stampabile</label>'+
+
    (P.gg&&P.gg.length&&P.gg.length<7?'<p class="status">Giorni di allenamento dal questionario: '+esc(P.gg.map(function(i){return NDAY[i].slice(0,3)}).join(', '))+'. Negli altri giorni niente post-allenamento.</p>':'')+
    '<div class="mrow" style="justify-content:flex-start"><button type="button" class="pri" data-na="wgen">⚡ '+(has?'Rigenera':'Crea')+' il menu settimanale</button></div>';
   if(!has)return h+'<p class="status">Prima compila i pasti (anche con «⚡ Genera lo schema dai riferimenti»), poi crea il menu.</p></section>';
