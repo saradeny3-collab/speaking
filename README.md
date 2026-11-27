@@ -12,7 +12,7 @@ Dalla «Dispensa tecnico-operativa: allenamento Over 55–70» (guida-allenament
 - **Regole Over 55** su ogni scheda: RIR 2–3 (mai cedimento sui multiarticolari), carichi fino all’85% 1RM, niente salti né esercizi balistici, isometrie di 20–30 s, al massimo 3 serie, respirazione senza apnea; la potenza si allena con la concentrica veloce. Principianti o fragili partono dalle macchine isotoniche.
 - **Generatore**: split **«Over 55–70: Total Body multicomponente (dispensa)»** con i giorni A (forza base e stabilità) e B (equilibrio, potenza e mobilità) della scheda modello, 2–3 sedute. Fase 1 con le macchine (principianti o fragili, o TUG ≥ 10 s), fase 2 con manubri e cavi. Scarico nella 4ª settimana (volume −30/40%) e cambio scheda dopo 6 settimane per la rivalutazione.
 - **Condizioni** (anamnesi, valgono a ogni età): ipertensione, osteoporosi, ernia o lombalgia, gonartrosi, impingement di spalla, sarcopenia. Escludono gli esercizi sconsigliati dal prontuario, favoriscono quelli consigliati e scrivono gli accorgimenti nella logica di lavoro (es. ipertensione: carichi al 60–70% 1RM).
-- **Test**: nuova sezione con Chair Stand (30 s), Arm Curl (30 s), Single Leg Stance (dx/sx) e Timed Up and Go, con i riferimenti della dispensa; i risultati orientano la scheda (es. TUG ≥ 10 s → equilibrio ogni seduta, niente salti).
+- **Test**: Chair Stand (30 s), Arm Curl (30 s), Single Leg Stance (dx/sx) e Timed Up and Go, con i riferimenti della dispensa, inseriti dai 55 anni nei passi della sequenza fissa; i risultati orientano la scheda (es. TUG ≥ 10 s → equilibrio ogni seduta, niente salti).
 - **Zone cardio**: con la FC a riposo, formula di Karvonen (FC max = 220 − età); senza, percentuale della FC max teorica.
 - **Libreria**: 10 esercizi nuovi (box squat alla sedia, sit-to-stand, stacco sumo con kettlebell, shoulder press ai cavi sul piano scapolare, plank sulle ginocchia, abduzioni con elastico, equilibrio su cuscino propriocettivo, camminata su tapis roulant o all’aperto, step-up su gradino basso), filtro Sport «Over 55».
 - **Dispense**: scheda «Over 55–70» con fisiologia, screening e test, prontuario delle patologie, macchine o pesi liberi, scheda modello, monitoraggio. Glossario: sarcopenia, dinapenia, Karvonen, doppio progressivo, Chair Stand, TUG, piano scapolare.
@@ -55,7 +55,7 @@ Dal dettaglio atleta **«🗓 Diario attività»** (anche dal riquadro cardio di
 
 ## Rinnovo della scheda: rivalutazione, ritmo 3:1, RIR, volume e fasi di forza (nuovo)
 Si aggiunge al rinnovo costruttivo («♻ Rinnova scheda»):
-- **Rivalutazione in calendario**: ogni 6 settimane con 4 o più sedute a settimana, 8 con 3, 12 con 1–2, contando dall’ultimo test (o dall’inizio del percorso). La data entra nelle scadenze, nei semafori e nello scadenzario; una data scritta a mano in «💼 Abbonamento e appuntamenti» ha la precedenza. Ogni nuovo salvataggio dei test conserva quello precedente (`testh`, con peso e circonferenze): nel rinnovo e nello storico c’è il confronto prima/dopo (antropometria, 1RM, test funzionali). Se il test non è stato rifatto nel ciclo, il rinnovo lo segnala con «🧪 Vai ai test».
+- **Rivalutazione in calendario**: principianti e intermedi ogni 6 settimane con 4 o più sedute a settimana, 8 fino a 3; avanzati ogni 12 (vedi «Rivalutazione prima del rinnovo»), contando dall’ultimo test (o dall’inizio del percorso). La data entra nelle scadenze, nei semafori e nello scadenzario; una data scritta a mano in «💼 Abbonamento e appuntamenti» ha la precedenza. Ogni nuovo salvataggio dei test conserva quello precedente (`testh`, con peso e circonferenze): nel rinnovo e nello storico c’è il confronto prima/dopo (antropometria, 1RM, test funzionali). Se il test non è stato rifatto nel ciclo, il rinnovo lo segnala con «🧪 Vai ai test».
 - **Curva della forza**: 1RM stimato con Epley settimana per settimana dal diario dell’atleta, con lo stallo segnalato (già usato per gli esercizi «saturi»).
 - **Ritmo carico-scarico 3:1**: durata del mesociclo nuovo 4, 8 o 12 settimane (8 consigliata, 12 con 1–2 sedute), scarico nelle settimane 4, 8 e 12 con volume −30/50% e intensità mantenuta. Nell’editor: «Ritmo carico / scarico» (solo la settimana indicata, 3:1, 2:1). Le settimane di scarico sono segnate in scheda, Excel e CSV; sul telefono dell’atleta le serie si riducono da sole del 40% circa.
 - **RIR**: fondamentali e multiarticolari a RIR 1–2, cedimento (RIR 0) solo negli isolamenti, in forza e in ipertrofia.
@@ -103,12 +103,17 @@ Il filtro si attiva quando un fastidio arriva dall'anamnesi o dall'atleta durant
 
 ## Test funzionali
 Dal dettaglio atleta («Test funzionali») o dai passi in alto (1. Anamnesi · 2. Test · 3. Scheda). Ogni test ha la guida espandibile «cos'è, a cosa serve, come eseguirlo».
-- Controllo motorio e postura: Overhead Squat Assessment, Single Leg Squat (dx/sx).
-- Mobilità e flessibilità: ASLR, Shoulder Mobility, Test di Thomas (dx/sx), Sit-and-Reach.
-- Core e resistenza: Plank, Push-up, Pull-up / Body Row.
-- Forza: 1RM diretto o stimato (Epley e Brzycki) su più esercizi.
-- Cardio: Rockport (usa peso, età e sesso dell'anamnesi), Ruffier-Dickson, Cooper.
-I risultati sono salvati nel cliente e finiscono nel backup.
+**Sequenza fissa di esecuzione** (nuovo), sempre nello stesso ordine perché la fatica non alteri i risultati motori; in alto i 4 passi con il conteggio dei test compilati (es. «2/5»):
+1. **Mobilità e controllo motorio**: Overhead Squat Assessment, ASLR, Shoulder Mobility, Test di Thomas (dx/sx), Sit-and-Reach (Over 55: TUG).
+2. **Stabilità**: Single Leg Squat (dx/sx), Plank Test ventrale (secondi di tenuta in posizione corretta) (Over 55: Single Leg Stance).
+3. **Forza e resistenza muscolare**: Push-up Test con la variante (sulle punte, sulle ginocchia, mani rialzate), Pull-up / Body Row, **stima del 1RM sub-massimale** con Epley (carico × (1 + ripetizioni/30)), Brzycki o diretto, per intermedi e avanzati (per i principianti resta chiusa: carichi da RPE e RIR) (Over 55: Chair Stand e Arm Curl).
+4. **Cardiovascolari e di recupero (sub-massimali)**: Ruffier-Dickson, Rockport (usa peso, età e sesso dell'anamnesi), Cooper.
+Sotto i 55 anni la batteria Over 55 resta in fondo, chiusa. I risultati sono salvati nel cliente e finiscono nel backup.
+
+## Rivalutazione prima del rinnovo (nuovo)
+- **«♻ Rinnova scheda»** (scheda salvata, editor, home, Cruscotto): se nel ciclo della scheda non c'è un test, prima si apre «🧪 Prima del rinnovo: rivalutazione» con la batteria nella sequenza fissa. «🧪 Fai la rivalutazione, poi rinnova» apre i test; «Salva test e rinnova la scheda →» salva e apre il rinnovo con i valori nuovi. «Rinnova senza test» resta possibile.
+- **Modalità rivalutazione** (anche con «🧪 Nuova rivalutazione» nella pagina dei test): data di oggi, campi vuoti con il valore precedente accanto («prima: …», anche il 1RM), variante del push-up ripresa. I test non rifatti restano con il valore di prima (`test.cv`, fuori dal confronto prima/dopo); il test precedente va nello storico (`testh`).
+- **Cadenza**: principianti e intermedi ogni 6–8 settimane (6 con 4 o più sedute a settimana, 8 fino a 3), avanzati ogni 12. Sostituisce la regola precedente (12 settimane con 1–2 sedute). La data compare nella pagina dei test, nelle scadenze, nei semafori e nello scadenzario; una data scritta a mano in «💼 Abbonamento e appuntamenti» ha la precedenza.
 
 ## Generatore di schede
 Pagina intera, in ordine: impostazione (nome, **sedute a settimana**, **split**), pulsante **⚡ Genera proposta automatica**, **Logica di lavoro**, riquadro **Tempistiche di programmazione** (inizio, scarico nella 4ª settimana, cambio scheda dopo 6 settimane, tutto modificabile), warm-up, **sedute**, cool-down, volume settimanale, **legenda**.
