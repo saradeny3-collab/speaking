@@ -1,7 +1,7 @@
 # S.peaking
 
 Anamnesi · Valutazione funzionale · Preparazione atletica.
-Barra di navigazione scura a sinistra (Pagina iniziale, Atleti, Cruscotto atleti, Schede allenamento, Sezione nutrizionale, Editor schede, Dispense) (in basso su smartphone), area di lavoro centrale **nera** con testi chiari (riquadri grigio scuro, avvisi colorati in versione scura), colore principale **viola #4B0082** con testo bianco, stampa A4 pulita (in stampa e PDF i fogli restano bianchi con testo nero). La pagina dell’atleta aperta dal link resta chiara.
+Barra di navigazione scura a sinistra (Pagina iniziale, Atleti, Cruscotto atleti, Schede allenamento, Sezione nutrizionale, Editor schede, Dispense) (in basso su smartphone), area di lavoro centrale **grigio antracite** (più chiara della barra di sinistra, che resta nera) con testi bianchi (riquadri grigio scuro, avvisi colorati in versione scura), colore principale **viola #4B0082** con testo bianco, stampa A4 pulita (in stampa e PDF i fogli restano bianchi con testo nero). La pagina dell’atleta aperta dal link resta chiara.
 
 ## Pagina iniziale (nuovo)
 All’apertura l’app mostra la **Pagina iniziale**: area a destra nera come la colonna di sinistra, con pulsanti viola grandi:
@@ -61,7 +61,8 @@ Dal dettaglio atleta **«🗓 Diario attività»** (anche dal riquadro cardio di
 - **Scheda terminata**: «✓ Terminata» sull’elenco schede, «✓ Segna come terminata» nella scheda salvata o nello storico. Si indicano l’ultimo giorno svolto e una nota (es. ciclo completato, interrotto per infortunio). La scheda passa nella sezione «🗄 Archivio · schede terminate» con il periodo in evidenza («Svolta dal 01/10 al 12/11/2026, 6 settimane»), resta apribile, stampabile ed esportabile e non conta più come scheda attiva (niente avvisi di cambio scheda). L’atleta, dal link, vede che è terminata. «↺ Riapri» la rimette attiva.
 - **Piano alimentare terminato**: stesso funzionamento nella Sezione nutrizionale («Seguito dal … al …»).
 - **Sfondo viola**: schede e piani alimentari terminati hanno lo sfondo viola nell’elenco, nello «🗄 Storico e archivio» e nella fascia «Scheda terminata» della scheda salvata, così si distinguono subito da quelli in corso. In stampa restano bianchi.
-- **Pulsante «✓ Terminata» / «✓ Terminato» / «✓ Segna come terminata»** su sfondo giallo evidenziatore con testo nero, per vederlo subito.
+- **Pulsante «✓ Segna come terminata» / «✓ Segna come terminato»** (elenchi, scheda salvata, storico) su sfondo giallo evidenziatore con testo nero, per vederlo subito.
+- Negli elenchi la scheda in corso ha l’etichetta verde **«● Scheda attiva · in corso»**; le schede e i piani terminati hanno a destra l’etichetta gialla «✓ Terminata» / «✓ Terminato» al posto di «↺ Riapri». Per riaprirli: «↺ Riapri» nella scheda salvata o nello «🗄 Storico e archivio».
 - **🗄 Storico e archivio** nel dettaglio atleta: tutte le schede e i piani con stato (in corso, scaduta, terminata, sostituito) e periodo, le rivalutazioni con il confronto, le scadenze archiviate.
 - Dati: nella scheda `term`, `fine`, `fnt`; nel piano gli stessi campi; nel cliente `dla` (scadenze archiviate).
 
