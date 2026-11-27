@@ -23,6 +23,49 @@ Nell’anamnesi, sezione sport extra, «+ Aggiungi cardio»: attività (camminat
 - **Generatore ed editor**: riquadro «Cardio della settimana» (modificabile, «Riprendi dall’anamnesi») e indicazioni nella logica di lavoro: minuti rispetto ai 150 dell’OMS (se bastano non si aggiunge aerobico in palestra), cardio prima dei pesi (interferenza), corsa e seduta gambe, cardio intenso con obiettivo forza o ipertrofia.
 - Nella **scheda** (a schermo, stampa, PDF, Excel, CSV e link dell’atleta) con la zona di frequenza cardiaca.
 
+## Cardio: km minimi, km massimi e velocità media (nuovo)
+Ogni riga cardio (anamnesi, generatore, editor) ha il campo **«Km minimi a settimana»** (la «Distanza» resta quella di una uscita). Sotto la riga l’app calcola da sola:
+- **Km massimi a settimana** per non andare in overtraining:
+  - con almeno 2 settimane di attività nel diario (Garmin o segnate a mano): il più basso tra la media delle ultime 4 settimane × 1,3 (rapporto carico acuto/cronico) e l’ultima settimana + 10%;
+  - senza storico: km minimi + 10% (principianti e Over 55), + 20% (intermedi), + 25% (avanzati);
+  - niente aumenti con un infortunio o un fastidio a caviglia, ginocchio, anca o schiena (zona ferma: niente corsa) o con un carico totale della settimana alto (ACWR oltre 1,3, contando anche judo, palestra e sport);
+  - se i km minimi superano il massimo sicuro, la progressione del 10% a settimana fino ai km minimi;
+  - per uscita: km medi e uscita più lunga (corsa con 3 o più uscite: fino al 35% del totale).
+- **Velocità media** da tenere nella zona di intensità scelta: dalle uscite registrate con l’orologio (velocità rispetto alla FC) quando ce ne sono almeno 2 nelle ultime 12 settimane, altrimenti dal VO₂max (test di Cooper o Rockport, oppure stima da età, sesso e livello). Corsa e camminata in km/h e passo al km, nuoto in min/100 m, vogatore in min/500 m. Sotto i 6,5 km/h di corsa suggerisce corsa e camminata alternate.
+- **Zona di FC** con la FC a riposo **dall’orologio** (mediana degli ultimi 7 giorni importati) e la FC max più alta registrata dall’orologio se supera quella teorica; altrimenti anamnesi e 220 − età.
+- Avviso se durata e velocità non bastano per i km minimi («servono circa N min per uscita») e km già fatti nella settimana.
+- I calcoli escono anche nella logica di lavoro, nella tabella del cardio della scheda (stampa e PDF) e nel link dell’atleta.
+
+## Diario attività e Garmin (nuovo)
+Dal dettaglio atleta **«🗓 Diario attività»** (anche dal riquadro cardio di anamnesi, generatore ed editor): tutto quello che l’atleta fa durante la settimana, cardio, judo, palestra, sport.
+- Ogni attività: giorno, **fascia oraria** (ora di inizio e di fine, la durata si calcola da sola), attività, km, FC media e massima, RPE, calorie, dislivello, note.
+- Settimana per settimana (‹ ›): numero di attività, minuti, carico (minuti × RPE; senza RPE stimato dalla FC), minuti per cardio, judo, palestra e altri sport, km fatti rispetto a minimo e massimo di ogni cardio programmato, **ACWR** (zona sicura 0,8–1,3) e avviso per due sedute impegnative a meno di 6 ore.
+- **⌚ Importa da Garmin**: CSV di Garmin Connect (Attività → Tutte le attività → Esporta CSV, in italiano o in inglese), file FIT (anche lo ZIP di «Esporta originale»), TCX e GPX, più file insieme. Le attività già importate non si duplicano. Il CSV giornaliero della FC a riposo va nella prontezza e nelle zone cardio.
+- Il collegamento diretto all’account Garmin, senza file, richiede un server e l’autorizzazione di Garmin (Garmin Health API): con l’app su GitHub Pages i dati passano dai file esportati.
+- **Esporta CSV** del diario.
+- **Link dell’atleta**: riquadro «🗓 Le mie attività della settimana» con «+ Segna un’attività» e «⌚ Importa da Garmin»; i km fatti si confrontano con minimo e massimo. Le attività arrivano al PT (`link/<codice>/r/ax`, stesse regole di Firestore di `r/log`) e contano come feedback nei semafori. Il PT può correggere o nascondere le voci dell’atleta.
+- Dati: `u.ax` (voci del PT e importate) e `u.axh` (voci nascoste) nel cliente: cloud, dispositivo e backup JSON.
+
+## Archivio: scadenze, schede e piani terminati (nuovo)
+- **✓ Archivia** su ogni scadenza (riquadro «⚠ Scadenze» in home, dettaglio atleta, Cruscotto → Scadenzario): la scadenza è spuntata come gestita, sparisce da avvisi, semafori e promemoria e resta in archivio. Si ripristina con «↺ Ripristina».
+- **Scheda terminata**: «✓ Terminata» sull’elenco schede, «✓ Segna come terminata» nella scheda salvata o nello storico. Si indicano l’ultimo giorno svolto e una nota (es. ciclo completato, interrotto per infortunio). La scheda passa nella sezione «🗄 Archivio · schede terminate» con il periodo in evidenza («Svolta dal 01/10 al 12/11/2026, 6 settimane»), resta apribile, stampabile ed esportabile e non conta più come scheda attiva (niente avvisi di cambio scheda). L’atleta, dal link, vede che è terminata. «↺ Riapri» la rimette attiva.
+- **Piano alimentare terminato**: stesso funzionamento nella Sezione nutrizionale («Seguito dal … al …»).
+- **🗄 Storico e archivio** nel dettaglio atleta: tutte le schede e i piani con stato (in corso, scaduta, terminata, sostituito) e periodo, le rivalutazioni con il confronto, le scadenze archiviate.
+- Dati: nella scheda `term`, `fine`, `fnt`; nel piano gli stessi campi; nel cliente `dla` (scadenze archiviate).
+
+## Rinnovo della scheda: rivalutazione, ritmo 3:1, RIR, volume e fasi di forza (nuovo)
+Si aggiunge al rinnovo costruttivo («♻ Rinnova scheda»):
+- **Rivalutazione in calendario**: ogni 6 settimane con 4 o più sedute a settimana, 8 con 3, 12 con 1–2, contando dall’ultimo test (o dall’inizio del percorso). La data entra nelle scadenze, nei semafori e nello scadenzario; una data scritta a mano in «💼 Abbonamento e appuntamenti» ha la precedenza. Ogni nuovo salvataggio dei test conserva quello precedente (`testh`, con peso e circonferenze): nel rinnovo e nello storico c’è il confronto prima/dopo (antropometria, 1RM, test funzionali). Se il test non è stato rifatto nel ciclo, il rinnovo lo segnala con «🧪 Vai ai test».
+- **Curva della forza**: 1RM stimato con Epley settimana per settimana dal diario dell’atleta, con lo stallo segnalato (già usato per gli esercizi «saturi»).
+- **Ritmo carico-scarico 3:1**: durata del mesociclo nuovo 4, 8 o 12 settimane (8 consigliata, 12 con 1–2 sedute), scarico nelle settimane 4, 8 e 12 con volume −30/50% e intensità mantenuta. Nell’editor: «Ritmo carico / scarico» (solo la settimana indicata, 3:1, 2:1). Le settimane di scarico sono segnate in scheda, Excel e CSV; sul telefono dell’atleta le serie si riducono da sole del 40% circa.
+- **RIR**: fondamentali e multiarticolari a RIR 1–2, cedimento (RIR 0) solo negli isolamenti, in forza e in ipertrofia.
+- **Volume**: 10–20 serie a settimana per petto, dorso, deltoidi, quadricipiti, femorali e glutei (sinergici a metà): l’app aggiunge o toglie serie ai complementari e agli isolamenti e segnala quando serve un esercizio in più o una seconda seduta (multifrequenza 2–3 volte a settimana).
+- **Fase di forza**: preparatoria / adattamento anatomico (50% forza massima, 50% esplosiva), specifica (40/60), rifinitura / peaking (30/70). La proposta viene dalla data della gara (oltre 16 settimane, 9–16, ultime 8) o dalla fase della scheda precedente; per chi non ha gara né obiettivo forza o preparazione atletica la ripartizione non si applica. La quota esplosiva diventa serie da 3–5 ripetizioni al 40–60% 1RM (Over 55: 30–50%) con concentrica alla massima velocità.
+- Tutto è riportato nel resoconto e nella logica di lavoro della scheda nuova. Soglie e percentuali sono indicative e vanno validate dal Personal Trainer.
+
+## Rinomina della scheda (nuovo)
+«✏ Rinomina» accanto al titolo della scheda salvata, «✏» su ogni scheda dell’elenco e «✏ Rinomina» in alto nell’editor. Il nome cambia subito (anche nel link dell’atleta, nel PDF e nell’Excel); nell’editor le altre modifiche aperte restano da salvare.
+
 ## Allenamento a casa (nuovo)
 Nel generatore (Impostazione) e nell’editor (Impostazioni della scheda): **«Dove si allena»** → «In palestra» oppure «A casa / solo alcuni attrezzi», con l’elenco da spuntare (manubri, kettlebell, bilanciere, panca, sbarra, elastici, miniband, TRX, fitball, step, palla medica, corda, foam roller, tappetino, cyclette, tapis roulant, vogatore, ellittica, cavi, macchine). Il corpo libero è sempre incluso.
 - Selezione automatica, programmi delle dispense, «Varia», proposte, blocchi e riscaldamento usano solo esercizi eseguibili con quegli attrezzi; in libreria gli altri sono segnati «attrezzo non disponibile».
@@ -368,7 +411,7 @@ Nell’elenco gli atleti non hanno pallini né iniziali: si legge subito il nome
 
 Calcolato dalla scheda più recente di ogni atleta (data di cambio scheda, o 6 settimane dall'inizio se manca):
 - **Attivi**: cambio scheda non ancora raggiunto.
-- **In scadenza**: cambio scheda, fine dello stop medico per infortunio, scadenza del certificato medico o dell’abbonamento entro **10 giorni** o già superati. In home il riquadro «⚠ Scadenze entro 10 giorni» le elenca dalla più vicina (un clic sul nome apre l’atleta); ogni atleta ha l’etichetta precisa («Scheda tra 9 gg», «Stop infortunio tra 5 gg», «Certificato scaduto»…) e il dettaglio atleta mostra tutte le date.
+- **In scadenza**: cambio scheda, rivalutazione, fine dello stop medico per infortunio, scadenza del certificato medico o dell’abbonamento entro **10 giorni** o già superati (escluse le scadenze archiviate e le schede terminate). In home il riquadro «⚠ Scadenze entro 10 giorni» le elenca dalla più vicina (un clic sul nome apre l’atleta); ogni atleta ha l’etichetta precisa («Scheda tra 9 gg», «Stop infortunio tra 5 gg», «Certificato scaduto»…) e il dettaglio atleta mostra tutte le date.
 - **Verifica infortunio**: la data «fermo fino al» è passata.
 - **Check-in**: atleta attivo senza check-in da almeno 14 giorni.
 
