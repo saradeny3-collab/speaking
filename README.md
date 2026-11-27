@@ -1,7 +1,16 @@
 # S.peaking
 
 Anamnesi · Valutazione funzionale · Preparazione atletica.
-Barra di navigazione scura a sinistra (Atleti, Cruscotto atleti, Schede allenamento, Sezione nutrizionale, Editor schede, Dispense) (in basso su smartphone), area di lavoro centrale chiara, colore principale **viola #4B0082** con testo bianco, stampa A4 pulita.
+Barra di navigazione scura a sinistra (Pagina iniziale, Atleti, Cruscotto atleti, Schede allenamento, Sezione nutrizionale, Editor schede, Dispense) (in basso su smartphone), area di lavoro centrale chiara, colore principale **viola #4B0082** con testo bianco, stampa A4 pulita.
+
+## Pagina iniziale (nuovo)
+All’apertura l’app mostra la **Pagina iniziale**: area a destra nera come la colonna di sinistra, con pulsanti viola grandi:
+- **Atleti** (con il numero): un clic apre la tendina con l’elenco in ordine di cognome e le etichette di scadenza; un clic sul nome apre l’atleta. Con più di 6 atleti c’è la ricerca. In fondo «Apri la pagina Atleti completa» (filtri, stato, scadenze, elimina).
+- **Nuovo cliente**: apre l’anamnesi.
+- **Elenco atleti ▾**: PDF, Excel, CSV.
+- **Backup ▾** (solo per il PT): esporta, importa, carica nel cloud, esci.
+- **Yanagi Academy** con lo stemma: la sezione è stata spostata qui dalla barra laterale (non è più nel menu né nella barra in basso del telefono).
+Nel menu la voce «Pagina iniziale» (su smartphone «Inizio») riporta qui; «Atleti» apre la pagina completa degli atleti.
 
 ## Nuovo cliente: anamnesi
 «+ Nuovo Cliente» apre la pagina «Anamnesi, obiettivi e stile di vita»: dati anagrafici e misure (data di nascita ed età calcolata, sesso, FC a riposo, peso, altezza, livello, circonferenze, certificato medico con data di scadenza, con BMI e rapporti vita/fianchi e vita/altezza calcolati), PAR-Q a 7 domande, stato di salute con **infortuni e traumi** (zona, lato, stato, «fermo fino al»), **condizioni frequenti** della dispensa Over 55–70, obiettivi a scelta multipla, gara o sport obiettivo, sport extra settimanali e **cardio** (vedi sotto) con stima del carico, gruppi muscolari prioritari e preferenza di split (la decisione finale spetta al Personal Trainer). Dal dettaglio atleta il pulsante «Anamnesi» riapre il modulo per modificarlo.
@@ -237,7 +246,7 @@ Dalla dispensa «Manuale metodologico di corsa su strada» (corsa-periodizzazion
 - La dispensa non indica serie e ripetizioni della forza né la durata delle fasi (tranne il tapering): sono «dosaggio indicativo» e vanno validati dal Personal Trainer.
 
 ## Yanagi Academy: allenamenti di gruppo e squadra (judo)
-Voce **Yanagi Academy** nel menu, con due sezioni: **Gruppi e squadre** ed **Esercizi judo**, più il pulsante **⏱ Timer randori**.
+Pulsante **Yanagi Academy** nella Pagina iniziale, con due sezioni: **Gruppi e squadre** ed **Esercizi judo**, più il pulsante **⏱ Timer randori**.
 
 **Gruppo** («+ Nuovo gruppo o squadra» → Impostazioni):
 - **Fascia d’età e livello**: Bambini (6–8 anni), Ragazzi (9–12), Esordienti (13–14), Agonisti Cadetti / Juniores / Seniores, Master, Amatori, misto. Bambini e Ragazzi: giochi, percorsi funzionali e randori di studio. Esordienti e Master: niente sovraccarichi pesanti.
@@ -275,7 +284,7 @@ Voce **Yanagi Academy** nel menu, con due sezioni: **Gruppi e squadre** ed **Ese
 - «Stampa calendario / PDF» (A4 orizzontale) ed **Excel** con 4 fogli: Calendario (blocchi, forza, RPE, carico), Carico settimanale, Gruppo (gare, attrezzi, atleti con cintura) e Test.
 - **🖨 Stampa seduta completa (PDF)** e **🖨 Programma completo (PDF)** (dal calendario, scegli il periodo: una seduta per pagina): ogni seduta dal rei al defaticamento, blocchi con orari, ogni esercizio con orario e minuti indicativi (≈), dosaggio, note e guida all’esecuzione, materiale, alert infortuni, presenze. «Scarica file» salva la pagina HTML.
 
-**Stemma**: lo stemma della squadra è in fondo alla barra nera a sinistra (su PC) fin dall’apertura dell’app (un clic apre la Yanagi Academy), accanto a «Yanagi Academy» in tutte le pagine della sezione e nelle stampe.
+**Stemma**: lo stemma della squadra è sul pulsante «Yanagi Academy» della Pagina iniziale (un clic apre la sezione), accanto a «Yanagi Academy» in tutte le pagine della sezione e nelle stampe.
 
 **Atleti non in archivio**: «+ Nuovo atleta» (in Impostazioni o in «Atleti, test e infortuni») con nome, cognome, età, categoria (proposta dall’età), peso, cintura e categoria di peso facoltativa. Gli stessi dati si modificano per tutti gli atleti del gruppo.
 

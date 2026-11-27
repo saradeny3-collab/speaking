@@ -154,6 +154,22 @@ body.locked .app,body.locked .notice{display:none}
 :focus-visible{outline:3px solid var(--focus);outline-offset:2px}
 header{border-bottom:2px solid var(--brand)}
 h2{font-weight:800}
+main.mstart{--bg:#000;--surface:#141414;--text:#fff;--muted:#cfcfcf;--line:#3a3a3a;--brand-soft:#2a1550;--focus:#B794F6;--accent:#B794F6}
+.sth{max-width:900px}.sthead h2{color:#fff;font-size:26px}
+.stgrid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:6px}.stage.tablet .stgrid{grid-template-columns:1fr 1fr}
+.stcell{position:relative;min-width:0}.stage.tablet .stwide{grid-column:1/-1}
+.stb2{width:100%;display:flex;align-items:center;gap:14px;background:#4B0082;color:#fff;border:2px solid #4B0082;border-radius:16px;padding:20px 22px;font:inherit;font-size:20px;font-weight:800;cursor:pointer;text-align:left;min-height:76px}
+.stb2:hover,.stb2[aria-expanded="true"]{background:#5c12a0;border-color:#B794F6}.stb2:focus-visible{outline:3px solid #B794F6;outline-offset:3px}
+.stb2 svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.stb2 i{font-style:normal;margin-left:auto;font-size:16px}.stb2 .stn{margin-left:auto;background:#fff;color:#4B0082;border-radius:99px;padding:1px 11px;font-size:15px}.stb2 .stn+i{margin-left:6px}
+.stb2 .stplus{width:28px;text-align:center;font-size:30px;line-height:1}
+.styan{flex-direction:column;justify-content:center;text-align:center;gap:8px;padding:22px}.styan img{width:110px;max-width:40%;height:auto}.styan small{font-size:13px;font-weight:500;color:#e6dcf5}
+.stal{margin-top:8px;background:#141414;border:1px solid #4B0082;border-radius:14px;padding:10px}.stal[hidden]{display:none}.stal .search{margin:0 0 8px}
+.stul{list-style:none;margin:0;padding:0;max-height:55vh;overflow:auto}.stul li+li{border-top:1px solid #2c2c2c}
+.stul button{width:100%;display:flex;flex-wrap:wrap;align-items:center;gap:8px;background:none;border:0;color:#fff;font:inherit;font-size:16px;padding:12px 10px;border-radius:10px;cursor:pointer;text-align:left}.stul button:hover,.stul button:focus-visible{background:#2a1550}
+.stul .ubd{display:flex;flex-wrap:wrap;gap:4px}.stemp{color:#cfcfcf;margin:6px 4px}
+.stall{width:100%;margin-top:8px;background:none;border:1px dashed #B794F6;color:#B794F6;border-radius:10px;padding:11px;font:inherit;font-weight:700;cursor:pointer}
+main.mstart .ddm{left:0;right:auto;width:100%;max-width:340px}
 .newbtn{flex:1 1 160px;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--brand);color:#fff;border:0;border-radius:14px;padding:16px 20px;font:inherit;font-size:19px;font-weight:800;cursor:pointer}
 .stage.tablet .newbtn{flex:0 0 auto;min-width:280px}
 .top{display:flex;gap:10px;align-items:stretch;flex-wrap:wrap}
@@ -641,7 +657,7 @@ var I = {
   crm:'<svg viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="3"/><circle cx="12" cy="7" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="12" cy="17" r="1.6"/></svg>',
   nut:'<svg viewBox="0 0 24 24"><path d="M12 7.5c-1.6-1.3-4.2-1.4-5.8.3C4 10.1 4.6 15 7.2 18.2c1.3 1.6 2.8 2.3 4.8 1.4 2 .9 3.5.2 4.8-1.4 2.6-3.2 3.2-8.1 1-10.4-1.6-1.7-4.2-1.6-5.8-.3zM12 7.5c0-2 .8-3.6 2.6-4.5"/></svg>'
 };
-var cur = 'home', uf = 'all';
+var cur = 'start', uf = 'all', STA = false, STQ = '';
 var BRAND='<div class="brand"><div class="bl"><svg viewBox="0 0 32 32" aria-hidden="true"><polyline points="2,18 8,18 11.5,6 16.5,27 20,14 22.5,18 26,18"/></svg><span class="wm" aria-label="S.peaking"><b>S.</b>peaking</span></div><div class="tag">Anamnesi · Valutazione funzionale · Preparazione atletica</div></div>';
 document.getElementById('hdr').innerHTML=BRAND;
 // Stato degli atleti, calcolato dalla scheda più recente:
@@ -676,14 +692,15 @@ function ustat(u){
 }
 function counts(){var c={all:U.length,scad:0,ck:0,att:0};U.forEach(function(u){var s=ustat(u);if(s.scad)c.scad++;if(s.ck)c.ck++;if(s.att)c.att++});return c}
 function renderNav(){
-  var items = [{id:'home',t:'Home',i:I.home},{id:'crm',t:'Cruscotto',i:I.crm},{id:'schede',t:'Schede',i:I.plan},{id:'nut',t:'Nutrizione',i:I.nut},{id:'ed',t:'Editor',i:I.edit},{id:'disp',t:'Dispense',i:I.book},{id:'yan',t:'Yanagi',i:I.yan}], c=counts();
+  var items = [{id:'start',t:'Inizio',i:I.home},{id:'home',t:'Atleti',i:I.users},{id:'crm',t:'Cruscotto',i:I.crm},{id:'schede',t:'Schede',i:I.plan},{id:'nut',t:'Nutrizione',i:I.nut},{id:'ed',t:'Editor',i:I.edit},{id:'disp',t:'Dispense',i:I.book}], c=counts();
   document.getElementById('tabbar').innerHTML = items.map(function(x){return '<button class="tab" data-go="'+x.id+'"'+(x.id===cur||((cur==='anam'||cur==='test')&&x.id==='home')||(cur==='gen'&&x.id==='schede')?' aria-current="true"':'')+'>'+x.i+'<span>'+x.t+'</span></button>'}).join('');
-  document.getElementById('side').innerHTML = '<div class="sbrand">'+BRAND+'</div>'+items.filter(function(x){return !(x.id==='yan'&&typeof YLOGO==='string'&&YLOGO)}).map(function(x){var f=x.id==='crm'?'Cruscotto atleti':x.id==='schede'?'Schede allenamento':x.id==='nut'?'Sezione nutrizionale':x.id==='ed'?'Editor schede':x.id==='disp'?'Dispense':x.id==='yan'?'Yanagi Academy':'Atleti';return '<button data-go="'+x.id+'"'+((x.id===cur&&!(cur==='home'&&uf!=='all'))||((cur==='anam'||cur==='test')&&x.id==='home')||(cur==='gen'&&x.id==='schede')?' aria-current="true"':'')+'>'+x.i+'<span>'+f+'</span>'+(x.id==='home'?'<b class="n">'+c.all+'</b>':x.id==='crm'&&typeof semCounts==='function'&&U.length?(function(){var r=semCounts().r;return r?'<b class="n nr" title="Atleti in rosso">'+r+'</b>':''})():'')+'</button>'}).join('')+
-   '<div class="slab">Stato atleti</div>'+FILT.slice(1).map(function(f){return '<button data-uf="'+f.id+'"'+(cur==='home'&&uf===f.id?' aria-current="true"':'')+'><i class="sd '+f.id+'"></i><span>'+f.t+'</span><b class="n">'+c[f.id]+'</b></button>'}).join('')+
-    (typeof YLOGO==='string'&&YLOGO?'<button class="sylogo" data-go="yan" title="Apri Yanagi Academy"'+(cur==='yan'?' aria-current="true"':'')+'><img src="'+YLOGO+'" alt="Stemma Yanagi Academy"><span>Yanagi Academy</span></button>':'');
+  document.getElementById('side').innerHTML = '<div class="sbrand">'+BRAND+'</div>'+items.map(function(x){var f=x.id==='start'?'Pagina iniziale':x.id==='crm'?'Cruscotto atleti':x.id==='schede'?'Schede allenamento':x.id==='nut'?'Sezione nutrizionale':x.id==='ed'?'Editor schede':x.id==='disp'?'Dispense':x.id==='yan'?'Yanagi Academy':'Atleti';return '<button data-go="'+x.id+'"'+((x.id===cur&&!(cur==='home'&&uf!=='all'))||((cur==='anam'||cur==='test')&&x.id==='home')||(cur==='gen'&&x.id==='schede')?' aria-current="true"':'')+'>'+x.i+'<span>'+f+'</span>'+(x.id==='home'?'<b class="n">'+c.all+'</b>':x.id==='crm'&&typeof semCounts==='function'&&U.length?(function(){var r=semCounts().r;return r?'<b class="n nr" title="Atleti in rosso">'+r+'</b>':''})():'')+'</button>'}).join('')+
+   '<div class="slab">Stato atleti</div>'+FILT.slice(1).map(function(f){return '<button data-uf="'+f.id+'"'+(cur==='home'&&uf===f.id?' aria-current="true"':'')+'><i class="sd '+f.id+'"></i><span>'+f.t+'</span><b class="n">'+c[f.id]+'</b></button>'}).join('');
 }
 function render(){
-  if (cur === 'home') renderUtenti();
+  var mn=document.getElementById('main');if(mn)mn.classList.toggle('mstart',cur==='start');
+  if (cur === 'start') renderStart();
+  else if (cur === 'home') renderUtenti();
   else if (cur === 'anam') renderAnam();
   else if (cur === 'test') renderTest();
   else if (cur === 'gen') renderGen();
@@ -935,6 +952,37 @@ function filtered(){
   return U.filter(function(u){return (!q||[u.n,u.c,u.cf,u.t,u.e,u.ci,(u.ob||[]).join(' '),u.gara,(u.sp||[]).join(' ')].join(' ').toLowerCase().indexOf(q)>-1)&&(uf==='all'||ustat(u)[uf])})
    .sort(function(a,b){return (a.c+a.n).localeCompare(b.c+b.n)});
 }
+// ---- Pagina iniziale (nera, pulsanti viola): Atleti, Nuovo cliente, Elenco atleti, Backup, Yanagi Academy ----
+function renderStart(){
+  var y=typeof YLOGO==='string'&&YLOGO;
+  document.getElementById('main').innerHTML=
+   '<div class="sth"><div class="sthead"><h2>Pagina iniziale</h2><p class="sub">'+U.length+(U.length===1?' atleta in archivio':' atleti in archivio')+'</p></div>'+
+   '<div id="cloudbar"></div><div class="status" id="bkstat" role="status"></div><input type="file" id="impf" accept="application/json,.json" hidden>'+
+   '<div class="stgrid">'+
+   '<div class="stcell stwide"><button class="stb2" data-act="statl" aria-expanded="'+STA+'" aria-controls="stal">'+I.users+'<span>Atleti</span><b class="stn">'+U.length+'</b><i aria-hidden="true">'+(STA?'▴':'▾')+'</i></button>'+
+   '<div class="stal" id="stal"'+(STA?'':' hidden')+'>'+(U.length>6?'<input class="search" id="stq" type="search" placeholder="Cerca un atleta…" value="'+esc(STQ)+'">':'')+'<div id="stall"></div>'+
+   '<button class="stall" data-go="home">Apri la pagina Atleti completa (filtri, stato, scadenze) →</button></div></div>'+
+   '<div class="stcell"><button class="stb2" data-act="add"><span class="stplus" aria-hidden="true">+</span><span>Nuovo cliente</span></button></div>'+
+   '<div class="stcell dd"><button class="stb2" data-act="elmenu" aria-haspopup="true" aria-expanded="false" aria-controls="elm"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM9 11h7M9 15h7M9 7h3"/></svg><span>Elenco atleti</span><i aria-hidden="true">▾</i></button>'+
+   '<div class="ddm" id="elm" role="menu" hidden><button role="menuitem" data-act="elpdf">Stampa / Esporta PDF</button><button role="menuitem" data-act="elxl">Esporta Excel (.xlsx)</button><button role="menuitem" data-act="elcsv">Esporta CSV</button>'+
+   '<p class="hint">Tutti gli atleti con i dati anagrafici. Contiene dati personali: conserva e invia il file con cura.</p></div></div>'+
+   (!isPT()?'':'<div class="stcell dd"><button class="stb2" data-act="bkmenu" aria-haspopup="true" aria-expanded="false" aria-controls="bkm"><svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 17v3h16v-3"/></svg><span>Backup</span><i aria-hidden="true">▾</i></button>'+
+   '<div class="ddm" id="bkm" role="menu" hidden><button role="menuitem" data-act="exp">Esporta backup (JSON)</button><button role="menuitem" data-act="imp">Importa backup (JSON)</button>'+
+   (Cloud.user()?'<button role="menuitem" data-act="cloudup">Carica nel cloud i dati di questo dispositivo</button><button role="menuitem" data-act="logout">Esci ('+esc(Cloud.user().email||'')+')</button><p class="hint" id="cloudst">'+esc(Cloud.status())+'</p>':
+   '<p class="hint">Stai lavorando senza cloud: i dati sono salvati solo in questo browser. Per passarli a un altro dispositivo usa Esporta e poi Importa.</p>')+'</div></div>')+
+   '<div class="stcell stwide"><button class="stb2 styan" data-go="yan">'+(y?'<img src="'+YLOGO+'" alt="">':I.yan)+'<span>Yanagi Academy</span><small>Gruppi e squadre di judo · Esercizi judo · Timer randori</small></button></div>'+
+   '</div></div>';
+  var q=document.getElementById('stq');if(q)q.addEventListener('input',function(e){STQ=e.target.value;stList()});
+  stList();cloudBar();
+}
+function stList(){
+  var box=document.getElementById('stall');if(!box)return;var q=STQ.toLowerCase().trim();
+  var L=U.filter(function(u){return !q||(u.n+' '+u.c+' '+u.c+' '+u.n).toLowerCase().indexOf(q)>-1}).sort(function(a,b){return (a.c+a.n).localeCompare(b.c+b.n)});
+  box.innerHTML=!U.length?'<p class="stemp">Nessun atleta ancora: usa «+ Nuovo cliente».</p>':!L.length?'<p class="stemp">Nessun atleta con questo nome.</p>':
+   '<ul class="stul">'+L.map(function(u){var b=badges(u);return '<li><button data-row="'+esc(u.id)+'"><b>'+esc(u.c+' '+u.n)+'</b>'+(b?'<span class="ubd">'+b+'</span>':'')+'</button></li>'}).join('')+'</ul>';
+}
+document.addEventListener('click',function(e){var a=e.target.closest('[data-act="statl"]');if(!a)return;STA=!STA;
+  var p=document.getElementById('stal');if(p){p.hidden=!STA;a.setAttribute('aria-expanded',String(STA));a.querySelector('i').textContent=STA?'▴':'▾';if(STA){var q=document.getElementById('stq');if(q)q.focus()}}});
 function renderUtenti(){
   document.getElementById('main').innerHTML =
    '<div class="top"><button class="newbtn" data-act="add">+ Nuovo Cliente</button>'+
