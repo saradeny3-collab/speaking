@@ -882,13 +882,13 @@ var Cloud=(function(){
   function linkDoc(o){var u=find(o.uid);return {owner:user.uid,sid:String(o.id),on:!o.aoff,j:JSON.stringify(shareData(o,u)),p:JSON.stringify(pubData(o,u)),t:F.f.serverTimestamp(),ts:Date.now()}}
   function linkPut(o){if(!user||!F||!o||!o.atok)return Promise.reject(new Error('nocloud'));return F.f.setDoc(lref(o.atok),linkDoc(o))}
   async function linkFb(t){if(!user||!F)throw new Error('nocloud');var s=await F.f.getDoc(F.f.doc(fs,'link',String(t),'r','fb'));if(!s.exists())return null;var x=s.data();return {l:JSON.parse(x.l||'[]'),ts:+x.ts||0}}
-  async function linkR(t,n){if(!user||!F)throw new Error('nocloud');var s=await F.f.getDoc(F.f.doc(fs,'link',String(t),'r',String(n)));if(!s.exists())return null;var x=s.data();return {l:JSON.parse(x.l||'null'),ts:+x.ts||0}}
+  async function linkR(t,n){if(!user||!F)throw new Error('nocloud');var s=await F.f.getDoc(F.f.doc(fs,'link',String(t),'r',String(n)));if(!s.exists())return null;var x=s.data(),l;try{l=JSON.parse(x.l||'null')}catch(e){l=String(x.l||'')}return {l:l,ts:+x.ts||0}}
   async function linkLog(t){if(!user||!F)throw new Error('nocloud');var s=await F.f.getDoc(logref(t));if(!s.exists())return null;var x=s.data();return {l:JSON.parse(x.l||'{}'),ts:+x.ts||0}}
   function linkSet(t,o){if(!user||!F)return Promise.reject(new Error('nocloud'));return F.f.setDoc(lref(t),Object.assign({},o,{owner:user.uid,t:F.f.serverTimestamp(),ts:Date.now()}))}
   function linkRm(t){if(!user||!F||!t)return Promise.resolve();return F.f.deleteDoc(F.f.doc(fs,'link',String(t),'r','nq')).catch(function(){}).then(function(){return F.f.deleteDoc(lref(t))}).catch(function(){})}
   async function linkDrop(sid){if(!user||!F)return;
     try{var s=await F.f.getDocs(F.f.query(F.f.collection(fs,'link'),F.f.where('owner','==',user.uid))),L=[];s.forEach(function(d){if(String((d.data()||{}).sid)===String(sid))L.push(d.id)});
-      for(var t of L){try{await F.f.deleteDoc(logref(t))}catch(e){}try{await F.f.deleteDoc(F.f.doc(fs,'link',String(t),'r','fb'))}catch(e){}try{await F.f.deleteDoc(F.f.doc(fs,'link',String(t),'r','rt'))}catch(e){}try{await F.f.deleteDoc(F.f.doc(fs,'link',String(t),'r','ax'))}catch(e){}try{await F.f.deleteDoc(F.f.doc(fs,'link',String(t),'r','nq'))}catch(e){}try{await F.f.deleteDoc(lref(t))}catch(e){}}}catch(e){}}
+      for(var t of L){try{await F.f.deleteDoc(logref(t))}catch(e){}try{await F.f.deleteDoc(F.f.doc(fs,'link',String(t),'r','fb'))}catch(e){}try{await F.f.deleteDoc(F.f.doc(fs,'link',String(t),'r','rt'))}catch(e){}try{await F.f.deleteDoc(F.f.doc(fs,'link',String(t),'r','ax'))}catch(e){}try{await F.f.deleteDoc(F.f.doc(fs,'link',String(t),'r','axs'))}catch(e){}try{await F.f.deleteDoc(F.f.doc(fs,'link',String(t),'r','nq'))}catch(e){}try{await F.f.deleteDoc(lref(t))}catch(e){}}}catch(e){}}
   function put(n,o){if(o==null||o.id==null)return;queue(n,o.id,'put');if(!user||!F)return;
     if(n==='gruppi'&&o._sh){track(F.f.setDoc(sref(o.id),shDoc(o,o._sh.o,o._sh.on,o._sh.m)),n,o.id);return}
     ids[n][String(o.id)]=1;
@@ -6927,6 +6927,7 @@ async function athleteLive(tok){
     try{var r3=await mm[1].getDoc(mm[1].doc(fs,'link',tok,'r','rt'));if(r3.exists()){rrt=JSON.parse(r3.data().l||'[]');if(!Array.isArray(rrt))rrt=null}}catch(e){}
     try{var r2=await mm[1].getDoc(mm[1].doc(fs,'link',tok,'r','fb'));if(r2.exists()){rfb=JSON.parse(r2.data().l||'[]');if(!Array.isArray(rfb))rfb=null}}catch(e){}
     try{var r4=await mm[1].getDoc(mm[1].doc(fs,'link',tok,'r','ax'));if(r4.exists()){rax=JSON.parse(r4.data().l||'[]');if(!Array.isArray(rax))rax=null}}catch(e){}
+    try{var r5=await mm[1].getDoc(mm[1].doc(fs,'link',tok,'r','axs'));if(r5.exists())AVHK={l:hkParse(r5.data().l||''),ts:r5.data().ts||null,ut:r5.updateTime||null}}catch(e){}
     try{localStorage.setItem(ck,JSON.stringify({j:x.j,p:x.p||''}))}catch(e){}
   }catch(e){var c=String((e&&e.code)||(e&&e.message)||e).replace(/^firestore\//,'');
     if(c==='permission-denied')return avFail('<b>Il link non è ancora attivo.</b> Avvisa il tuo Personal Trainer (deve aggiornare le impostazioni del cloud).<p class="status" style="font-size:12px;margin:8px 0 0">Dettaglio per il PT: permission-denied sul documento link.</p>');
@@ -9944,7 +9945,7 @@ document.addEventListener('change',function(e){if(!AV||e.target.id!=='avrcsv'||!
 var RTL={},GXT=0;
 async function gxScan(){if(!window.Cloud||!Cloud.user()||!Cloud.linkR)return;GXT=Date.now();var L=SCH.filter(function(s){return s.atok&&s.uid!=='__tpl'&&find(s.uid)}),ch=false;
   for(var i=0;i<L.length;i+=6){await Promise.all(L.slice(i,i+6).map(function(s){var a=JSON.stringify(ALOG[s.id]||null),b=JSON.stringify(RTL[s.id]||null);
-    return Promise.all([logFetch(s).catch(function(){}),Cloud.linkR(s.atok,'rt').then(function(r){RTL[s.id]=r&&Array.isArray(r.l)?r.l:[]},function(){}),Cloud.linkR(s.atok,'ax').then(function(r){RXL[s.id]=r&&Array.isArray(r.l)?r.l:[]},function(){})]).then(function(){if(JSON.stringify(ALOG[s.id]||null)!==a||JSON.stringify(RTL[s.id]||null)!==b)ch=true})}))}
+    return Promise.all([logFetch(s).catch(function(){}),Cloud.linkR(s.atok,'rt').then(function(r){RTL[s.id]=r&&Array.isArray(r.l)?r.l:[]},function(){}),Cloud.linkR(s.atok,'ax').then(function(r){RXL[s.id]=r&&Array.isArray(r.l)?r.l:[]},function(){}).then(function(){return Cloud.linkR(s.atok,'axs').then(function(r){if(r&&r.l)RXL[s.id]=(RXL[s.id]||[]).concat(hkParse(r.l))},function(){})})]).then(function(){if(JSON.stringify(ALOG[s.id]||null)!==a||JSON.stringify(RTL[s.id]||null)!==b)ch=true})}))}
   if(ch){if(cur==='crm')crmBody();renderNav()}}
 function rtAll(u){var A=[u.rt||[]];schedeOf(u.id,1).forEach(function(s){if(RTL[s.id])A.push(RTL[s.id])});return rtMergeL.apply(null,A)}
 function rbOf(u){var H=rtAll(u),b=rtBase(H,addDays(todayIso(),1),null),f=rtNum(u.fcr);return {hr:b.hr||(f>=30&&f<=110?f:null),hrv:b.hrv}}
@@ -10186,6 +10187,35 @@ async function unzipAll(buf){var dv=new DataView(buf),e=-1;for(var i=buf.byteLen
     out.push({name:nm,buf:data})}return out}
 function gmEntry(a,by){if(!a||!a.dt||isNaN(a.dt))return null;var d=a.dt.getFullYear()+'-'+('0'+(a.dt.getMonth()+1)).slice(-2)+'-'+('0'+a.dt.getDate()).slice(-2),hi=a.hasT===false?'':('0'+a.dt.getHours()).slice(-2)+':'+('0'+a.dt.getMinutes()).slice(-2);
   var o=axClean({d:d,hi:hi,tp:a.tp,min:a.min,km:a.km,fc:a.fc,fcx:a.fcx,kcal:a.kcal,asc:a.asc,nt:a.ti&&a.ti!==a.tp?a.ti:'',src:'Garmin',by:by||'',gk:'g'+d+(hi||'')+carFam(a.tp)+(a.tp||'')});o.id='g'+o.gk.slice(1).replace(/[^\w]/g,'');return o}
+// Comando rapido di iPhone (ogni sera, es. alle 21:00): legge gli allenamenti da Salute (Garmin Connect li scrive lì) e li scrive in link/<codice>/r/axs
+// come testo: una riga per allenamento «tipo;inizio;fine;distanza;calorie;FC media;FC max» (date ISO 8601 o gg/mm/aaaa hh:mm)
+function hkDate(v){v=String(v||'').trim();var m=v.match(/(\d{4})-(\d{1,2})-(\d{1,2})[T\s,]+(\d{1,2})[:.](\d{2})/);
+  if(m)return new Date(+m[1],+m[2]-1,+m[3],+m[4],+m[5]);
+  m=v.match(/(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{2,4})[\s,]+(?:alle\s+|ore\s+)?(\d{1,2})[:.](\d{2})/);
+  if(m){var y=+m[3];if(y<100)y+=2000;return new Date(y,+m[2]-1,+m[1],+m[4],+m[5])}
+  var d=new Date(v);return isNaN(d)?null:d}
+function hkKm(v,tp){v=String(v||'').toLowerCase();var n=gmNum(v);if(n==null||n<=0)return null;
+  if(/\bmi\b|miglia|mile/.test(v))return n*1.609344;if(/km/.test(v))return n;if(/\bm\b|metri|meter|\bmt?$/.test(v))return n/1000;
+  return n>60||(tp==='Nuoto'&&n>20)?n/1000:n}
+function hkParse(t){if(Array.isArray(t))return t;var out=[],seen={};
+  String(t||'').split(/\r?\n|\|/).forEach(function(l){var f=l.split(';').map(function(x){return x.trim()});if(f.length<2||!f[1])return;
+    var a=hkDate(f[1]),b=hkDate(f[2]);if(!a)return;var tp=gmType(f[0]),min=b&&b>a?Math.round((b-a)/60000):null;if(min!=null&&min>1440)min=null;
+    var kc=gmNum(f[4]);if(kc!=null&&/kj/i.test(f[4]))kc=kc/4.184;
+    var e=gmEntry({dt:a,tp:tp,ti:f[0],min:min,km:hkKm(f[3],tp),kcal:kc!=null?Math.round(kc):null,fc:gmNum(f[5]),fcx:gmNum(f[6]),hasT:true},'a');
+    if(!e||seen[e.gk])return;seen[e.gk]=1;e.src='Garmin · Salute (automatico)';e.ts=a.getTime();out.push(e)});return out}
+function hkUrl(tok){return 'https://firestore.googleapis.com/v1/projects/'+FB_CFG.projectId+'/databases/(default)/documents/link/'+tok+'/r/axs?key='+FB_CFG.apiKey}
+function hkHelp(tok){var u=tok?hkUrl(tok):'';
+  return '<details class="avri"><summary><b>⏰ Automatico ogni sera alle 21:00 (iPhone)</b>: Garmin Connect → Salute → la tua pagina</summary>'+
+   '<p>Lo prepari una volta sola, poi gli allenamenti arrivano da soli ogni sera, anche con il telefono bloccato e senza aprire questa pagina.</p><ol>'+
+   '<li><b>Garmin Connect</b> → Altro (☰) → Impostazioni → App collegate → <i>Salute</i>: attiva la scrittura degli <i>Allenamenti</i> (e, se vuoi, di passi, sonno e FC).</li>'+
+   '<li>App <b>Comandi</b> → «+» → nome «Garmin → S.peaking». Aggiungi le azioni:<ol type="a">'+
+    '<li>«Trova campioni di salute» (o «Trova allenamenti», se c’è): tipo <i>Allenamenti</i>, data di inizio <i>negli ultimi 30 giorni</i>.</li>'+
+    '<li>«Ripeti con ogni elemento». Dentro: due «Formatta data» (<i>Data di inizio</i> e <i>Data di fine</i> dell’elemento, formato <i>ISO 8601</i> con l’ora), poi «Testo» con, separati da punto e virgola:<br><code>Tipo;Inizio;Fine;Distanza;Energia attiva;FC media;FC max</code><br>(metti le variabili al posto delle parole; se un valore non c’è, lascia vuoto ma tieni il «;»). Fine della ripetizione.</li>'+
+    '<li>«Combina testo»: <i>Risultati della ripetizione</i>, con <i>Nuova riga</i>.</li>'+
+    '<li>«Ottieni contenuti dell’URL»: l’indirizzo qui sotto, <b>Metodo PATCH</b>, Corpo della richiesta <b>JSON</b>: campo <code>fields</code> di tipo <i>Dizionario</i> → al suo interno <code>l</code> di tipo <i>Dizionario</i> → al suo interno <code>stringValue</code> di tipo <i>Testo</i> = il <i>Testo combinato</i>.</li></ol></li>'+
+   '<li>Comandi → <b>Automazione</b> → «+» → <i>Ora del giorno</i> → <b>21:00</b>, Ogni giorno → <i>Esegui subito</i> → scegli «Garmin → S.peaking».</li></ol>'+
+   (u?'<div class="avrurl"><code id="hkurl">'+esc(u)+'</code><button type="button" class="btn sm" data-act="avhkcp">Copia l’indirizzo</button></div>':'<p class="status">Serve il link sempre aggiornato del tuo PT.</p>')+
+   '<p class="status">Prova: esegui il comando a mano, poi riapri questa pagina: gli allenamenti compaiono in «Le mie attività» con «Garmin · Salute». Ogni sera manda gli ultimi 30 giorni, quindi un giorno saltato si recupera. Le attività già importate da file non si duplicano. Funziona solo su iPhone: su Android continua con l’import dei file. Non condividere l’indirizzo: contiene il codice della tua scheda.</p></details>'}
 // legge uno o più file: attività (CSV, FIT, ZIP, TCX, GPX) e, se il CSV è quello giornaliero, la FC a riposo per la prontezza
 async function gmFiles(files,by){var E=[],RT=[],err=[],lim=addDays(todayIso(),-366);
   var one=async function(name,buf){try{if(/\.zip$/i.test(name)){for(var z of await unzipAll(buf))await one(z.name,z.buf);return}
@@ -10236,7 +10266,7 @@ function axKT(u,H,F){var sc=schedeOf(u.id).filter(function(s){return carList(s.c
 
 // ---------- lato PT: diario dell'atleta ----------
 var AXV={uid:null,ws:''};
-async function axFetch(u){if(!window.Cloud||!Cloud.user()||!Cloud.linkR)return;await Promise.all(schedeOf(u.id,1).filter(function(s){return s.atok}).slice(0,4).map(function(s){return Cloud.linkR(s.atok,'ax').then(function(r){RXL[s.id]=r&&Array.isArray(r.l)?r.l:[]},function(){})}))}
+async function axFetch(u){if(!window.Cloud||!Cloud.user()||!Cloud.linkR)return;await Promise.all(schedeOf(u.id,1).filter(function(s){return s.atok}).slice(0,4).map(function(s){return Cloud.linkR(s.atok,'ax').then(function(r){RXL[s.id]=r&&Array.isArray(r.l)?r.l:[]},function(){}).then(function(){return Cloud.linkR(s.atok,'axs').then(function(r){if(r&&r.l)RXL[s.id]=(RXL[s.id]||[]).concat(hkParse(r.l))},function(){})})}))}
 function axOpen(uid,ws,msg){var u=find(uid);if(!u)return;AXV.ws=ws||(String(AXV.uid)===String(uid)&&AXV.ws)||wkKey(todayIso());AXV.uid=uid;var H=axAll(u),F=fcInfo(u,H),W=axWeek(H,AXV.ws),A=axAcwr(H,F),KT=axKT(u,H,F);
   modal('<h3>🗓 Diario attività · '+esc(u.n+' '+u.c)+'</h3><p class="status" style="margin:0 0 10px">Tutto quello che fa fuori dalla scheda e in palestra: cardio, judo, sport. Le attività arrivano dall’orologio Garmin (file esportati), dal link dell’atleta o le segni qui. Entrano nel calcolo dei km massimi e del carico settimanale.</p>'+
    wkNav('ax',AXV.ws)+axSumHtml(W,F,KT)+(A?'<p>'+acwrTxt(A)+'</p>':'')+
@@ -10276,11 +10306,13 @@ document.addEventListener('change',async function(e){if(e.target.id!=='axgmf'||A
   await axPut(u,'Importate da Garmin '+N.length+(N.length===1?' attività':' attività')+(r.E.length>N.length?' ('+(r.E.length-N.length)+' già presenti)':'')+(r.RT.length?', FC a riposo di '+r.RT.length+' giorni':'')+'.'+(r.err.length?' Non letti: '+r.err.join(' · '):''))});
 
 // ---------- lato atleta: «Le mie attività» nel link della scheda ----------
-var AVX=[],AVXP='',AVXQ=null,AVXW='';
+var AVX=[],AVXP='',AVXQ=null,AVXW='',AVHK=null;
 function avAxKey(){return avKey()+'_ax'}
 function avAxInit(remote){var loc=null;try{loc=JSON.parse(localStorage.getItem(avAxKey())||'null')}catch(e){}var m={};
   [Array.isArray(remote)?remote:[],Array.isArray(loc)?loc:[]].forEach(function(L){L.forEach(function(x){if(x&&x.id&&(!m[x.id]||(+x.ts||0)>(+m[x.id].ts||0)))m[x.id]=x})});
-  AVX=Object.keys(m).map(function(k){return m[k]}).filter(function(x){return !x.del});AVXP=remote?JSON.stringify(remote):'';AVXW=wkKey(todayIso())}
+  AVX=Object.keys(m).map(function(k){return m[k]}).filter(function(x){return !x.del});AVXP=remote?JSON.stringify(remote):'';AVXW=wkKey(todayIso());
+  if(AVHK&&AVHK.l&&AVHK.l.length){var have={},del={};[Array.isArray(remote)?remote:[],Array.isArray(loc)?loc:[]].forEach(function(L){L.forEach(function(x){if(x&&x.del&&x.gk)del[x.gk]=1})});AVX.forEach(function(x){if(x.gk)have[x.gk]=1});
+    var hd=(typeof AVG!=='undefined'&&AVG.hkd)||{};var N=AVHK.l.filter(function(x){return !have[x.gk]&&!del[x.gk]&&!hd[x.gk]&&x.d>=addDays(todayIso(),-366)});AVHK.n=N.length;if(N.length){AVX=AVX.concat(N);setTimeout(avAxSave,50)}}}
 function avAxSave(){var L=AVX.slice().sort(function(a,b){return a.d.localeCompare(b.d)}).slice(-300);AVX=L;try{localStorage.setItem(avAxKey(),JSON.stringify(L))}catch(e){}if(!AV||!AV.live||!AVC)return;var js=JSON.stringify(L);if(js===AVXP)return;clearTimeout(AVXQ);
   AVXQ=setTimeout(function(){AVC.f.setDoc(AVC.f.doc(AVC.fs,'link',AV.tok,'r','ax'),{l:js,t:AVC.f.serverTimestamp(),ts:Date.now()}).then(function(){AVXP=js;st('avxst','✓ Attività inviate al tuo PT.')},function(){AVXQ=setTimeout(avAxSave,20000)})},600)}
 function avAxF(){var p=AV&&AV.P&&AV.P.u,a=p&&+p.eta?+p.eta:+AV.ae||0,F={mx:a?220-a:0,r:p&&+p.fcr>30?+p.fcr:AV.rb&&AV.rb.hr?+AV.rb.hr:null};AVX.forEach(function(x){if(x.fcx&&x.fcx>F.mx&&x.fcx<=225)F.mx=x.fcx});
@@ -10289,17 +10321,18 @@ function avAxBox(){if(!AV)return '';var F=avAxF(),W=axWeek(AVX,AVXW),cur=AVXW===
   return '<details class="avc avax"'+(AVG&&AVG.axo?' open':'')+'><summary class="avn">🗓 Le mie attività della settimana'+(W.length?' ('+W.length+')':'')+'</summary>'+
    '<p class="status" style="margin:4px 0 8px">Segna tutto quello che fai oltre alla scheda (corsa, camminata, judo, sport) con orario, km e FC, oppure importalo dall’orologio Garmin. Il tuo PT lo vede e calcola i km giusti per te.</p>'+
    wkNav('avax',AVXW)+axSumHtml(W,F,AV.KT||[])+axCardsHtml(W,F,'avax')+
-   '<div class="avrtb"><button type="button" class="btn sm pri" data-act="avaxadd">+ Segna un’attività</button><button type="button" class="btn sm" data-act="avaxgm">⌚ Importa da Garmin</button></div><p class="status" id="avxst" role="status"></p>'+(cur?'':'')+'</details>'}
+   ''+(AVHK?'<p class="status" style="margin:6px 0">⏰ Garmin automatico attivo: '+AVHK.l.length+' allenamenti negli ultimi 30 giorni'+(AVHK.n?', '+AVHK.n+' nuovi aggiunti ora':'')+'.</p>':'')+'<div class="avrtb"><button type="button" class="btn sm pri" data-act="avaxadd">+ Segna un’attività</button><button type="button" class="btn sm" data-act="avaxgm">⌚ Importa da Garmin</button></div><p class="status" id="avxst" role="status"></p>'+(cur?'':'')+'</details>'}
 function avAxRefresh(){var b=document.querySelector('.avax');if(!b){return}b.outerHTML=avAxBox();var n=document.querySelector('.avax');if(n)n.open=true}
 document.addEventListener('toggle',function(e){if(AV&&e.target.classList&&e.target.classList.contains('avax')){AVG.axo=e.target.open;try{avGxSave()}catch(x){}}},true);
+document.addEventListener('click',function(e){if(!AV)return;var c=e.target.closest&&e.target.closest('[data-act="avhkcp"]');if(c){var tx=(gid('hkurl')||{}).textContent||'';var ok=function(){c.textContent='✓ Copiato'};try{navigator.clipboard.writeText(tx).then(ok,function(){prompt('Copia l’indirizzo:',tx)})}catch(x){prompt('Copia l’indirizzo:',tx)}return}});
 document.addEventListener('click',function(e){if(!AV)return;var a=e.target.closest&&e.target.closest('[data-act^="avax"]');if(!a)return;var k=a.getAttribute('data-act');
   if(k==='avaxwk'){AVXW=a.getAttribute('data-w');avAxRefresh();return}
   if(k==='avaxadd'||k==='avaxed'){var x=k==='avaxed'?AVX.filter(function(y){return y.id===a.getAttribute('data-x')})[0]:null;
     modal('<h3>'+(x?'Modifica attività':'🗓 Segna un’attività')+'</h3>'+axFormHtml(x||{d:AVXW!==wkKey(todayIso())?AVXW:todayIso()},'avxf_')+'<p class="status">Fascia oraria: con l’ora di inizio e di fine la durata si calcola da sola. La FC media e massima le trovi nell’app Garmin Connect (o importa il file).</p><div class="mrow"><button data-act="mclose">Annulla</button><button class="pri" data-act="avaxsave" data-x="'+esc(x?x.id:'')+'">Salva</button></div>');return}
   if(k==='avaxsave'){var id=a.getAttribute('data-x'),old=id?AVX.filter(function(y){return y.id===id})[0]:null,o=axFormRead('avxf_',old?{id:old.id,src:old.src,gk:old.gk}:{id:'a'+newId('x')});o.by='a';
     if(!o.min&&!o.km){alert('Indica almeno la durata (o la fascia oraria) oppure i km.');return}AVX=AVX.filter(function(y){return y.id!==o.id});AVX.push(o);AVXW=wkKey(o.d);AVG.axo=true;avAxSave();closeModal();avAxRefresh();return}
-  if(k==='avaxrm'){var id2=a.getAttribute('data-x'),x2=AVX.filter(function(y){return y.id===id2})[0];if(!x2||!confirm('Eliminare l’attività del '+fdate(x2.d)+'?'))return;AVX=AVX.filter(function(y){return y.id!==id2});avAxSave();avAxRefresh();return}
-  if(k==='avaxgm'){modal('<h3>⌚ Importa da Garmin</h3>'+gmHelp()+'<label class="btn pri" style="display:inline-block;margin-top:8px">📥 Scegli i file<input type="file" id="avxgmf" multiple accept=".csv,.txt,.fit,.zip,.tcx,.gpx,.xml" hidden></label><p class="status" id="avxgst" role="status"></p><div class="mrow"><button data-act="mclose">Chiudi</button></div>');return}});
+  if(k==='avaxrm'){var id2=a.getAttribute('data-x'),x2=AVX.filter(function(y){return y.id===id2})[0];if(!x2||!confirm('Eliminare l’attività del '+fdate(x2.d)+'?'))return;AVX=AVX.filter(function(y){return y.id!==id2});if(x2.gk){AVG.hkd=AVG.hkd||{};AVG.hkd[x2.gk]=1;avGxSave()}avAxSave();avAxRefresh();return}
+  if(k==='avaxgm'){modal('<h3>⌚ Importa da Garmin</h3>'+hkHelp(AV.tok)+gmHelp()+'<label class="btn pri" style="display:inline-block;margin-top:8px">📥 Scegli i file<input type="file" id="avxgmf" multiple accept=".csv,.txt,.fit,.zip,.tcx,.gpx,.xml" hidden></label><p class="status" id="avxgst" role="status"></p><div class="mrow"><button data-act="mclose">Chiudi</button></div>');return}});
 document.addEventListener('change',async function(e){if(!AV||e.target.id!=='avxgmf'||!e.target.files||!e.target.files.length)return;st('avxgst','Leggo i file…');
   var r=await gmFiles([].slice.call(e.target.files),'a'),have={};AVX.forEach(function(x){if(x.gk)have[x.gk]=1});var N=r.E.filter(function(x){return !have[x.gk]});
   if(r.RT.length&&typeof AVR!=='undefined'){AVR=rtMergeL(r.RT,AVR);try{avRtSave()}catch(x){}}
