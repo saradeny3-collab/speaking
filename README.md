@@ -402,6 +402,15 @@ Voce **Sezione nutrizionale** nel menu, sotto «Schede allenamento» (su smartph
 - **Dati**: nel cliente, campo `nut` (cloud, dispositivo e backup JSON). Le regole di Firestore non cambiano.
 - Valori nutrizionali degli alimenti, scelte di sostituzione e modelli dei pasti sono indicativi. In Italia un piano alimentare personalizzato spetta a medico, dietista o biologo nutrizionista: la sezione serve a trascrivere e organizzare il loro piano o a dare indicazioni generali.
 
+## Sezione nutrizionale: dimagrimento collegato all’allenamento (nuovo, fase 42)
+- **Fase «Dimagrimento (obiettivo di peso)»** nel piano alimentare: riquadro «🎯 Obiettivo di dimagrimento» (spunta o menu «Fase») con peso attuale, peso obiettivo o kg da perdere, ritmo (automatico da BMI ed età, oppure 0,5 / 0,7 / 1% a settimana) e data del cliente: gli stessi campi e calcoli della scheda (settimane, traguardo, diet break, tappe per scheda, avvisi).
+- **Calorie dall’obiettivo**: TDEE − deficit del ritmo scelto (kg a settimana × 7.700 / 7), al massimo il 25% del TDEE; proteine e grassi come in Definizione. Con calorie scritte a mano l’app mostra il deficit reale e i kg a settimana che ne derivano.
+- **Collegamento con la scheda** (spunta «Stesso obiettivo nella scheda di allenamento», attiva di default con una scheda collegata): salvando il piano l’obiettivo va nella scheda collegata; salvando la scheda (editor) va nel piano collegato in fase Dimagrimento. «↻ Riprendi l’obiettivo dalla scheda» nel piano e «↻ Riprendi dal piano alimentare» nel generatore e nell’editor quando i due obiettivi sono diversi.
+- **Piano nuovo**: parte in fase Dimagrimento se la scheda collegata ha l’obiettivo di dimagrimento, o se l’atleta ha l’obiettivo Dimagrimento e un obiettivo di peso già salvato. Il generatore e una scheda nuova nell’editor attivano l’obiettivo di dimagrimento se il piano alimentare attuale è in fase Dimagrimento.
+- **Stampa, PDF e link del piano**: sotto il fabbisogno la riga «Obiettivo: da … a … kg, circa … kg a settimana · traguardo indicativo».
+- Il questionario con obiettivo «Definizione» non toglie la fase Dimagrimento.
+- Dati: nel piano `dim` (pa, po, rt, dd, lk) e `fase: 'dim'`; nel cliente `dimo` (condiviso con la scheda). Regole di Firestore invariate.
+
 ## Sezione nutrizionale: questionario alimentare e menu A/B (nuovo, fase 35)
 **📝 Questionario alimentare** (anamnesi nutrizionale in 6 blocchi) nel piano alimentare, sotto «Impostazione». Resta nel profilo dell’atleta (`u.nq`) e vale anche per i piani successivi; un piano nuovo lo applica da solo.
 1. **Dati biometrici e salute**: sesso, età, peso e statura dall’anamnesi; % massa grassa (plicometria, BIA, stima) con la massa magra calcolata; terapie e farmaci, contraccettivi orali, farmaci che alterano metabolismo o ritenzione; allergie e intolleranze con diagnosi (celiachia, lattosio, proteine del latte, frutta a guscio, arachidi, crostacei, pesce, uova, soia).
@@ -446,10 +455,13 @@ Alla fine del generatore **«Salva e invia PDF · Excel»**, nella scheda salvat
 - Senza il link sempre aggiornato (niente accesso al cloud, scheda non salvata, regole di Firestore vecchie) la finestra lo dice: il messaggio ha il link «fotografia» e i file si scaricano per allegarli con 📎.
 - Il **PDF** è creato nel browser (A4, testo selezionabile, intestazione e numeri di pagina); il glossario solo se spunti la casella. Numero di telefono ed email vengono dall’anamnesi (modificabili).
 
+## Dati riservati al PT (nuovo, fase 41)
+Le colonne **Pattern**, **Muscolo** e **RPE** e il **Volume settimanale per muscolo** si vedono solo a schermo nell’app del PT (generatore, editor, scheda salvata). Non escono in stampa, PDF, Excel, CSV, «Scarica HTML» né nella pagina dell’atleta aperta dal link (sul telefono niente RPE; anche il PDF e l’Excel che l’atleta scarica dal link ne sono privi). Nella legenda per l’atleta restano tipo e attrezzatura, senza il pattern. I dati restano nella scheda: nessuna modifica a cloud, backup o regole di Firestore.
+
 ## Esportazione della scheda
 Dalla scheda salvata o dall'editor:
 - **Stampa / Esporta PDF**: apre la stampa del browser; scegli «Salva come PDF» per un documento A4 senza menu, con legenda (e glossario, se aperto) su due colonne. Non escono sedute a settimana, split e logica di lavoro.
-- **Esporta Excel (.xlsx)**: foglio «Scheda» con intestazione atleta (atleta, obiettivi, gara, date; senza livello, nome scheda, sedute a settimana e logica di lavoro) e colonne Seduta, Esercizio, Pattern, Muscolo, Serie, Ripetizioni, RPE, Carico target, Recupero, Note, più «Sett. 1…N» (scarico segnato) per annotare i carichi settimana per settimana (già compilate con i carichi che l’atleta ha segnato dal link); fogli «Legenda esercizi» e «Glossario».
+- **Esporta Excel (.xlsx)**: foglio «Scheda» con intestazione atleta (atleta, obiettivi, gara, date; senza livello, nome scheda, sedute a settimana e logica di lavoro) e colonne Seduta, Esercizio, Serie, Ripetizioni, Carico target, Recupero, Note, più «Sett. 1…N» (scarico segnato) per annotare i carichi settimana per settimana (già compilate con i carichi che l’atleta ha segnato dal link); fogli «Legenda esercizi» e «Glossario».
 - **CSV** (separatore «;» per Excel in italiano) e **Scarica HTML**.
 - **📲 Condividi con l’atleta**: link alla versione interattiva per smartphone (vedi sotto).
 

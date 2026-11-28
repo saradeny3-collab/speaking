@@ -243,6 +243,7 @@ body.athm .side,body.athm .tabbar{display:none!important}body.athm main{width:10
 .avt{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom,0px));z-index:30;display:flex;gap:10px;align-items:center;background:#0b0b0b;color:#fff;border-radius:99px;padding:8px 10px 8px 18px;box-shadow:0 6px 24px rgba(0,0,0,.35);max-width:calc(100% - 20px)}
 .avt b{font-size:22px;font-variant-numeric:tabular-nums;min-width:56px}.avt button{white-space:nowrap;font:inherit;font-weight:700;border:0;border-radius:99px;padding:8px 12px;background:#2a2a2a;color:#fff;cursor:pointer}.avt.end{background:#2e9b55}.avt[hidden]{display:none}
 @media print{.avt,.avact,.avtabs{display:none!important}}
+.atv .ptx{display:none!important}
 .avfb{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:10px 0 0;background:var(--surface)}.avfb.on{border-color:var(--line);border-left:4px solid #d62828;background:var(--t-red-bg)}.avfbh{font-weight:800;color:var(--t-red);margin-bottom:4px}.avfb ul{margin:0 0 6px;padding-left:18px}.avfb li{margin:4px 0}.avfb li .btn{margin-left:6px;padding:3px 10px;font-size:12px}.avfb p{margin:4px 0 8px;font-size:13.5px}
 .avsafe{border:1px solid var(--line);border-left:4px solid #4B0082;background:var(--t-pur-bg);border-radius:10px;padding:8px 10px;margin:8px 0;font-size:14px}.avsafe .avg{margin-top:6px}.avcaut{border-left:4px solid #c2410c;background:var(--t-amb-bg);color:var(--t-amb);border-radius:8px;padding:6px 10px;margin:8px 0;font-size:13.5px}
 .avfbx{display:block;margin:8px 0 0;background:none;border:0;padding:4px 0;color:var(--t-red);font:inherit;font-size:13px;font-weight:600;text-decoration:underline;cursor:pointer}
@@ -574,7 +575,7 @@ body:has(#modal) .stage{display:none!important}
 .mbox h4{break-after:avoid}.keyd,.prot,.stab tr{break-inside:avoid}.keyd{background:#fff!important;border-color:#000!important}
 .lgg,.gls{display:block!important;columns:2;column-gap:10px}.gls div{break-inside:avoid;font-size:9pt}.gls dd{color:#333!important}.lg{break-inside:avoid;border:1px solid #888!important;margin-bottom:6px;background:#fff!important;font-size:8.5pt}
 .pt{background:#fff!important;color:#000!important;border:1px solid #000}
-.noprn,.glw:not([open]){display:none!important}.glw>summary{background:#fff!important;color:#000!important;padding:0!important;font-size:12pt}.glw>summary::after{display:none}
+.noprn,.ptx,.glw:not([open]){display:none!important}.glw>summary{background:#fff!important;color:#000!important;padding:0!important;font-size:12pt}.glw>summary::after{display:none}
 .lghd{display:none!important}.lg>summary::after{display:none}.lg>summary{padding:4px 8px;font-size:9pt}.lgb{padding:0 8px 6px}.lg[open]{grid-column:auto}.lgs{break-after:avoid}
 }
 .custw.full,.fg>.full{grid-column:1/-1}
@@ -4923,7 +4924,7 @@ function dimHtml(C,cmp){if(!C)return '';if(C.err)return '<p class="status">'+esc
   if(C.W.length)h+='<p class="status" style="margin:8px 0 0">⚠ '+esc(C.W.join(' '))+'</p>';
   h+='<ul class="dmul"><li><b>Controlli:</b> pesata 3 mattine a settimana a digiuno (conta la media), circonferenza vita ogni 2 settimane, test e foto alla rivalutazione. Se per 2 settimane di fila la perdita è meno della metà del previsto rivedi alimentazione e passi; se supera l’1,2% a settimana rallenta.</li>'+
    '<li><b>Allenamento:</b> carichi alti mantenuti per conservare la massa muscolare, densità con superserie, 150–300 minuti di cardio moderato a settimana (zona 2) e 7.000–10.000 passi al giorno.</li>'+
-   '<li><b>Alimentazione:</b> deficit e proteine (2,0–2,4 g/kg) li stabilisce medico, dietista o biologo nutrizionista; la Sezione nutrizionale propone la fase Definizione.</li></ul>'+
+   '<li><b>Alimentazione:</b> deficit e proteine (2,0–2,4 g/kg) li stabilisce medico, dietista o biologo nutrizionista; nella Sezione nutrizionale la fase Dimagrimento usa questo stesso obiettivo (calorie dal deficit) e si collega alla scheda.</li></ul>'+
    '<p class="status" style="font-size:12px">Stime indicative: 1 kg di massa grassa ≈ 7.700 kcal; ritmo 0,5–1% del peso a settimana (ACSM, ISSN); diet break di 1 settimana ogni 12 di deficit. Vanno validate dal Personal Trainer e dal professionista della nutrizione.</p>';
   return h}
 function dimLogic(C){if(!C||C.err)return '';return 'Obiettivo dimagrimento: da '+fmt1(C.pa)+' a '+fmt1(C.po)+' kg (−'+fmt1(C.kg)+' kg), ritmo '+rtTxt(C.rt)+' (≈ '+fmt1(C.pa*C.rt/100)+' kg): circa '+C.n+' settimane'+(C.br?' + '+C.br+' di diet break':'')+', traguardo indicativo il '+fdate(C.end)+'. Pesata media settimanale e circonferenza vita ogni 2 settimane; la forza resta con carichi alti per mantenere la massa muscolare.'}
@@ -4936,17 +4937,32 @@ function dimFormHtml(d,u,on){d=d||{};u=u||{};var pa=d.pa||u.peso||'',kg=d.po&&pa
    '<label class="fl">Ritmo di perdita<select data-dm="rt"><option value="">Automatico (da BMI ed età)</option>'+DMRT.map(function(x){return '<option value="'+x[0]+'"'+(+d.rt===x[0]?' selected':'')+'>'+esc(x[1]+' · '+rtTxt(x[0]))+'</option>'}).join('')+'</select></label>'+
    '<label class="fl">Entro il (data del cliente, facoltativa)<input data-dm="dd" type="date" value="'+esc(d.dd||'')+'"></label></div>'+
    (u.alt?'':'<p class="status" style="margin:4px 0 0">Senza l’altezza nell’anamnesi il BMI non si calcola: il ritmo proposto è lo 0,7%.</p>')+'<div class="dmout"></div></div>'}
-function dimObj(){return cur==='ed'?(ED.sc?(ED.sc.dim||(ED.sc.dim={})):null):(GW.dim||(GW.dim={}))}
-function dimDates(){return cur==='ed'?{s:ED.sc.data,c:ED.sc.cambio}:{s:gid('sc_start')?gid('sc_start').value:'',c:gid('sc_cam')?gid('sc_cam').value:''}}
-function dimUpd(){var b=document.querySelector('[data-dmbox] .dmout'),d=dimObj();if(!b||!d)return;var u=find(cur==='ed'?ED.uid:suid),D=dimDates();b.innerHTML=d.on?dimHtml(dimCalc(d,u,D.s,D.c)):''}
+function dimObj(){return cur==='nut'?(NU.P?(NU.P.dim||(NU.P.dim={})):null):cur==='ed'?(ED.sc?(ED.sc.dim||(ED.sc.dim={})):null):(GW.dim||(GW.dim={}))}
+function dimDates(){if(cur==='nut'){var nsc=NU.P?nSched(NU.P,find(NU.uid)):null;return {s:NU.P?NU.P.data:'',c:nsc?nsc.cambio:''}}return cur==='ed'?{s:ED.sc.data,c:ED.sc.cambio}:{s:gid('sc_start')?gid('sc_start').value:'',c:gid('sc_cam')?gid('sc_cam').value:''}}
+function dimUpd(){var b=document.querySelector('[data-dmbox] .dmout'),d=dimObj();if(!b||!d)return;
+  if(cur==='nut'){var P=NU.P,nu=find(NU.uid);b.innerHTML=P.fase==='dim'?nDimCalTxt(P,nu)+dimHtml(nDimC(P,nu)):'';return}
+  var u=find(cur==='ed'?ED.uid:suid),D=dimDates();b.innerHTML=d.on?dimNutLine(u,cur==='ed'?ED.sid:'',d)+dimHtml(dimCalc(d,u,D.s,D.c)):''}
+// piano alimentare in fase Dimagrimento (collegato alla scheda, o il piano attuale dell'atleta)
+function dimNutPlan(u,sid){if(!u)return null;var L=nPlans(u).filter(function(P){return !P.term});return (sid&&L.filter(function(P){return String(P.sid)===String(sid)})[0])||L.filter(function(P){return P.fase==='dim'})[0]||null}
+function dimNutLine(u,sid,d){var P=dimNutPlan(u,sid);if(!P)return '';var lnk=sid&&String(P.sid)===String(sid);
+  if(P.fase!=='dim')return lnk?'<p class="status" style="margin:0 0 8px">🥗 Il piano alimentare collegato «'+esc(P.nome||'')+'» è in fase '+esc(((NFASE[P.fase]||{}).t||'').split(' (')[0])+': nella Sezione nutrizionale scegli la fase Dimagrimento per usare lo stesso obiettivo.</p>':'';
+  var T=nTarg(P,u),pd=P.dim||{},same=nDimSame(pd,d);
+  return '<div class="info" style="margin:0 0 8px">🥗 Piano alimentare «'+esc(P.nome||'')+'»'+(lnk?' (collegato a questa scheda)':'')+' in fase Dimagrimento: obiettivo '+fnum(pd.po)+' kg'+(T.kcal?', ≈ '+nfmt(T.kcal)+' kcal al giorno':'')+(same?', lo stesso di questa scheda.':'.')+
+   (lnk&&pd.lk!==false?' Salvando la scheda il piano prende questo obiettivo.':!lnk?' Per collegarlo, scegli questa scheda nel piano (Sezione nutrizionale → Impostazione).':'')+
+   (same?'':' <button type="button" class="btn sm" data-act="dimnut" data-p="'+esc(P.id)+'">↻ Riprendi dal piano alimentare</button>')+'</div>'}
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('[data-act="dimnut"]');if(!a||(cur!=='gen'&&cur!=='ed'))return;var u=find(cur==='ed'?ED.uid:suid),P=u&&(u.nut||[]).filter(function(x){return x.id===a.getAttribute('data-p')})[0],d=dimObj(),box=a.closest('[data-dmbox]');if(!P||!d||!box)return;
+  var C=nDimC(P,u),pd=P.dim||{};d.po=pd.po;d.rt=pd.rt||'';d.dd=pd.dd||'';if(C&&C.pa)d.pa=C.pa;var q=function(n){return box.querySelector('[data-dm="'+n+'"]')};
+  if(q('pa'))q('pa').value=d.pa||'';if(q('po'))q('po').value=d.po||'';if(q('kg'))q('kg').value=d.pa&&d.po&&d.pa>d.po?Math.round((d.pa-d.po)*10)/10:'';if(q('rt'))q('rt').value=d.rt;if(q('dd'))q('dd').value=d.dd;
+  if(cur==='gen'){gDirty=true;genLogRefresh()}else edMark();dimUpd()});
 function dimSave(d,u,start,cam){if(!d||!d.on||!+d.po)return null;var C=dimCalc(d,u,start,cam);if(C.err)return null;return {on:1,pa:C.pa,po:C.po,rt:+d.rt||'',dd:d.dd||'',w:C.n+C.br,end:C.end}}
-function dimLive(e){var t=e.target,k=t.getAttribute&&t.getAttribute('data-dm');if(!k||(cur!=='gen'&&cur!=='ed'))return;var d=dimObj(),box=t.closest('[data-dmbox]');if(!d||!box)return;
+function dimLive(e){var t=e.target,k=t.getAttribute&&t.getAttribute('data-dm');if(!k||(cur!=='gen'&&cur!=='ed'&&cur!=='nut'))return;
+  if(cur==='nut'&&k==='on'){var P=NU.P;if(!P)return;if(t.checked){if(P.fase!=='dim')P.dimpf=P.fase;P.fase='dim';nDimFill(P,find(NU.uid))}else P.fase=P.dimpf&&P.dimpf!=='dim'?P.dimpf:'def';nDirty();nutEditor();return}var d=dimObj(),box=t.closest('[data-dmbox]');if(!d||!box)return;
   var q=function(n){return box.querySelector('[data-dm="'+n+'"]')};
   if(k==='on'){d.on=t.checked;box.querySelector('.dmw').hidden=!t.checked}
   else if(k==='kg'){var pa=+q('pa').value||0,kg=+t.value||0;if(pa&&kg){d.po=Math.round((pa-kg)*10)/10;q('po').value=d.po}}
   else{d[k]=k==='rt'||k==='dd'?t.value:num(t.value);if((k==='po'||k==='pa')){var a=+q('pa').value||0,p=+q('po').value||0;q('kg').value=a&&p&&a>p?Math.round((a-p)*10)/10:''}}
   if(k==='pa')d.pa=num(t.value);
-  if(cur==='gen'){gDirty=true;genLogRefresh()}else edMark();dimUpd()}
+  if(cur==='nut'){nDirty();nRefresh()}else if(cur==='gen'){gDirty=true;genLogRefresh()}else edMark();dimUpd()}
 document.addEventListener('input',dimLive);document.addEventListener('change',function(e){var t=e.target;if(t.getAttribute&&(t.type==='checkbox'||t.tagName==='SELECT')&&t.getAttribute('data-dm'))dimLive(e)});
 // righe automatiche della logica di lavoro del generatore (finché non la scrivi a mano)
 var gLogBase='';
@@ -4960,7 +4976,8 @@ function f38Extra(u,c){var L=[],D=durReq(),o=finObj();
 function f38Patch(hu,o){var p={};if(!hu)return p;
   if(o.dur&&+hu.tdur!==+o.dur)p.tdur=o.dur;
   var fn={cdm:o.cdm||'',cdc:o.cdm==='car'?o.cdc:null};if(JSON.stringify(hu.fin||{cdm:'',cdc:null})!==JSON.stringify(fn))p.fin=fn;
-  if(o.dim){var dm={po:o.dim.po,rt:o.dim.rt,dd:o.dim.dd};if(JSON.stringify(hu.dimo||{})!==JSON.stringify(dm))p.dimo=dm}
+  if(o.dim){var dm={po:o.dim.po,rt:o.dim.rt,dd:o.dim.dd};if(JSON.stringify(hu.dimo||{})!==JSON.stringify(dm))p.dimo=dm;
+    var ch=0,NL=(hu.nut||[]).map(function(P){if(!o.id||String(P.sid)!==String(o.id)||P.term||P.fase!=='dim'||(P.dim||{}).lk===false)return P;var pd=P.dim||{};if(nDimSame(pd,o.dim)&&+pd.pa===+o.dim.pa)return P;ch=1;return Object.assign({},P,{dim:Object.assign({},pd,{pa:o.dim.pa,po:o.dim.po,rt:o.dim.rt,dd:o.dim.dd}),ts:Date.now()})});if(ch)p.nut=NL}
   return p}
 function f38Clean(x){x=x||{};return {tp:x.tp||'',min:+x.min||'',int:x.int||'',nt:x.nt||'',st:!!x.st}}
 // riepilogo della durata nella scheda salvata
@@ -5181,7 +5198,7 @@ function custRender(){
 function renderGen(){
   var u=find(suid);if(!u){cur='schede';suid=null;render();return}
   gctx=profile(u);var MG=macApply(u,gctx);gTouched=false;gDirty=false;GW={wu:[],cd:[],man:{},sig:{}};gLogBase='';
-  var uf=u.fin||{};GW.cdm=uf.cdm==='car'?'car':'';GW.cdc=uf.cdc?Object.assign({},uf.cdc):null;var dmo=u.dimo||{},dmOn=gctx.ob.indexOf('Dimagrimento')>-1||(gctx.mac&&gctx.mac.k==='pri');GW.dim={on:dmOn,pa:u.peso||'',po:dmo.po||'',rt:dmo.rt||'',dd:dmo.dd&&dmo.dd>todayIso()?dmo.dd:''};
+  var uf=u.fin||{};GW.cdm=uf.cdm==='car'?'car':'';GW.cdc=uf.cdc?Object.assign({},uf.cdc):null;var dmo=u.dimo||{},dmOn=gctx.ob.indexOf('Dimagrimento')>-1||(gctx.mac&&gctx.mac.k==='pri')||!!(dimNutPlan(u,'')&&dimNutPlan(u,'').fase==='dim');GW.dim={on:dmOn,pa:u.peso||'',po:dmo.po||'',rt:dmo.rt||'',dd:dmo.dd&&dmo.dd>todayIso()?dmo.dd:''};
   var td=gctx.mac&&!gctx.mac.trav&&gctx.mac.da>todayIso()?gctx.mac.da:todayIso(),names=EXDB.map(function(e){return e.n}),ps=pqState(u.pq),f=autoFreq(gctx),so=spOpts(gctx),sp=so.length?so[0]:splitFromPref(u.split,f);if(SPSI[sp]==='judo12')f=autoFase12(gctx.garad)>=6?2:3;
   gCust=dayPlan(sp,f).days.map(function(d){return d.type});gSpPrev=sp;var kd=keyDates(td,gctx);
   var past=exNames(suid);Object.keys(past).forEach(function(k){if(!EXI[k])names.push(past[k])});
@@ -5273,7 +5290,7 @@ function guardGen(fn){
 // ---- Legenda e guida all’esecuzione ----
 function legendBody(e){
   var two=!(e.role==='mob'||e.role==='wu'||e.role==='carry'||e.role==='cond'||(e.role==='core'&&hasF(e,'tm'))),lab=e.role==='plyo'?['Caricamento','Fase esplosiva']:['Fase eccentrica','Fase concentrica'];
-  return '<p class="lmeta"><b>Pattern:</b> '+esc(e.p)+' · '+esc(SUBL[e.sub]||'')+' · <b>Tipo:</b> '+esc(exTypeL(e))+' · <b>Attrezzatura:</b> '+esc(eqText(e))+(e.dose?' · <b>Dosaggio consigliato:</b> '+esc(e.dose):'')+'</p>'+
+  return '<p class="lmeta"><span class="ptx"><b>Pattern:</b> '+esc(e.p)+' · '+esc(SUBL[e.sub]||'')+' · </span><b>Tipo:</b> '+esc(exTypeL(e))+' · <b>Attrezzatura:</b> '+esc(eqText(e))+(e.dose?' · <b>Dosaggio consigliato:</b> '+esc(e.dose):'')+'</p>'+
    '<p><b>Scopo funzionale:</b> '+esc(e.sc)+'</p><p><b>Muscoli target:</b> primari '+esc(e.mp)+(e.ms&&e.ms!=='—'?'; secondari '+esc(e.ms):'')+'.</p><p><b>Postura e assetto iniziale:</b> '+esc(e.as)+'</p>'+
    (two?'<p><b>'+lab[0]+':</b> '+esc(e.ec)+'</p><p><b>'+lab[1]+':</b> '+esc(e.co)+'</p>':'<p><b>Esecuzione:</b> '+esc(e.ec+' '+e.co)+'</p>')+
    '<p><b>Respirazione:</b> '+esc(breath(e)+(hasF(e,'vs')?' Sui carichi alti usa una breve apnea (Valsalva); evita l’apnea prolungata in caso di ipertensione.':''))+'</p><p><b>Sicurezza:</b> '+esc(e.si)+'</p>'+(DZX[e.n]||[]).map(function(z){return '<p class="dzx"><b>Dalla dispensa '+esc(z[0])+':</b> '+esc(z[1])+'</p>'}).join('');
@@ -5284,7 +5301,7 @@ function legendHtml(es,extra){
   es.forEach(put(L));(extra||[]).forEach(put(X));
   if(!L.length&&!X.length)return '<p class="status">La legenda compare quando scegli gli esercizi.</p>';
   var item=function(x){var e=EXI[ekey(x.n)];
-    return '<details class="lg" data-k="'+esc(ekey(x.n))+'"><summary><span>'+esc(x.n)+'</span>'+(e?'<i class="pt">'+esc(e.role==='wu'?(e.wk==='cardio'?'Cardio':e.wk==='foam'?'Foam rolling':e.wk==='str'?'Allungamento':e.wk==='att'?'Attivazione':'Mobilità'):e.p)+'</i>':'')+'</summary><div class="lgb">'+
+    return '<details class="lg" data-k="'+esc(ekey(x.n))+'"><summary><span>'+esc(x.n)+'</span>'+(e?'<i class="pt'+(e.role==='wu'?'':' ptx')+'">'+esc(e.role==='wu'?(e.wk==='cardio'?'Cardio':e.wk==='foam'?'Foam rolling':e.wk==='str'?'Allungamento':e.wk==='att'?'Attivazione':'Mobilità'):e.p)+'</i>':'')+'</summary><div class="lgb">'+
      (e?legendBody(e):'<p>Esercizio personalizzato: segui le note esecutive indicate in tabella.</p>'+(x.nt?'<p>'+esc(x.nt)+'</p>':''))+'</div></details>'};
   return '<div class="lgw"><div class="lghd"><span class="status">Tocca il nome di un esercizio per aprire la spiegazione completa.</span><button type="button" class="mini" data-act="lgall">Apri tutte</button></div>'+
    (L.length?'<div class="lgg">'+L.map(item).join('')+'</div>':'')+(X.length?'<h5 class="lgs">Riscaldamento e defaticamento</h5><div class="lgg">'+X.map(item).join('')+'</div>':'')+'</div>';
@@ -5908,8 +5925,8 @@ async function saveScheda(send){
 }
 function schedaDays(sc){return sc.days&&sc.days.length?sc.days:[{t:'',es:sc.es||[]}]}
 function exTable(es){
-  return '<div class="xwrap"><table class="stab"><thead><tr><th>Esercizio</th><th>Pattern</th><th>Muscolo</th><th>Serie</th><th>Rip.</th><th>RPE</th><th>Carico target</th><th>Rec.</th><th>Note esecutive (postura e respirazione)</th></tr></thead><tbody>'+
-   es.map(function(e){var d=EXI[ekey(e.n)];return '<tr><td>'+exLabel(e)+'</td><td>'+esc(e.p||(d?d.p:''))+'</td><td>'+esc(e.m||'')+'</td><td>'+esc(e.s)+'</td><td>'+esc(e.r)+'</td><td>'+esc(e.rpe||'')+'</td><td class="tg2">'+esc(tgK(e))+'</td><td>'+(e.rec!==''&&e.rec!=null?esc(e.rec)+' s':'')+'</td><td class="nt">'+esc(e.nt||'')+'</td></tr>'}).join('')+'</tbody></table></div>';
+  return '<div class="xwrap"><table class="stab"><thead><tr><th>Esercizio</th><th class="ptx">Pattern</th><th class="ptx">Muscolo</th><th>Serie</th><th>Rip.</th><th class="ptx">RPE</th><th>Carico target</th><th>Rec.</th><th>Note esecutive (postura e respirazione)</th></tr></thead><tbody>'+
+   es.map(function(e){var d=EXI[ekey(e.n)];return '<tr><td>'+exLabel(e)+'</td><td class="ptx">'+esc(e.p||(d?d.p:''))+'</td><td class="ptx">'+esc(e.m||'')+'</td><td>'+esc(e.s)+'</td><td>'+esc(e.r)+'</td><td class="ptx">'+esc(e.rpe||'')+'</td><td class="tg2">'+esc(tgK(e))+'</td><td>'+(e.rec!==''&&e.rec!=null?esc(e.rec)+' s':'')+'</td><td class="nt">'+esc(e.nt||'')+'</td></tr>'}).join('')+'</tbody></table></div>';
 }
 function schedaBody(sc,u){
   var days=schedaDays(sc),v2=!!(sc.days&&sc.days.length),es=flatEs(days),f=+sc.freq||1;
@@ -5926,7 +5943,7 @@ function schedaBody(sc,u){
   if(sc.cdm==='car'&&sc.cdc&&sc.cdc.tp)h+='<h4>Cardio di fine seduta <small class="status">al posto del defaticamento</small></h4>'+finTable(sc.cdc,u);
   else if(sc.cdL&&sc.cdL.length)h+='<h4>Defaticamento (cool-down)</h4>'+wuTable(sc.cdL,'cd');else if(sc.cd)h+='<h4>Defaticamento (cool-down)</h4><div class="prot">'+esc(sc.cd)+'</div>';
   if(carList(sc.car).length)h+='<h4>Cardio della settimana</h4>'+carTable(sc.car,u);
-  if(es.some(function(e){return e.m}))h+='<h4>Volume settimanale per muscolo</h4>'+volHtml(es,f/days.length,u);
+  if(es.some(function(e){return e.m}))h+='<div class="ptx"><h4>Volume settimanale per muscolo</h4>'+volHtml(es,f/days.length,u)+'</div>';
   h+='<h4>Legenda e guida all’esecuzione</h4>'+legendHtml(es,(sc.wuL||[]).concat(sc.cdL||[]));
   h+='<details class="glw"><summary>📖 Glossario dei termini tecnici</summary>'+glossHtml()+'</details>';
   return h;
@@ -6114,7 +6131,7 @@ function viewScheda(id){
 }
 function schedaHtml(u,sc){
   return '<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+esc(sc.nome)+'</title><style>@page{size:A4;margin:14mm}*{box-sizing:border-box}body{font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;max-width:1000px;margin:0 auto;padding:0 16px 32px;background:#f3f3f0;color:#0b0b0b}'+
-   '.top{background:#000;color:#fff;margin:0 -16px 20px;padding:16px 20px;border-bottom:3px solid #4B0082;font-weight:700;font-size:20px}.top b{color:#B794F6}h1{margin:0 0 4px;font-size:26px}h4{margin:22px 0 8px;font-size:16px}.status{color:#4a4a4a}'+
+   '.ptx{display:none!important}.top{background:#000;color:#fff;margin:0 -16px 20px;padding:16px 20px;border-bottom:3px solid #4B0082;font-weight:700;font-size:20px}.top b{color:#B794F6}h1{margin:0 0 4px;font-size:26px}h4{margin:22px 0 8px;font-size:16px}.status{color:#4a4a4a}'+
    '.keyd{border:2px solid #4B0082;background:#f5f0fb;border-radius:12px;padding:12px 16px;margin-top:14px}.keyd h4{margin:0 0 6px}.det{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:0}.det dt{color:#4a4a4a}.det dd{margin:0}'+
    '.prot{white-space:pre-line;background:#fff;border:1px solid #cdcdcd;border-radius:10px;padding:10px 14px}.xwrap{overflow-x:auto}table{border-collapse:collapse;width:100%;background:#fff}th,td{border:1px solid #bdbdbd;padding:7px 9px;text-align:left;vertical-align:top}th{background:#4B0082;color:#fff;font-size:13px}td.nt{font-size:13px;min-width:220px}td.tg2{font-size:13px;min-width:130px}'+
    '.dc{font-style:normal;font-size:11px;font-weight:700;background:#4B0082;color:#fff;border-radius:99px;padding:1px 8px}.vs{font-size:12px;font-weight:700;border-radius:99px;padding:2px 9px}.vs.ok{background:#e3f4e8;color:#14622f}.vs.lo{background:#fdebd0;color:#7a4300}.vs.hi{background:#fde8e8;color:#9b1c1c}'+
@@ -6264,7 +6281,7 @@ function dlWeek(sc){return sc.deload&&sc.data?Math.floor((Date.parse(sc.deload)-
 function hgt(t,cw){var n=0;String(t==null?'':t).split('\n').forEach(function(l){n+=Math.max(1,Math.ceil(l.length/cw))});return Math.max(16,n*15)}
 function xlsxScheda(sc,u){
   var days=schedaDays(sc),wk=weeksOf(sc),dw=dlWeeks(sc),es=flatEs(days);
-  var base=['Seduta','Esercizio','Pattern','Muscolo','Serie','Ripetizioni','RPE','Carico target (%1RM / RIR)','Recupero','Note esecutive (postura e respirazione)'],W=[16,30,11,13,7,12,8,26,10,52],N=base.length+wk,L1=base.length-1;
+  var base=['Seduta','Esercizio','Serie','Ripetizioni','Carico target (%1RM / RIR)','Recupero','Note esecutive (postura e respirazione)'],W=[16,30,7,12,26,10,60],N=base.length+wk,L1=base.length-1;
   for(var i=0;i<wk;i++)W.push(12);
   var R=[],M=[],add=function(c,h){R.push({c:c,h:h});return R.length},mer=function(r,a,b){M.push(xcol(a)+r+':'+xcol(b)+r)},r;
   r=add([['S.peaking — Scheda di allenamento',1]],26);mer(r,0,N-1);add([]);
@@ -6279,19 +6296,19 @@ function xlsxScheda(sc,u){
     r=add(bar,22);mer(r,0,N-1);
     add(head.map(function(h){return [h,3]}),32);
     d.es.forEach(function(e){
-      var nm=(e.g?'SS '+String.fromCharCode(64+(+e.g))+' · ':'')+e.n,p=e.p||(EXI[ekey(e.n)]||{}).p||'';
-      var row=[[dn,4],[nm,9],[p,4],[e.m||'',4],[e.s===''||e.s==null?'':+e.s,4],[e.r||'',4],[e.rpe||'',4],[tgK(e),4],[e.rec!==''&&e.rec!=null?e.rec+' s':'',4],[e.nt||'',4]];
+      var nm=(e.g?'SS '+String.fromCharCode(64+(+e.g))+' · ':'')+e.n;
+      var row=[[dn,4],[nm,9],[e.s===''||e.s==null?'':+e.s,4],[e.r||'',4],[tgK(e),4],[e.rec!==''&&e.rec!=null?e.rec+' s':'',4],[e.nt||'',4]];
       for(i=0;i<wk;i++)row.push([logCell(sc,i+1,j,e.n),6]);
-      add(row,Math.max(hgt(e.nt,56),hgt(nm,30),hgt(tgK(e),26),hgt(dn,16)));
+      add(row,Math.max(hgt(e.nt,64),hgt(nm,30),hgt(tgK(e),26),hgt(dn,16)));
     });
     add([]);
   });
   block(sc.cdm==='car'?'Cardio di fine seduta (al posto del defaticamento)':'Defaticamento (cool-down)',sc.cd);
   block('Cardio della settimana',carList(sc.car).map(function(x){return '• '+carTxt(x)+(x.int&&!x.fc&&u?' · zona '+karv(u,x.int).split(' (')[0]:'')}).join('\n'));
-  r=add([['Come usare il foglio: nelle colonne «Sett.» annota carico e ripetizioni fatte (es. 60×8) e, se vuoi, l’RPE percepito. Quando completi tutte le serie al limite alto delle ripetizioni con l’RPE indicato, aumenta il carico. Legenda degli esercizi e glossario sono nei fogli successivi.',7]],46);mer(r,0,N-1);
-  var seen={},LH=['Esercizio','Pattern','Tipo','Attrezzatura','Scopo funzionale','Muscoli primari','Muscoli secondari','Postura e assetto iniziale','Fase eccentrica / esecuzione','Fase concentrica','Respirazione','Sicurezza'],LW=[24,22,22,18,40,26,26,42,34,34,34,34],LR=[{c:LH.map(function(h){return [h,3]}),h:30}];
+  r=add([['Come usare il foglio: nelle colonne «Sett.» annota carico e ripetizioni fatte (es. 60×8). Quando completi tutte le serie al limite alto delle ripetizioni, aumenta il carico. Legenda degli esercizi e glossario sono nei fogli successivi.',7]],46);mer(r,0,N-1);
+  var seen={},LH=['Esercizio','Tipo','Attrezzatura','Scopo funzionale','Muscoli primari','Muscoli secondari','Postura e assetto iniziale','Fase eccentrica / esecuzione','Fase concentrica','Respirazione','Sicurezza'],LW=[24,22,18,40,26,26,42,34,34,34,34],LR=[{c:LH.map(function(h){return [h,3]}),h:30}];
   es.forEach(function(x){var k=ekey(x.n);if(!k||seen[k])return;seen[k]=1;var e=EXI[k];
-    var v=e?[x.n,e.p+' · '+SUBL[e.sub],exTypeL(e),eqText(e),e.sc,e.mp,e.ms,e.as,e.ec,e.co,breath(e),e.si]:[x.n,x.p||'','','','Esercizio personalizzato','','',x.nt||'','','','',''];
+    var v=e?[x.n,exTypeL(e),eqText(e),e.sc,e.mp,e.ms,e.as,e.ec,e.co,breath(e),e.si]:[x.n,'','','Esercizio personalizzato','','',x.nt||'','','','',''];
     var h=16;v.forEach(function(t,i){h=Math.max(h,hgt(t,LW[i]))});LR.push({c:v.map(function(t,i){return [t,i?4:9]}),h:h});
   });
   var GR=[{c:[['Termine',3],['Definizione',3]],h:22}].concat(GLOSS.map(function(g){return {c:[[g[0],9],[g[1],4]],h:hgt(g[1],105)}}));
@@ -6302,8 +6319,8 @@ function csvScheda(sc,u){
   row(['S.peaking — Scheda di allenamento']);row(['Atleta',u?u.n+' '+u.c:'']);row(['Scheda',sc.nome]);row(['Data di inizio',fdate(sc.data)]);
   if(sc.deload)row(['Settimana di scarico',dw.length>1?dlTxt(sc):'dal '+fdate(sc.deload)+' al '+fdate(addDays(sc.deload,6))]);if(sc.cambio)row(['Cambio scheda',fdate(sc.cambio)]);
   row(['Sedute a settimana',String(sc.freq||1)+(sc.split?' · '+sc.split:'')]);if(sc.luogo==='casa')row(['Dove si allena',homeTxt(sc.luogo,sc.heq)]);carList(sc.car).forEach(function(x){row(['Cardio',carTxt(x)])});row([]);
-  var h=['Seduta','Esercizio','Pattern','Muscolo','Serie','Ripetizioni','RPE','Carico target (%1RM / RIR)','Recupero (s)','Note esecutive'];for(var i=0;i<wk;i++)h.push('Sett. '+(i+1)+(dw.indexOf(i+1)>-1?' (scarico)':''));row(h);
-  days.forEach(function(d,j){d.es.forEach(function(e){var p=e.p||(EXI[ekey(e.n)]||{}).p||'',r=[d.t||'Seduta '+(j+1),(e.g?'SS '+String.fromCharCode(64+(+e.g))+' · ':'')+e.n,p,e.m||'',e.s,e.r,e.rpe||'',tgK(e),e.rec,e.nt||''];for(i=0;i<wk;i++)r.push(logCell(sc,i+1,j,e.n));row(r)})});
+  var h=['Seduta','Esercizio','Serie','Ripetizioni','Carico target (%1RM / RIR)','Recupero (s)','Note esecutive'];for(var i=0;i<wk;i++)h.push('Sett. '+(i+1)+(dw.indexOf(i+1)>-1?' (scarico)':''));row(h);
+  days.forEach(function(d,j){d.es.forEach(function(e){var r=[d.t||'Seduta '+(j+1),(e.g?'SS '+String.fromCharCode(64+(+e.g))+' · ':'')+e.n,e.s,e.r,tgK(e),e.rec,e.nt||''];for(i=0;i<wk;i++)r.push(logCell(sc,i+1,j,e.n));row(r)})});
   return new Blob(['﻿'+L.join('\r\n')],{type:'text/csv;charset=utf-8'});
 }
 async function expScheda(id,kind){
@@ -6375,7 +6392,7 @@ function edLoad(uid,sid){
 function openEd(uid,sid){cur='ed';closeModal();edLoad(uid,sid);render();window.scrollTo(0,0)}
 function edNew(){var td=todayIso(),eu=find(ED.uid)||{};ED.sid=null;ED.day=0;ED.dirty=true;ED.sg=null;
   var ef=eu.fin||{},ed0=eu.dimo||{};
-  ED.sc={dur:eu.tdur||'',cdm:ef.cdm==='car'?'car':'',cdc:ef.cdc?Object.assign({},ef.cdc):null,dim:{on:(eu.ob||[]).indexOf('Dimagrimento')>-1,pa:eu.peso||'',po:ed0.po||'',rt:ed0.rt||'',dd:''},luogo:eu.luogo||'',heq:(eu.heq||[]).slice(),car:carList(eu.card),nome:'Nuova scheda',data:td,deload:addDays(td,21),cambio:addDays(td,42),freq:3,split:'',logica:'',wu:'',cd:'',wuL:[],cdL:[],days:[{t:'Seduta 1',es:[{}]}]}}
+  ED.sc={dur:eu.tdur||'',cdm:ef.cdm==='car'?'car':'',cdc:ef.cdc?Object.assign({},ef.cdc):null,dim:{on:(eu.ob||[]).indexOf('Dimagrimento')>-1||!!(dimNutPlan(eu,'')&&dimNutPlan(eu,'').fase==='dim'),pa:eu.peso||'',po:ed0.po||'',rt:ed0.rt||'',dd:''},luogo:eu.luogo||'',heq:(eu.heq||[]).slice(),car:carList(eu.card),nome:'Nuova scheda',data:td,deload:addDays(td,21),cambio:addDays(td,42),freq:3,split:'',logica:'',wu:'',cd:'',wuL:[],cdL:[],days:[{t:'Seduta 1',es:[{}]}]}}
 function edBuild(){
   var s=ED.sc,days=s.days.map(function(d,j){return {t:(d.t||'').trim()||('Seduta '+(j+1)),es:d.es.filter(function(x){return x.n&&String(x.n).trim()}).map(function(x){return Object.assign({},x,{n:String(x.n).trim()})})}}).filter(function(d){return d.es.length});
   days.forEach(function(d){var gn=0;d.es.forEach(function(x,i){if(x.lk&&i>0){if(!d.es[i-1].g)d.es[i-1].g=++gn;x.g=d.es[i-1].g}});d.es.forEach(function(x){delete x.lk;delete x.auto;delete x.af})});
@@ -6996,7 +7013,7 @@ function avRender(){
        '<input class="avrp'+(pr?' pv':'')+'" inputmode="numeric" placeholder="'+esc(pr||tr)+'" aria-label="Ripetizioni serie '+(s+1)+(pr?', la volta scorsa '+esc(pr):'')+'" value="'+esc(x.rp||'')+'">'+
        '<button class="avok" data-avok aria-pressed="'+!!x.ok+'" aria-label="Serie '+(s+1)+' fatta">✓</button></div>'}
     return '<div class="avc'+(done>=n?' fin':'')+'"><div class="avn">'+(g?'<i class="dc">SS '+String.fromCharCode(64+(+g))+'</i> ':'')+esc(e[0])+'<span class="avcnt">'+done+'/'+n+'</span></div>'+
-     '<div class="avp">'+(e[1]!==''?'<span><b>'+esc(e[1])+'</b> serie'+(n<avNum(e[1])?' <i class="avrc">'+(dw.indexOf(wk)>-1?'scarico '+n:'oggi '+n+' ⚡')+'</i>':'')+'</span>':'')+(e[2]!==''?'<span><b>'+esc(e[2])+'</b> rip.</span>':'')+(e[3]!==''?'<span>RPE <b>'+esc(e[3])+'</b></span>':'')+(e[5]!==''?'<span>Rec. <b>'+esc(e[5])+' s</b></span>':'')+'</div>'+
+     '<div class="avp">'+(e[1]!==''?'<span><b>'+esc(e[1])+'</b> serie'+(n<avNum(e[1])?' <i class="avrc">'+(dw.indexOf(wk)>-1?'scarico '+n:'oggi '+n+' ⚡')+'</i>':'')+'</span>':'')+(e[2]!==''?'<span><b>'+esc(e[2])+'</b> rip.</span>':'')+(e[5]!==''?'<span>Rec. <b>'+esc(e[5])+' s</b></span>':'')+'</div>'+
      avSafeCard(ex,d,cx)+(e[4]?'<div class="avtg">Carico: '+esc(e[4])+'</div>':'')+(e[6]?'<p class="avnt">'+esc(e[6])+'</p>':'')+
      (g&&d[1][j+1]&&d[1][j+1][8]===g?'<p class="avss">Superserie: passa subito all’esercizio successivo, recupera dopo.</p>':'')+
      (pv?'<p class="avpvn">In trasparenza i kg e le ripetizioni della settimana '+pv.w+(dw.indexOf(pv.w)>-1?' (scarico)':'')+(AV.d?', dal '+fdate(addDays(AV.d,(pv.w-1)*7)).slice(0,5):'')+'. Scrivi sopra quelli di oggi; con ✓ su una serie vuota restano gli stessi kg.</p>':'')+
@@ -7979,7 +7996,7 @@ var WR=[278,278,355,556,556,889,667,191,333,333,389,584,278,333,278,278,556,556,
  // ---- da HTML ----
  var BLKT={DIV:1,P:1,SECTION:1,H1:1,H2:1,H3:1,H4:1,H5:1,H6:1,TABLE:1,UL:1,OL:1,LI:1,DL:1,DT:1,DD:1,DETAILS:1,SUMMARY:1,PRE:1,HEADER:1,FOOTER:1,ARTICLE:1,BLOCKQUOTE:1,HR:1,FORM:1,NAV:1,MAIN:1,FIGURE:1,ASIDE:1};
  var SKIPT={SCRIPT:1,STYLE:1,BUTTON:1,INPUT:1,SELECT:1,TEXTAREA:1,SVG:1,NOSCRIPT:1,TEMPLATE:1,COLGROUP:1,IMG:1,DATALIST:1,OPTION:1};
- var SKIPC=['noprn','lghd','mrow','shb','sp','sgr'],SMC=['status','sub','lmeta','yshf','g','yshm','note','hint'],LINEC=['yshpr','yshal','gls'];
+ var SKIPC=['noprn','ptx','lghd','mrow','shb','sp','sgr'],SMC=['status','sub','lmeta','yshf','g','yshm','note','hint'],LINEC=['yshpr','yshal','gls'];
  function hasC(el,L){if(!el.classList)return false;for(var i=0;i<L.length;i++)if(el.classList.contains(L[i]))return true;return false}
  function skip(el,o){return SKIPT[el.tagName]||hasC(el,SKIPC.concat(o.skip||[]))||(el.classList&&el.classList.contains('glw')&&!o.gloss)||(el.getAttribute&&el.getAttribute('aria-hidden')==='true')||(el.hidden)}
  function isBlk(el){return el.nodeType===1&&(BLKT[el.tagName]||hasC(el,['ysh','yshh','yshnt','lg','lgb','keyd','prot','warn','info']))}
@@ -8002,7 +8019,7 @@ var WR=[278,278,355,556,556,889,667,191,333,333,389,584,278,333,278,278,556,556,
    if(hasC(el,['ysp'])&&d.cur.length)d.newPage();
    if(/^H[1-6]$/.test(tg)){var lv=+tg[1],sz=lv===1?16:lv===2?14:lv===3?12:10.5;d.para(trim(runs(el,o,{b:1})),{size:sz,c:lv>=3?PUR:BLK,before:lv<=2?4:7,after:3,keep:30});return}
    if(hasC(el,['yshh','top'])){var im=el.querySelector('img'),ik=im&&o.imgs&&o.imgs.get(im.getAttribute('src'));d.bar(hasC(el,['yshh'])?[].map.call(el.querySelectorAll('b,span'),function(x,i){return {t:(i?'  ·  ':'')+x.textContent.trim(),b:!i}}):trim(runs(el,o,{b:1})),{img:ik,h:ik?34:24,size:ik?11:12,before:d.cur.length?4:0});return}
-   if(tg==='TABLE'){var R=[];[].forEach.call(el.querySelectorAll('tr'),function(tr){var cells=[].filter.call(tr.children,function(c){return c.tagName==='TD'||c.tagName==='TH'});if(!cells.length)return;
+   if(tg==='TABLE'){var R=[];[].forEach.call(el.querySelectorAll('tr'),function(tr){var cells=[].filter.call(tr.children,function(c){return (c.tagName==='TD'||c.tagName==='TH')&&!skip(c,o)});if(!cells.length)return;
        R.push({h:tr.parentNode.tagName==='THEAD'||cells.every(function(c){return c.tagName==='TH'}),cls:tr.className||'',c:cells.map(function(c){return {r:trim(runs(c,o,c.tagName==='TH'?{b:1}:{})),cs:+c.getAttribute('colspan')||1}})})});
      d.table(R,{size:ctx.tsize||7.5,cw:el.getAttribute('data-cw')?el.getAttribute('data-cw').split(',').map(Number):hasC(el,['ysht'])?[0.13,0.27,0.22,0.38]:null,before:2});return}
    if(tg==='HR'){d.need(8);d.line(d.m,d.y-4,d.W-d.m,d.y-4,GRY,0.5);d.y-=8;return}
@@ -8435,6 +8452,7 @@ var NFASE={
  iper:{t:'Ipertrofia (crescita muscolare)',d:0.12,p:[1.4,2.2],pd:1.8,c:[4,7],f:[0.8,1.2],fd:1,fp:[20,30],tx:'Surplus moderato +10/15% del TDEE (circa +200–400 kcal): un eccesso maggiore non accelera la sintesi proteica, aumenta il grasso.'},
  def:{t:'Definizione (riduzione della massa grassa)',d:-0.2,p:[2,2.4],pd:2.2,ffm:[2.3,3.1],c:[3,5],f:[0.5,0.8],fd:0.7,fp:[15,30],tx:'Deficit controllato −15/25% del TDEE per perdere 0,5–1% del peso a settimana. Proteine alte per proteggere la massa magra e la sazietà; carboidrati attorno all’allenamento; grassi mai sotto il 15–20% delle calorie.'},
  forza:{t:'Forza massima',d:0,p:[1.6,2],pd:1.8,c:[3.5,5.5],f:[0.8,1.2],fd:1,fp:[20,35],tx:'Isocalorico (100% del TDEE) o lieve surplus (+5%): carboidrati per saturare il glicogeno nelle sedute ad alta intensità neurale (≥80% 1RM).'},
+ dim:{t:'Dimagrimento (obiettivo di peso)',d:-0.2,p:[2,2.4],pd:2.2,ffm:[2.3,3.1],c:[3,5],f:[0.5,0.8],fd:0.7,fp:[15,30],tx:'Deficit calcolato dall’obiettivo di peso: peso attuale, peso obiettivo e ritmo (0,5–1% del peso a settimana) danno i kg a settimana e il deficit al giorno (1 kg di massa grassa ≈ 7.700 kcal), al massimo il 25% del TDEE. Proteine alte per proteggere la massa magra; grassi mai sotto il 15–20% delle calorie. Lo stesso obiettivo può valere per la scheda di allenamento collegata.'},
  ric:{t:'Ricomposizione corporea',d:-0.05,p:[2,2.4],pd:2.2,c:[3,5],f:[0.7,1.1],fd:0.9,fp:[20,30],ffm:[2.3,2.8],tx:'Calorie al mantenimento o in lieve deficit (−5/10% del TDEE) con proteine alte e allenamento di forza progressivo: si riduce la massa grassa mantenendo o aumentando quella magra. Indicata per principianti, rientri dopo una pausa e chi ha una massa grassa medio-alta.'},
  mant:{t:'Mantenimento',d:0,p:[1.6,2],pd:1.8,c:[3.5,5.5],f:[0.8,1.2],fd:1,fp:[20,35],tx:'Isocalorico (100% del TDEE), stessa ripartizione della fase di forza.'}
 };
@@ -8524,6 +8542,8 @@ function nTarg(P,u){
   var fm=+P.fmp;o.fm=fm>=3&&fm<=60?fm:0;o.ffm=o.fm&&D.kg?D.kg*(1-o.fm/100):0;
   o.bmr=D.kg&&D.alt&&D.eta&&D.sx?10*D.kg+6.25*D.alt-5*D.eta+(D.sx==='Donna'?-161:5):0;o.km=o.ffm?370+21.6*o.ffm:0;
   o.tdee=o.bmr*pal;o.auto=o.tdee?Math.round(o.tdee*(1+F.d)/50)*50:0;
+  if(P.fase==='dim'){var DC=nDimC(P,u);o.dm={C:DC};if(DC&&!DC.err&&o.tdee){var cap=Math.round(o.tdee*0.25),df=Math.min(DC.def,cap);o.auto=Math.round((o.tdee-df)/50)*50;o.dm.def=df;o.dm.cap=DC.def>cap;
+    if(o.dm.cap)o.w.push('Il ritmo scelto richiederebbe un deficit di '+nfmt(DC.def)+' kcal al giorno, oltre il 25% del fabbisogno: le calorie sono calcolate con un deficit di '+nfmt(df)+' kcal. Valuta un ritmo più lento.')}}
   o.kcal=+P.kcal||o.auto;
   // proteine: in definizione e ricomposizione, con la massa magra nota, 2,3–3,1 g/kg di FFM (ISSN), convertiti in g/kg di peso
   var pdef=F.pd;if(o.ffm&&F.ffm)pdef=Math.round((F.ffm[0]+F.ffm[1])/2*o.ffm/D.kg*10)/10;o.pdef=pdef;
@@ -8548,11 +8568,30 @@ function nTarg(P,u){
   var on=(P.pasti||[]).filter(function(m){return m.on}),tot=on.reduce(function(a,m){return a+(+m.pct||0)},0)||1;
   o.meal={};on.forEach(function(m){var q=(+m.pct||0)/tot;o.meal[m.k]={q:q,k:o.kcal*q,p:o.p*q,c:o.c*q}});o.npasti=on.length;
   return o}
+// ---- fase 41: obiettivo di dimagrimento nel piano alimentare, collegato alla scheda ----
+function nDimC(P,u){var d=P.dim||{},sc=nSched(P,u),u2=Object.assign({},u,{alt:+P.alt||u.alt,peso:+P.kg||u.peso});return dimCalc(Object.assign({},d,{pa:+d.pa||+P.kg||+u.peso||0}),u2,P.data||todayIso(),sc?sc.cambio:'')}
+function nDimSrc(P,u){var sc=nSched(P,u);if(sc&&sc.dim&&sc.dim.on&&+sc.dim.po)return {pa:sc.dim.pa,po:sc.dim.po,rt:sc.dim.rt||'',dd:sc.dim.dd||'',sc:sc};var o=u.dimo;return o&&+o.po?{pa:'',po:o.po,rt:o.rt||'',dd:o.dd||''}:null}
+function nDimFill(P,u){P.dim=P.dim||{};if(+P.dim.po)return;var s=nDimSrc(P,u);if(s){P.dim.po=s.po;P.dim.rt=s.rt;P.dim.dd=s.dd&&s.dd>todayIso()?s.dd:'';if(s.pa)P.dim.pa=s.pa}}
+function nDimSame(a,b){a=a||{};b=b||{};return +a.po===+b.po&&String(a.rt||'')===String(b.rt||'')&&String(a.dd||'')===String(b.dd||'')}
+function nDimSec(P,u){var on=P.fase==='dim',d=P.dim||{},sc=nSched(P,u),u2=Object.assign({},u,{peso:+P.kg||u.peso,alt:+P.alt||u.alt}),lk='';
+  if(sc){var sd=sc.dim&&sc.dim.on&&+sc.dim.po?sc.dim:null,same=sd&&nDimSame(sd,d);
+    lk='<div class="info" style="margin:0 0 10px">🔗 Scheda collegata: <b>'+esc(sc.nome||'Scheda')+'</b> · '+(sd?'obiettivo di dimagrimento '+fnum(sd.pa)+' → '+fnum(sd.po)+' kg'+(same?' (lo stesso di questo piano)':''):'senza obiettivo di dimagrimento')+'.'+
+     '<label class="nck"><input type="checkbox" data-nb="dim.lk"'+(d.lk!==false?' checked':'')+'> Stesso obiettivo nella scheda di allenamento: salvando il piano la scheda si aggiorna (tempistiche e tappe per scheda); salvando la scheda si aggiorna il piano</label>'+
+     (sd&&!same?'<div class="mrow" style="justify-content:flex-start;margin-top:6px"><button type="button" class="btn sm" data-na="dimsc">↻ Riprendi l’obiettivo dalla scheda</button></div>':'')+'</div>'}
+  else lk='<p class="status" style="margin:0 0 8px">Collega una scheda di allenamento in «Impostazione» per usare lo stesso obiettivo anche nell’allenamento (tempistiche, tappe per scheda, logica di lavoro).</p>';
+  return '<section class="asec" data-dmbox="nut"><h3>🎯 Obiettivo di dimagrimento <small>fase Dimagrimento · collegata all’allenamento</small></h3>'+(on?lk:'')+dimFormHtml(d,u2,on)+'</section>'}
+function nDimCalTxt(P,u){var T=nTarg(P,u),M=T.dm;if(!M||!M.C||M.C.err)return '';if(!T.tdee)return '<p class="status">🥗 Completa peso, altezza, età e sesso (anamnesi o «Fabbisogno») per calcolare le calorie dell’obiettivo.</p>';
+  var h='<div class="dmres" style="margin-bottom:8px">🥗 <b>Calorie per l’obiettivo: fabbisogno (TDEE) ≈ '+nfmt(Math.round(T.tdee/10)*10)+' kcal − deficit '+nfmt(M.def)+' kcal = '+nfmt(T.auto)+' kcal al giorno</b>'+(M.cap?' (deficit limitato al 25% del TDEE)':'');
+  if(+P.kcal){var rd=T.tdee-P.kcal;h+='<br>Nel piano hai scritto '+nfmt(P.kcal)+' kcal: deficit reale ≈ '+nfmt(Math.round(rd/10)*10)+' kcal al giorno, cioè circa '+fmt1(Math.max(0,rd*7/7700))+' kg a settimana'+(rd*7/7700<M.C.pa*M.C.rt/100*0.8?' (più lento del ritmo scelto: le tempistiche si allungano)':'')+'.'}
+  return h+'</div>'}
+function nDimToSc(P,u){var sc=nSched(P,u);if(!sc||P.fase!=='dim'||(P.dim||{}).lk===false)return null;var C=nDimC(P,u);if(!C||C.err)return null;
+  var ds=dimSave(Object.assign({},P.dim,{on:1,pa:C.pa}),u,sc.data,sc.cambio);if(!ds)return null;if(sc.dim&&sc.dim.on&&nDimSame(sc.dim,ds)&&+sc.dim.pa===+ds.pa)return null;return Object.assign({},sc,{dim:ds,ts:Date.now()})}
 function nNewPlan(u,sid){
   var ob=(u.ob||[]).join(' ').toLowerCase(),fase=/ipertrofia/.test(ob)?'iper':/dimagr/.test(ob)?'def':/forza/.test(ob)?'forza':'mant';
   var mph=typeof macFor==='function'&&!hasSpk(u)?macFor(u):null;if(mph&&MACS[mph.k])fase=MACS[mph.k].nut;
-  var sc=sid?SCH.filter(function(s){return String(s.id)===String(sid)})[0]:schedeOf(u.id)[0];
-  return {id:newId('n'),nome:'Alimentazione '+String(u.n||'').toUpperCase(),data:todayIso(),sid:sc?sc.id:'',by:'',nt:'',ex:[],fase:fase,pal:'',kcal:'',pk:'',fk:'',kg:'',alt:'',eta:'',sx:'',
+  var sc=sid?SCH.filter(function(s){return String(s.id)===String(sid)})[0]:schedeOf(u.id)[0],sdm=sc&&sc.dim&&sc.dim.on&&+sc.dim.po,dmo=u.dimo&&+u.dimo.po;
+  if(sdm||(fase==='def'&&dmo))fase='dim';var dim=fase==='dim'?(sdm?{pa:sc.dim.pa,po:sc.dim.po,rt:sc.dim.rt||'',dd:sc.dim.dd||''}:{po:u.dimo.po,rt:u.dimo.rt||'',dd:u.dimo.dd&&u.dimo.dd>todayIso()?u.dimo.dd:''}):{};
+  return {dim:dim,id:newId('n'),nome:'Alimentazione '+String(u.n||'').toUpperCase(),data:todayIso(),sid:sc?sc.id:'',by:'',nt:'',ex:[],fase:fase,pal:'',kcal:'',pk:'',fk:'',kg:'',alt:'',eta:'',sx:'',
     pasti:NMEALS.map(function(m){return {k:m[0],t:m[1],on:!!m[3],pct:m[2],ora:'',sez:[]}}),cf:{},prk:false,pri:true,rf:true,prc:true,ps:{m:'all'},wk:{on:true,only:false,n:2,x:true,d:null},ts:0}}
 // ---- generazione dello schema dai riferimenti ----
 function nExTags(P){var t={};(P.ex||[]).forEach(function(k){NEX.forEach(function(x){if(x[0]===k)x[2].forEach(function(g){t[g]=1})})});(P.no||[]).forEach(function(f){t['@'+f]=1});return t}
@@ -8669,7 +8708,7 @@ function nutEditor(){
     '<p class="kick" style="margin:16px 0 6px">Preferenze e esclusioni</p><div class="nchips">'+NEX.map(function(x){var on=(P.ex||[]).indexOf(x[0])>-1;return '<button type="button" class="nch" data-na="ex" data-k="'+x[0]+'" aria-pressed="'+on+'">'+esc(x[1])+'</button>'}).join('')+'</div>'+
     '<div class="fg" style="margin-top:12px">'+nFl('Allergie, intolleranze, gusti e note per l’atleta','<textarea data-nb="nt" rows="3">'+esc(P.nt||'')+'</textarea>','full')+'</div>'+
     (P.no&&P.no.length?'<p class="status">Alimenti non graditi (dal questionario): '+esc(P.no.map(function(k){return NF[k]?NF[k].n.toLowerCase():k}).join(', '))+'.</p>':'')+'</section>'+
-   nqSecHtml(P,u)+
+   nqSecHtml(P,u)+nDimSec(P,u)+
    '<section class="asec"><h3>Fabbisogno energetico e macronutrienti</h3><div class="fg">'+
     nFl('Peso (kg)'+(u.peso?' · anamnesi '+nfmt(u.peso,1):''),nInp('kg',P.kg,'number',' min="0" step="any" placeholder="'+esc(u.peso||'')+'"'))+nFl('Altezza (cm)',nInp('alt',P.alt,'number',' min="0" step="any" placeholder="'+esc(u.alt||'')+'"'))+
     nFl('Età (anni)',nInp('eta',P.eta,'number',' min="0" step="1" placeholder="'+esc(ageOf(u))+'"'))+nFl('Sesso biologico',nSel('sx',[['',u.sx?'Dall’anamnesi: '+u.sx:'—'],['Uomo','Uomo'],['Donna','Donna']],P.sx))+
@@ -8698,10 +8737,10 @@ function nutEditor(){
    '<div class="status" id="nustat"></div><div class="afoot edfoot" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;margin:16px 0">'+
     (nHas(P)?'<button type="button" class="btn" data-na="ndel" style="margin-right:auto">Elimina</button>':'')+
     '<button type="button" class="btn" data-na="nprint">🖨 Stampa · PDF</button><button type="button" class="btn blk" data-na="nsend">📤 '+(nHas(P)&&!NU.dirty?'Invia all’atleta':'Salva e invia all’atleta')+'</button><button type="button" class="btn pri" data-na="nsave">Salva piano</button></div>';
-  nqStat();if(y)window.scrollTo(0,y);
+  nqStat();dimUpd();if(y)window.scrollTo(0,y);
 }
 function nHas(P){var u=find(NU.uid);return !!(u&&(u.nut||[]).some(function(x){return x.id===P.id}))}
-function nRefresh(){var P=NU.P,u=find(NU.uid);if(!P||!u)return;var T=nTarg(P,u);
+function nRefresh(){var P=NU.P,u=find(NU.uid);if(!P||!u)return;var T=nTarg(P,u);var ki=document.querySelector('input[data-nb="kcal"]');if(ki)ki.placeholder=T.auto?'auto '+T.auto:'';
   var c=gid('ncalc');if(c)c.innerHTML=nCalcHtml(P,u);
   var mm=gid('nmeals');if(mm){var a=document.activeElement,ap=a&&a.getAttribute&&a.getAttribute('data-nb');if(!ap||!/^pasti\.\d+\.(pct|ora)$/.test(ap))mm.innerHTML=nMealTab(P,u);else{[].forEach.call(mm.querySelectorAll('tbody tr'),function(tr,i){var m=P.pasti[i],mt=T.meal[m.k],td=tr.children;td[4].textContent=mt?nfmt(mt.k):'—';td[5].textContent=mt?nfmt(mt.p)+' g':'—'})}}
   P.pasti.forEach(function(m,mi){if(!m.on)return;var mt=T.meal[m.k],tk=mt?mt.k:0;(m.sez||[]).forEach(function(S,si){if(S.ty==='pi'){var e=gid('nt_'+mi+'_'+si);if(e)e.innerHTML=nMacTxt(nPiSum(S,P),tk)}else S.op.forEach(function(o,oi){var e=gid('nt_'+mi+'_'+si+'_'+oi);if(e)e.innerHTML=nMacTxt(nSum(o.it,P),tk)})})});
@@ -8716,7 +8755,7 @@ document.addEventListener('input',function(e){
   var p=t.getAttribute('data-nb');if(!p)return;
   if(/\.fn$/.test(p)){var it=nGet(NU.P,p.slice(0,-3)),k=nByName(t.value);if(it){if(k){it.f=k;delete it.n}else{it.f='';it.n=t.value}}nDirty();var row=t.closest('.nit'),pv=row&&row.querySelector('.npv');if(pv&&it)pv.textContent=nItTxt(it,NU.P);var q=t.nextElementSibling;if(q&&q.classList.contains('ngq')&&it)q.querySelector('i').textContent=nUnit(it,NU.P);nRefresh();return}
   var v=t.type==='checkbox'?t.checked:t.type==='number'?num(t.value):t.value;
-  nSet(NU.P,p,v);nDirty();
+  nSet(NU.P,p,v);nDirty();if(p==='fase'&&v==='dim')nDimFill(NU.P,find(NU.uid));
   var mo=/^pasti\.(\d+)\.on$/.exec(p);if(mo&&v){var M=NU.P.pasti[+mo[1]];if(!M.pct)M.pct=8;if(!M.sez||!M.sez.length)nMealGen(M)}
   var r=t.closest('.nit');if(r&&r.querySelector('.npv')){var ip=p.replace(/\.(g|l)$/,'').replace(/\.o$/,'');var it2=nGet(NU.P,ip);if(it2)r.querySelector('.npv').textContent=nItTxt(it2,NU.P)}
   if(t.getAttribute('data-nr'))nutEditor();else nRefresh();
@@ -8737,6 +8776,7 @@ document.addEventListener('click',function(e){
   var q=e.target.closest('[data-np]');if(q&&!e.target.closest('.tmw')){nOpen(NU.uid,q.getAttribute('data-np'));return}
   var b=e.target.closest('[data-na]');if(!b)return;var k=b.getAttribute('data-na'),p=b.getAttribute('data-p'),P=NU.P,u=find(NU.uid);
   if(k==='nback'){NU.uid=null;renderNut();window.scrollTo(0,0);return}
+  if(k==='dimsc'){var sr=nDimSrc(P,u);if(sr){P.dim=Object.assign({},P.dim,{pa:sr.pa||'',po:sr.po,rt:sr.rt,dd:sr.dd});nDirty();nutEditor();st('nustat','Obiettivo ripreso dalla scheda «'+((sr.sc&&sr.sc.nome)||'')+'». Salva il piano per confermare.')}return}
   if(k==='nnew'){nOpen(NU.uid,null);return}
   if(k==='nclose'){guardGen(function(){NU.P=null;NU.dirty=false;renderNut();window.scrollTo(0,0)});return}
   if(!P||!u)return;
@@ -8795,8 +8835,9 @@ function nRicAdd(m,id,u){var r=nRic(id);if(!r||!m)return;var P=NU.P,T=nTarg(P,u)
   if(sec)sec.op.push(S.op[0]);else{var i=m.sez.map(function(x){return x.ty}).indexOf('pi');if(i<0)m.sez.push(S);else m.sez.splice(i,0,S)}}
 async function nSave(quiet){var P=NU.P,u=find(NU.uid);if(!P||!u)return false;
   try{await nPersist(P)}catch(e){st('nustat',saveErr());return false}
+  var dsx='',s2=nDimToSc(P,u);if(s2){try{await Store.put('schede',s2);var si=SCH.findIndex(function(x){return String(x.id)===String(s2.id)});if(si>-1)SCH[si]=s2;dsx=' Obiettivo di dimagrimento aggiornato anche nella scheda «'+(s2.nome||'')+'».'}catch(e){dsx=' La scheda collegata non è stata aggiornata: riprova.'}}
   var lk='';if(P.atok&&window.Cloud&&Cloud.user()){lk=' Il link dell’atleta è aggiornato.';try{Cloud.linkSet(P.atok,nLinkDoc(P,u)).catch(function(e){showNotice('Link del piano alimentare non aggiornato: '+((e&&e.code)||(e&&e.message)||'errore'))})}catch(e){}}
-  nutEditor();var s=gid('nustat');if(s&&!quiet)s.innerHTML=esc('Piano alimentare salvato nel profilo di '+u.n+' '+u.c+'.'+lk)+' <button type="button" class="btn sm blk" data-na="nsend">📤 Invia all’atleta (WhatsApp · email)</button> <button type="button" class="btn sm" data-na="nprint">🖨 Stampa o PDF: scegli cosa</button>';return true}
+  nutEditor();var s=gid('nustat');if(s&&!quiet)s.innerHTML=esc('Piano alimentare salvato nel profilo di '+u.n+' '+u.c+'.'+dsx+lk)+' <button type="button" class="btn sm blk" data-na="nsend">📤 Invia all’atleta (WhatsApp · email)</button> <button type="button" class="btn sm" data-na="nprint">🖨 Stampa o PDF: scegli cosa</button>';return true}
 async function nDel(){var P=NU.P,u=find(NU.uid);closeModal();if(!P||!u)return;if(P.atok&&window.Cloud&&Cloud.user())Cloud.linkRm(P.atok);var o=Object.assign({},u);o.nut=(u.nut||[]).filter(function(x){return x.id!==P.id});
   try{await Store.put('utenti',o)}catch(e){st('nustat',saveErr());return}
   var i=U.findIndex(function(x){return String(x.id)===String(o.id)});if(i>-1)U[i]=o;NU.P=null;NU.dirty=false;renderNut();window.scrollTo(0,0)}
@@ -8836,6 +8877,7 @@ function nSheet(P0,u){var c=nPsOf(P0),P=Object.assign({},P0,{prk:c.sum,wk:Object
   var qt=c.prq?nqTips(P,T):[];if(qt.length)ind+='<h3>Indicazioni personalizzate</h3><ul>'+qt.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul>';
   if(c.prc)ind+='<h3>Cucina fit: consigli pratici</h3><ul><li><b>'+esc(NPLATE.split(':')[0])+':</b>'+esc(NPLATE.slice(NPLATE.indexOf(':')+1))+'</li>'+NPREP.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul>';
   var sum=c.sum&&T.kcal?'<p class="nsum"><b>Fabbisogno:</b> '+nfmt(T.kcal)+' kcal · proteine '+nfmt(T.p)+' g · carboidrati '+nfmt(T.c)+' g · grassi '+nfmt(T.f)+' g · '+esc(T.F.t)+'</p>':'';
+  if(sum&&T.dm&&T.dm.C&&!T.dm.C.err){var DC=T.dm.C;sum+='<p class="nsum"><b>Obiettivo:</b> da '+fmt1(DC.pa)+' a '+fmt1(DC.po)+' kg (−'+fmt1(DC.kg)+' kg), circa '+fmt1(DC.pa*DC.rt/100)+' kg a settimana · traguardo indicativo il '+fdate(DC.end)+'.</p>'}
   return '<div class="nush"><h1 class="ntit">'+esc(c.m==='wk'&&wk?'Menu settimanale · ':'')+esc(P.nome||'Alimentazione')+' ('+esc(nLong(P.data))+')</h1>'+sum+
    (c.opt?(rows?'<table class="stab nsht" data-cw="0.2,0.8"><tbody>'+rows+'</tbody></table>':'<p>Nessun pasto compilato.</p>'):'')+wk+
    (c.nt&&P.nt?'<p><b>Note:</b> '+esc(P.nt)+'</p>':'')+ind+
@@ -8972,7 +9014,7 @@ function nqEff(Q,u){var E={ex:[],L:[],warn:[]},al=Array.isArray(Q.al)?Q.al:[];
 function nqApply(P,u,Q){var E=nqEff(Q,u);
   var old=P.qex||[];P.ex=(P.ex||[]).filter(function(k){return old.indexOf(k)<0});E.ex.forEach(function(k){if(P.ex.indexOf(k)<0)P.ex.push(k)});P.qex=E.ex.slice();
   P.no=(Q.no||[]).filter(function(k){return NF[k]});P.si=(Q.si||[]).filter(function(k){return NF[k]});
-  if(Q.ob&&NFASE[Q.ob])P.fase=Q.ob;P.lav=Q.lav||'';
+  if(Q.ob&&NFASE[Q.ob])P.fase=Q.ob==='def'&&P.fase==='dim'?'dim':Q.ob;P.lav=Q.lav||'';
   if(+Q.kg&&!u.peso)P.kg=+Q.kg;if(+Q.alt&&!u.alt)P.alt=+Q.alt;if(+Q.eta&&ageOf(u)==='')P.eta=+Q.eta;if(Q.sx&&!u.sx)P.sx=Q.sx;if(+Q.fm>=3&&+Q.fm<=60){P.fmp=+Q.fm;P.fmm=Q.fmm||''}
   if(Q.sti==='low')P.cm='lc';else if(P.cm==='lc')P.cm='';
   if(E.R){P.pasti.forEach(function(m){if(E.R.t[m.k])m.ora=E.R.t[m.k];if(m.k==='pos'||m.k==='not'){m.on=!!E.R.on[m.k];if(m.on&&!m.pct)m.pct=m.k==='pos'?5:8}});P.pre=E.R.pre||''}
@@ -9231,7 +9273,7 @@ function nWkHas(P){return !!(P.wk&&P.wk.on&&P.wk.d&&P.wk.d.length===7)}
 function nPub(P,u){var T=nTarg(P,u),Q=nCl(P);if(Q.q)['ter','co','fmx','dp','dpr','gnt','fm','fmm'].forEach(function(k){delete Q.q[k]});Q.kg=T.D.kg||'';Q.alt=T.D.alt||'';Q.eta=T.D.eta||'';Q.sx=T.D.sx||'';Q.pal=T.pal;Q.kcal=T.kcal||'';
   delete Q.atok;delete Q.aoff;delete Q.sid;return {P:Q,u:{id:'avn',n:u.n||'',c:u.c||''}}}
 function nLinkDoc(P,u){return {ty:'nut',sid:'nut:'+P.id,on:!P.aoff,j:JSON.stringify(nPub(P,u))}}
-async function nPersist(P){var u=find(NU.uid);if(!u)throw new Error('atleta');P.ts=Date.now();var o=Object.assign({},u),L=(u.nut||[]).filter(function(x){return x.id!==P.id});L.unshift(nCl(P));o.nut=L;if(NU.Q&&nqHas(NU.Q))o.nq=nCl(NU.Q);
+async function nPersist(P){var u=find(NU.uid);if(!u)throw new Error('atleta');P.ts=Date.now();var o=Object.assign({},u),L=(u.nut||[]).filter(function(x){return x.id!==P.id});L.unshift(nCl(P));o.nut=L;if(NU.Q&&nqHas(NU.Q))o.nq=nCl(NU.Q);if(P.fase==='dim'){var DC=nDimC(P,u);if(DC&&!DC.err){var dm={po:DC.po,rt:+(P.dim||{}).rt||'',dd:(P.dim||{}).dd||''};if(JSON.stringify(u.dimo||{})!==JSON.stringify(dm))o.dimo=dm}}
   await Store.put('utenti',o);var i=U.findIndex(function(x){return String(x.id)===String(o.id)});if(i>-1)U[i]=o;NU.dirty=false;return o}
 async function nLinkFor(P,u){if(!nHas(P))return {live:false,why:'new'};if(!(window.Cloud&&Cloud.user()))return {live:false,why:'local'};
   var had=!!P.atok;if(!had)P.atok=newTok();
