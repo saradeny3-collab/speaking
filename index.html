@@ -1956,9 +1956,9 @@ function listSchede(){
   var LA=L.filter(function(x){return !x.term&&!x.sing}),LS=L.filter(function(x){return x.sing}),LT=L.filter(function(x){return x.term&&!x.sing}),L0=LA[0];
   document.getElementById('slist').innerHTML=L.length?LA.concat(LS,LT).map(function(x,i){var z=scStato(x);
     if(x.sing)return (x===LS[0]?'<h3 class="arch">📅 Sedute singole ('+LS.length+')</h3>':'')+'<div class="urow ssrow'+(ssel[x.id]?' sel':'')+'" data-srow="'+esc(x.id)+'" style="cursor:pointer">'+(sdm?'<input type="checkbox"'+(ssel[x.id]?' checked':'')+' aria-label="Seleziona">':'')+
-     '<div class="cells two"><b>'+esc(x.nome)+(sdm?'':' <button type="button" class="scren" data-act="scren" data-id="'+esc(x.id)+'" title="Rinomina" aria-label="Rinomina la seduta '+esc(x.nome)+'">✏</button>')+'</b><span>'+fdate(x.data)+' · '+esc(SSAP[(x.ss||{}).appr]||'Seduta singola')+' · '+x.es.length+(x.es.length===1?' esercizio':' esercizi')+(x.dur?' · '+x.dur+' min':'')+'</span></div>'+(sdm?'':'<span class="tdone tbtn sstag">📅 '+(ago(x.data)>0?'Svolta':'In programma')+'</span>')+'</div>';
+     '<div class="cells two"><b>'+esc(x.nome)+(sdm?'':' <button type="button" class="scren" data-act="scren" data-id="'+esc(x.id)+'" title="Rinomina" aria-label="Rinomina la seduta '+esc(x.nome)+'">✏</button> <button type="button" class="scren" data-act="sdel1" data-id="'+esc(x.id)+'" title="Elimina" aria-label="Elimina la seduta '+esc(x.nome)+'">🗑</button>')+'</b><span>'+fdate(x.data)+' · '+esc(SSAP[(x.ss||{}).appr]||'Seduta singola')+' · '+x.es.length+(x.es.length===1?' esercizio':' esercizi')+(x.dur?' · '+x.dur+' min':'')+'</span></div>'+(sdm?'':'<span class="tdone tbtn sstag">📅 '+(ago(x.data)>0?'Svolta':'In programma')+'</span>')+'</div>';
     return (x.term&&x===LT[0]?'<h3 class="arch">🗄 Archivio · schede terminate ('+LT.length+')</h3>':'')+'<div class="urow'+(ssel[x.id]?' sel':'')+(x.term?' term':'')+'" data-srow="'+esc(x.id)+'" style="cursor:pointer">'+(sdm?'<input type="checkbox"'+(ssel[x.id]?' checked':'')+' aria-label="Seleziona">':'')+
-    '<div class="cells two"><b>'+esc(x.nome)+(x===L0?' <i class="dc">attuale</i>':'')+(sdm?'':' <button type="button" class="scren" data-act="scren" data-id="'+esc(x.id)+'" title="Rinomina" aria-label="Rinomina la scheda '+esc(x.nome)+'">✏</button>')+'</b><span>'+(x.term?'<b class="stp">Svolta '+esc(z.p)+'</b>'+(x.fnt?' · '+esc(x.fnt):''):'Inizio '+fdate(x.data)+(x.cambio?' · cambio '+fdate(x.cambio):''))+' · '+x.es.length+(x.es.length===1?' esercizio':' esercizi')+'</span></div>'+(sdm?'':x.term?'<span class="tdone tbtn">✓ Terminata</span>':tmMenu(z.c==='exp'?'exp':'on',z.c==='exp'?'Scaduta':'In corso','<button type="button" data-act="scterm" data-id="'+esc(x.id)+'">✓ Termina la scheda…</button><small>Indichi l’ultimo giorno svolto e una nota.</small>'))+'</div>'}).join(''):'<div class="empty">Nessuna scheda. Creane una con +.</div>';
+    '<div class="cells two"><b>'+esc(x.nome)+(x===L0?' <i class="dc">attuale</i>':'')+(sdm?'':' <button type="button" class="scren" data-act="scren" data-id="'+esc(x.id)+'" title="Rinomina" aria-label="Rinomina la scheda '+esc(x.nome)+'">✏</button> <button type="button" class="scren" data-act="sdel1" data-id="'+esc(x.id)+'" title="Elimina" aria-label="Elimina la scheda '+esc(x.nome)+'">🗑</button>')+'</b><span>'+(x.term?'<b class="stp">Svolta '+esc(z.p)+'</b>'+(x.fnt?' · '+esc(x.fnt):''):'Inizio '+fdate(x.data)+(x.cambio?' · cambio '+fdate(x.cambio):''))+' · '+x.es.length+(x.es.length===1?' esercizio':' esercizi')+'</span></div>'+(sdm?'':x.term?'<span class="tdone tbtn">✓ Terminata</span>':tmMenu(z.c==='exp'?'exp':'on',z.c==='exp'?'Scaduta':'In corso','<button type="button" data-act="scterm" data-id="'+esc(x.id)+'">✓ Termina la scheda…</button><small>Indichi l’ultimo giorno svolto e una nota.</small>'))+'</div>'}).join(''):'<div class="empty">Nessuna scheda. Creane una con +.</div>';
 }
 function chipsHtml(){
   var names=exNames(suid),q=eq.toLowerCase().trim();
@@ -6125,7 +6125,7 @@ function viewScheda(id){
   var sc=findS(id);if(!sc)return;var u=find(sc.uid);
   var tmp=sc.id==='__ed',lg=!tmp&&sc.atok,sbad=!tmp&&u?injBad(schedaDays(sc),(sc.wuL||[]).concat(sc.cdL||[]),profile(u)):[];
   modal('<h3>'+esc(sc.nome)+(tmp?'':' <button type="button" class="scren" data-act="scren" data-id="'+esc(sc.id)+'" data-back title="Rinomina la scheda" aria-label="Rinomina la scheda">✏ Rinomina</button>')+(tmp&&ED.dirty?' <i class="dc">anteprima non salvata</i>':'')+'</h3>'+(!tmp&&sc.term?'<div class="info termb">🗄 <b>Scheda terminata</b> · svolta '+esc(periodTxt(sc.data,sc.fine))+(sc.fnt?' · '+esc(sc.fnt):'')+'</div>':'')+(sbad.length?'<div class="warn noprn" style="margin:0 0 14px"><b>🛡 '+sbad.length+(sbad.length===1?' esercizio non è compatibile':' esercizi non sono compatibili')+' con gli infortuni o i fastidi attuali</b> ('+esc(sbad.map(function(b){return b.n}).join(', '))+'). <button type="button" class="btn sm pri" data-act="scsafe" data-id="'+esc(sc.id)+'">Sostituisci con varianti sicure</button><br><span class="status">Si apre l’editor con le sostituzioni già fatte: controlli e salvi; l’atleta vede la scheda nuova dal suo link.</span></div>':'')+(lg?'<div class="sclog" id="sclog" style="margin:0 0 16px"></div>':'')+schedaBody(sc,u)+'<div class="status" id="sdstat"></div><div class="mrow"><button data-act="mclose">Chiudi</button>'+(tmp?'':(sc.sing?'':'<button class="blk" data-act="scrin" data-id="'+esc(sc.id)+'">♻ Rinnova scheda</button>')+'<button data-act="edopen" data-id="'+esc(sc.id)+'">Modifica nell’editor</button>'+(sc.sing?'':'<button data-act="'+(sc.term?'screop':'scterm')+'" data-id="'+esc(sc.id)+'" data-back="view">'+(sc.term?'↺ Riapri':'✓ Segna come terminata')+'</button>')+'<button data-act="nutsc" data-id="'+esc(sc.id)+'">🥗 Piano alimentare</button><button data-act="tplfrom" data-id="'+esc(sc.id)+'">🧩 Salva come template</button>')+
-   '<button data-act="scsv" data-id="'+esc(sc.id)+'">CSV</button><button data-act="sdl" data-id="'+esc(sc.id)+'">Scarica HTML</button><button data-act="prn">Stampa / Esporta PDF</button><button data-act="sxl" data-id="'+esc(sc.id)+'">Esporta Excel (.xlsx)</button><button class="blk" data-act="send" data-id="'+esc(sc.id)+'">📤 Invia PDF ed Excel</button><button class="pri" data-act="share" data-id="'+esc(sc.id)+'">📲 Condividi con l’atleta</button></div>');
+   (tmp?'':'<button class="danger" data-act="sdel1" data-id="'+esc(sc.id)+'" data-back>🗑 Elimina scheda</button>')+'<button data-act="scsv" data-id="'+esc(sc.id)+'">CSV</button><button data-act="sdl" data-id="'+esc(sc.id)+'">Scarica HTML</button><button data-act="prn">Stampa / Esporta PDF</button><button data-act="sxl" data-id="'+esc(sc.id)+'">Esporta Excel (.xlsx)</button><button class="blk" data-act="send" data-id="'+esc(sc.id)+'">📤 Invia PDF ed Excel</button><button class="pri" data-act="share" data-id="'+esc(sc.id)+'">📲 Condividi con l’atleta</button></div>');
   document.querySelector('#modal .mbox').classList.add('xl');
   if(lg)logShow(sc);
 }
@@ -6337,6 +6337,25 @@ async function doDelSchede(){
   SCH=SCH.filter(function(x){return !ssel[x.id]});
   ssel={};sdm=false;closeModal();listSchede();drawTrend();renderNav();
 }
+// ---- fase 44: elimina una scheda (o seduta singola) inserita per errore ----
+function delOneAsk(id,back){var sc=findS(id);if(!sc)return;var u=find(sc.uid),pl=u?(u.nut||[]).filter(function(P){return String(P.sid)===String(id)}):[];
+  modal('<h3>Eliminare '+(sc.sing?'la seduta':'la scheda')+'?</h3><p>«'+esc(sc.nome||'Scheda')+'»'+(u?' di '+esc(u.n+' '+u.c):'')+(sc.data?', inizio '+fdate(sc.data):'')+' viene eliminata da questo dispositivo e dal cloud. L’operazione non si può annullare.</p>'+
+   (sc.atok?'<p class="status">Il link dell’atleta smette di funzionare e i carichi che ha segnato vengono persi.</p>':'')+
+   (pl.length?'<p class="status">'+(pl.length===1?'Il piano alimentare collegato resta':'I '+pl.length+' piani alimentari collegati restano')+', senza scheda collegata.</p>':'')+
+   (sc.term?'':'<p class="status">Se la scheda è stata svolta e non è un errore, puoi invece segnarla come terminata: resta in archivio.</p>')+
+   '<div class="mrow"><button data-act="sdel1no" data-id="'+esc(id)+'"'+(back?' data-back':'')+'>Annulla</button><button class="danger" data-act="sdel1ok" data-id="'+esc(id)+'">🗑 Elimina</button></div>')}
+async function delOne(id){var sc=findS(id);if(!sc)return;
+  try{await Store.del('schede',sc.id)}catch(e){showNotice('Non riesco a eliminare la scheda: '+((e&&e.message)||'errore'));return}
+  SCH=SCH.filter(function(x){return String(x.id)!==String(sc.id)});delete ssel[sc.id];
+  var u=find(sc.uid);if(u&&(u.nut||[]).some(function(P){return String(P.sid)===String(sc.id)})){var o=Object.assign({},u);o.nut=u.nut.map(function(P){return String(P.sid)===String(sc.id)?Object.assign({},P,{sid:''}):P});
+    try{await Store.put('utenti',o);var i=U.indexOf(u);if(i>-1)U[i]=o}catch(e){}}
+  if(String(ED.sid)===String(sc.id)){ED.sid=null;ED.sc=null;ED.dirty=false}
+  closeModal();render();renderNav();showNotice((sc.sing?'Seduta':'Scheda')+' «'+(sc.nome||'')+'» eliminata.')}
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('[data-act="sdel1"],[data-act="sdel1ok"],[data-act="sdel1no"]');if(!a)return;e.stopPropagation();e.preventDefault();
+  var k=a.getAttribute('data-act'),id=a.getAttribute('data-id');
+  if(k==='sdel1'){if(cur==='ed'&&ED.dirty&&String(ED.sid)===String(id)&&!confirm('Ci sono modifiche non salvate. Eliminare comunque la scheda?'))return;delOneAsk(id,a.hasAttribute('data-back'))}
+  else if(k==='sdel1no'){if(a.hasAttribute('data-back'))viewScheda(id);else closeModal()}
+  else delOne(id)},true);
 async function dropSchedeOf(id){
   var L=schedeOf(id,1);
   for(var i=0;i<L.length;i++){try{await Store.del('schede',L[i].id)}catch(e){}}
@@ -6490,7 +6509,7 @@ function edBody(){
   h+='<details class="asec edfold" data-ko="leg"'+(ED.open.leg?' open':'')+'><summary><b>Legenda della seduta</b><span class="status">tocca il nome di un esercizio per la spiegazione completa</span></summary><div id="edleg" style="margin-top:12px">'+legendHtml(D.es,edWuExtra())+'</div></details>'+
    '<details class="asec edfold" data-ko="vol"'+(ED.open.vol?' open':'')+'><summary><b>Volume settimanale per muscolo</b></summary><div id="edvol" style="margin-top:12px">'+edVolHtml()+'</div></details>';
   h+='<div class="edfoot"><span class="status'+(ED.dirty?' dirty':'')+'" id="edstat" role="status">'+(ED.dirty?'Modifiche non salvate.':'')+'</span>'+
-   (ED.sid&&ED.dirty?'<button type="button" class="btn" data-act="edrevert"><span class="dx">Annulla modifiche</span><span class="mx">Annulla</span></button>':'')+
+   (ED.sid?'<button type="button" class="btn" data-act="sdel1" data-id="'+esc(ED.sid)+'" title="Elimina la scheda">🗑<span class="dx"> Elimina</span></button>':'')+(ED.sid&&ED.dirty?'<button type="button" class="btn" data-act="edrevert"><span class="dx">Annulla modifiche</span><span class="mx">Annulla</span></button>':'')+
    '<button type="button" class="btn" data-act="edprev">Anteprima<span class="dx"> · Stampa · Excel</span></button><button type="button" class="btn" data-act="send" data-id="__ed">📤<span class="dx"> Invia PDF · Excel</span></button>'+(ED.sid?'<button type="button" class="btn" data-act="scrin" data-id="__ed">♻<span class="dx"> Rinnova</span></button>':'')+(ED.sid?'<button type="button" class="btn blk" data-act="edcopy"><span class="dx">Salva come nuova</span><span class="mx">Copia</span></button>':'')+'<button type="button" class="btn pri" data-act="edsave"><span class="dx">Salva scheda</span><span class="mx">Salva</span></button></div>';
   return h;
 }
@@ -8473,6 +8492,37 @@ var NTPL={
  cen:function(){return [{ty:'op',t:'Cena veloce',op:[nO('',[nI('ruc',80),nI('parm',40,'parmigiano reggiano in scaglie'),nI('bres',80,'bresaola o fesa di tacchino')]),nO('',[nI('latt',80),nI('tonno',80),nI('mais',30),nI('oliv',30),nI('evo',5)]),nO('',[nI('gall',40),nI('salaff',180),nI('vcr',80)])]},nPiatto('Cena cucinata')]},
  not:function(){return [{ty:'op',t:'Prima di dormire (30–90 minuti prima)',op:[nO('',[nI('cas',35,'caseina (sciolta in acqua o latte)')]),nO('',[nI('yogg',170)]),nO('',[nI('fiocl',200)])]}]}
 };
+// ---- fase 43: piano solo «Crea il tuo piatto»: in ogni pasto una fonte di carboidrati, una proteica, il condimento e gli arricchimenti ----
+// per fase: verdure di pranzo e cena (g), quota dei grassi del pasto che viene dal condimento, regola del piatto
+var NPIG={
+ dim:{vg:200,fo:0.45,t:'Dimagrimento: proteine alte a ogni pasto per la sazietà, carboidrati misurati, verdure abbondanti (almeno 200 g a pranzo e cena), condimento pesato.'},
+ def:{vg:200,fo:0.45,t:'Definizione: proteine alte, carboidrati soprattutto attorno all’allenamento, verdure abbondanti, condimento pesato.'},
+ ric:{vg:150,fo:0.5,t:'Ricomposizione corporea: proteine alte a ogni pasto, carboidrati moderati concentrati vicino all’allenamento, verdure a ogni pasto.'},
+ mant:{vg:120,fo:0.55,t:'Mantenimento: piatto bilanciato, carboidrati e proteine in porzioni regolari, verdure a pranzo e cena.'},
+ forza:{vg:100,fo:0.55,t:'Forza: carboidrati pieni nei pasti prima e dopo l’allenamento per sostenere le sedute pesanti, proteine a ogni pasto.'},
+ iper:{vg:80,fo:0.6,t:'Ipertrofia: porzioni di carboidrati più generose, proteine a ogni pasto (anche prima di dormire), verdure senza esagerare per non togliere l’appetito.'}};
+function nPiT(k){var A=function(t,ca,pr,co,con,ar,cl){return {ty:'pi',t:t,ca:ca,pr:pr,co:co,con:con||'',ar:ar,vg:0,cl:cl||'',pm:1}};
+  if(k==='col')return A('Colazione',[nI('fav',50,'fiocchi d’avena'),nI('panei',60,'pane integrale tostato'),nI('fbis',45,'fette biscottate integrali'),nI('cer',50,'cereali integrali')],
+    [nI('yogg',170,'yogurt greco 0%'),nI('latp',250,'latte proteico'),nI('albu',150,'albume (pancake o frittata)'),nI('fiocl',150),nI('ricm',100)],[nI('fsec',15,'frutta secca o semi')],'','frutta fresca o frutti di bosco, cannella, cacao amaro, scorza di agrumi, caffè o tè senza zucchero','completa con');
+  if(k==='spm'||k==='mer')return A(k==='spm'?'Spuntino':'Merenda / pre-allenamento',k==='spm'?[nI('frut',150),nI('gall',24),nI('crack',25),nI('panei',40,'pane integrale')]:[nI('ban',120),nI('gall',32),nI('panei',50,'pane integrale'),nI('frut',150)],
+    [nI('yogg',150,'yogurt greco 0%'),nI('bres',40),nI('fiocl',100),nI('tac',50,'fesa di tacchino')],k==='spm'?[nI('fsec',10,'frutta secca o semi')]:[],'',k==='spm'?'cannella, cacao amaro, spezie, verdure crude (carote, finocchi, sedano)':'cannella, un filo di miele o un pizzico di sale se ti alleni a breve','completa con');
+  if(k==='pos')return A('Dopo l’allenamento',[nI('ban',120),nI('gall',32),nI('cer',30,'cereali soffiati')],[nI('whey',30,'proteine whey (in acqua)'),nI('yogg',200,'yogurt greco 0%'),nI('latps',300,'latte parzialmente scremato')],[],'','cannella, cacao amaro');
+  if(k==='not')return A('Prima di dormire',[],[nI('cas',35,'caseina (sciolta in acqua o latte)'),nI('yogg',200,'yogurt greco 0%'),nI('fiocl',200)],[nI('fsec',10,'frutta secca o semi')],'','cannella, cacao amaro, vaniglia','completa con');
+  if(k==='pra'||k==='cen')return A(k==='pra'?'Pranzo':'Cena',[nI('riso',70,'riso (basmati, integrale, venere)'),nI('pastai',70,'pasta integrale'),nI('farro',70,'farro o orzo'),nI('quinoa',70),nI('pat',250,'patate'),nI('panei',80,'pane integrale')],
+    [nI('carneb',150,'carne bianca (pollo, tacchino)'),nI('pesce',180,'pesce'),nI('carner',130,'carne rossa magra'),nI('legc',200,'legumi cotti (ceci, lenticchie, fagioli)'),nI('uovo',100,'uova'),nI('tofu',150,'tofu, tempeh o seitan')],[nI('evo',10)],'rigorosamente a crudo','aromi, spezie, erbe fresche, limone o aceto');
+  return null}
+function nScalePm(S,mt,P,T,k){var G=NPIG[P.fase]||NPIG.mant;
+  if(k==='pra'||k==='cen'){S.vg=G.vg;S.ar='aromi, spezie, erbe fresche, limone o aceto'}
+  var vgk=(+S.vg||0)*0.22,cok=0,cop=0,c0=S.co[0];
+  if(c0){var Fo=nFood(c0,P);if(Fo&&Fo.f){c0.g=Math.min(Fo.f>90?20:30,Math.max(5,nr5((mt.f||0)*G.fo/(Fo.f/100))))}var cs=nSum(S.co,P);cok=cs.k;cop=cs.p}
+  var Fp=nFood(S.pr[0],P);if(!Fp)return S;var kg=T.D.kg||70,pt=Math.max(5,Math.min(mt.p,kg*0.5)-cop),cap=function(it){var m=NPMAX[it.f];if(m&&it.g>m)it.g=m};
+  S.pr[0].g=nRoundG(Math.max(Fp.pz?Fp.pz.g:Fp.u==='ml'?100:20,pt/(Fp.p/100)),Fp);cap(S.pr[0]);
+  if(S.ca.length){var Fc=nFood(S.ca[0],P);if(Fc){var gc=(mt.k-cok-vgk-nMac(S.pr[0],P).k)/(Fc.k/100);if(P.cm==='lc'&&mt.c!=null&&Fc.c)gc=Math.min(gc,Math.max(0,mt.c-5)/(Fc.c/100));
+    S.ca[0].g=Fc.pz?Math.max(Fc.pz.g/2,Math.round(gc/(Fc.pz.g/2))*(Fc.pz.g/2)):nRoundG(Math.max(15,gc),Fc)}}
+  var half=function(L,mac){var r=L[0]&&nMac(L[0],P)[mac];if(!r)return;L.slice(1).forEach(function(it){var F=nFood(it,P);if(!F||!F[mac])return;var g=r/(F[mac]/100);it.g=F.pz?Math.max(F.pz.g/2,Math.round(g/(F.pz.g/2))*(F.pz.g/2)):nRoundG(g,F)})};
+  half(S.ca,'c');half(S.pr,'p');S.pr.forEach(cap);return S}
+// porzioni massime realistiche delle fonti proteiche (g o ml), anche nelle equivalenze
+var NPMAX={uovo:150,albu:300,legc:250,tofu:200,temp:150,seit:180,latp:300,latps:300,bsoia:300,yogg:250,yogm:250,ysoia:250,fiocl:250,ricm:200,ric:150,bres:80,tac:120,aff:100,crudo:80,whey:40,cas:40,pveg:40,carneb:220,carner:200,pesce:280,salm:180,tonno:160,merl:280}
 // ---- Ricettario fit (dispensa «Cucina fit e varietà alimentare», fase 23) ----
 // m = pasti per cui è adatta; it = alimenti (grammi della dispensa); pr = preparazione e spezie; v = vantaggi; cu = cucina
 var NRIC=[
@@ -8566,7 +8616,7 @@ function nTarg(P,u){
   if(cm==='lc')o.w.push('Low-carb / chetogenica: carboidrati limitati a '+nfmt(o.c)+' g (al massimo 2 g/kg o il 25% delle calorie). Con allenamenti intensi o a intervalli la prestazione cala: valutala con il professionista della nutrizione.');
   if(!cm&&o.kcal&&D.kg&&(o.ck<F.c[0]||o.ck>F.c[1]))o.w.push('Carboidrati a '+nfmt(o.ck,1)+' g/kg (quello che resta delle calorie): riferimento '+nfmt(F.c[0],1)+'–'+nfmt(F.c[1],1)+' g/kg. Regola calorie, proteine o grassi.');
   var on=(P.pasti||[]).filter(function(m){return m.on}),tot=on.reduce(function(a,m){return a+(+m.pct||0)},0)||1;
-  o.meal={};on.forEach(function(m){var q=(+m.pct||0)/tot;o.meal[m.k]={q:q,k:o.kcal*q,p:o.p*q,c:o.c*q}});o.npasti=on.length;
+  o.meal={};on.forEach(function(m){var q=(+m.pct||0)/tot;o.meal[m.k]={q:q,k:o.kcal*q,p:o.p*q,c:o.c*q,f:o.f*q}});o.npasti=on.length;
   return o}
 // ---- fase 41: obiettivo di dimagrimento nel piano alimentare, collegato alla scheda ----
 function nDimC(P,u){var d=P.dim||{},sc=nSched(P,u),u2=Object.assign({},u,{alt:+P.alt||u.alt,peso:+P.kg||u.peso});return dimCalc(Object.assign({},d,{pa:+d.pa||+P.kg||+u.peso||0}),u2,P.data||todayIso(),sc?sc.cambio:'')}
@@ -8620,8 +8670,8 @@ function nScalePi(S,mt,P,D){
 function nGenerate(P,u){
   var T=nTarg(P,u),X=nExTags(P);
   P.pasti.forEach(function(m){if(!m.on){if(!m.sez||!m.sez.length)m.sez=[];return}var mt=T.meal[m.k],tp=NTPL[m.k];if(!tp)return;
-    m.sez=tp().map(function(S){S=nClean(S,X);if(!mt||!mt.k)return S;if(S.ty==='pi')return nScalePi(S,mt,P,T.D);S.op.forEach(function(o){nScaleOpt(o,mt.k,P)});return S}).filter(function(S){return S.ty==='pi'?S.ca.length&&S.pr.length:S.op.length})});
-  if(P.rf){var used={};P.pasti.forEach(function(m){if(m.on&&m.sez)nAddRicSec(m,P,T,X,used)})}
+    m.sez=(P.pm?[nPiT(m.k)].filter(Boolean):tp()).map(function(S){S=nClean(S,X);if(!mt||!mt.k)return S;if(S.ty==='pi')return S.pm?nScalePm(S,mt,P,T,m.k):nScalePi(S,mt,P,T.D);S.op.forEach(function(o){nScaleOpt(o,mt.k,P)});return S}).filter(function(S){return S.ty==='pi'?S.pr.length&&(S.ca.length||(S.pm&&m.k==='not')):S.op.length})});
+  if(P.rf&&!P.pm){var used={};P.pasti.forEach(function(m){if(m.on&&m.sez)nAddRicSec(m,P,T,X,used)})}
   if(P.wk&&P.wk.on!==false)nWeekGen(P,u)}
 function nAddRicSec(m,P,T,X,used){var R=nRicSec(m.k,used,X);if(!R)return;var mt=T.meal[m.k];if(mt&&mt.k)R.op.forEach(function(o){nScaleOpt(o,mt.k,P)});
   var i=m.sez.map(function(S){return S.ty}).indexOf('pi');if(i<0)m.sez.push(R);else m.sez.splice(i,0,R)}
@@ -8643,8 +8693,16 @@ function renderNut(){
    '<div class="uact"><button class="ab pri" data-na="nnew" aria-label="Nuovo piano alimentare"><span class="i">+</span><span class="t">Nuovo piano</span></button></div></div>'+
    (S.length?'':'<div class="info" style="margin:0 0 12px">'+esc(u.n)+' non ha ancora una scheda di allenamento. Puoi creare il piano lo stesso; il livello di attività si calcola dagli sport extra e dal cardio dell’anamnesi. Per collegarlo a una scheda, creala prima da «Schede allenamento».</div>')+
    (L.length?L.filter(function(P){return !P.term}).concat(L.filter(function(P){return P.term})).map(function(P){var sc=nSched(P,u),T=nTarg(P,u),LT=L.filter(function(x){return x.term});
-     return (P.term&&P===LT[0]?'<h3 class="arch">🗄 Archivio · piani terminati ('+LT.length+')</h3>':'')+'<div class="urow'+(P.term?' term':'')+'" data-np="'+esc(P.id)+'" style="cursor:pointer"><div class="cells two"><b>'+esc(P.nome||'Piano alimentare')+(P===L.filter(function(x){return !x.term})[0]?' <i class="dc">attuale</i>':'')+''+'</b><span>'+(P.term?'<b class="stp">Seguito '+esc(periodTxt(P.data,P.fine))+'</b>'+(P.fnt?' · '+esc(P.fnt):''):'Del '+fdate(P.data))+' · '+esc((NFASE[P.fase]||NFASE.mant).t)+(T.kcal?' · '+nfmt(T.kcal)+' kcal':'')+' · '+(sc?'collegato a «'+esc(sc.nome||'scheda')+'»':'non collegato a una scheda')+'</span></div>'+(P.term?'<span class="tdone tbtn">✓ Terminato</span>':tmMenu('on','In corso','<button type="button" data-act="nterm" data-id="'+esc(P.id)+'" data-uid="'+esc(u.id)+'">✓ Termina il piano…</button><small>Indichi l’ultimo giorno seguito e una nota.</small>'))+'</div>'}).join(''):'<div class="empty">Nessun piano alimentare. Creane uno con «+ Nuovo piano».</div>');
+     return (P.term&&P===LT[0]?'<h3 class="arch">🗄 Archivio · piani terminati ('+LT.length+')</h3>':'')+'<div class="urow'+(P.term?' term':'')+'" data-np="'+esc(P.id)+'" style="cursor:pointer"><div class="cells two"><b>'+esc(P.nome||'Piano alimentare')+(P===L.filter(function(x){return !x.term})[0]?' <i class="dc">attuale</i>':'')+' <button type="button" class="scren" data-na="ndel1" data-u="'+esc(u.id)+'" data-p="'+esc(P.id)+'" title="Elimina il piano" aria-label="Elimina il piano '+esc(P.nome||'')+'">🗑</button>'+'</b><span>'+(P.term?'<b class="stp">Seguito '+esc(periodTxt(P.data,P.fine))+'</b>'+(P.fnt?' · '+esc(P.fnt):''):'Del '+fdate(P.data))+' · '+esc((NFASE[P.fase]||NFASE.mant).t)+(T.kcal?' · '+nfmt(T.kcal)+' kcal':'')+' · '+(sc?'collegato a «'+esc(sc.nome||'scheda')+'»':'non collegato a una scheda')+'</span></div>'+(P.term?'<span class="tdone tbtn">✓ Terminato</span>':tmMenu('on','In corso','<button type="button" data-act="nterm" data-id="'+esc(P.id)+'" data-uid="'+esc(u.id)+'">✓ Termina il piano…</button><small>Indichi l’ultimo giorno seguito e una nota.</small>'))+'</div>'}).join(''):'<div class="empty">Nessun piano alimentare. Creane uno con «+ Nuovo piano».</div>');
 }
+function nutDelAsk(uid,pid){var u=find(uid),P=u&&(u.nut||[]).filter(function(x){return x.id===pid})[0];if(!P)return;
+  modal('<h3>Eliminare il piano alimentare?</h3><p>«'+esc(P.nome||'Piano alimentare')+'» del '+fdate(P.data)+' di '+esc(u.n+' '+u.c)+' viene eliminato da questo dispositivo e dal cloud. L’operazione non si può annullare.</p>'+(P.atok?'<p class="status">Il link del piano inviato all’atleta smette di funzionare.</p>':'')+
+   '<div class="mrow"><button data-act="mclose">Annulla</button><button class="danger" data-na="ndel1ok" data-u="'+esc(uid)+'" data-p="'+esc(pid)+'">🗑 Elimina</button></div>')}
+async function nutDel1(uid,pid){var u=find(uid);closeModal();if(!u)return;var P=(u.nut||[]).filter(function(x){return x.id===pid})[0];if(!P)return;if(P.atok&&window.Cloud&&Cloud.user())Cloud.linkRm(P.atok);
+  var o=Object.assign({},u);o.nut=(u.nut||[]).filter(function(x){return x.id!==pid});try{await Store.put('utenti',o)}catch(e){showNotice('Non riesco a eliminare il piano: '+((e&&e.message)||'errore'));return}
+  var i=U.findIndex(function(x){return String(x.id)===String(o.id)});if(i>-1)U[i]=o;if(NU.P&&NU.P.id===pid){NU.P=null;NU.dirty=false}if(cur==='nut')renderNut();else render();showNotice('Piano alimentare «'+(P.nome||'')+'» eliminato.')}
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('[data-na="ndel1"],[data-na="ndel1ok"]');if(!a)return;e.stopPropagation();e.preventDefault();
+  if(a.getAttribute('data-na')==='ndel1')nutDelAsk(a.getAttribute('data-u')||NU.uid,a.getAttribute('data-p'));else nutDel1(a.getAttribute('data-u'),a.getAttribute('data-p'))},true);
 function nutList(){var q=NU.q.toLowerCase().trim(),L=U.filter(function(u){return !q||(u.n+' '+u.c).toLowerCase().indexOf(q)>-1}).sort(function(a,b){return (a.c+a.n).localeCompare(b.c+b.n)}),box=gid('nulist');if(!box)return;
   box.innerHTML=L.length?L.map(function(u){var P=nPlans(u),S=schedeOf(u.id);
     return '<div class="urow" data-nu="'+esc(u.id)+'" style="cursor:pointer"><div class="cells two"><b>'+esc(u.n+' '+u.c)+'</b><span>'+(P.length?P.length+(P.length===1?' piano':' piani')+' · ultimo del '+fdate(P[0].data):'Nessun piano alimentare')+' · '+(S.length?S.length+(S.length===1?' scheda':' schede'):'nessuna scheda')+'</span></div></div>'}).join(''):'<div class="empty">Nessun atleta. Aggiungili dalla Home con «+ Nuovo Cliente».</div>'}
@@ -8722,8 +8780,9 @@ function nutEditor(){
     nFl('Grassi (g/kg)'+(P.cm?' · calcolati':''),P.cm?'<input disabled value="'+nfmt(T.fk,1)+'">':nInp('fk',P.fk,'number',' min="0" step="0.1" placeholder="'+nfmt(T.F.fd,1)+'"'))+'</div>'+
     '<p class="status">I campi vuoti usano l’anamnesi e le proposte della fase. Attività automatica: '+esc(T.ap.tx)+'. I carboidrati sono quello che resta delle calorie.</p>'+
     '<div class="info" id="nfx">'+esc(T.F.tx)+'</div><div id="ncalc" style="margin-top:12px">'+nCalcHtml(P,u)+'</div></section>'+
-   '<section class="asec"><h3>Ripartizione dei pasti</h3><div id="nmeals">'+nMealTab(P,u)+'</div>'+
-    '<label class="nck"><input type="checkbox" data-nb="rf"'+(P.rf?' checked':'')+'> 🍳 Aggiungi a ogni pasto le <b>ricette fit</b> della dispensa (pancake all’avena, yogurt bowl, fajita bowl, wok di gamberi, merluzzo alla mediterranea…)</label>'+
+   '<section class="asec"><h3>Ripartizione dei pasti</h3><div class="fg" style="margin-bottom:10px">'+nFl('Tipo di schema',nSel('pm',[['','Completo: opzioni veloci A, B, C, ricette fit e «Crea il tuo piatto»'],['1','Solo «Crea il tuo piatto» in ogni pasto']],P.pm?'1':'',' data-nr="1"'),'full')+'</div>'+
+    (P.pm?'<div class="info" style="margin:0 0 10px">🍽 <b>Solo «Crea il tuo piatto»</b>: in ogni pasto l’atleta sceglie una fonte di carboidrati e una proteica (le alternative sono già equivalenti), più condimento e arricchimenti a piacere. Grammature calcolate dalle calorie e dalle proteine di ogni pasto per la fase <b>'+esc(T.F.t)+'</b>.<br>'+esc((NPIG[P.fase]||NPIG.mant).t)+'</div>':'')+'<div id="nmeals">'+nMealTab(P,u)+'</div>'+
+    (P.pm?'':'<label class="nck"><input type="checkbox" data-nb="rf"'+(P.rf?' checked':'')+'> 🍳 Aggiungi a ogni pasto le <b>ricette fit</b> della dispensa (pancake all’avena, yogurt bowl, fajita bowl, wok di gamberi, merluzzo alla mediterranea…)</label>')+
     '<div class="mrow" style="justify-content:flex-start"><button type="button" class="pri" data-na="gen">⚡ Genera lo schema dai riferimenti</button></div><p class="status">Ricrea tutti i pasti attivi (opzioni «veloci», ricette fit e piatto «cucinato») con le grammature adatte alle calorie e alle proteine di ogni pasto, rispettando le esclusioni. Le modifiche fatte a mano ai pasti vengono sostituite.</p>'+
     '<details class="lg nporz"><summary><span>Porzioni standard ISS (grammature di riferimento)</span></summary><div class="lgb">'+nPorzHtml()+'</div></details></section>'+
    P.pasti.map(function(m,mi){if(!m.on)return '';var mt=T.meal[m.k];
@@ -8756,6 +8815,8 @@ document.addEventListener('input',function(e){
   if(/\.fn$/.test(p)){var it=nGet(NU.P,p.slice(0,-3)),k=nByName(t.value);if(it){if(k){it.f=k;delete it.n}else{it.f='';it.n=t.value}}nDirty();var row=t.closest('.nit'),pv=row&&row.querySelector('.npv');if(pv&&it)pv.textContent=nItTxt(it,NU.P);var q=t.nextElementSibling;if(q&&q.classList.contains('ngq')&&it)q.querySelector('i').textContent=nUnit(it,NU.P);nRefresh();return}
   var v=t.type==='checkbox'?t.checked:t.type==='number'?num(t.value):t.value;
   nSet(NU.P,p,v);nDirty();if(p==='fase'&&v==='dim')nDimFill(NU.P,find(NU.uid));
+  if(p==='pm'){NU.P.pm=v?1:0;NU.P.wk=NU.P.wk||{};NU.P.wk.x=!v;nGenerate(NU.P,find(NU.uid));nutEditor();st('nustat',v?'Schema rifatto: in ogni pasto «Crea il tuo piatto» con le grammature della fase scelta. Salva il piano per confermare.':'Schema completo rigenerato (opzioni veloci, ricette fit e «Crea il tuo piatto»). Salva il piano per confermare.');return}
+  if(p==='fase'&&NU.P.pm){nGenerate(NU.P,find(NU.uid));nutEditor();st('nustat','Fase cambiata: grammature dei piatti ricalcolate per '+((NFASE[v]||{}).t||'')+'. Salva il piano per confermare.');return}
   var mo=/^pasti\.(\d+)\.on$/.exec(p);if(mo&&v){var M=NU.P.pasti[+mo[1]];if(!M.pct)M.pct=8;if(!M.sez||!M.sez.length)nMealGen(M)}
   var r=t.closest('.nit');if(r&&r.querySelector('.npv')){var ip=p.replace(/\.(g|l)$/,'').replace(/\.o$/,'');var it2=nGet(NU.P,ip);if(it2)r.querySelector('.npv').textContent=nItTxt(it2,NU.P)}
   if(t.getAttribute('data-nr'))nutEditor();else nRefresh();
@@ -8768,8 +8829,8 @@ document.addEventListener('change',function(e){var t=e.target;if(cur!=='nut'||!N
   if(/\.fn$/.test(p)){var c=gid('ncust');if(c)c.innerHTML=nCustomHtml(NU.P);return}
   if(t.getAttribute('data-nr')||p==='fase'||p==='pal'||p==='sx'||p==='fmp'){nutEditor();return}});
 function nTpl(k){return NTPL[k]?NTPL[k]():[]}
-function nMealGen(mm){var P=NU.P,u=find(NU.uid),T=nTarg(P,u),X=nExTags(P),mt=T.meal[mm.k];mm.sez=nTpl(mm.k).map(function(S){S=nClean(S,X);if(!mt)return S;if(S.ty==='pi')return nScalePi(S,mt,P,T.D);S.op.forEach(function(o){nScaleOpt(o,mt.k,P)});return S});
-  if(P.rf)nAddRicSec(mm,P,T,X,nUsedRic(P,mm))}
+function nMealGen(mm){var P=NU.P,u=find(NU.uid),T=nTarg(P,u),X=nExTags(P),mt=T.meal[mm.k];mm.sez=(P.pm?[nPiT(mm.k)].filter(Boolean):nTpl(mm.k)).map(function(S){S=nClean(S,X);if(!mt)return S;if(S.ty==='pi')return S.pm?nScalePm(S,mt,P,T,mm.k):nScalePi(S,mt,P,T.D);S.op.forEach(function(o){nScaleOpt(o,mt.k,P)});return S});
+  if(P.rf&&!P.pm)nAddRicSec(mm,P,T,X,nUsedRic(P,mm))}
 document.addEventListener('click',function(e){
   if(cur!=='nut')return;
   var r=e.target.closest('[data-nu]');if(r){NU.uid=r.getAttribute('data-nu');renderNut();window.scrollTo(0,0);return}
@@ -8844,9 +8905,10 @@ async function nDel(){var P=NU.P,u=find(NU.uid);closeModal();if(!P||!u)return;if
 // ---- foglio per la stampa e il PDF (come lo schema del nutrizionista) ----
 function nLong(iso){if(!iso)return '';var M=['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'],p=iso.split('-');return p.length===3?(+p[2])+' '+M[+p[1]-1]+' '+p[0]:iso}
 function nSecSheet(S,P,mt){var L=[];
-  if(S.ty==='pi'){L.push('<b>'+esc(String(S.t||'').toUpperCase())+' · CREA IL TUO PIATTO:</b>','<i>scegli una fonte di carboidrati:</i>');S.ca.forEach(function(it){L.push(esc(nItTxt(it,P)))});
-    L.push('<b>aggiungi una fonte proteica:</b>');S.pr.forEach(function(it){L.push(esc(nItTxt(it,P)))});
-    if(S.co.length)L.push('<i><b>condisci il piatto con: '+esc(S.co.map(function(it){return nItTxt(it,P)}).join(' + '))+(S.con?' ('+esc(S.con)+')':'')+'</b></i>');
+  if(S.ty==='pi'){L.push('<b>'+esc(String(S.t||'').toUpperCase())+' · CREA IL TUO PIATTO:</b>');if(S.ca.length){L.push('<i>scegli una fonte di carboidrati:</i>');S.ca.forEach(function(it){L.push(esc(nItTxt(it,P)))})}
+    L.push('<b>'+(S.ca.length?'aggiungi una fonte proteica:':'scegli una fonte proteica:')+'</b>');S.pr.forEach(function(it){L.push(esc(nItTxt(it,P)))});
+    if(+S.vg&&S.pm)L.push('<b>verdure di stagione: almeno '+nfmt(S.vg)+' g</b>');
+    if(S.co.length)L.push('<i><b>'+esc(S.cl||'condisci il piatto con')+': '+esc(S.co.map(function(it){return nItTxt(it,P)}).join(' + '))+(S.con?' ('+esc(S.con)+')':'')+'</b></i>');
     if(S.ar)L.push('<i>a tuo gusto puoi arricchire il piatto con: '+esc(S.ar)+'</i>');
     if(P.prk)L.push('<small>≈ '+nfmt(nPiSum(S,P).k)+' kcal con la prima scelta</small>');return L.join('<br>')}
   L.push('<b>'+esc(String(S.t||'').toUpperCase())+':</b>');
@@ -8878,6 +8940,7 @@ function nSheet(P0,u){var c=nPsOf(P0),P=Object.assign({},P0,{prk:c.sum,wk:Object
   if(c.prc)ind+='<h3>Cucina fit: consigli pratici</h3><ul><li><b>'+esc(NPLATE.split(':')[0])+':</b>'+esc(NPLATE.slice(NPLATE.indexOf(':')+1))+'</li>'+NPREP.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul>';
   var sum=c.sum&&T.kcal?'<p class="nsum"><b>Fabbisogno:</b> '+nfmt(T.kcal)+' kcal · proteine '+nfmt(T.p)+' g · carboidrati '+nfmt(T.c)+' g · grassi '+nfmt(T.f)+' g · '+esc(T.F.t)+'</p>':'';
   if(sum&&T.dm&&T.dm.C&&!T.dm.C.err){var DC=T.dm.C;sum+='<p class="nsum"><b>Obiettivo:</b> da '+fmt1(DC.pa)+' a '+fmt1(DC.po)+' kg (−'+fmt1(DC.kg)+' kg), circa '+fmt1(DC.pa*DC.rt/100)+' kg a settimana · traguardo indicativo il '+fdate(DC.end)+'.</p>'}
+  if(P.pm&&c.opt)sum+='<p class="nsum"><b>Come usare il piano:</b> in ogni pasto scegli una fonte di carboidrati e una proteica: le alternative elencate sono equivalenti e le grammature sono già calcolate per l’obiettivo ('+esc(T.F.t)+'). '+esc((NPIG[P.fase]||NPIG.mant).t)+'</p>';
   return '<div class="nush"><h1 class="ntit">'+esc(c.m==='wk'&&wk?'Menu settimanale · ':'')+esc(P.nome||'Alimentazione')+' ('+esc(nLong(P.data))+')</h1>'+sum+
    (c.opt?(rows?'<table class="stab nsht" data-cw="0.2,0.8"><tbody>'+rows+'</tbody></table>':'<p>Nessun pasto compilato.</p>'):'')+wk+
    (c.nt&&P.nt?'<p><b>Note:</b> '+esc(P.nt)+'</p>':'')+ind+
@@ -9135,18 +9198,18 @@ function nRest(P,d){return !!(P.gg&&P.gg.length&&P.gg.length<7&&P.gg.indexOf(d)<
 function nXdOpt(x){var o=nO(x.t+(x.cu?' ('+x.cu+')':''),x.it.map(nRicItem));if(x.nt)o.nt=x.nt;return o}
 function nPool(m,P,X){var R=[];
   (m.sez||[]).forEach(function(S,si){
-    if(S.ty==='pi'){if(!S.ca||!S.pr||!S.ca.length||!S.pr.length)return;
+    if(S.ty==='pi'){if(!S.ca||!S.pr||!S.pr.length||(!S.ca.length&&!S.pm))return;
       var pr=S.pr.slice(),tp=nMac(S.pr[0],P).p||25;
       if(/^(pra|cen)$/.test(m.k))['legc','uovo','salm'].forEach(function(f){if(nBad(f,X)||pr.some(function(i){return i.f===f}))return;
         if(f==='legc')pr.push(nI('legc',Math.min(300,Math.max(150,nr5(tp/0.07))),'legumi cotti (ceci, lenticchie, fagioli)'));
         else if(f==='uovo')pr.push({f:'uovo',g:100,_al:nBad('albu',X)?0:Math.min(200,Math.max(0,nr5((tp-12.4)/0.107)))});
         else pr.push(nI('salm',Math.max(100,nr5(tp/0.2))))});
-      S.ca.forEach(function(ca,ci){if(!ca.f&&!ca.n)return;pr.forEach(function(p,pi){if(!p.f&&!p.n)return;
-        var it=[nCl(ca)];delete it[0].o;
+      (S.ca.length?S.ca:[{_n:1}]).forEach(function(ca,ci){if(!ca.f&&!ca.n&&!ca._n)return;pr.forEach(function(p,pi){if(!p.f&&!p.n)return;
+        var it=ca._n?[]:[nCl(ca)];if(!ca._n)delete it[0].o;
         if(p._al!=null){it.push(nI('uovo',100,'uova'));if(p._al)it.push(nI('albu',p._al,'albume'))}else{var q=nCl(p);delete q.o;it.push(q)}
         (S.co||[]).forEach(function(c){if(c.f||c.n){var z=nCl(c);delete z.o;it.push(z)}});
         if(+S.vg)it.push(nI('ver',Math.max(100,+S.vg),'verdure di stagione',1));
-        R.push({id:'p'+si+'_'+ci+'_'+pi,ty:'pi',t:nCap(nShort(ca))+' con '+nShort(p),it:it,lb:(S.t||'Piatto'),sty:'A',po:ca.f==='gnoc'?0:1,bar:1,tm:20})})});return}
+        R.push({id:'p'+si+'_'+ci+'_'+pi,ty:'pi',t:ca._n?nCap(nShort(p)):nCap(nShort(ca))+' con '+nShort(p),it:it,lb:(S.t||'Piatto'),sty:'A',po:ca.f==='gnoc'?0:1,bar:1,tm:20})})});return}
     var dsty=S.sty||(/veloc|fit|ricett|rapid/i.test(S.t||'')?'B':'A');
     (S.op||[]).forEach(function(o,oi){if(!o.it||!o.it.length)return;var hasO=o.it.some(function(i){return i.o});
       [0].concat(hasO?[1]:[]).forEach(function(v){

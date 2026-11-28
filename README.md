@@ -402,6 +402,20 @@ Voce **Sezione nutrizionale** nel menu, sotto «Schede allenamento» (su smartph
 - **Dati**: nel cliente, campo `nut` (cloud, dispositivo e backup JSON). Le regole di Firestore non cambiano.
 - Valori nutrizionali degli alimenti, scelte di sostituzione e modelli dei pasti sono indicativi. In Italia un piano alimentare personalizzato spetta a medico, dietista o biologo nutrizionista: la sezione serve a trascrivere e organizzare il loro piano o a dare indicazioni generali.
 
+## Eliminare una scheda o un piano inserito per errore (nuovo, fase 44)
+- **Schede e sedute singole**: pulsante **🗑** accanto a ✏ su ogni riga dell’elenco, **«🗑 Elimina scheda»** nella scheda salvata e **«🗑 Elimina»** in fondo all’editor (con modifiche non salvate chiede conferma). Resta anche «Elimina» in alto per eliminarne più di una insieme.
+- **Piani alimentari**: pulsante **🗑** su ogni piano dell’elenco dell’atleta; resta «Elimina» in fondo al piano aperto.
+- Prima di eliminare compare sempre la conferma con nome, atleta e data. Se la scheda ha il link dell’atleta, l’avviso dice che il link smette di funzionare e i carichi segnati vanno persi; per una scheda svolta suggerisce di segnarla come terminata invece di eliminarla.
+- Eliminando una scheda, i piani alimentari collegati restano senza scheda collegata. Eliminando un piano, il suo link viene cancellato. Eliminazione dal dispositivo e dal cloud; non si può annullare (resta il backup JSON).
+
+## Sezione nutrizionale: piano solo «Crea il tuo piatto» (nuovo, fase 43)
+- In «Ripartizione dei pasti» il menu **«Tipo di schema»**: *Completo* (opzioni veloci A, B, C, ricette fit e «Crea il tuo piatto», come prima) oppure **«Solo «Crea il tuo piatto» in ogni pasto»**. Scegliendolo lo schema si rifà da solo.
+- Ogni pasto attivo diventa un piatto da comporre: **scegli una fonte di carboidrati · aggiungi una fonte proteica · condimento (o «completa con») · a tuo gusto puoi arricchire il piatto con aromi, spezie, verdure**. Colazione (avena, pane integrale, fette biscottate, cereali · yogurt greco, latte proteico, albume, fiocchi di latte, ricotta magra), spuntino e merenda, dopo l’allenamento, pranzo e cena (riso, pasta integrale, farro, quinoa, patate, pane · carne bianca, pesce, carne rossa magra, legumi, uova, tofu), prima di dormire (solo la fonte proteica).
+- **Grammature dall’obiettivo della dieta**: calorie e proteine di ogni pasto vengono dalla fase (Dimagrimento, Definizione, Ricomposizione, Mantenimento, Forza, Ipertrofia). Proteina fino a 0,5 g/kg per pasto, condimento pari a una quota dei grassi del pasto (45% in dimagrimento e definizione, 60% in ipertrofia), verdure di pranzo e cena per fase (200 g dimagrimento/definizione, 150 ricomposizione, 120 mantenimento, 100 forza, 80 ipertrofia), carboidrati per le calorie che restano. Le alternative di ogni gruppo sono equivalenti (stessi grammi di carboidrati o di proteine), con porzioni massime realistiche (es. uova fino a 3, legumi fino a 250 g) e mezze porzioni per frutta e gallette.
+- Cambiando la fase le grammature si ricalcolano. Nell’editor e in stampa compare la regola del piatto della fase («Come usare il piano»); le verdure minime escono come riga a sé.
+- Il menu settimanale si compone dalle combinazioni dei piatti (i piatti del ricettario sono spenti in questa modalità e si possono riattivare).
+- Dati: nel piano `pm: 1`; nelle sezioni `pm`, `cl` (etichetta del condimento). Regole di Firestore invariate.
+
 ## Sezione nutrizionale: dimagrimento collegato all’allenamento (nuovo, fase 42)
 - **Fase «Dimagrimento (obiettivo di peso)»** nel piano alimentare: riquadro «🎯 Obiettivo di dimagrimento» (spunta o menu «Fase») con peso attuale, peso obiettivo o kg da perdere, ritmo (automatico da BMI ed età, oppure 0,5 / 0,7 / 1% a settimana) e data del cliente: gli stessi campi e calcoli della scheda (settimane, traguardo, diet break, tappe per scheda, avvisi).
 - **Calorie dall’obiettivo**: TDEE − deficit del ritmo scelto (kg a settimana × 7.700 / 7), al massimo il 25% del TDEE; proteine e grassi come in Definizione. Con calorie scritte a mano l’app mostra il deficit reale e i kg a settimana che ne derivano.
