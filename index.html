@@ -10128,13 +10128,13 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
 // ---------- import dall'orologio Garmin: CSV delle attività, FIT (anche in ZIP), TCX, GPX ----------
 var FIT0=631065600;
 function gmType(s,sub){s=String(s||'').toLowerCase();sub=String(sub||'').toLowerCase();
-  if(/tapis|treadmill/.test(s+sub))return /cammin|walk/.test(s)?'Tapis roulant · camminata':'Tapis roulant · corsa';
+  if(/tapis|treadmill|corsa indoor|indoor run|camminata indoor|indoor walk/.test(s+sub))return /cammin|walk/.test(s)?'Tapis roulant · camminata':'Tapis roulant · corsa';
   if(/indoor.?cycl|ciclismo indoor|virtual.?ride|spinning|cyclette/.test(s+sub))return 'Cyclette';
   if(/ellit|ellip/.test(s+sub))return 'Ellittica';if(/rowing|canottaggio|vogatore|remo/.test(s+sub))return 'Vogatore';
   if(/swim|nuoto/.test(s))return 'Nuoto';if(/hik|escursion|trekking|alpinismo|mountaineer/.test(s))return 'Camminata in salita / trekking';
   if(/walk|cammin/.test(s))return 'Camminata all’aperto';if(/run|corsa|trail/.test(s))return 'Corsa all’aperto';
   if(/cycl|bik|ciclismo|bici|gravel|mtb/.test(s))return 'Bici all’aperto';if(/strength|forza|pesi/.test(s+sub))return 'Palestra (scheda)';
-  if(/judo|martial|arti marziali|boxe|boxing/.test(s))return 'Judo';if(/hiit|cardio|circuit/.test(s+sub))return 'HIIT / circuito';if(/soccer|calcio|basket|volley|pallavolo|rugby/.test(s))return 'Sport di squadra';
+  if(/judo|martial|arti marziali|lotta|wrestling/.test(s))return 'Judo';if(/boxe|boxing/.test(s))return 'HIIT / circuito';if(/hiit|cardio|circuit|intervall|alta intensit|high intensity|kickbox/.test(s+sub))return 'HIIT / circuito';if(/soccer|calcio|basket|volley|pallavolo|rugby/.test(s))return 'Sport di squadra';
   return 'Altro sport'}
 var FITSP={1:'running',2:'cycling',5:'swimming',11:'walking',15:'rowing',17:'hiking',4:'fitness',10:'training',62:'hiit'},FITSUB={1:'treadmill',6:'indoor_cycling',14:'indoor_rowing',15:'elliptical',20:'strength',26:'cardio'};
 function fitParse(buf){var dv=new DataView(buf),hs=dv.getUint8(0);if(buf.byteLength<14||String.fromCharCode(dv.getUint8(8),dv.getUint8(9),dv.getUint8(10),dv.getUint8(11))!=='.FIT')throw new Error('Non è un file FIT');
@@ -10202,20 +10202,21 @@ function hkParse(t){if(Array.isArray(t))return t;var out=[],seen={};
     var a=hkDate(f[1]),b=hkDate(f[2]);if(!a)return;var tp=gmType(f[0]),min=b&&b>a?Math.round((b-a)/60000):null;if(min!=null&&min>1440)min=null;
     var kc=gmNum(f[4]);if(kc!=null&&/kj/i.test(f[4]))kc=kc/4.184;
     var e=gmEntry({dt:a,tp:tp,ti:f[0],min:min,km:hkKm(f[3],tp),kcal:kc!=null?Math.round(kc):null,fc:gmNum(f[5]),fcx:gmNum(f[6]),hasT:true},'a');
-    if(!e||seen[e.gk])return;seen[e.gk]=1;e.src='Garmin · Salute (automatico)';e.ts=a.getTime();out.push(e)});return out}
+    if(!e||seen[e.gk])return;var t0=a.getTime();if(out.some(function(o){return o.tp===e.tp&&Math.abs(o.ts-t0)<=3e5}))return;seen[e.gk]=1;
+    var fo=String(f[7]||'').toLowerCase();e.src=/watch|apple/.test(fo)?'Apple Watch (automatico)':/garmin|connect/.test(fo)?'Garmin (automatico)':'Salute (automatico)';e.ts=t0;out.push(e)});return out}
 function hkUrl(tok){return 'https://firestore.googleapis.com/v1/projects/'+FB_CFG.projectId+'/databases/(default)/documents/link/'+tok+'/r/axs?key='+FB_CFG.apiKey}
 function hkHelp(tok){var u=tok?hkUrl(tok):'';
-  return '<details class="avri"><summary><b>⏰ Automatico ogni sera alle 21:00 (iPhone)</b>: Garmin Connect → Salute → la tua pagina</summary>'+
+  return '<details class="avri"><summary><b>⏰ Automatico ogni sera alle 21:00 (iPhone)</b>: Apple Watch o Garmin → Salute → la tua pagina</summary>'+
    '<p>Lo prepari una volta sola, poi gli allenamenti arrivano da soli ogni sera, anche con il telefono bloccato e senza aprire questa pagina.</p><ol>'+
-   '<li><b>Garmin Connect</b> → Altro (☰) → Impostazioni → App collegate → <i>Salute</i>: attiva la scrittura degli <i>Allenamenti</i> (e, se vuoi, di passi, sonno e FC).</li>'+
-   '<li>App <b>Comandi</b> → «+» → nome «Garmin → S.peaking». Aggiungi le azioni:<ol type="a">'+
+   '<li><b>Apple Watch</b>: non serve fare nulla, gli allenamenti dell’app Allenamento (e delle app compatibili) finiscono già in Salute. <b>Garmin</b>: Garmin Connect → Altro (☰) → Impostazioni → App collegate → <i>Salute</i>: attiva la scrittura degli <i>Allenamenti</i>.</li>'+
+   '<li>App <b>Comandi</b> → «+» → nome «Orologio → S.peaking». Aggiungi le azioni:<ol type="a">'+
     '<li>«Trova campioni di salute» (o «Trova allenamenti», se c’è): tipo <i>Allenamenti</i>, data di inizio <i>negli ultimi 30 giorni</i>.</li>'+
-    '<li>«Ripeti con ogni elemento». Dentro: due «Formatta data» (<i>Data di inizio</i> e <i>Data di fine</i> dell’elemento, formato <i>ISO 8601</i> con l’ora), poi «Testo» con, separati da punto e virgola:<br><code>Tipo;Inizio;Fine;Distanza;Energia attiva;FC media;FC max</code><br>(metti le variabili al posto delle parole; se un valore non c’è, lascia vuoto ma tieni il «;»). Fine della ripetizione.</li>'+
+    '<li>«Ripeti con ogni elemento». Dentro: due «Formatta data» (<i>Data di inizio</i> e <i>Data di fine</i> dell’elemento, formato <i>ISO 8601</i> con l’ora), poi «Testo» con, separati da punto e virgola:<br><code>Tipo;Inizio;Fine;Distanza;Energia attiva;FC media;FC max;Origine</code><br>(metti le variabili al posto delle parole; se un valore non c’è, lascia vuoto ma tieni il «;». «Origine» è la fonte del campione: serve a scrivere «Apple Watch» o «Garmin» nel diario). Fine della ripetizione.</li>'+
     '<li>«Combina testo»: <i>Risultati della ripetizione</i>, con <i>Nuova riga</i>.</li>'+
     '<li>«Ottieni contenuti dell’URL»: l’indirizzo qui sotto, <b>Metodo PATCH</b>, Corpo della richiesta <b>JSON</b>: campo <code>fields</code> di tipo <i>Dizionario</i> → al suo interno <code>l</code> di tipo <i>Dizionario</i> → al suo interno <code>stringValue</code> di tipo <i>Testo</i> = il <i>Testo combinato</i>.</li></ol></li>'+
-   '<li>Comandi → <b>Automazione</b> → «+» → <i>Ora del giorno</i> → <b>21:00</b>, Ogni giorno → <i>Esegui subito</i> → scegli «Garmin → S.peaking».</li></ol>'+
+   '<li>Comandi → <b>Automazione</b> → «+» → <i>Ora del giorno</i> → <b>21:00</b>, Ogni giorno → <i>Esegui subito</i> → scegli «Orologio → S.peaking».</li></ol>'+
    (u?'<div class="avrurl"><code id="hkurl">'+esc(u)+'</code><button type="button" class="btn sm" data-act="avhkcp">Copia l’indirizzo</button></div>':'<p class="status">Serve il link sempre aggiornato del tuo PT.</p>')+
-   '<p class="status">Prova: esegui il comando a mano, poi riapri questa pagina: gli allenamenti compaiono in «Le mie attività» con «Garmin · Salute». Ogni sera manda gli ultimi 30 giorni, quindi un giorno saltato si recupera. Le attività già importate da file non si duplicano. Funziona solo su iPhone: su Android continua con l’import dei file. Non condividere l’indirizzo: contiene il codice della tua scheda.</p></details>'}
+   '<p class="status">Prova: esegui il comando a mano, poi riapri questa pagina: gli allenamenti compaiono in «Le mie attività» con «Apple Watch» o «Garmin». Ogni sera manda gli ultimi 30 giorni, quindi un giorno saltato si recupera. Le attività già importate da file non si duplicano, e nemmeno lo stesso allenamento registrato da due orologi (stesso tipo, inizio entro 5 minuti). Funziona solo su iPhone: su Android continua con l’import dei file. Non condividere l’indirizzo: contiene il codice della tua scheda.</p></details>'}
 // legge uno o più file: attività (CSV, FIT, ZIP, TCX, GPX) e, se il CSV è quello giornaliero, la FC a riposo per la prontezza
 async function gmFiles(files,by){var E=[],RT=[],err=[],lim=addDays(todayIso(),-366);
   var one=async function(name,buf){try{if(/\.zip$/i.test(name)){for(var z of await unzipAll(buf))await one(z.name,z.buf);return}
@@ -10321,7 +10322,7 @@ function avAxBox(){if(!AV)return '';var F=avAxF(),W=axWeek(AVX,AVXW),cur=AVXW===
   return '<details class="avc avax"'+(AVG&&AVG.axo?' open':'')+'><summary class="avn">🗓 Le mie attività della settimana'+(W.length?' ('+W.length+')':'')+'</summary>'+
    '<p class="status" style="margin:4px 0 8px">Segna tutto quello che fai oltre alla scheda (corsa, camminata, judo, sport) con orario, km e FC, oppure importalo dall’orologio Garmin. Il tuo PT lo vede e calcola i km giusti per te.</p>'+
    wkNav('avax',AVXW)+axSumHtml(W,F,AV.KT||[])+axCardsHtml(W,F,'avax')+
-   ''+(AVHK?'<p class="status" style="margin:6px 0">⏰ Garmin automatico attivo: '+AVHK.l.length+' allenamenti negli ultimi 30 giorni'+(AVHK.n?', '+AVHK.n+' nuovi aggiunti ora':'')+'.</p>':'')+'<div class="avrtb"><button type="button" class="btn sm pri" data-act="avaxadd">+ Segna un’attività</button><button type="button" class="btn sm" data-act="avaxgm">⌚ Importa da Garmin</button></div><p class="status" id="avxst" role="status"></p>'+(cur?'':'')+'</details>'}
+   ''+(AVHK?'<p class="status" style="margin:6px 0">⏰ Orologio automatico attivo: '+AVHK.l.length+' allenamenti negli ultimi 30 giorni'+(AVHK.n?', '+AVHK.n+' nuovi aggiunti ora':'')+'.</p>':'')+'<div class="avrtb"><button type="button" class="btn sm pri" data-act="avaxadd">+ Segna un’attività</button><button type="button" class="btn sm" data-act="avaxgm">⌚ Apple Watch o Garmin</button></div><p class="status" id="avxst" role="status"></p>'+(cur?'':'')+'</details>'}
 function avAxRefresh(){var b=document.querySelector('.avax');if(!b){return}b.outerHTML=avAxBox();var n=document.querySelector('.avax');if(n)n.open=true}
 document.addEventListener('toggle',function(e){if(AV&&e.target.classList&&e.target.classList.contains('avax')){AVG.axo=e.target.open;try{avGxSave()}catch(x){}}},true);
 document.addEventListener('click',function(e){if(!AV)return;var c=e.target.closest&&e.target.closest('[data-act="avhkcp"]');if(c){var tx=(gid('hkurl')||{}).textContent||'';var ok=function(){c.textContent='✓ Copiato'};try{navigator.clipboard.writeText(tx).then(ok,function(){prompt('Copia l’indirizzo:',tx)})}catch(x){prompt('Copia l’indirizzo:',tx)}return}});
@@ -10332,7 +10333,7 @@ document.addEventListener('click',function(e){if(!AV)return;var a=e.target.close
   if(k==='avaxsave'){var id=a.getAttribute('data-x'),old=id?AVX.filter(function(y){return y.id===id})[0]:null,o=axFormRead('avxf_',old?{id:old.id,src:old.src,gk:old.gk}:{id:'a'+newId('x')});o.by='a';
     if(!o.min&&!o.km){alert('Indica almeno la durata (o la fascia oraria) oppure i km.');return}AVX=AVX.filter(function(y){return y.id!==o.id});AVX.push(o);AVXW=wkKey(o.d);AVG.axo=true;avAxSave();closeModal();avAxRefresh();return}
   if(k==='avaxrm'){var id2=a.getAttribute('data-x'),x2=AVX.filter(function(y){return y.id===id2})[0];if(!x2||!confirm('Eliminare l’attività del '+fdate(x2.d)+'?'))return;AVX=AVX.filter(function(y){return y.id!==id2});if(x2.gk){AVG.hkd=AVG.hkd||{};AVG.hkd[x2.gk]=1;avGxSave()}avAxSave();avAxRefresh();return}
-  if(k==='avaxgm'){modal('<h3>⌚ Importa da Garmin</h3>'+hkHelp(AV.tok)+gmHelp()+'<label class="btn pri" style="display:inline-block;margin-top:8px">📥 Scegli i file<input type="file" id="avxgmf" multiple accept=".csv,.txt,.fit,.zip,.tcx,.gpx,.xml" hidden></label><p class="status" id="avxgst" role="status"></p><div class="mrow"><button data-act="mclose">Chiudi</button></div>');return}});
+  if(k==='avaxgm'){modal('<h3>⌚ Apple Watch o Garmin</h3>'+hkHelp(AV.tok)+gmHelp()+'<label class="btn pri" style="display:inline-block;margin-top:8px">📥 Scegli i file<input type="file" id="avxgmf" multiple accept=".csv,.txt,.fit,.zip,.tcx,.gpx,.xml" hidden></label><p class="status" id="avxgst" role="status"></p><div class="mrow"><button data-act="mclose">Chiudi</button></div>');return}});
 document.addEventListener('change',async function(e){if(!AV||e.target.id!=='avxgmf'||!e.target.files||!e.target.files.length)return;st('avxgst','Leggo i file…');
   var r=await gmFiles([].slice.call(e.target.files),'a'),have={};AVX.forEach(function(x){if(x.gk)have[x.gk]=1});var N=r.E.filter(function(x){return !have[x.gk]});
   if(r.RT.length&&typeof AVR!=='undefined'){AVR=rtMergeL(r.RT,AVR);try{avRtSave()}catch(x){}}
