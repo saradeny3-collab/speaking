@@ -408,6 +408,26 @@ Voce **Sezione nutrizionale** nel menu, sotto «Schede allenamento» (su smartph
 - Prima di eliminare compare sempre la conferma con nome, atleta e data. Se la scheda ha il link dell’atleta, l’avviso dice che il link smette di funzionare e i carichi segnati vanno persi; per una scheda svolta suggerisce di segnarla come terminata invece di eliminarla.
 - Eliminando una scheda, i piani alimentari collegati restano senza scheda collegata. Eliminando un piano, il suo link viene cancellato. Eliminazione dal dispositivo e dal cloud; non si può annullare (resta il backup JSON).
 
+## Pulsante diretto «⌚ Carica i dati dell’orologio» per l’atleta (nuovo, fase 48)
+- Nella pagina della scheda dell’atleta (link), in alto sotto la settimana, il pulsante giallo grande **«⌚ Carica i dati dell’orologio»**: un tocco apre subito la scelta dei file del telefono (CSV, FIT, ZIP, TCX o GPX di Garmin Connect, anche più insieme), senza finestre intermedie. Sotto compare l’esito («✓ Importate N attività…», «Queste attività erano già importate», oppure il motivo se il file non va).
+- Accanto, «Come si esportano?» apre la guida (dal telefono passo passo, automatico con iPhone, guida completa).
+- Lo stesso pulsante anche in «🗓 Le mie attività» e nella tendina «❤️ Cardio della settimana».
+- Le attività vanno nel diario dell’atleta e arrivano al PT come prima (`link/<codice>/r/ax`); le uscite di cardio si aggiornano anche nel riepilogo della tendina. Regole di Firestore invariate.
+
+## Import Garmin dal telefono dell’atleta: correzioni (nuovo, fase 47)
+- **File selezionabili su iPhone e Android**: il selettore non limita più le estensioni (su iPhone i file .fit, .gpx e .tcx comparivano grigi e non si potevano scegliere). Il tipo si riconosce dal contenuto: un FIT o uno ZIP senza estensione (come capita scaricandoli dal telefono) viene letto lo stesso.
+- **Pulsante in cima**: nella finestra «⌚ Apple Watch o Garmin» il pulsante giallo-bordato **«📥 Carica i file dell’orologio»** è il primo elemento, con l’esito subito sotto («✓ Importate N attività: le trovi in «🗓 Le mie attività» e arrivano al tuo PT»). Lo stesso nel Diario attività del PT.
+- **Guida «📱 Dal telefono, passo passo»**: l’app Garmin Connect non esporta file; si apre connect.garmin.com nel browser (versione desktop) → Attività → Tutte le attività → Esporta CSV → si sceglie il file da Download. Poi l’opzione automatica per iPhone e la guida completa (chiusa).
+- **CSV con data gg/mm/aaaa hh:mm**: l’ora è letta correttamente (prima diventava 12:00).
+- **File delle attività scelto nel posto sbagliato** (riquadro prontezza): le attività vengono importate nel diario invece di dare errore.
+- Lo stesso file si può riscegliere; le attività già presenti non si duplicano. Regole di Firestore invariate.
+
+## «Cardio della settimana» come pulsante per segnare le uscite (nuovo, fase 46)
+- Nella **pagina della scheda dell’atleta** (link) e nella **scheda salvata** dell’app del PT, «❤️ Cardio della settimana» è un **pulsante giallo**: un tocco apre la tendina (sotto il titolo il riepilogo della settimana: uscite, km, minuti).
+- Nella tendina: il cardio programmato con i km fatti rispetto a minimo e massimo, la velocità e la FC consigliate; il modulo **«+ Segna un’uscita di cardio»** con giorno, **tipologia** (corsa, camminata, trekking, bici, tapis roulant, cyclette, ellittica, vogatore, nuoto, air bike, SkiErg, stair climber, corda, altro), **intensità** (zone 1–2, 2–3, 3–4, intervalli), ora di inizio, **durata**, **km**, **velocità media** (calcolata da km e durata, oppure scritta: allora si calcolano i km), **passo o ritmo** (min/km, min/100 m nel nuoto, min/500 m al vogatore), **FC media e massima**, RPE, dislivello, calorie e note; l’elenco delle uscite della settimana (‹ ›) con ✏ e ×.
+- **Salvataggio**: dall’atleta nel suo diario (telefono e `link/<codice>/r/ax`, arriva al PT e conta come feedback); dal PT in `u.ax` (cloud, dispositivo e backup). Le uscite compaiono anche in «🗓 Le mie attività» e nel Diario attività e contano per km minimi e massimi, ACWR e semafori.
+- In stampa, PDF ed Excel resta la tabella del cardio programmato. Nuovi campi delle attività: `vm` (velocità media km/h) e `zn` (intensità). Regole di Firestore invariate.
+
 ## Sezione nutrizionale: scelta evidente dello schema «Crea il tuo piatto» (nuovo, fase 45)
 - Nel piano alimentare, **subito dopo il 📝 Questionario alimentare**, il riquadro giallo **«🍽 Tipo di schema del piano»** con due pulsanti grandi: **«Solo «Crea il tuo piatto»»** e **«Schema completo»** (quello attivo è giallo con ✓). Un clic rifà lo schema con le grammature dell’obiettivo della dieta (fase del piano). Il menu «Tipo di schema» in «Ripartizione dei pasti» resta e va di pari passo.
 - Nell’elenco dei piani dell’atleta, accanto a «+ Nuovo piano», il pulsante giallo **«🍽 Nuovo piano · solo «Crea il tuo piatto»»** crea il piano direttamente in questa modalità (anche dopo il questionario applicato).

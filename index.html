@@ -674,6 +674,31 @@ main a{color:var(--brand-hi)}main a.btn,main a.shx{color:inherit}
 .npmb button[aria-pressed="true"] small{color:#000;opacity:1}
 .npmb button:hover{filter:brightness(1.1)}
 @media print{.npms{display:none}}
+/* fase 46: «Cardio della settimana» come pulsante con tendina */
+details.wcr{border:1px solid var(--line);border-radius:14px;margin:14px 0;background:var(--surface);padding:0}
+details.wcr.avc{border-left:4px solid #FFF200;padding:0}
+summary.wcrb{list-style:none;cursor:pointer;display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;background:#FFF200;color:#000;border-radius:12px;padding:14px 16px;font-weight:800;font-size:17px}
+summary.wcrb::-webkit-details-marker{display:none}
+summary.wcrb small{font-weight:600;font-size:13px;flex:1;min-width:160px}
+summary.wcrb i{font-style:normal;transition:transform .2s}details.wcr[open] summary.wcrb i{transform:rotate(180deg)}
+details.wcr[open] summary.wcrb{border-radius:12px 12px 0 0}
+.wcrin{padding:12px 14px}
+.wcrpl{margin:0 0 10px;padding-left:18px;font-size:14px}.wcrpl li{margin:3px 0}
+.wcrf{border:1px dashed var(--line);border-radius:12px;padding:10px 12px;margin:10px 0}
+.wcrpo{display:block;padding:10px 0;font-weight:800}
+@media print{details.wcr{display:none}}
+/* fase 47: import Garmin dal telefono */
+.gmpk{border:2px solid #FFF200;border-radius:12px;padding:12px;margin:0 0 12px}
+.gmpkb{display:block!important;text-align:center;font-size:17px;padding:14px!important}
+.gmst:not(:empty){font-weight:700}
+/* fase 48: pulsante diretto «Carica i dati dell’orologio» nella pagina dell’atleta */
+.avwb{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;margin:10px 0}
+.avwbl{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:#FFF200;color:#000;border:2px solid #000;border-radius:12px;padding:11px 16px;font-weight:800;font-size:15px;cursor:pointer}
+.avwb.big .avwbl{flex:1 1 100%;font-size:17px;padding:14px 16px}
+.avwbl:active{transform:scale(.98)}
+.avwbh{background:none;border:0;padding:4px 0;font:inherit;font-size:13px;text-decoration:underline;cursor:pointer;color:inherit}
+.avwbs{flex:1 1 100%;margin:0}.avwbs:empty{display:none}.avwbs:not(:empty){font-weight:700}
+@media print{.avwb{display:none}}
 /* pulsante «Terminata»: giallo evidenziatore */
 .tmw{position:relative;margin-left:auto;align-self:center}
 .tmon{border:0;border-radius:10px;padding:8px 14px;font:inherit;font-size:14px;font-weight:800;cursor:pointer;white-space:nowrap;background:#22a355;color:#fff}
@@ -5938,7 +5963,7 @@ function exTable(es){
   return '<div class="xwrap"><table class="stab"><thead><tr><th>Esercizio</th><th class="ptx">Pattern</th><th class="ptx">Muscolo</th><th>Serie</th><th>Rip.</th><th class="ptx">RPE</th><th>Carico target</th><th>Rec.</th><th>Note esecutive (postura e respirazione)</th></tr></thead><tbody>'+
    es.map(function(e){var d=EXI[ekey(e.n)];return '<tr><td>'+exLabel(e)+'</td><td class="ptx">'+esc(e.p||(d?d.p:''))+'</td><td class="ptx">'+esc(e.m||'')+'</td><td>'+esc(e.s)+'</td><td>'+esc(e.r)+'</td><td class="ptx">'+esc(e.rpe||'')+'</td><td class="tg2">'+esc(tgK(e))+'</td><td>'+(e.rec!==''&&e.rec!=null?esc(e.rec)+' s':'')+'</td><td class="nt">'+esc(e.nt||'')+'</td></tr>'}).join('')+'</tbody></table></div>';
 }
-function schedaBody(sc,u){
+function schedaBody(sc,u,crb){
   var days=schedaDays(sc),v2=!!(sc.days&&sc.days.length),es=flatEs(days),f=+sc.freq||1;
   var h='<div class="status">'+(u?esc(u.n+' '+u.c)+' · ':'')+'inizio '+fdate(sc.data)+'<span class="noprn">'+(v2?' · '+f+(f===1?' seduta':' sedute')+' a settimana'+(sc.split?' · '+esc(sc.split):''):(f>1?' · '+f+' volte a settimana':''))+'</span></div>';
   if(sc.sing)h+=ssBanner(sc);
@@ -5952,7 +5977,7 @@ function schedaBody(sc,u){
   if(v2&&days.length!==f)h+='<p class="status noprn">Le '+days.length+' sedute si alternano a rotazione per arrivare a '+f+' allenamenti a settimana.</p>';
   if(sc.cdm==='car'&&sc.cdc&&sc.cdc.tp)h+='<h4>Cardio di fine seduta <small class="status">al posto del defaticamento</small></h4>'+finTable(sc.cdc,u);
   else if(sc.cdL&&sc.cdL.length)h+='<h4>Defaticamento (cool-down)</h4>'+wuTable(sc.cdL,'cd');else if(sc.cd)h+='<h4>Defaticamento (cool-down)</h4><div class="prot">'+esc(sc.cd)+'</div>';
-  if(carList(sc.car).length)h+='<h4>Cardio della settimana</h4>'+carTable(sc.car,u);
+  if(crb)h+=crb;else if(carList(sc.car).length)h+='<h4>Cardio della settimana</h4>'+carTable(sc.car,u);
   if(es.some(function(e){return e.m}))h+='<div class="ptx"><h4>Volume settimanale per muscolo</h4>'+volHtml(es,f/days.length,u)+'</div>';
   h+='<h4>Legenda e guida all’esecuzione</h4>'+legendHtml(es,(sc.wuL||[]).concat(sc.cdL||[]));
   h+='<details class="glw"><summary>📖 Glossario dei termini tecnici</summary>'+glossHtml()+'</details>';
@@ -6134,7 +6159,7 @@ document.addEventListener('click',function(e){var a=e.target.closest&&e.target.c
 function viewScheda(id){
   var sc=findS(id);if(!sc)return;var u=find(sc.uid);
   var tmp=sc.id==='__ed',lg=!tmp&&sc.atok,sbad=!tmp&&u?injBad(schedaDays(sc),(sc.wuL||[]).concat(sc.cdL||[]),profile(u)):[];
-  modal('<h3>'+esc(sc.nome)+(tmp?'':' <button type="button" class="scren" data-act="scren" data-id="'+esc(sc.id)+'" data-back title="Rinomina la scheda" aria-label="Rinomina la scheda">✏ Rinomina</button>')+(tmp&&ED.dirty?' <i class="dc">anteprima non salvata</i>':'')+'</h3>'+(!tmp&&sc.term?'<div class="info termb">🗄 <b>Scheda terminata</b> · svolta '+esc(periodTxt(sc.data,sc.fine))+(sc.fnt?' · '+esc(sc.fnt):'')+'</div>':'')+(sbad.length?'<div class="warn noprn" style="margin:0 0 14px"><b>🛡 '+sbad.length+(sbad.length===1?' esercizio non è compatibile':' esercizi non sono compatibili')+' con gli infortuni o i fastidi attuali</b> ('+esc(sbad.map(function(b){return b.n}).join(', '))+'). <button type="button" class="btn sm pri" data-act="scsafe" data-id="'+esc(sc.id)+'">Sostituisci con varianti sicure</button><br><span class="status">Si apre l’editor con le sostituzioni già fatte: controlli e salvi; l’atleta vede la scheda nuova dal suo link.</span></div>':'')+(lg?'<div class="sclog" id="sclog" style="margin:0 0 16px"></div>':'')+schedaBody(sc,u)+'<div class="status" id="sdstat"></div><div class="mrow"><button data-act="mclose">Chiudi</button>'+(tmp?'':(sc.sing?'':'<button class="blk" data-act="scrin" data-id="'+esc(sc.id)+'">♻ Rinnova scheda</button>')+'<button data-act="edopen" data-id="'+esc(sc.id)+'">Modifica nell’editor</button>'+(sc.sing?'':'<button data-act="'+(sc.term?'screop':'scterm')+'" data-id="'+esc(sc.id)+'" data-back="view">'+(sc.term?'↺ Riapri':'✓ Segna come terminata')+'</button>')+'<button data-act="nutsc" data-id="'+esc(sc.id)+'">🥗 Piano alimentare</button><button data-act="tplfrom" data-id="'+esc(sc.id)+'">🧩 Salva come template</button>')+
+  modal('<h3>'+esc(sc.nome)+(tmp?'':' <button type="button" class="scren" data-act="scren" data-id="'+esc(sc.id)+'" data-back title="Rinomina la scheda" aria-label="Rinomina la scheda">✏ Rinomina</button>')+(tmp&&ED.dirty?' <i class="dc">anteprima non salvata</i>':'')+'</h3>'+(!tmp&&sc.term?'<div class="info termb">🗄 <b>Scheda terminata</b> · svolta '+esc(periodTxt(sc.data,sc.fine))+(sc.fnt?' · '+esc(sc.fnt):'')+'</div>':'')+(sbad.length?'<div class="warn noprn" style="margin:0 0 14px"><b>🛡 '+sbad.length+(sbad.length===1?' esercizio non è compatibile':' esercizi non sono compatibili')+' con gli infortuni o i fastidi attuali</b> ('+esc(sbad.map(function(b){return b.n}).join(', '))+'). <button type="button" class="btn sm pri" data-act="scsafe" data-id="'+esc(sc.id)+'">Sostituisci con varianti sicure</button><br><span class="status">Si apre l’editor con le sostituzioni già fatte: controlli e salvi; l’atleta vede la scheda nuova dal suo link.</span></div>':'')+(lg?'<div class="sclog" id="sclog" style="margin:0 0 16px"></div>':'')+schedaBody(sc,u,!tmp&&u&&!sc.sing?(function(){if(WCR.pt.sid!==sc.id){WCR.pt={ws:'',ed:'',open:false,uid:u.id,sid:sc.id}}return wcrBox('pt')})():'')+'<div class="status" id="sdstat"></div><div class="mrow"><button data-act="mclose">Chiudi</button>'+(tmp?'':(sc.sing?'':'<button class="blk" data-act="scrin" data-id="'+esc(sc.id)+'">♻ Rinnova scheda</button>')+'<button data-act="edopen" data-id="'+esc(sc.id)+'">Modifica nell’editor</button>'+(sc.sing?'':'<button data-act="'+(sc.term?'screop':'scterm')+'" data-id="'+esc(sc.id)+'" data-back="view">'+(sc.term?'↺ Riapri':'✓ Segna come terminata')+'</button>')+'<button data-act="nutsc" data-id="'+esc(sc.id)+'">🥗 Piano alimentare</button><button data-act="tplfrom" data-id="'+esc(sc.id)+'">🧩 Salva come template</button>')+
    (tmp?'':'<button class="danger" data-act="sdel1" data-id="'+esc(sc.id)+'" data-back>🗑 Elimina scheda</button>')+'<button data-act="scsv" data-id="'+esc(sc.id)+'">CSV</button><button data-act="sdl" data-id="'+esc(sc.id)+'">Scarica HTML</button><button data-act="prn">Stampa / Esporta PDF</button><button data-act="sxl" data-id="'+esc(sc.id)+'">Esporta Excel (.xlsx)</button><button class="blk" data-act="send" data-id="'+esc(sc.id)+'">📤 Invia PDF ed Excel</button><button class="pri" data-act="share" data-id="'+esc(sc.id)+'">📲 Condividi con l’atleta</button></div>');
   document.querySelector('#modal .mbox').classList.add('xl');
   if(lg)logShow(sc);
@@ -7028,7 +7053,7 @@ function avRender(){
    '<p class="avd">'+(AV.sg?'📅 Seduta del '+fdate(AV.d):(AV.d?'Inizio '+fdate(AV.d):'')+(AV.c?' · cambio scheda '+fdate(AV.c):''))+(AV.du?' · ⏱ seduta di circa '+AV.du+' min':'')+'</p>'+
    '<div class="avwk"><select id="avwk" aria-label="Settimana">'+wopt+'</select>'+(ws?'<span>dal '+fdate(ws).slice(0,5)+' al '+fdate(addDays(ws,6)).slice(0,5)+'</span>':'')+'</div>'+
    (AV.P?'<div class="avfl"><button type="button" class="btn sm" data-act="avpdf">📄 Scarica il PDF</button><button type="button" class="btn sm" data-act="avxls">📊 Scarica l’Excel</button></div><p class="status" id="avfst" role="status" style="margin:6px 0 0;font-size:13px"></p>':'')+
-   (AV.live?'<p class="avnet" id="avnet" role="status">'+esc(AVNT||'I kg e le ripetizioni che segni arrivano in automatico al tuo PT.')+'</p>':'')+
+   avWatchBtn('avwst_top',1)+(AV.live?'<p class="avnet" id="avnet" role="status">'+esc(AVNT||'I kg e le ripetizioni che segni arrivano in automatico al tuo PT.')+'</p>':'')+
    avFbBox()+avRtBox()+(AV.fe?'<div class="avdl avfe">🗄 Questa scheda è terminata il '+fdate(AV.fe)+'. Chiedi al tuo Personal Trainer la scheda nuova.</div>':'')+(dw.indexOf(wk)>-1?'<div class="avdl">Settimana di scarico: stessi esercizi con circa il 40% di serie in meno (già tolte qui sotto) e carichi un po’ più leggeri (RPE 6–7, RIR 3–4). Serve a smaltire la fatica e far arrivare la supercompensazione.</div>':'')+'</div>'+
    (D.length>1?'<div class="avtabs" role="tablist">'+D.map(function(x,j){return '<button role="tab" data-avd="'+j+'" aria-selected="'+(j===di)+'">'+esc(x[0]||'Seduta '+(j+1))+'</button>'}).join('')+'</div>':'')+
    avWuList(AV.W,AV.wt,'🔥 Riscaldamento');
@@ -7048,7 +7073,7 @@ function avRender(){
      (pv?'<p class="avpvn">In trasparenza i kg e le ripetizioni della settimana '+pv.w+(dw.indexOf(pv.w)>-1?' (scarico)':'')+(AV.d?', dal '+fdate(addDays(AV.d,(pv.w-1)*7)).slice(0,5):'')+'. Scrivi sopra quelli di oggi; con ✓ su una serie vuota restano gli stessi kg.</p>':'')+
      '<div class="avsh"><span>Serie</span><span>Kg</span><span>Ripetizioni</span><span>Fatta</span></div>'+rows+
      (ex?'<details class="avg"><summary>Come si esegue</summary><div class="avgd">'+legendBody(ex)+'</div></details>':'')+'<button type="button" class="avfbx" data-avfbx="'+esc(e[0])+'">🩹 Fastidio o dolore in questo esercizio?</button></div>'}).join('')||'<p class="status">Nessun esercizio in questa seduta.</p>';
-  h+=avWuList(AV.C,AV.ct,AV.cm?'🏃 Cardio di fine seduta':'🧘 Defaticamento')+(AV.K&&AV.K.length?'<div class="avc"><div class="avn">❤️ Cardio della settimana</div>'+AV.K.map(function(t){return '<p class="avnt">'+esc(t)+'</p>'}).join('')+'</div>':'')+
+  h+=avWuList(AV.C,AV.ct,AV.cm?'🏃 Cardio di fine seduta':'🧘 Defaticamento')+wcrBox('av')+
    avAxBox()+avGxBox()+'<div class="avact"><button class="btn pri" data-act="avsend">Invia i risultati al PT</button><button class="btn" data-act="avcopy">Copia i risultati</button></div><p class="status" id="avst" role="status"></p>'+
    '<details class="glw"><summary>📖 Glossario dei termini tecnici</summary>'+glossHtml()+'</details>'+
    '<p class="avft">Scheda preparata dal tuo Personal Trainer il '+fdate(AV.t)+'. '+(AV.live?'Serie e kg che segni arrivano al tuo PT (serve internet) e restano anche su questo telefono. Questo link apre solo la tua scheda: non condividerlo.':'Serie e kg che segni restano solo su questo telefono.')+' Per ritrovarla: aggiungi la pagina alla schermata Home (iPhone: Condividi → Aggiungi alla schermata Home; Android: ⋮ → Aggiungi a schermata Home). Apri il link in Safari o Chrome, non dentro WhatsApp o Telegram, così i dati non si perdono.</p></div>'+
@@ -10037,7 +10062,7 @@ function avRtImp(){var base=location.href.split('#')[0],u=AV.tok?base+'#a='+AV.t
     '<li>«Testo»: incolla l’indirizzo qui sotto e sostituisci FC, HRV, SONNO e PASSI con le variabili trovate.</li><li>«Apri URL» con quel testo. In «Automazione» puoi farlo partire ogni mattina.</li></ol>'+
     (u?'<div class="avrurl"><code id="avrurl">'+esc(u)+'</code><button type="button" class="btn sm" data-act="avrtcp">Copia l’indirizzo</button></div>':'<p class="status">Serve il link sempre aggiornato del tuo PT.</p>')+'<p class="status">Aprendo l’indirizzo, i valori entrano nel check-in di oggi; poi aggiungi sonno percepito e stress.</p></details>'+
    '<details class="avri"><summary><b>Android, Garmin Connect, Oura, Polar o un foglio di calcolo</b>: importa un file CSV</summary><p>Esporta i dati giornalieri in CSV (Oura: Trends → Export; Garmin Connect da computer: Report → Esporta CSV; su Android app come Health Sync o Health Connect Export) e scegli il file. Riconosco data, passi, FC a riposo, HRV, ore e punteggio del sonno.</p>'+
-    '<label class="btn sm" style="display:inline-block">📥 Scegli il file CSV<input type="file" id="avrcsv" accept=".csv,.txt,text/csv" hidden></label><p class="status" id="avrcst" role="status"></p></details>'+
+    '<label class="btn sm" style="display:inline-block">📥 Scegli il file CSV<input type="file" id="avrcsv" hidden></label><p class="status" id="avrcst" role="status"></p></details>'+
    '<p class="status">Strava registra gli allenamenti ma non sonno e HRV: per la prontezza usa l’app dell’orologio. Il collegamento diretto con gli account Garmin, Oura o Strava richiede un server: per ora i dati passano da Salute o dal file.</p>'+
    '<div class="mrow"><button data-act="mclose">Chiudi</button><button class="pri" data-act="avrtf">Check-in manuale</button></div>')}
 function celebrate(title,lines){try{if(navigator.vibrate)navigator.vibrate([80,40,120])}catch(e){}
@@ -10064,7 +10089,7 @@ document.addEventListener('click',function(e){if(!AV)return;var a=e.target.close
   if(k==='avrtsave'){var o=rtClean(Object.assign(rtFormRead('avr_'),{src:'Atleta',ts:Date.now()}));if(!rtHas(o)){alert('Compila almeno un valore.');return}
     if(o.d>todayIso())o.d=todayIso();AVR=rtMergeL(AVR,[o]);avRtSave();closeModal();avRender();avGxCheck();window.scrollTo(0,0);return}});
 document.addEventListener('change',function(e){if(!AV||e.target.id!=='avrcsv'||!e.target.files||!e.target.files[0])return;var f=e.target.files[0];f.text().then(function(t){var r=rtCsv(t);
-  if(!r.E.length){st('avrcst','Nel file non ho trovato date con passi, FC a riposo, HRV o sonno. Controlla che sia un CSV con una riga per giorno.');return}
+  if(!r.E.length){var A=gmCsv(t);if(A&&A.length){gmFiles([f],'a').then(function(g){var have={};AVX.forEach(function(x){if(x.gk)have[x.gk]=1});var N=g.E.filter(function(x){return !have[x.gk]});AVX=AVX.concat(N);AVG.axo=true;avAxSave();st('avrcst','Questo è il file delle attività: '+(N.length?'importate '+N.length+' attività in «Le mie attività».':'erano già tutte importate.'));try{avAxRefresh()}catch(x){}});return}st('avrcst','Nel file non ho trovato date con passi, FC a riposo, HRV o sonno. Controlla che sia un CSV con una riga per giorno.');return}
   AVR=rtMergeL(r.E,AVR);avRtSave();st('avrcst','Importati '+r.E.length+' giorni ('+r.cols.join(', ')+').');avRender()})});
 
 // ---------- lato PT: letture dal cloud, prontezza, record e classifiche ----------
@@ -10150,10 +10175,10 @@ function fpace(sec){sec=Math.round(sec);return Math.floor(sec/60)+':'+('0'+sec%6
 function axClean(e){e=e||{};var o={id:String(e.id||newId('x')),d:rtDate(e.d)||'',tp:String(e.tp||'Altro sport').slice(0,60),ts:+e.ts||Date.now()};
   ['hi','hf'].forEach(function(k){var m=String(e[k]||'').match(/^(\d{1,2})[:.](\d{2})/);if(m&&+m[1]<24&&+m[2]<60)o[k]=('0'+m[1]).slice(-2)+':'+m[2]});
   var n=function(k,lo,hi,dec){var v=rtNum(e[k]);if(v!=null&&v>=lo&&v<=hi)o[k]=dec?Math.round(v*dec)/dec:Math.round(v)};
-  n('km',0.01,500,100);n('fc',30,230);n('fcx',30,240);n('rpe',1,10,10);n('kcal',1,10000);n('asc',0,10000);n('min',1,1440);
+  n('km',0.01,500,100);n('vm',0.5,80,10);n('fc',30,230);n('fcx',30,240);n('rpe',1,10,10);n('kcal',1,10000);n('asc',0,10000);n('min',1,1440);
   if(o.min==null&&o.hi&&o.hf){var a=hm(o.hi),b=hm(o.hf);if(b<a)b+=1440;if(b>a)o.min=b-a}
   if(o.hi&&o.min&&!o.hf)o.hf=hmTxt(hm(o.hi)+o.min);
-  ['nt','src','gk','by'].forEach(function(k){if(e[k])o[k]=String(e[k]).slice(0,k==='nt'?300:80)});return o}
+  ['nt','src','gk','by','zn'].forEach(function(k){if(e[k])o[k]=String(e[k]).slice(0,k==='nt'?300:80)});return o}
 // voci di tutte le fonti (PT, import Garmin, link dell'atleta), senza doppioni (stessa attività Garmin importata due volte)
 var RXL={};
 function axAll(u){if(!u)return [];var m={},hid=u.axh||{};
@@ -10301,7 +10326,7 @@ function gmCsv(text){var L=String(text||'').replace(/^\uFEFF/,'').split(/\r?\n/)
     else if(c.min==null&&/^(tempo|time|durata|duration|elapsed time|tempo trascorso)$/.test(h))c.min=i;else if(c.fc==null&&/fc media|avg hr|frequenza cardiaca media|average heart|fc med/.test(h))c.fc=i;
     else if(c.fcx==null&&/fc max|max hr|frequenza cardiaca max|maximum heart/.test(h))c.fcx=i;else if(c.asc==null&&/ascesa totale|total ascent|dislivello positivo/.test(h))c.asc=i;else if(c.mv==null&&/moving time|tempo in movimento/.test(h))c.mv=i});
   if(c.d==null||(c.tp==null&&c.km==null))return null;var mi=H[c.km]&&/\(mi|miglia|miles/.test(H[c.km]);
-  return L.slice(1).map(function(l){var r=csvSplit(l,dl),g=function(k){return k==null?'':String(r[k]||'').replace(/^"|"$/g,'')},s=g(c.d),dt=new Date(s.replace(' ','T'));if(isNaN(dt)){var dd=rtDate(s);dt=dd?new Date(dd+'T12:00:00'):null}if(!dt)return null;
+  return L.slice(1).map(function(l){var r=csvSplit(l,dl),g=function(k){return k==null?'':String(r[k]||'').replace(/^"|"$/g,'')},s=g(c.d),dt=hkDate(s)||new Date(s.replace(' ','T'));if(!dt||isNaN(dt)){var dd=rtDate(s);dt=dd?new Date(dd+'T12:00:00'):null}if(!dt)return null;
     var tp=gmType(g(c.tp)+' '+g(c.ti)),km=gmNum(g(c.km));if(km!=null&&tp==='Nuoto'&&km>20)km=km/1000;if(km!=null&&mi)km*=1.609344;
     return {dt:dt,tp:tp,ti:g(c.ti),min:gmDur(g(c.min))||gmDur(g(c.mv)),km:km,fc:gmNum(g(c.fc)),fcx:gmNum(g(c.fcx)),kcal:gmNum(g(c.kcal)),asc:gmNum(g(c.asc)),hasT:/\d:\d/.test(s)}}).filter(Boolean)}
 async function unzipAll(buf){var dv=new DataView(buf),e=-1;for(var i=buf.byteLength-22;i>=Math.max(0,buf.byteLength-66000);i--){if(dv.getUint32(i,true)===0x06054b50){e=i;break}}if(e<0)throw new Error('ZIP non valido');
@@ -10346,11 +10371,21 @@ function hkHelp(tok){var u=tok?hkUrl(tok):'';
 // legge uno o più file: attività (CSV, FIT, ZIP, TCX, GPX) e, se il CSV è quello giornaliero, la FC a riposo per la prontezza
 async function gmFiles(files,by){var E=[],RT=[],err=[],lim=addDays(todayIso(),-366);
   var one=async function(name,buf){try{if(/\.zip$/i.test(name)){for(var z of await unzipAll(buf))await one(z.name,z.buf);return}
-      var A;if(/\.fit$/i.test(name))A=fitParse(buf);else{var t=new TextDecoder().decode(buf);if(/\.(tcx|gpx|xml)$/i.test(name)||/^\s*</.test(t))A=xmlParse(t);
+      var A,b8=new Uint8Array(buf.slice(0,12)),isFit=b8.length>=12&&String.fromCharCode(b8[8],b8[9],b8[10],b8[11])==='.FIT',isZip=b8[0]===0x50&&b8[1]===0x4B&&b8[2]===3&&b8[3]===4;
+      if(isZip&&!/\.zip$/i.test(name)){for(var z2 of await unzipAll(buf))await one(z2.name,z2.buf);return}
+      if(isFit||/\.fit$/i.test(name))A=fitParse(buf);else{var t=new TextDecoder().decode(buf);if(/\.(tcx|gpx|xml)$/i.test(name)||/^\s*</.test(t))A=xmlParse(t);
         else{A=gmCsv(t);if(!A){var r=rtCsv(t);if(r.E.length){RT=RT.concat(r.E.map(function(x){x.src='Garmin (CSV)';return x}));return}throw new Error('nessuna colonna riconosciuta')}}}
       A.forEach(function(a){var o=gmEntry(a,by);if(o&&o.d>=lim&&o.d<=todayIso())E.push(o)})}catch(e){err.push(name+': '+((e&&e.message)||'file non letto'))}};
-  for(var f of files){await one(f.name,await f.arrayBuffer())}var sn={};E=E.filter(function(x){if(sn[x.gk])return false;sn[x.gk]=1;return true});return {E:E,RT:RT,err:err}}
-function gmHelp(){return '<details class="avri" open><summary><b>Come esportare da Garmin Connect</b></summary><ol>'+
+  for(var f of files){if(f.size>60*1024*1024){err.push(f.name+': file troppo grande');continue}await one(f.name||'file',await f.arrayBuffer())}var sn={};E=E.filter(function(x){if(sn[x.gk])return false;sn[x.gk]=1;return true});return {E:E,RT:RT,err:err}}
+function avWatchBtn(sid,big){return '<div class="avwb'+(big?' big':'')+'"><label class="avwbl">⌚ Carica i dati dell’orologio<input type="file" data-avgmf data-st="'+sid+'" multiple hidden></label><button type="button" class="avwbh" data-act="avaxgm">Come si esportano?</button><p class="status avwbs" id="'+sid+'" role="status"></p></div>'}
+function gmPick(id,sid){return '<div class="gmpk"><label class="btn pri gmpkb">📥 Carica i file dell’orologio<input type="file" id="'+id+'" multiple hidden></label><p class="status" style="margin:6px 0 0">CSV, FIT, ZIP, TCX o GPX di Garmin Connect, anche più file insieme. Sul telefono cercali in <b>File → Download</b> (iPhone) o nella cartella <b>Download</b> (Android).</p><p class="status gmst" id="'+sid+'" role="status"></p></div>'}
+function gmPhone(){return '<details class="avri" open><summary><b>📱 Dal telefono, passo passo</b></summary><ol>'+
+  '<li>L’app Garmin Connect <b>non esporta</b> le attività in un file: apri invece <b>connect.garmin.com</b> in Safari o Chrome ed entra con il tuo account Garmin.</li>'+
+  '<li>Se vedi la versione ridotta: Safari → «aA» → <i>Richiedi sito web desktop</i>; Chrome → ⋮ → <i>Sito desktop</i>.</li>'+
+  '<li>Menu → <b>Attività → Tutte le attività</b> → <b>Esporta CSV</b> (in alto a destra). Il file finisce in Download.</li>'+
+  '<li>Torna qui, tocca <b>«📥 Carica i file dell’orologio»</b> e scegli il file <i>Activities.csv</i> (iPhone: <i>Sfoglia → Download</i>).</li></ol>'+
+  '<p class="status">Con iPhone c’è anche il modo automatico qui sotto: una volta impostato, gli allenamenti arrivano da soli ogni sera.</p></details>'}
+function gmHelp(cl){return '<details class="avri"'+(cl?'':' open')+'><summary><b>Come esportare da Garmin Connect</b></summary><ol>'+
   '<li><b>Tutte le attività (consigliato)</b>: da computer, connect.garmin.com → Attività → Tutte le attività → scorri fino alle settimane che ti servono → <i>Esporta CSV</i> in alto a destra. Contiene tipo, data e ora, distanza, tempo, FC media e massima.</li>'+
   '<li><b>Una singola attività</b>: apri l’attività → ⚙ → <i>Esporta originale</i> (file .zip con il .fit) oppure <i>Esporta in TCX/GPX</i>. Dall’app sul telefono: attività → ⋯ → Esporta (dove disponibile) e salva in File.</li>'+
   '<li><b>FC a riposo</b>: Report → Salute → Frequenza cardiaca a riposo → Esporta CSV. Va nella prontezza e nelle zone cardio.</li></ol>'+
@@ -10424,7 +10459,7 @@ document.addEventListener('click',async function(e){var a=e.target.closest&&e.ta
     u.ax=(u.ax||[]).filter(function(y){return y.id!==o.id});u.ax.push(o);AXV.ws=wkKey(o.d);await axPut(u,'Attività salvata.');return}
   if(k==='axrm'){var id3=a.getAttribute('data-x'),x=axAll(u).filter(function(y){return y.id===id3})[0];if(!x||!confirm('Eliminare l’attività del '+fdate(x.d)+' ('+x.tp+')?'))return;
     var had=(u.ax||[]).some(function(y){return y.id===id3});u.ax=(u.ax||[]).filter(function(y){return y.id!==id3});u.axh=u.axh||{};if(!had||x.by==='a')u.axh[id3]=1;if(x.gk)u.axh['gk:'+x.gk]=1;await axPut(u,'Attività eliminata.');return}
-  if(k==='axgm'){modal('<h3>⌚ Importa da Garmin · '+esc(u.n+' '+u.c)+'</h3>'+gmHelp()+'<label class="btn pri" style="display:inline-block;margin-top:8px">📥 Scegli i file (CSV, FIT, ZIP, TCX, GPX)<input type="file" id="axgmf" multiple accept=".csv,.txt,.fit,.zip,.tcx,.gpx,.xml" hidden></label><p class="status" id="axgst" role="status"></p><div class="mrow"><button data-act="axcan">← Diario</button></div>');return}});
+  if(k==='axgm'){modal('<h3>⌚ Importa da Garmin · '+esc(u.n+' '+u.c)+'</h3>'+gmPick('axgmf','axgst')+gmHelp()+'<div class="mrow"><button data-act="axcan">← Diario</button></div>');return}});
 document.addEventListener('change',async function(e){if(e.target.id!=='axgmf'||AV)return;var u=find(AXV.uid);if(!u||!e.target.files||!e.target.files.length)return;st('axgst','Leggo i file…');
   var r=await gmFiles([].slice.call(e.target.files),'');var have={};axAll(u).forEach(function(x){if(x.gk)have[x.gk]=1});var N=r.E.filter(function(x){return !have[x.gk]});if(u.axh)N.forEach(function(x){delete u.axh['gk:'+x.gk];delete u.axh[x.id]});u.ax=(u.ax||[]).filter(function(y){return !N.some(function(n){return n.gk===y.gk})});
   u.ax=(u.ax||[]).concat(N);if(r.RT.length)u.rt=rtMergeL(u.rt||[],r.RT).slice(-180);
@@ -10448,7 +10483,7 @@ function avAxBox(){if(!AV)return '';var F=avAxF(),W=axWeek(AVX,AVXW),cur=AVXW===
   return '<details class="avc avax"'+(AVG&&AVG.axo?' open':'')+'><summary class="avn">🗓 Le mie attività della settimana'+(W.length?' ('+W.length+')':'')+'</summary>'+
    '<p class="status" style="margin:4px 0 8px">Segna tutto quello che fai oltre alla scheda (corsa, camminata, judo, sport) con orario, km e FC, oppure importalo dall’orologio Garmin. Il tuo PT lo vede e calcola i km giusti per te.</p>'+
    wkNav('avax',AVXW)+axSumHtml(W,F,AV.KT||[])+axCardsHtml(W,F,'avax')+
-   ''+(AVHK?'<p class="status" style="margin:6px 0">⏰ Orologio automatico attivo: '+AVHK.l.length+' allenamenti negli ultimi 30 giorni'+(AVHK.n?', '+AVHK.n+' nuovi aggiunti ora':'')+'.</p>':'')+'<div class="avrtb"><button type="button" class="btn sm pri" data-act="avaxadd">+ Segna un’attività</button><button type="button" class="btn sm" data-act="avaxgm">⌚ Apple Watch o Garmin</button></div><p class="status" id="avxst" role="status"></p>'+(cur?'':'')+'</details>'}
+   ''+(AVHK?'<p class="status" style="margin:6px 0">⏰ Orologio automatico attivo: '+AVHK.l.length+' allenamenti negli ultimi 30 giorni'+(AVHK.n?', '+AVHK.n+' nuovi aggiunti ora':'')+'.</p>':'')+'<div class="avrtb"><button type="button" class="btn sm pri" data-act="avaxadd">+ Segna un’attività</button><button type="button" class="btn sm" data-act="avaxgm">⌚ Apple Watch o Garmin</button></div>'+avWatchBtn('avwst_ax')+'<p class="status" id="avxst" role="status"></p>'+(cur?'':'')+'</details>'}
 function avAxRefresh(){var b=document.querySelector('.avax');if(!b){return}b.outerHTML=avAxBox();var n=document.querySelector('.avax');if(n)n.open=true}
 document.addEventListener('toggle',function(e){if(AV&&e.target.classList&&e.target.classList.contains('avax')){AVG.axo=e.target.open;try{avGxSave()}catch(x){}}},true);
 document.addEventListener('click',function(e){if(!AV)return;var c=e.target.closest&&e.target.closest('[data-act="avhkcp"]');if(c){var tx=(gid('hkurl')||{}).textContent||'';var ok=function(){c.textContent='✓ Copiato'};try{navigator.clipboard.writeText(tx).then(ok,function(){prompt('Copia l’indirizzo:',tx)})}catch(x){prompt('Copia l’indirizzo:',tx)}return}});
@@ -10459,13 +10494,82 @@ document.addEventListener('click',function(e){if(!AV)return;var a=e.target.close
   if(k==='avaxsave'){var id=a.getAttribute('data-x'),old=id?AVX.filter(function(y){return y.id===id})[0]:null,o=axFormRead('avxf_',old?{id:old.id,src:old.src,gk:old.gk}:{id:'a'+newId('x')});o.by='a';
     if(!o.min&&!o.km){alert('Indica almeno la durata (o la fascia oraria) oppure i km.');return}AVX=AVX.filter(function(y){return y.id!==o.id});AVX.push(o);AVXW=wkKey(o.d);AVG.axo=true;avAxSave();closeModal();avAxRefresh();return}
   if(k==='avaxrm'){var id2=a.getAttribute('data-x'),x2=AVX.filter(function(y){return y.id===id2})[0];if(!x2||!confirm('Eliminare l’attività del '+fdate(x2.d)+'?'))return;AVX=AVX.filter(function(y){return y.id!==id2});if(x2.gk){AVG.hkd=AVG.hkd||{};AVG.hkd[x2.gk]=1;avGxSave()}avAxSave();avAxRefresh();return}
-  if(k==='avaxgm'){modal('<h3>⌚ Apple Watch o Garmin</h3>'+hkHelp(AV.tok)+gmHelp()+'<label class="btn pri" style="display:inline-block;margin-top:8px">📥 Scegli i file<input type="file" id="avxgmf" multiple accept=".csv,.txt,.fit,.zip,.tcx,.gpx,.xml" hidden></label><p class="status" id="avxgst" role="status"></p><div class="mrow"><button data-act="mclose">Chiudi</button></div>');return}});
-document.addEventListener('change',async function(e){if(!AV||e.target.id!=='avxgmf'||!e.target.files||!e.target.files.length)return;st('avxgst','Leggo i file…');
+  if(k==='avaxgm'){modal('<h3>⌚ Apple Watch o Garmin</h3>'+gmPick('avxgmf','avxgst')+gmPhone()+hkHelp(AV.tok)+gmHelp(1)+'<div class="mrow"><button data-act="mclose">Chiudi</button></div>');return}});
+document.addEventListener('change',async function(e){if(!AV||!(e.target.id==='avxgmf'||(e.target.hasAttribute&&e.target.hasAttribute('data-avgmf')))||!e.target.files||!e.target.files.length)return;var SID=e.target.getAttribute('data-st')||'avxgst',INP=e.target;st(SID,'⏳ Leggo i file…');
   var r=await gmFiles([].slice.call(e.target.files),'a'),have={};AVX.forEach(function(x){if(x.gk)have[x.gk]=1});var N=r.E.filter(function(x){return !have[x.gk]});
   if(r.RT.length&&typeof AVR!=='undefined'){AVR=rtMergeL(r.RT,AVR);try{avRtSave()}catch(x){}}
-  if(!N.length&&!r.RT.length){st('avxgst',(r.E.length?'Queste attività erano già importate.':'Nessuna attività trovata nei file.')+(r.err.length?' '+r.err.join(' · '):''));return}
+  if(!N.length&&!r.RT.length){st(SID,(r.E.length?'Queste attività erano già importate.':'Nessuna attività trovata nei file. Scegli il file esportato da Garmin Connect (CSV, FIT, ZIP, TCX o GPX).')+(r.err.length?' '+r.err.join(' · '):''));try{INP.value=''}catch(x){}return}
   AVX=AVX.concat(N);var last=N.map(function(x){return x.d}).sort().pop();if(last)AVXW=wkKey(last);AVG.axo=true;avAxSave();
-  st('avxgst','Importate '+N.length+(N.length===1?' attività':' attività')+(r.RT.length?' e la FC a riposo di '+r.RT.length+' giorni':'')+'.'+(r.err.length?' Non letti: '+r.err.join(' · '):''));avAxRefresh()});
+  st(SID,'✓ Importate '+N.length+(N.length===1?' attività':' attività')+(r.RT.length?' e la FC a riposo di '+r.RT.length+' giorni':'')+(N.length?': le trovi in «🗓 Le mie attività»'+(AV.live?' e arrivano al tuo PT':'')+'.':'.')+(r.err.length?' Non letti: '+r.err.join(' · '):''));try{INP.value=''}catch(x){}avAxRefresh();try{var wb=document.querySelector('[data-wcr="av"]');if(wb)wb.outerHTML=wcrBox('av')}catch(x){}});
+
+// ---------- fase 46: «Cardio della settimana» come pulsante con tendina per segnare le uscite ----------
+// ctx 'av' = pagina dell'atleta (link: salva nel suo diario AVX → link/<codice>/r/ax); 'pt' = scheda salvata nell'app del PT (salva in u.ax)
+var WCR={av:{ws:'',ed:'',open:false},pt:{ws:'',ed:'',open:false,uid:'',sid:''}};
+var WCRT=['Corsa all’aperto','Camminata all’aperto','Camminata in salita / trekking','Bici all’aperto','Tapis roulant · corsa','Tapis roulant · camminata','Cyclette','Ellittica','Vogatore','Nuoto','Air bike','SkiErg','Stair climber','Salto della corda','Altro cardio'];
+var WCRZ=[['','—']].concat(CINT.map(function(x){return [x[0],x[1]]}));
+function wcrIs(x){return !!(x&&(carFam(x.tp)||WCRT.indexOf(x.tp)>-1||x.vm!=null||x.zn))}
+function wcrData(ctx){var S=WCR[ctx];if(ctx==='av'){if(!AV)return null;return {H:AVX,F:avAxF(),KT:AV.KT||[],K:AV.K||[],live:!!AV.live}}
+  var u=find(S.uid),sc=findS(S.sid);if(!u)return null;var H=axAll(u),F=fcInfo(u,H),L=carList(sc?sc.car:[]),KT=[];try{KT=L.map(function(x){var o=carPlan(x,u,H,F);return o?{tp:x.tp,fam:o.fam,kmin:o.kmin,kmax:o.kmax,v:o.v,fc:o.fc}:null}).filter(Boolean)}catch(e){}
+  return {u:u,sc:sc,H:H,F:F,KT:KT,K:[],L:L}}
+function wcrVel(x){return +x.vm||axVel(x)}
+function wcrPace(fam,v){if(!v)return '';if(fam==='swim')return fpace(360/v)+' min/100 m';if(fam==='row')return fpace(1800/v)+' min/500 m';if(fam==='run'||fam==='walk'||fam==='hike')return fpace(3600/v)+' min/km';return ''}
+function wcrFormHtml(ctx,e,P){var p='wcr_'+ctx+'_',tp=e.tp||(P.KT[0]&&P.KT[0].tp)||(P.L&&P.L[0]&&P.L[0].tp)||'Corsa all’aperto',T=WCRT.slice();if(!e.id&&e.zn==null){var pl=(P.L||[]).concat(P.PL||[]).filter(function(x){return x.tp===tp})[0];e.zn=pl&&pl.int||''}if(T.indexOf(tp)<0)T.unshift(tp);
+  var o=T.map(function(t){return '<option'+(t===tp?' selected':'')+'>'+esc(t)+'</option>'}).join(''),z=WCRZ.map(function(q){return '<option value="'+q[0]+'"'+(q[0]===(e.zn||'')?' selected':'')+'>'+esc(q[1])+'</option>'}).join('');
+  var n=function(v,d){return v==null||v===''?'':d?fnum(v):v};
+  return '<div class="wcrf" data-wcrf="'+ctx+'"><p class="kick" style="margin:4px 0 8px">'+(e.id?'✏ Modifica l’uscita del '+fdate(e.d):'+ Segna un’uscita di cardio')+'</p><div class="fg">'+
+   fld(p+'d','Giorno',e.d||todayIso(),'date',' max="'+todayIso()+'"')+'<label class="fl">Tipologia di cardio<select id="'+p+'tp" data-wcrc="'+ctx+'">'+o+'</select></label>'+
+   '<label class="fl">Intensità<select id="'+p+'zn">'+z+'</select></label>'+fld(p+'hi','Ora di inizio',e.hi||'','time')+
+   fld(p+'min','Durata (min)',n(e.min),'text',' inputmode="numeric" data-wcrc="'+ctx+'" placeholder="es. 40"')+fld(p+'km','Distanza (km)',n(e.km,1),'text',' inputmode="decimal" data-wcrc="'+ctx+'" placeholder="es. 6,5"')+
+   fld(p+'vm','Velocità media (km/h)',n(e.vm,1),'text',' inputmode="decimal" data-wcrc="'+ctx+'" placeholder="calcolata da km e durata"')+
+   '<label class="fl">Passo / ritmo<output id="'+p+'pace" class="wcrpo">—</output></label>'+
+   fld(p+'fc','FC media (bpm)',n(e.fc),'text',' inputmode="numeric"')+fld(p+'fcx','FC massima (bpm)',n(e.fcx),'text',' inputmode="numeric"')+
+   fld(p+'rpe','Fatica RPE 1–10',n(e.rpe,1),'text',' inputmode="decimal" placeholder="es. 6"')+fld(p+'asc','Dislivello + (m)',n(e.asc),'text',' inputmode="numeric"')+
+   fld(p+'kcal','Calorie',n(e.kcal),'text',' inputmode="numeric"')+fld(p+'nt','Note (percorso, sensazioni, scarpe…)',e.nt||'','text',' maxlength="300"','full')+'</div>'+
+   '<div class="mrow" style="justify-content:flex-start;margin-top:8px"><button type="button" class="btn pri" data-act="wcrsave" data-c="'+ctx+'" data-x="'+esc(e.id||'')+'">💾 '+(e.id?'Salva le modifiche':'Salva il cardio')+'</button>'+(e.id?'<button type="button" class="btn" data-act="wcrcan" data-c="'+ctx+'">Annulla</button>':'')+'</div>'+
+   '<p class="status">Bastano durata e km: la velocità e il passo si calcolano da soli (oppure scrivi la velocità e si calcolano i km). FC media e massima dall’orologio o dalla fascia cardio.</p></div>'}
+function wcrBox(ctx){var S=WCR[ctx],P=wcrData(ctx);if(!P)return '';if(!S.ws)S.ws=wkKey(todayIso());
+  var W=axWeek(P.H,S.ws).filter(wcrIs).sort(function(a,b){return (a.d+(a.hi||'')).localeCompare(b.d+(b.hi||''))}),km=0,mn=0,fam={};W.forEach(function(x){km+=+x.km||0;mn+=+x.min||0;var f=carFam(x.tp);if(f&&x.km)fam[f]=(fam[f]||0)+x.km});
+  var ed=S.ed?P.H.filter(function(x){return x.id===S.ed})[0]:null,G=['Dom','Lun','Mar','Mer','Gio','Ven','Sab'];
+  var plan=(ctx==='av'?P.K.map(function(t){return '<li>'+esc(t)+'</li>'}).join(''):'')+P.KT.map(function(k){var d=fam[k.fam]||0,lt=ctx==='av',c=k.kmax&&d>k.kmax?(lt?'#c62828':'#ff6b6b'):k.kmin&&d>=k.kmin?(lt?'#1f7a3f':'#3ccf73'):(lt?'#8a6200':'#FFF200');
+    return '<li><b>'+esc(k.tp)+'</b>: fatti <b style="color:'+c+'">'+f1(d)+' km</b>'+(k.kmin?' su minimo '+fnum(k.kmin):'')+(k.kmax?' · massimo '+fnum(k.kmax):'')+(k.v?' · velocità '+esc(velTxt(k.fam,k.v)):'')+(k.fc?' · FC '+k.fc[0]+'–'+k.fc[1]:'')+'</li>'}).join('');
+  var rows=W.map(function(x){var f=carFam(x.tp),v=wcrVel(x),z=WCRZ.filter(function(q){return q[0]===x.zn})[0];
+    return '<li><div class="axch"><b>'+G[new Date(x.d+'T12:00:00').getDay()]+' '+fdate(x.d).slice(0,5)+'</b>'+(x.hi?' · '+esc(x.hi):'')+' · '+esc(x.tp)+'<span class="sp"></span><button type="button" class="xr" data-act="wcred" data-c="'+ctx+'" data-x="'+esc(x.id)+'" aria-label="Modifica">✏</button><button type="button" class="xr" data-act="wcrrm" data-c="'+ctx+'" data-x="'+esc(x.id)+'" aria-label="Elimina">×</button></div>'+
+     '<div class="status">'+[x.min?x.min+' min':'',x.km?f1(x.km)+' km':'',v?f1(v)+' km/h':'',wcrPace(f,v),x.fc?'FC '+x.fc+(x.fcx?' / max '+x.fcx:''):'',x.rpe?'RPE '+fnum(x.rpe):'',z&&z[0]?z[1].split(' · ')[0]:'',x.asc?'+'+x.asc+' m':'',x.kcal?x.kcal+' kcal':''].filter(Boolean).map(esc).join(' · ')+(x.nt?'<br>'+esc(x.nt):'')+(x.src==='Garmin'||x.src==='Apple Watch'?' <i class="wchip">⌚ '+esc(x.src)+'</i>':'')+'</div></li>'}).join('');
+  return '<details class="wcr'+(ctx==='av'?' avc':'')+' noprn" data-wcr="'+ctx+'"'+(S.open||S.ed?' open':'')+'><summary class="wcrb"><span>❤️ Cardio della settimana</span><small>'+(W.length?W.length+(W.length===1?' uscita':' uscite')+' · '+f1(km)+' km · '+mn+' min':'Tocca per segnare km, tipo, velocità e FC')+'</small><i aria-hidden="true">▾</i></summary><div class="wcrin">'+
+   (plan?'<p class="kick" style="margin:6px 0 4px">Programmato dal '+(ctx==='av'?'tuo PT':'PT')+'</p><ul class="wcrpl">'+plan+'</ul>':'')+
+   (ctx==='pt'&&P.L.length?'<details class="lg"><summary><span>Tabella del cardio programmato</span></summary><div class="lgb">'+carTable(P.sc.car,P.u)+'</div></details>':'')+
+   (ctx==='av'&&typeof avWatchBtn==='function'?avWatchBtn('avwst_car'):'')+wcrFormHtml(ctx,ed||{d:S.ws!==wkKey(todayIso())?S.ws:todayIso()},P)+
+   '<div class="axnav"><button type="button" class="btn sm" data-act="wcrwk" data-c="'+ctx+'" data-w="'+addDays(S.ws,-7)+'" aria-label="Settimana precedente">‹</button><b>Uscite dal '+fdate(S.ws).slice(0,5)+' al '+fdate(addDays(S.ws,6))+'</b><button type="button" class="btn sm" data-act="wcrwk" data-c="'+ctx+'" data-w="'+addDays(S.ws,7)+'"'+(addDays(S.ws,7)>todayIso()?' disabled':'')+' aria-label="Settimana successiva">›</button></div>'+
+   (rows?'<ul class="axcl">'+rows+'</ul>':'<div class="empty">Nessuna uscita di cardio in questa settimana.</div>')+
+   '<p class="status" id="wcrst_'+ctx+'" role="status"></p><p class="status">'+(ctx==='av'?(P.live?'Le uscite arrivano al tuo PT (serve internet) e restano su questo telefono; le trovi anche in «🗓 Le mie attività».':'Le uscite restano su questo telefono: inviale al PT con «Invia i risultati al PT».'):'Salvate nel Diario attività dell’atleta: contano per km minimi e massimi, ACWR e semafori. Quelle segnate dall’atleta dal link arrivano con «↻ Aggiorna».')+'</p></div></details>'}
+function wcrRefresh(ctx,msg){var b=document.querySelector('[data-wcr="'+ctx+'"]');if(b){WCR[ctx].open=true;b.outerHTML=wcrBox(ctx);wcrCalc(ctx)}if(ctx==='av'&&typeof avAxRefresh==='function')avAxRefresh();if(msg)st('wcrst_'+ctx,msg)}
+function wcrNum(v){v=String(v==null?'':v).replace(',','.').trim();return v===''||isNaN(+v)?null:+v}
+function wcrCalc(ctx){var p='wcr_'+ctx+'_',g=function(k){return gid(p+k)},o=g('pace');if(!o)return;var km=wcrNum(g('km').value),mn=wcrNum(g('min').value),vm=wcrNum(g('vm').value),fam=carFam(g('tp').value),v=vm||(km&&mn?km/(mn/60):0);
+  g('vm').placeholder=km&&mn?f1(km/(mn/60))+' (calcolata)':'calcolata da km e durata';var t=wcrPace(fam,v);o.textContent=v?(t||f1(v)+' km/h')+(!vm&&km&&mn?' · calcolato':''):'—'}
+document.addEventListener('input',function(e){var c=e.target.getAttribute&&e.target.getAttribute('data-wcrc');if(c)wcrCalc(c)});
+document.addEventListener('change',function(e){var c=e.target.getAttribute&&e.target.getAttribute('data-wcrc');if(c)wcrCalc(c)});
+document.addEventListener('toggle',function(e){var t=e.target;if(t.getAttribute&&t.getAttribute('data-wcr')){WCR[t.getAttribute('data-wcr')].open=t.open;if(t.open)wcrCalc(t.getAttribute('data-wcr'))}},true);
+function wcrRead(ctx,old){var p='wcr_'+ctx+'_',g=function(k){var x=gid(p+k);return x?x.value.trim():''};
+  var km=wcrNum(g('km')),mn=wcrNum(g('min')),vm=wcrNum(g('vm'));
+  if(vm&&km&&!mn)mn=Math.round(km/vm*60);else if(vm&&mn&&!km)km=Math.round(vm*mn/60*100)/100;else if(!vm&&km&&mn)vm=Math.round(km/(mn/60)*10)/10;
+  var o=axClean(Object.assign({},old||{},{d:g('d'),tp:g('tp'),hi:g('hi'),hf:old&&old.hi===g('hi')?old.hf:'',min:mn,km:km,fc:g('fc')||null,fcx:g('fcx')||null,rpe:g('rpe')||null,kcal:g('kcal')||null,asc:g('asc')||null,nt:g('nt'),vm:vm,zn:g('zn'),ts:Date.now()}));
+  return o}
+async function wcrSave(ctx,id){var P=wcrData(ctx);if(!P)return;var old=id?P.H.filter(function(y){return y.id===id})[0]:null,o=wcrRead(ctx,old?old:{id:(ctx==='av'?'a':'')+newId('x')});
+  if(!o.d){alert('Indica il giorno.');return}if(!o.min&&!o.km){alert('Indica almeno la durata oppure i km.');return}
+  if(ctx==='av'){o.by='a';AVX=AVX.filter(function(y){return y.id!==o.id});AVX.push(o);avAxSave()}
+  else{var u=P.u;if(old&&old.by==='a'&&!(u.ax||[]).some(function(y){return y.id===o.id})){o.by='pt'}u.ax=(u.ax||[]).filter(function(y){return y.id!==o.id});u.ax.push(o);u.ax=u.ax.sort(function(a,b){return a.d.localeCompare(b.d)}).slice(-500);
+    try{await Store.put('utenti',u)}catch(e){st('wcrst_pt',saveErr());return}}
+  WCR[ctx].ed='';WCR[ctx].ws=wkKey(o.d);wcrRefresh(ctx,'✓ Cardio del '+fdate(o.d)+' salvato'+(ctx==='av'&&P.live?': arriva al tuo PT.':'.'))}
+async function wcrRm(ctx,id){var P=wcrData(ctx);if(!P)return;var x=P.H.filter(function(y){return y.id===id})[0];if(!x||!confirm('Eliminare l’uscita del '+fdate(x.d)+' ('+x.tp+')?'))return;
+  if(ctx==='av'){AVX=AVX.filter(function(y){return y.id!==id});if(x.gk){AVG.hkd=AVG.hkd||{};AVG.hkd[x.gk]=1;try{avGxSave()}catch(e){}}avAxSave()}
+  else{var u=P.u;if((u.ax||[]).some(function(y){return y.id===id}))u.ax=u.ax.filter(function(y){return y.id!==id});else{u.axh=u.axh||{};u.axh[x.gk?'gk:'+x.gk:id]=1}try{await Store.put('utenti',u)}catch(e){st('wcrst_pt',saveErr());return}}
+  if(WCR[ctx].ed===id)WCR[ctx].ed='';wcrRefresh(ctx,'Uscita eliminata.')}
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('[data-act^="wcr"]');if(!a)return;e.preventDefault();e.stopPropagation();var k=a.getAttribute('data-act'),c=a.getAttribute('data-c');if(!WCR[c])return;
+  if(k==='wcrsave'){wcrSave(c,a.getAttribute('data-x'));return}
+  if(k==='wcrcan'){WCR[c].ed='';wcrRefresh(c);return}
+  if(k==='wcred'){WCR[c].ed=a.getAttribute('data-x');wcrRefresh(c);var f=document.querySelector('[data-wcrf="'+c+'"]');if(f)f.scrollIntoView({block:'start',behavior:'smooth'});return}
+  if(k==='wcrrm'){wcrRm(c,a.getAttribute('data-x'));return}
+  if(k==='wcrwk'){WCR[c].ws=a.getAttribute('data-w');WCR[c].ed='';wcrRefresh(c);return}},true);
 
 // ---------- rinomina della scheda ----------
 function renModal(id,back){var sc=findS(id);if(!sc)return;
