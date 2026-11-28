@@ -408,6 +408,12 @@ Voce **Sezione nutrizionale** nel menu, sotto «Schede allenamento» (su smartph
 - Prima di eliminare compare sempre la conferma con nome, atleta e data. Se la scheda ha il link dell’atleta, l’avviso dice che il link smette di funzionare e i carichi segnati vanno persi; per una scheda svolta suggerisce di segnarla come terminata invece di eliminarla.
 - Eliminando una scheda, i piani alimentari collegati restano senza scheda collegata. Eliminando un piano, il suo link viene cancellato. Eliminazione dal dispositivo e dal cloud; non si può annullare (resta il backup JSON).
 
+## Sezione nutrizionale: scelta evidente dello schema «Crea il tuo piatto» (nuovo, fase 45)
+- Nel piano alimentare, **subito dopo il 📝 Questionario alimentare**, il riquadro giallo **«🍽 Tipo di schema del piano»** con due pulsanti grandi: **«Solo «Crea il tuo piatto»»** e **«Schema completo»** (quello attivo è giallo con ✓). Un clic rifà lo schema con le grammature dell’obiettivo della dieta (fase del piano). Il menu «Tipo di schema» in «Ripartizione dei pasti» resta e va di pari passo.
+- Nell’elenco dei piani dell’atleta, accanto a «+ Nuovo piano», il pulsante giallo **«🍽 Nuovo piano · solo «Crea il tuo piatto»»** crea il piano direttamente in questa modalità (anche dopo il questionario applicato).
+- Se mancano peso, altezza, età o sesso (e non sono scritte le calorie), il riquadro avvisa che le calorie non si calcolano e le grammature non seguono l’obiettivo.
+- Dati invariati (`pm: 1` nel piano); regole di Firestore invariate.
+
 ## Sezione nutrizionale: piano solo «Crea il tuo piatto» (nuovo, fase 43)
 - In «Ripartizione dei pasti» il menu **«Tipo di schema»**: *Completo* (opzioni veloci A, B, C, ricette fit e «Crea il tuo piatto», come prima) oppure **«Solo «Crea il tuo piatto» in ogni pasto»**. Scegliendolo lo schema si rifà da solo.
 - Ogni pasto attivo diventa un piatto da comporre: **scegli una fonte di carboidrati · aggiungi una fonte proteica · condimento (o «completa con») · a tuo gusto puoi arricchire il piatto con aromi, spezie, verdure**. Colazione (avena, pane integrale, fette biscottate, cereali · yogurt greco, latte proteico, albume, fiocchi di latte, ricotta magra), spuntino e merenda, dopo l’allenamento, pranzo e cena (riso, pasta integrale, farro, quinoa, patate, pane · carne bianca, pesce, carne rossa magra, legumi, uova, tofu), prima di dormire (solo la fonte proteica).
