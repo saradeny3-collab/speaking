@@ -236,7 +236,7 @@ body.athm .side,body.athm .tabbar{display:none!important}body.athm main{width:10
 .avp{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px}.avp span{background:var(--brand-soft);color:var(--t-pur);border-radius:8px;padding:4px 9px;font-size:14px}
 .avtg{font-size:14px;margin:4px 0}.avnt{font-size:13.5px;color:var(--text);margin:6px 0}.avss{font-size:13px;color:var(--t-amb);margin:4px 0}
 .avsh,.avs{display:grid;grid-template-columns:32px 1fr 1fr 52px;gap:8px;align-items:center}.avsh{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-top:8px}
-.avs{margin-top:6px}.avsn{font-weight:800;text-align:center;color:var(--muted)}.avs input{width:100%;min-width:0;font:inherit;font-size:16px;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--text)}
+.avs{margin-top:6px}.avs input.pv::placeholder{color:var(--muted);opacity:.55;font-style:italic}.avpvn{margin:8px 0 0;font-size:12px;color:var(--muted);opacity:.85}.avsn{font-weight:800;text-align:center;color:var(--muted)}.avs input{width:100%;min-width:0;font:inherit;font-size:16px;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--text)}
 .avok{height:42px;border-radius:10px;border:2px solid var(--line);background:var(--surface);color:var(--muted);font-size:20px;font-weight:800;cursor:pointer}.avs.ok .avok{background:#2e9b55;border-color:#2e9b55;color:#fff}.avs.ok input{background:var(--t-grn-bg);border-color:var(--line)}
 .avg{margin-top:10px;border-top:1px solid var(--line);padding-top:8px}.avg>summary{cursor:pointer;font-weight:700;color:var(--t-pur);font-size:14px}.avgd{font-size:13.5px}.avgd p{margin:6px 0}
 .avact{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 4px}.avact .btn{flex:1 1 200px}.avft{font-size:12.5px;color:var(--muted);margin-top:18px}
@@ -6951,6 +6951,7 @@ document.addEventListener('visibilitychange',function(){if(document.hidden&&AV&&
 function avWeeks(){if(AV.sg)return 1;var w=AV.c&&AV.d?Math.round((Date.parse(AV.c)-Date.parse(AV.d))/6048e5):6;return Math.max(1,Math.min(12,w||6))}
 function avDlw(){return AV.dl&&AV.d?Math.floor((Date.parse(AV.dl)-Date.parse(AV.d))/6048e5)+1:0}
 function avNowWk(){if(!AV.d)return 1;var w=Math.floor(ago(AV.d)/7)+1;return Math.max(1,Math.min(avWeeks(),w))}
+function avPrev(k,wk){for(var w=wk-1;w>=1;w--){var S=(AVL[w]||{})[k];if(S&&S.some(function(x){return x&&(x.kg||x.rp)}))return {w:w,S:S}}return null}
 function avNum(s){var m=String(s||'').match(/\d+/g);return m?Math.min(10,Math.max.apply(null,m.map(Number))):1}
 async function athleteMode(){
   document.body.classList.add('athm');
@@ -6986,16 +6987,18 @@ function avRender(){
    avWuList(AV.W,AV.wt,'🔥 Riscaldamento');
   var cx=avCtx();
   h+=d[1].map(function(e,j){
-    var k=di+'|'+e[0],sets=lg[k]||[],n=avRtN(avNum(e[1]),EXI[ekey(e[0])],wk),g=e[8],ex=EXI[ekey(e[0])],done=0,rows='';
-    for(var s=0;s<n;s++){var x=sets[s]||{};if(x.ok)done++;
-      rows+='<div class="avs'+(x.ok?' ok':'')+'" data-k="'+esc(k)+'" data-s="'+s+'" data-rec="'+esc(e[5])+'"><span class="avsn">'+(s+1)+'</span>'+
-       '<input class="avkg" inputmode="decimal" placeholder="kg" aria-label="Kg serie '+(s+1)+'" value="'+esc(x.kg||'')+'">'+
-       '<input class="avrp" inputmode="numeric" placeholder="'+esc(String(e[2]||'rip').slice(0,8))+'" aria-label="Ripetizioni serie '+(s+1)+'" value="'+esc(x.rp||'')+'">'+
+    var k=di+'|'+e[0],sets=lg[k]||[],n=avRtN(avNum(e[1]),EXI[ekey(e[0])],wk),g=e[8],ex=EXI[ekey(e[0])],done=0,rows='',pv=avPrev(k,wk),tr=String(e[2]||'rip').slice(0,8);
+    for(var s=0;s<n;s++){var x=sets[s]||{},px=pv?(pv.S[s]&&(pv.S[s].kg||pv.S[s].rp)?pv.S[s]:null):null;if(x.ok)done++;
+      var pk=px&&px.kg?String(px.kg).slice(0,6):'',pr=px&&px.rp?String(px.rp).slice(0,6):'';
+      rows+='<div class="avs'+(x.ok?' ok':'')+'" data-k="'+esc(k)+'" data-s="'+s+'" data-rec="'+esc(e[5])+'" data-pkg="'+esc(pk)+'" data-trp="'+esc(tr)+'"><span class="avsn">'+(s+1)+'</span>'+
+       '<input class="avkg'+(pk?' pv':'')+'" inputmode="decimal" placeholder="'+esc(pk||'kg')+'" aria-label="Kg serie '+(s+1)+(pk?', la volta scorsa '+esc(pk)+' kg':'')+'" value="'+esc(x.kg||'')+'">'+
+       '<input class="avrp'+(pr?' pv':'')+'" inputmode="numeric" placeholder="'+esc(pr||tr)+'" aria-label="Ripetizioni serie '+(s+1)+(pr?', la volta scorsa '+esc(pr):'')+'" value="'+esc(x.rp||'')+'">'+
        '<button class="avok" data-avok aria-pressed="'+!!x.ok+'" aria-label="Serie '+(s+1)+' fatta">✓</button></div>'}
     return '<div class="avc'+(done>=n?' fin':'')+'"><div class="avn">'+(g?'<i class="dc">SS '+String.fromCharCode(64+(+g))+'</i> ':'')+esc(e[0])+'<span class="avcnt">'+done+'/'+n+'</span></div>'+
      '<div class="avp">'+(e[1]!==''?'<span><b>'+esc(e[1])+'</b> serie'+(n<avNum(e[1])?' <i class="avrc">'+(dw.indexOf(wk)>-1?'scarico '+n:'oggi '+n+' ⚡')+'</i>':'')+'</span>':'')+(e[2]!==''?'<span><b>'+esc(e[2])+'</b> rip.</span>':'')+(e[3]!==''?'<span>RPE <b>'+esc(e[3])+'</b></span>':'')+(e[5]!==''?'<span>Rec. <b>'+esc(e[5])+' s</b></span>':'')+'</div>'+
      avSafeCard(ex,d,cx)+(e[4]?'<div class="avtg">Carico: '+esc(e[4])+'</div>':'')+(e[6]?'<p class="avnt">'+esc(e[6])+'</p>':'')+
      (g&&d[1][j+1]&&d[1][j+1][8]===g?'<p class="avss">Superserie: passa subito all’esercizio successivo, recupera dopo.</p>':'')+
+     (pv?'<p class="avpvn">In trasparenza i kg e le ripetizioni della settimana '+pv.w+(dw.indexOf(pv.w)>-1?' (scarico)':'')+(AV.d?', dal '+fdate(addDays(AV.d,(pv.w-1)*7)).slice(0,5):'')+'. Scrivi sopra quelli di oggi; con ✓ su una serie vuota restano gli stessi kg.</p>':'')+
      '<div class="avsh"><span>Serie</span><span>Kg</span><span>Ripetizioni</span><span>Fatta</span></div>'+rows+
      (ex?'<details class="avg"><summary>Come si esegue</summary><div class="avgd">'+legendBody(ex)+'</div></details>':'')+'<button type="button" class="avfbx" data-avfbx="'+esc(e[0])+'">🩹 Fastidio o dolore in questo esercizio?</button></div>'}).join('')||'<p class="status">Nessun esercizio in questa seduta.</p>';
   h+=avWuList(AV.C,AV.ct,AV.cm?'🏃 Cardio di fine seduta':'🧘 Defaticamento')+(AV.K&&AV.K.length?'<div class="avc"><div class="avn">❤️ Cardio della settimana</div>'+AV.K.map(function(t){return '<p class="avnt">'+esc(t)+'</p>'}).join('')+'</div>':'')+
@@ -7029,7 +7032,8 @@ document.addEventListener('click',function(e){
   if(!AV)return;var t=e.target;
   var d=t.closest('[data-avd]');if(d){AVS.day=+d.getAttribute('data-avd');avSave();avRender();window.scrollTo(0,0);return}
   if(t.closest('[data-avok]')){var r=t.closest('.avs'),on=!r.classList.contains('ok');r.classList.toggle('ok',on);t.closest('[data-avok]').setAttribute('aria-pressed',String(on));
-    if(on&&!r.querySelector('.avrp').value){var ph=r.querySelector('.avrp').placeholder;if(/^\d+$/.test(ph))r.querySelector('.avrp').value=ph}
+    if(on&&!r.querySelector('.avrp').value){var ph=r.querySelector('.avrp').placeholder,tp=r.getAttribute('data-trp')||'';if(/^\d+$/.test(tp))r.querySelector('.avrp').value=tp;else if(/^\d+$/.test(ph))r.querySelector('.avrp').value=ph}
+    if(on&&!r.querySelector('.avkg').value&&r.getAttribute('data-pkg'))r.querySelector('.avkg').value=r.getAttribute('data-pkg');
     avUpd(r);
     if(on){try{AVAC=AVAC||new (window.AudioContext||window.webkitAudioContext)()}catch(x){}var rc=parseInt(r.getAttribute('data-rec'),10),c=r.closest('.avc');
       var ss=c.querySelector('.avss');if(rc>0&&!ss)avTimer(rc)}
